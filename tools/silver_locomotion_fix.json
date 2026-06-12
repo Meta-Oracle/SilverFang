@@ -1,0 +1,79 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/photo_2026-06-10_20-43-40.jpg",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 2,
+   "gap_columns": 3,
+   "min_frame_width": 12,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      11,
+      28,
+      264,
+      100
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      273,
+      28,
+      607,
+      100
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      616,
+      28,
+      907,
+      100
+     ]
+    },
+    {
+     "name": "dash",
+     "region": [
+      917,
+      28,
+      1278,
+      100
+     ]
+    },
+    {
+     "name": "jump",
+     "region": [
+      11,
+      127,
+      347,
+      207
+     ]
+    },
+    {
+     "name": "fall",
+     "region": [
+      653,
+      127,
+      920,
+      207
+     ]
+    },
+    {
+     "name": "land",
+     "region": [
+      927,
+      127,
+      1278,
+      207
+     ]
+    }
+   ],
+   "preview_out": "preview_locofix.png"
+  }
+ ]
+}

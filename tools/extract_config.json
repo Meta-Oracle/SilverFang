@@ -1,0 +1,91 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/photo_2026-06-10_20-36-07.jpg",
+      "preview_out": "preview_master.png",
+      "out_dir": "../Assets/Art/Sprites/Silver",
+      "bg_threshold": 38,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 12,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            214,
+            24,
+            514,
+            122
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            521,
+            24,
+            814,
+            122
+          ]
+        },
+        {
+          "name": "run",
+          "region": [
+            821,
+            24,
+            1134,
+            122
+          ]
+        },
+        {
+          "name": "hurt",
+          "region": [
+            901,
+            140,
+            1068,
+            227
+          ]
+        },
+        {
+          "name": "knockdown",
+          "region": [
+            1074,
+            142,
+            1274,
+            227
+          ]
+        },
+        {
+          "name": "getup",
+          "region": [
+            581,
+            246,
+            747,
+            313
+          ]
+        }
+      ],
+      "key_threshold": 10
+    },
+    {
+      "image": "../sprites/photo_2026-06-10_20-43-41.jpg",
+      "preview_out": "preview_sword.png",
+      "out_dir": "../Assets/Art/Sprites/Silver",
+      "bg_threshold": 38,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 12,
+      "animations": [
+        {
+          "name": "slash",
+          "region": [
+            7,
+            18,
+            247,
+            100
+          ]
+        }
+      ],
+      "key_threshold": 10
+    }
+  ]
+}

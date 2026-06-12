@@ -1,0 +1,105 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/hilo/firsthilospriteset.png",
+      "out_dir": "../Assets/Art/Sprites/Hilo",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 8,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            265,
+            32,
+            510,
+            66
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            265,
+            68,
+            510,
+            100
+          ]
+        },
+        {
+          "name": "run",
+          "region": [
+            265,
+            103,
+            510,
+            132
+          ]
+        },
+        {
+          "name": "dash",
+          "region": [
+            265,
+            137,
+            510,
+            163
+          ]
+        },
+        {
+          "name": "jump",
+          "region": [
+            265,
+            168,
+            510,
+            199
+          ]
+        },
+        {
+          "name": "double_jump",
+          "region": [
+            265,
+            200,
+            510,
+            228
+          ]
+        },
+        {
+          "name": "fall",
+          "region": [
+            265,
+            230,
+            510,
+            258
+          ]
+        },
+        {
+          "name": "land",
+          "region": [
+            265,
+            261,
+            510,
+            287
+          ]
+        },
+        {
+          "name": "crouch",
+          "region": [
+            265,
+            291,
+            510,
+            314
+          ]
+        },
+        {
+          "name": "guard",
+          "region": [
+            265,
+            318,
+            510,
+            344
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,339 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/hilo/hiloextraframes.png",
+      "out_dir": "../Assets/Art/Sprites/Hilo",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 8,
+      "animations": [
+        {
+          "name": "air_jump_light",
+          "region": [
+            570,
+            14,
+            995,
+            63
+          ]
+        },
+        {
+          "name": "air_jump_heavy",
+          "region": [
+            570,
+            63,
+            995,
+            113
+          ]
+        },
+        {
+          "name": "air_jump_claw",
+          "region": [
+            570,
+            113,
+            995,
+            162
+          ]
+        },
+        {
+          "name": "air_bionic_strike",
+          "region": [
+            570,
+            162,
+            995,
+            212
+          ]
+        },
+        {
+          "name": "air_jump_kick",
+          "region": [
+            570,
+            212,
+            995,
+            261
+          ]
+        },
+        {
+          "name": "air_spin_kick",
+          "region": [
+            570,
+            261,
+            995,
+            311
+          ]
+        },
+        {
+          "name": "air_downward_slash",
+          "region": [
+            570,
+            311,
+            995,
+            360
+          ]
+        },
+        {
+          "name": "air_dive_kick",
+          "region": [
+            570,
+            360,
+            995,
+            410
+          ]
+        },
+        {
+          "name": "air_dragon_kick",
+          "region": [
+            570,
+            410,
+            995,
+            459
+          ]
+        },
+        {
+          "name": "air_energy_burst",
+          "region": [
+            570,
+            459,
+            995,
+            509
+          ]
+        },
+        {
+          "name": "front_kick",
+          "region": [
+            1005,
+            14,
+            1395,
+            63
+          ]
+        },
+        {
+          "name": "roundhouse2",
+          "region": [
+            1005,
+            63,
+            1395,
+            113
+          ]
+        },
+        {
+          "name": "side_kick",
+          "region": [
+            1005,
+            113,
+            1395,
+            162
+          ]
+        },
+        {
+          "name": "axe_kick",
+          "region": [
+            1005,
+            162,
+            1395,
+            212
+          ]
+        },
+        {
+          "name": "back_kick",
+          "region": [
+            1005,
+            212,
+            1395,
+            261
+          ]
+        },
+        {
+          "name": "spinning_kick",
+          "region": [
+            1005,
+            261,
+            1395,
+            311
+          ]
+        },
+        {
+          "name": "jump_kick",
+          "region": [
+            1005,
+            311,
+            1395,
+            360
+          ]
+        },
+        {
+          "name": "flying_side_kick",
+          "region": [
+            1005,
+            360,
+            1395,
+            410
+          ]
+        },
+        {
+          "name": "flying_roundhouse",
+          "region": [
+            1005,
+            410,
+            1395,
+            459
+          ]
+        },
+        {
+          "name": "hurricane_kick",
+          "region": [
+            1005,
+            459,
+            1395,
+            509
+          ]
+        },
+        {
+          "name": "charge_light_l1",
+          "region": [
+            572,
+            547,
+            678,
+            590
+          ]
+        },
+        {
+          "name": "charge_heavy_l1",
+          "region": [
+            680,
+            547,
+            786,
+            590
+          ]
+        },
+        {
+          "name": "charge_claw_l1",
+          "region": [
+            788,
+            547,
+            894,
+            590
+          ]
+        },
+        {
+          "name": "charge_bionic_l1",
+          "region": [
+            896,
+            547,
+            995,
+            590
+          ]
+        },
+        {
+          "name": "charge_light_l2",
+          "region": [
+            572,
+            593,
+            678,
+            639
+          ]
+        },
+        {
+          "name": "charge_heavy_l2",
+          "region": [
+            680,
+            593,
+            786,
+            639
+          ]
+        },
+        {
+          "name": "charge_claw_l2",
+          "region": [
+            788,
+            593,
+            894,
+            639
+          ]
+        },
+        {
+          "name": "charge_bionic_l2",
+          "region": [
+            896,
+            593,
+            995,
+            639
+          ]
+        },
+        {
+          "name": "charge_light_l3",
+          "region": [
+            572,
+            645,
+            678,
+            692
+          ]
+        },
+        {
+          "name": "charge_heavy_l3",
+          "region": [
+            680,
+            645,
+            786,
+            692
+          ]
+        },
+        {
+          "name": "charge_claw_l3",
+          "region": [
+            788,
+            645,
+            894,
+            692
+          ]
+        },
+        {
+          "name": "charge_bionic_l3",
+          "region": [
+            896,
+            645,
+            995,
+            692
+          ]
+        },
+        {
+          "name": "charge_light_l4",
+          "region": [
+            572,
+            696,
+            678,
+            748
+          ]
+        },
+        {
+          "name": "charge_heavy_l4",
+          "region": [
+            680,
+            696,
+            786,
+            748
+          ]
+        },
+        {
+          "name": "charge_claw_l4",
+          "region": [
+            788,
+            696,
+            894,
+            748
+          ]
+        },
+        {
+          "name": "charge_bionic_l4",
+          "region": [
+            896,
+            696,
+            995,
+            748
+          ]
+        }
+      ]
+    }
+  ]
+}

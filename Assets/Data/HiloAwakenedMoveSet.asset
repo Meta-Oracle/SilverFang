@@ -1,0 +1,287 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4fdd9228c534747a57e44c21f9d9ee, type: 3}
+  m_Name: HiloAwakenedMoveSet
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.MoveSet
+  moves:
+  - id: ShadowClaw
+    animatorTrigger: ShadowClaw
+    sequence: 00000000
+    attack:
+      damage: 16
+      hitstun: 0.328
+      knockback: {x: 3.2, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.448
+  - id: ShadowRush
+    animatorTrigger: ShadowRush
+    sequence: 0000000000000000
+    attack:
+      damage: 20
+      hitstun: 0.36
+      knockback: {x: 4, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 2
+    duration: 0.5
+  - id: PhantomBarrage
+    animatorTrigger: PhantomBarrage
+    sequence: 000000000000000000000000
+    attack:
+      damage: 28
+      hitstun: 0.42400002
+      knockback: {x: 7.84, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 1
+    duration: 0.584
+  - id: ShadowAxe
+    animatorTrigger: ShadowAxe
+    sequence: 01000000
+    attack:
+      damage: 26
+      hitstun: 0.40800002
+      knockback: {x: 7.28, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.528
+  - id: ShadowCyclone
+    animatorTrigger: ShadowCyclone
+    sequence: 0100000001000000
+    attack:
+      damage: 32
+      hitstun: 0.45600003
+      knockback: {x: 8.96, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.596
+  - id: ShadowPierce
+    animatorTrigger: ShadowPierce
+    sequence: 0000000001000000
+    attack:
+      damage: 24
+      hitstun: 0.39200002
+      knockback: {x: 6.7200003, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 1
+    duration: 0.532
+  - id: YinYangPalm
+    animatorTrigger: YinYangPalm
+    sequence: 0100000000000000
+    attack:
+      damage: 24
+      hitstun: 0.39200002
+      knockback: {x: 4.8, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.532
+  - id: ShadowBeam
+    animatorTrigger: ShadowBeam
+    sequence: 02000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.32000002
+  - id: ShadowBurst
+    animatorTrigger: ShadowBurst
+    sequence: 0200000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.34
+  - id: OmniCannon
+    animatorTrigger: OmniCannon
+    sequence: 020000000200000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.36
+  - id: CloneAssault
+    animatorTrigger: CloneAssault
+    sequence: 010000000100000000000000
+    attack:
+      damage: 28
+      hitstun: 0.42400002
+      knockback: {x: 7.84, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 2
+    duration: 0.584
+  - id: MissileStorm
+    animatorTrigger: MissileStorm
+    sequence: 0200000001000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.5
+      heightScale: 1.3
+      hitsBothSides: 1
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.34
+  - id: ShadowHurricane
+    animatorTrigger: ShadowHurricane
+    sequence: 0100000002000000
+    attack:
+      damage: 30
+      hitstun: 0.44000003
+      knockback: {x: 8.4, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 2
+    duration: 0.58000004
+  - id: ShadowWave
+    animatorTrigger: ShadowWave
+    sequence: 0000000002000000
+    attack:
+      damage: 22
+      hitstun: 0.37600002
+      knockback: {x: 4.4, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.6
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 1
+    teleport: 0
+    duration: 0.51600003
+  - id: ShadowKillCombo
+    animatorTrigger: ShadowKillCombo
+    sequence: 00000000000000000000000000000000
+    attack:
+      damage: 42
+      hitstun: 0.536
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 1
+    duration: 0.716
+  - id: FinalYinYang
+    animatorTrigger: FinalYinYang
+    sequence: 01000000010000000100000001000000
+    attack:
+      damage: 52
+      hitstun: 0.55
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.75
+  - id: InfinityBeam
+    animatorTrigger: InfinityBeam
+    sequence: 02000000020000000200000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.38

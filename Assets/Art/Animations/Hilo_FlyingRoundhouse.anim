@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hilo_FlyingRoundhouse
+  serializedVersion: 7
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: ab2756750b75d2b4f89651c86e0efbc8, type: 3}
+    - time: 0.08064
+      value: {fileID: 21300000, guid: 758244ca31809c9488f7f68fe3785d98, type: 3}
+    - time: 0.16128
+      value: {fileID: 21300000, guid: f0df9fa9fa77cd144ac1de87596ed0b4, type: 3}
+    - time: 0.19404
+      value: {fileID: 21300000, guid: abfd3a1ce1c57ad428123ec9eec79586, type: 3}
+    - time: 0.2268
+      value: {fileID: 21300000, guid: e678f5a526ae3044c9efbc9ca08331cf, type: 3}
+    - time: 0.25956
+      value: {fileID: 21300000, guid: 9f5f4f1d6640c6644ae5b9bc26477d89, type: 3}
+    - time: 0.504
+      value: {fileID: 21300000, guid: 9f5f4f1d6640c6644ae5b9bc26477d89, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 24
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: ab2756750b75d2b4f89651c86e0efbc8, type: 3}
+    - {fileID: 21300000, guid: 758244ca31809c9488f7f68fe3785d98, type: 3}
+    - {fileID: 21300000, guid: f0df9fa9fa77cd144ac1de87596ed0b4, type: 3}
+    - {fileID: 21300000, guid: abfd3a1ce1c57ad428123ec9eec79586, type: 3}
+    - {fileID: 21300000, guid: e678f5a526ae3044c9efbc9ca08331cf, type: 3}
+    - {fileID: 21300000, guid: 9f5f4f1d6640c6644ae5b9bc26477d89, type: 3}
+    - {fileID: 21300000, guid: 9f5f4f1d6640c6644ae5b9bc26477d89, type: 3}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 0.5456667
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events:
+  - time: 0.16128
+    functionName: AnimEvent_HitboxOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33264
+    functionName: AnimEvent_HitboxOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.46872002
+    functionName: AnimEvent_AttackEnd
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

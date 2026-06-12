@@ -1,0 +1,255 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4fdd9228c534747a57e44c21f9d9ee, type: 3}
+  m_Name: HiloEnergyMoveSet
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.MoveSet
+  moves:
+  - id: HiloQuickShot
+    animatorTrigger: HiloQuickShot
+    sequence: 02000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.32000002
+  - id: ClawJab
+    animatorTrigger: ClawJab
+    sequence: 00000000
+    attack:
+      damage: 8
+      hitstun: 0.264
+      knockback: {x: 1.6, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.384
+  - id: AxeKick
+    animatorTrigger: AxeKick
+    sequence: 01000000
+    attack:
+      damage: 24
+      hitstun: 0.39200002
+      knockback: {x: 6.7200003, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.512
+  - id: BurstCannon
+    animatorTrigger: BurstCannon
+    sequence: 0200000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.34
+  - id: HomingMissile
+    animatorTrigger: HomingMissile
+    sequence: 0200000000000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.34
+  - id: PhantomBeam
+    animatorTrigger: PhantomBeam
+    sequence: 0200000001000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.34
+  - id: EnergyWave
+    animatorTrigger: EnergyWave
+    sequence: 0000000002000000
+    attack:
+      damage: 16
+      hitstun: 0.328
+      knockback: {x: 3.2, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.6
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 1
+    teleport: 0
+    duration: 0.46800002
+  - id: YinYangBurst
+    animatorTrigger: YinYangBurst
+    sequence: 0100000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.34
+  - id: ClawCross
+    animatorTrigger: ClawCross
+    sequence: 0000000000000000
+    attack:
+      damage: 10
+      hitstun: 0.28
+      knockback: {x: 2, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.6
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.42000002
+  - id: RisingPalm
+    animatorTrigger: RisingPalm
+    sequence: 0000000001000000
+    attack:
+      damage: 14
+      hitstun: 0.312
+      knockback: {x: 3.92, y: 0}
+      knocksDown: 0
+      launch: 7.5
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.45200002
+  - id: CycloneKick
+    animatorTrigger: CycloneKick
+    sequence: 0100000001000000
+    attack:
+      damage: 24
+      hitstun: 0.39200002
+      knockback: {x: 6.7200003, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.532
+  - id: WideBeam
+    animatorTrigger: WideBeam
+    sequence: 020000000200000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.6
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.36
+  - id: MissileBarrage
+    animatorTrigger: MissileBarrage
+    sequence: 020000000200000000000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.36
+  - id: OmniBeam
+    animatorTrigger: OmniBeam
+    sequence: 020000000200000001000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.36
+  - id: YinYangOverdrive
+    animatorTrigger: YinYangOverdrive
+    sequence: 02000000020000000200000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.38

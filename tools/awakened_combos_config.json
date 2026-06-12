@@ -1,0 +1,508 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/awakenedstatecombosandfinishers.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 28,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "comboA_1",
+          "region": [
+            100,
+            53,
+            501,
+            95
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboA_2",
+          "region": [
+            100,
+            98,
+            501,
+            141
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboA_3",
+          "region": [
+            100,
+            144,
+            501,
+            187
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboA_4",
+          "region": [
+            100,
+            190,
+            501,
+            232
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "comboA_5",
+          "region": [
+            100,
+            235,
+            501,
+            278
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboA_6",
+          "region": [
+            100,
+            281,
+            501,
+            324
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboA_7",
+          "region": [
+            100,
+            327,
+            501,
+            370
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboB_1",
+          "region": [
+            615,
+            53,
+            1013,
+            95
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboB_2",
+          "region": [
+            615,
+            98,
+            1013,
+            141
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboB_3",
+          "region": [
+            615,
+            144,
+            1013,
+            187
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboB_4",
+          "region": [
+            615,
+            190,
+            1013,
+            232
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboB_5",
+          "region": [
+            615,
+            235,
+            1013,
+            278
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboB_6",
+          "region": [
+            615,
+            281,
+            1013,
+            324
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboB_7",
+          "region": [
+            615,
+            327,
+            1013,
+            370
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboC_1",
+          "region": [
+            1125,
+            53,
+            1525,
+            95
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboC_2",
+          "region": [
+            1125,
+            98,
+            1525,
+            141
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "comboC_3",
+          "region": [
+            1125,
+            144,
+            1525,
+            187
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboC_4",
+          "region": [
+            1125,
+            190,
+            1525,
+            232
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboC_5",
+          "region": [
+            1125,
+            235,
+            1525,
+            278
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboC_6",
+          "region": [
+            1125,
+            281,
+            1525,
+            324
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "comboC_7",
+          "region": [
+            1125,
+            327,
+            1525,
+            370
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboD_1",
+          "region": [
+            100,
+            386,
+            501,
+            424
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboD_2",
+          "region": [
+            100,
+            427,
+            501,
+            465
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboD_3",
+          "region": [
+            100,
+            468,
+            501,
+            506
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboD_4",
+          "region": [
+            100,
+            509,
+            501,
+            548
+          ],
+          "force_frames": 7
+        },
+        {
+          "name": "comboD_5",
+          "region": [
+            100,
+            551,
+            501,
+            589
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboD_6",
+          "region": [
+            100,
+            592,
+            501,
+            630
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboD_7",
+          "region": [
+            100,
+            633,
+            501,
+            672
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboE_1",
+          "region": [
+            615,
+            386,
+            1013,
+            424
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboE_2",
+          "region": [
+            615,
+            427,
+            1013,
+            465
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboE_3",
+          "region": [
+            615,
+            468,
+            1013,
+            506
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboE_4",
+          "region": [
+            615,
+            509,
+            1013,
+            548
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "comboE_5",
+          "region": [
+            615,
+            551,
+            1013,
+            589
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboE_6",
+          "region": [
+            615,
+            592,
+            1013,
+            630
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboE_7",
+          "region": [
+            615,
+            633,
+            1013,
+            672
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboF_1",
+          "region": [
+            1125,
+            386,
+            1525,
+            424
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboF_2",
+          "region": [
+            1125,
+            427,
+            1525,
+            465
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboF_3",
+          "region": [
+            1125,
+            468,
+            1525,
+            506
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "comboF_4",
+          "region": [
+            1125,
+            509,
+            1525,
+            548
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "comboF_5",
+          "region": [
+            1125,
+            551,
+            1525,
+            589
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboF_6",
+          "region": [
+            1125,
+            592,
+            1525,
+            630
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "comboF_7",
+          "region": [
+            1125,
+            633,
+            1525,
+            672
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "fin_void_erasure",
+          "region": [
+            5,
+            696,
+            222,
+            857
+          ]
+        },
+        {
+          "name": "fin_dimension_collapse",
+          "region": [
+            222,
+            696,
+            440,
+            857
+          ]
+        },
+        {
+          "name": "fin_eclipse_slash",
+          "region": [
+            440,
+            696,
+            657,
+            857
+          ]
+        },
+        {
+          "name": "fin_celestial_judgment",
+          "region": [
+            657,
+            696,
+            875,
+            857
+          ]
+        },
+        {
+          "name": "fin_apocalypse_blade",
+          "region": [
+            875,
+            696,
+            1093,
+            857
+          ]
+        },
+        {
+          "name": "fin_silent_requiem",
+          "region": [
+            1093,
+            696,
+            1310,
+            857
+          ]
+        },
+        {
+          "name": "fin_omega_cut",
+          "region": [
+            1310,
+            696,
+            1528,
+            857
+          ]
+        },
+        {
+          "name": "ultimate_void_ascension",
+          "region": [
+            5,
+            915,
+            1525,
+            1018
+          ],
+          "force_frames": 13
+        }
+      ]
+    }
+  ]
+}

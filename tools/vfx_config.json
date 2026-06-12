@@ -1,0 +1,148 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/enemies/6f4d4156-f6a8-43c9-b36f-8cb64fad3e6b.png",
+      "preview_out": "preview_vfx_ww.png",
+      "out_dir": "../Assets/Art/Sprites/VFX",
+      "bg_threshold": 30,
+      "key_threshold": 14,
+      "min_ink_per_column": 2,
+      "gap_columns": 2,
+      "min_frame_width": 8,
+      "animations": [
+        {
+          "name": "slash_effect",
+          "region": [
+            1245,
+            775,
+            1368,
+            822
+          ]
+        },
+        {
+          "name": "blood_splatter",
+          "region": [
+            1400,
+            776,
+            1500,
+            845
+          ]
+        },
+        {
+          "name": "rage_aura",
+          "region": [
+            1248,
+            928,
+            1365,
+            975
+          ]
+        },
+        {
+          "name": "howl_aura",
+          "region": [
+            1400,
+            928,
+            1497,
+            975
+          ]
+        }
+      ]
+    },
+    {
+      "image": "../sprites/enemies/8404bf31-707e-48be-9ee3-5d104d91ba26.png",
+      "preview_out": "preview_vfx_reaper.png",
+      "out_dir": "../Assets/Art/Sprites/VFX",
+      "bg_threshold": 30,
+      "key_threshold": 14,
+      "min_ink_per_column": 2,
+      "gap_columns": 2,
+      "min_frame_width": 8,
+      "animations": [
+        {
+          "name": "bullet",
+          "region": [
+            20,
+            858,
+            102,
+            947
+          ]
+        },
+        {
+          "name": "muzzle_burst",
+          "region": [
+            218,
+            858,
+            384,
+            947
+          ]
+        },
+        {
+          "name": "gun_trail",
+          "region": [
+            397,
+            858,
+            576,
+            947
+          ]
+        },
+        {
+          "name": "hit_spark",
+          "region": [
+            589,
+            858,
+            742,
+            947
+          ]
+        },
+        {
+          "name": "bullet_impact",
+          "region": [
+            755,
+            858,
+            870,
+            947
+          ]
+        },
+        {
+          "name": "overdrive_aura",
+          "region": [
+            998,
+            858,
+            1100,
+            947
+          ]
+        }
+      ]
+    },
+    {
+      "image": "../sprites/enemies/10a43945-82de-4be1-baa8-80602453e87f.png",
+      "preview_out": "preview_vfx_samurai.png",
+      "out_dir": "../Assets/Art/Sprites/VFX",
+      "bg_threshold": 30,
+      "key_threshold": 14,
+      "min_ink_per_column": 2,
+      "gap_columns": 2,
+      "min_frame_width": 8,
+      "animations": [
+        {
+          "name": "sword_trail_red",
+          "region": [
+            20,
+            947,
+            640,
+            998
+          ]
+        },
+        {
+          "name": "sword_trail_blue",
+          "region": [
+            781,
+            947,
+            1267,
+            998
+          ]
+        }
+      ]
+    }
+  ]
+}

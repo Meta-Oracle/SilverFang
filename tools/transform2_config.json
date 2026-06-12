@@ -1,0 +1,80 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/awakenedstatetransformationsprites2.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 26,
+      "key_threshold": 10,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 8,
+      "animations": [
+        {
+          "name": "transform_phase1",
+          "region": [
+            5,
+            74,
+            1305,
+            174
+          ]
+        },
+        {
+          "name": "transform_phase2",
+          "region": [
+            5,
+            189,
+            1305,
+            294
+          ],
+          "force_frames": 19
+        },
+        {
+          "name": "transform_phase3",
+          "region": [
+            5,
+            312,
+            1305,
+            430
+          ],
+          "force_frames": 24
+        },
+        {
+          "name": "transform_phase4",
+          "region": [
+            5,
+            445,
+            1305,
+            550
+          ]
+        },
+        {
+          "name": "transform_phase5",
+          "region": [
+            5,
+            568,
+            1305,
+            673
+          ]
+        },
+        {
+          "name": "transform_phase6",
+          "region": [
+            5,
+            688,
+            1305,
+            806
+          ]
+        },
+        {
+          "name": "transform_phase7",
+          "region": [
+            5,
+            872,
+            945,
+            950
+          ]
+        }
+      ]
+    }
+  ]
+}

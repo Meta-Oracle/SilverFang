@@ -1,0 +1,42 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/extraframes2.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 4,
+      "gap_columns": 2,
+      "min_frame_width": 12,
+      "animations": [
+        {
+          "name": "transform_seq_a",
+          "region": [
+            8,
+            671,
+            1114,
+            737
+          ]
+        },
+        {
+          "name": "transform_seq_b",
+          "region": [
+            8,
+            739,
+            1114,
+            816
+          ]
+        },
+        {
+          "name": "transform_seq_c",
+          "region": [
+            8,
+            817,
+            1114,
+            925
+          ]
+        }
+      ]
+    }
+  ]
+}

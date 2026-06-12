@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hilo_HiloAerialCombo
+  serializedVersion: 7
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: caa976e0cf70d594991e8e625bcaeef6, type: 3}
+    - time: 0.096
+      value: {fileID: 21300000, guid: 6ab70695dc0e32b4a9a829e8c0d2fedc, type: 3}
+    - time: 0.192
+      value: {fileID: 21300000, guid: ec81f40ca742df4428be9999482f9db1, type: 3}
+    - time: 0.2076
+      value: {fileID: 21300000, guid: 0ede4fc9593178f4ead8a9e3e87c3238, type: 3}
+    - time: 0.22320001
+      value: {fileID: 21300000, guid: b0c773563264f2f46b03ec6d8e3473c7, type: 3}
+    - time: 0.2388
+      value: {fileID: 21300000, guid: a00a18d11e5b7c24685adce579fe5e8a, type: 3}
+    - time: 0.2544
+      value: {fileID: 21300000, guid: ce0925496c2eaad429d470c74632ed95, type: 3}
+    - time: 0.27
+      value: {fileID: 21300000, guid: eb1b245fbb57e634c87c3b3397efdd66, type: 3}
+    - time: 0.2856
+      value: {fileID: 21300000, guid: 600cd53a36b42ee499e218e30417c141, type: 3}
+    - time: 0.3012
+      value: {fileID: 21300000, guid: 59069a90c71333542b5a8f50af9bd997, type: 3}
+    - time: 0.3168
+      value: {fileID: 21300000, guid: 61187cb645173b44093d4ad743cfaf5e, type: 3}
+    - time: 0.3324
+      value: {fileID: 21300000, guid: 1e313a11dd1a0b348a2d2869dae7d383, type: 3}
+    - time: 0.6
+      value: {fileID: 21300000, guid: 1e313a11dd1a0b348a2d2869dae7d383, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 24
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: caa976e0cf70d594991e8e625bcaeef6, type: 3}
+    - {fileID: 21300000, guid: 6ab70695dc0e32b4a9a829e8c0d2fedc, type: 3}
+    - {fileID: 21300000, guid: ec81f40ca742df4428be9999482f9db1, type: 3}
+    - {fileID: 21300000, guid: 0ede4fc9593178f4ead8a9e3e87c3238, type: 3}
+    - {fileID: 21300000, guid: b0c773563264f2f46b03ec6d8e3473c7, type: 3}
+    - {fileID: 21300000, guid: a00a18d11e5b7c24685adce579fe5e8a, type: 3}
+    - {fileID: 21300000, guid: ce0925496c2eaad429d470c74632ed95, type: 3}
+    - {fileID: 21300000, guid: eb1b245fbb57e634c87c3b3397efdd66, type: 3}
+    - {fileID: 21300000, guid: 600cd53a36b42ee499e218e30417c141, type: 3}
+    - {fileID: 21300000, guid: 59069a90c71333542b5a8f50af9bd997, type: 3}
+    - {fileID: 21300000, guid: 61187cb645173b44093d4ad743cfaf5e, type: 3}
+    - {fileID: 21300000, guid: 1e313a11dd1a0b348a2d2869dae7d383, type: 3}
+    - {fileID: 21300000, guid: 1e313a11dd1a0b348a2d2869dae7d383, type: 3}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 0.6416667
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events:
+  - time: 0.192
+    functionName: AnimEvent_HitboxOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.396
+    functionName: AnimEvent_HitboxOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.558
+    functionName: AnimEvent_AttackEnd
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

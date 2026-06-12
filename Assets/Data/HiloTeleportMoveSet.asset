@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4fdd9228c534747a57e44c21f9d9ee, type: 3}
+  m_Name: HiloTeleportMoveSet
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.MoveSet
+  moves:
+  - id: HiloShadowStrike
+    animatorTrigger: HiloShadowStrike
+    sequence: 00000000
+    attack:
+      damage: 26
+      hitstun: 0.40800002
+      knockback: {x: 7.28, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.528
+  - id: HiloShadowClone
+    animatorTrigger: HiloShadowClone
+    sequence: 01000000
+    attack:
+      damage: 30
+      hitstun: 0.44000003
+      knockback: {x: 8.4, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.56
+  - id: HiloShadowBeam
+    animatorTrigger: HiloShadowBeam
+    sequence: 02000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.32000002

@@ -1,0 +1,326 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/dashandsprintanimationssprites.png",
+      "out_dir": "../Assets/Art/Sprites/Silver",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "da_slash",
+          "region": [
+            148,
+            74,
+            755,
+            126
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "da_thrust",
+          "region": [
+            148,
+            129,
+            755,
+            174
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "da_uppercut",
+          "region": [
+            148,
+            175,
+            755,
+            225
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "da_spin",
+          "region": [
+            148,
+            227,
+            755,
+            274
+          ],
+          "force_frames": 7
+        },
+        {
+          "name": "da_shoot",
+          "region": [
+            148,
+            276,
+            755,
+            327
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "da_heavy",
+          "region": [
+            148,
+            329,
+            755,
+            399
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "sp_slash",
+          "region": [
+            148,
+            434,
+            755,
+            481
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "sp_thrust",
+          "region": [
+            148,
+            486,
+            755,
+            531
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "sp_spin",
+          "region": [
+            148,
+            532,
+            755,
+            585
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "sp_shoot",
+          "region": [
+            148,
+            593,
+            755,
+            639
+          ],
+          "force_frames": 7
+        },
+        {
+          "name": "sp_heavy",
+          "region": [
+            148,
+            645,
+            755,
+            698
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "tp_short",
+          "region": [
+            148,
+            740,
+            755,
+            791
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "tp_long",
+          "region": [
+            148,
+            800,
+            755,
+            851
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "tp_strike",
+          "region": [
+            148,
+            856,
+            755,
+            910
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "tp_shoot",
+          "region": [
+            148,
+            928,
+            755,
+            993
+          ],
+          "force_frames": 6
+        }
+      ]
+    },
+    {
+      "image": "../sprites/dashandsprintanimationssprites.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "awkda_slash",
+          "region": [
+            916,
+            74,
+            1523,
+            132
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awkda_thrust",
+          "region": [
+            916,
+            128,
+            1523,
+            187
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awkda_uppercut",
+          "region": [
+            916,
+            183,
+            1523,
+            242
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awkda_spin",
+          "region": [
+            916,
+            238,
+            1523,
+            296
+          ],
+          "force_frames": 7
+        },
+        {
+          "name": "awkda_shoot",
+          "region": [
+            916,
+            292,
+            1523,
+            351
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awkda_heavy",
+          "region": [
+            916,
+            347,
+            1523,
+            406
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awksp_slash",
+          "region": [
+            916,
+            428,
+            1523,
+            481
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awksp_thrust",
+          "region": [
+            916,
+            483,
+            1523,
+            530
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "awksp_spin",
+          "region": [
+            916,
+            528,
+            1523,
+            585
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awksp_shoot",
+          "region": [
+            916,
+            589,
+            1523,
+            638
+          ],
+          "force_frames": 7
+        },
+        {
+          "name": "awksp_heavy",
+          "region": [
+            916,
+            642,
+            1523,
+            698
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "awktp_short",
+          "region": [
+            916,
+            740,
+            1523,
+            791
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awktp_long",
+          "region": [
+            916,
+            797,
+            1523,
+            850
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "awktp_strike",
+          "region": [
+            916,
+            855,
+            1523,
+            913
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awktp_shoot",
+          "region": [
+            916,
+            926,
+            1523,
+            994
+          ],
+          "force_frames": 6
+        }
+      ]
+    }
+  ]
+}

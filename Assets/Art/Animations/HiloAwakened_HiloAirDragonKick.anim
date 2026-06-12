@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HiloAwakened_HiloAirDragonKick
+  serializedVersion: 7
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 0f5b190ea2e65924cb4a6c6b46c8b25c, type: 3}
+    - time: 0.0544
+      value: {fileID: 21300000, guid: 91d20884c5063ce47aaedb82adc7ba52, type: 3}
+    - time: 0.1088
+      value: {fileID: 21300000, guid: 00a177bbfb397da4d88e684dfa47c9db, type: 3}
+    - time: 0.12648
+      value: {fileID: 21300000, guid: b57ac4ed91bc2e047aeef991648350b8, type: 3}
+    - time: 0.14416
+      value: {fileID: 21300000, guid: bf8708719d99206429e3adcc9f4ca358, type: 3}
+    - time: 0.16183999
+      value: {fileID: 21300000, guid: 3b7c2cae229166f4d9da08ff31d93cac, type: 3}
+    - time: 0.17952
+      value: {fileID: 21300000, guid: 858a8a4e6ba4f574593b40c4b162e034, type: 3}
+    - time: 0.34
+      value: {fileID: 21300000, guid: 858a8a4e6ba4f574593b40c4b162e034, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 24
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: 0f5b190ea2e65924cb4a6c6b46c8b25c, type: 3}
+    - {fileID: 21300000, guid: 91d20884c5063ce47aaedb82adc7ba52, type: 3}
+    - {fileID: 21300000, guid: 00a177bbfb397da4d88e684dfa47c9db, type: 3}
+    - {fileID: 21300000, guid: b57ac4ed91bc2e047aeef991648350b8, type: 3}
+    - {fileID: 21300000, guid: bf8708719d99206429e3adcc9f4ca358, type: 3}
+    - {fileID: 21300000, guid: 3b7c2cae229166f4d9da08ff31d93cac, type: 3}
+    - {fileID: 21300000, guid: 858a8a4e6ba4f574593b40c4b162e034, type: 3}
+    - {fileID: 21300000, guid: 858a8a4e6ba4f574593b40c4b162e034, type: 3}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 0.38166666
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events:
+  - time: 0.1088
+    functionName: AnimEvent_HitboxOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.22439998
+    functionName: AnimEvent_HitboxOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.31620002
+    functionName: AnimEvent_AttackEnd
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

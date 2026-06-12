@@ -1,0 +1,492 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/hilo/firsthilospriteset.png",
+      "out_dir": "../Assets/Art/Sprites/Hilo",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "light1",
+          "region": [
+            515,
+            13,
+            1020,
+            66
+          ]
+        },
+        {
+          "name": "light2",
+          "region": [
+            515,
+            64,
+            1020,
+            100
+          ]
+        },
+        {
+          "name": "light3",
+          "region": [
+            515,
+            97,
+            1020,
+            131
+          ]
+        },
+        {
+          "name": "heavy1",
+          "region": [
+            515,
+            130,
+            1020,
+            163
+          ]
+        },
+        {
+          "name": "heavy2",
+          "region": [
+            515,
+            162,
+            1020,
+            229
+          ]
+        },
+        {
+          "name": "heavy3",
+          "region": [
+            515,
+            226,
+            1020,
+            258
+          ]
+        },
+        {
+          "name": "claw_slash",
+          "region": [
+            515,
+            256,
+            1020,
+            288
+          ]
+        },
+        {
+          "name": "claw_spin",
+          "region": [
+            515,
+            285,
+            1020,
+            319
+          ]
+        },
+        {
+          "name": "claw_thrust",
+          "region": [
+            515,
+            319,
+            1020,
+            351
+          ]
+        },
+        {
+          "name": "claw_uppercut",
+          "region": [
+            515,
+            348,
+            1020,
+            380
+          ]
+        },
+        {
+          "name": "snap_kick",
+          "region": [
+            515,
+            377,
+            1020,
+            424
+          ]
+        },
+        {
+          "name": "roundhouse_kick",
+          "region": [
+            515,
+            435,
+            1020,
+            484
+          ]
+        },
+        {
+          "name": "shadow_step",
+          "region": [
+            1025,
+            13,
+            1536,
+            29
+          ]
+        },
+        {
+          "name": "yin_slip",
+          "region": [
+            1025,
+            31,
+            1536,
+            63
+          ]
+        },
+        {
+          "name": "spinning_claw",
+          "region": [
+            1025,
+            68,
+            1536,
+            97
+          ]
+        },
+        {
+          "name": "rising_palm",
+          "region": [
+            1025,
+            103,
+            1536,
+            133
+          ]
+        },
+        {
+          "name": "phantom_strike",
+          "region": [
+            1025,
+            138,
+            1536,
+            172
+          ]
+        },
+        {
+          "name": "shadow_clone",
+          "region": [
+            1025,
+            179,
+            1536,
+            213
+          ]
+        },
+        {
+          "name": "energy_claw",
+          "region": [
+            1025,
+            220,
+            1536,
+            249
+          ]
+        },
+        {
+          "name": "cyclone_kick",
+          "region": [
+            1025,
+            256,
+            1536,
+            285
+          ]
+        },
+        {
+          "name": "yinyang_burst",
+          "region": [
+            1025,
+            291,
+            1536,
+            318
+          ]
+        },
+        {
+          "name": "awk_idle",
+          "region": [
+            1025,
+            569,
+            1536,
+            601
+          ]
+        },
+        {
+          "name": "awk_movement",
+          "region": [
+            1025,
+            608,
+            1536,
+            663
+          ]
+        },
+        {
+          "name": "awk_attacks",
+          "region": [
+            1025,
+            660,
+            1536,
+            696
+          ]
+        },
+        {
+          "name": "idle",
+          "region": [
+            130,
+            33,
+            510,
+            61
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            130,
+            61,
+            510,
+            89
+          ]
+        },
+        {
+          "name": "run",
+          "region": [
+            130,
+            89,
+            510,
+            117
+          ]
+        },
+        {
+          "name": "dash",
+          "region": [
+            130,
+            117,
+            510,
+            145
+          ]
+        },
+        {
+          "name": "jump",
+          "region": [
+            130,
+            145,
+            510,
+            173
+          ]
+        },
+        {
+          "name": "double_jump",
+          "region": [
+            130,
+            173,
+            510,
+            201
+          ]
+        },
+        {
+          "name": "fall",
+          "region": [
+            130,
+            201,
+            510,
+            229
+          ]
+        },
+        {
+          "name": "land",
+          "region": [
+            130,
+            229,
+            510,
+            257
+          ]
+        },
+        {
+          "name": "crouch",
+          "region": [
+            130,
+            257,
+            320,
+            285
+          ]
+        },
+        {
+          "name": "crouch_walk",
+          "region": [
+            324,
+            257,
+            510,
+            285
+          ]
+        },
+        {
+          "name": "hurt",
+          "region": [
+            130,
+            285,
+            320,
+            313
+          ]
+        },
+        {
+          "name": "hurt_heavy",
+          "region": [
+            324,
+            285,
+            510,
+            313
+          ]
+        },
+        {
+          "name": "knockdown",
+          "region": [
+            130,
+            313,
+            320,
+            342
+          ]
+        },
+        {
+          "name": "getup",
+          "region": [
+            324,
+            313,
+            510,
+            342
+          ]
+        },
+        {
+          "name": "quick_shot",
+          "region": [
+            5,
+            368,
+            510,
+            421
+          ]
+        },
+        {
+          "name": "charge_shot_l1",
+          "region": [
+            5,
+            436,
+            510,
+            479
+          ]
+        },
+        {
+          "name": "charge_shot_l2",
+          "region": [
+            5,
+            481,
+            510,
+            510
+          ]
+        },
+        {
+          "name": "charge_shot_l3",
+          "region": [
+            5,
+            516,
+            510,
+            541
+          ]
+        },
+        {
+          "name": "wide_beam",
+          "region": [
+            5,
+            544,
+            510,
+            570
+          ]
+        },
+        {
+          "name": "phantom_beam",
+          "region": [
+            5,
+            572,
+            510,
+            601
+          ]
+        },
+        {
+          "name": "burst_cannon",
+          "region": [
+            5,
+            605,
+            510,
+            631
+          ]
+        },
+        {
+          "name": "homing_missile",
+          "region": [
+            5,
+            635,
+            510,
+            661
+          ]
+        },
+        {
+          "name": "energy_wave",
+          "region": [
+            5,
+            665,
+            510,
+            691
+          ]
+        },
+        {
+          "name": "punch_combo_a",
+          "region": [
+            515,
+            517,
+            1020,
+            543
+          ]
+        },
+        {
+          "name": "punch_combo_b",
+          "region": [
+            515,
+            546,
+            1020,
+            572
+          ]
+        },
+        {
+          "name": "claw_combo_a",
+          "region": [
+            515,
+            574,
+            1020,
+            603
+          ]
+        },
+        {
+          "name": "claw_combo_b",
+          "region": [
+            515,
+            606,
+            1020,
+            632
+          ]
+        },
+        {
+          "name": "aerial_combo",
+          "region": [
+            515,
+            633,
+            1020,
+            662
+          ]
+        },
+        {
+          "name": "kill_combo",
+          "region": [
+            515,
+            667,
+            1020,
+            695
+          ]
+        }
+      ]
+    }
+  ]
+}

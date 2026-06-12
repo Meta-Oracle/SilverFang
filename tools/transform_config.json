@@ -1,0 +1,17 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/awakenedstatetransformationsprites1.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 26,
+      "key_threshold": 10,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        { "name": "transform2a", "region": [10, 645, 870, 770] },
+        { "name": "transform2b", "region": [10, 781, 666, 903] }
+      ]
+    }
+  ]
+}

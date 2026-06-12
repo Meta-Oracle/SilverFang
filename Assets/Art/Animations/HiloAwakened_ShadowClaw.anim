@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HiloAwakened_ShadowClaw
+  serializedVersion: 7
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 3d4aa5222aca60043973f0a30cd8c2ef, type: 3}
+    - time: 0.07168
+      value: {fileID: 21300000, guid: 4575efebadf31c84184bcfb2334de71f, type: 3}
+    - time: 0.14336
+      value: {fileID: 21300000, guid: 6fb6c846297cb1e46a5be67264a8f456, type: 3}
+    - time: 0.155008
+      value: {fileID: 21300000, guid: f2be41ce9e6f3ff46affdef2ec1d16a2, type: 3}
+    - time: 0.166656
+      value: {fileID: 21300000, guid: 6fe51c949b72313478067f41d06e7827, type: 3}
+    - time: 0.178304
+      value: {fileID: 21300000, guid: ac50fb1bc5aeab54c958f02fdbe835ae, type: 3}
+    - time: 0.189952
+      value: {fileID: 21300000, guid: 811e113a7a5751741af7b0d18060d27d, type: 3}
+    - time: 0.2016
+      value: {fileID: 21300000, guid: a2c940be26894bd46a2a69b52286bab7, type: 3}
+    - time: 0.213248
+      value: {fileID: 21300000, guid: 4b53d501b5fdfe34ba6c475954c9e45a, type: 3}
+    - time: 0.224896
+      value: {fileID: 21300000, guid: 5354e46aa58962948bbab56953a184cb, type: 3}
+    - time: 0.236544
+      value: {fileID: 21300000, guid: 17f205b67025b544ab80b4052d4ccf99, type: 3}
+    - time: 0.248192
+      value: {fileID: 21300000, guid: d976b2427a2a0e24cb7ba8b264faffab, type: 3}
+    - time: 0.448
+      value: {fileID: 21300000, guid: d976b2427a2a0e24cb7ba8b264faffab, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 24
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: 3d4aa5222aca60043973f0a30cd8c2ef, type: 3}
+    - {fileID: 21300000, guid: 4575efebadf31c84184bcfb2334de71f, type: 3}
+    - {fileID: 21300000, guid: 6fb6c846297cb1e46a5be67264a8f456, type: 3}
+    - {fileID: 21300000, guid: f2be41ce9e6f3ff46affdef2ec1d16a2, type: 3}
+    - {fileID: 21300000, guid: 6fe51c949b72313478067f41d06e7827, type: 3}
+    - {fileID: 21300000, guid: ac50fb1bc5aeab54c958f02fdbe835ae, type: 3}
+    - {fileID: 21300000, guid: 811e113a7a5751741af7b0d18060d27d, type: 3}
+    - {fileID: 21300000, guid: a2c940be26894bd46a2a69b52286bab7, type: 3}
+    - {fileID: 21300000, guid: 4b53d501b5fdfe34ba6c475954c9e45a, type: 3}
+    - {fileID: 21300000, guid: 5354e46aa58962948bbab56953a184cb, type: 3}
+    - {fileID: 21300000, guid: 17f205b67025b544ab80b4052d4ccf99, type: 3}
+    - {fileID: 21300000, guid: d976b2427a2a0e24cb7ba8b264faffab, type: 3}
+    - {fileID: 21300000, guid: d976b2427a2a0e24cb7ba8b264faffab, type: 3}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 0.48966667
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events:
+  - time: 0.14336
+    functionName: AnimEvent_HitboxOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.29568
+    functionName: AnimEvent_HitboxOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.41664
+    functionName: AnimEvent_AttackEnd
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

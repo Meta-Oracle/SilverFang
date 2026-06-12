@@ -1,0 +1,33 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/extraframes.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            8,
+            52,
+            242,
+            98
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            246,
+            52,
+            525,
+            98
+          ]
+        }
+      ]
+    }
+  ]
+}

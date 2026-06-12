@@ -1,0 +1,161 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/chargedattacks.png",
+      "out_dir": "../Assets/Art/Sprites/Silver",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "charge_shot_l1",
+          "region": [
+            82,
+            74,
+            768,
+            136
+          ]
+        },
+        {
+          "name": "charge_shot_l2",
+          "region": [
+            82,
+            139,
+            768,
+            203
+          ]
+        },
+        {
+          "name": "charge_shot_l3",
+          "region": [
+            82,
+            205,
+            768,
+            271
+          ]
+        },
+        {
+          "name": "charge_light_l1",
+          "region": [
+            794,
+            78,
+            1536,
+            136
+          ]
+        },
+        {
+          "name": "charge_light_l2",
+          "region": [
+            794,
+            142,
+            1536,
+            202
+          ]
+        },
+        {
+          "name": "charge_light_l3",
+          "region": [
+            794,
+            208,
+            1536,
+            275
+          ]
+        },
+        {
+          "name": "charge_heavy_l1",
+          "region": [
+            82,
+            330,
+            768,
+            382
+          ]
+        },
+        {
+          "name": "charge_heavy_l2",
+          "region": [
+            82,
+            380,
+            768,
+            447
+          ]
+        },
+        {
+          "name": "charge_heavy_l3",
+          "region": [
+            82,
+            446,
+            768,
+            515
+          ]
+        },
+        {
+          "name": "charge_hold_light",
+          "region": [
+            82,
+            576,
+            1216,
+            618
+          ]
+        },
+        {
+          "name": "charge_hold_heavy",
+          "region": [
+            82,
+            614,
+            1216,
+            657
+          ]
+        },
+        {
+          "name": "charge_hold_gun",
+          "region": [
+            82,
+            653,
+            1216,
+            696
+          ]
+        }
+      ]
+    },
+    {
+      "image": "../sprites/chargedattacks.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "charge_awk_light",
+          "region": [
+            794,
+            330,
+            1536,
+            380
+          ]
+        },
+        {
+          "name": "charge_awk_heavy",
+          "region": [
+            794,
+            382,
+            1536,
+            447
+          ]
+        },
+        {
+          "name": "charge_awk_gun",
+          "region": [
+            794,
+            447,
+            1536,
+            513
+          ]
+        }
+      ]
+    }
+  ]
+}

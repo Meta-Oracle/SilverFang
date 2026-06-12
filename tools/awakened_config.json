@@ -1,0 +1,289 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/d5bc0713-cc36-464d-a188-dfa6d5aaf74b.png",
+      "preview_out": "preview_awk_move.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 34,
+      "key_threshold": 12,
+      "min_ink_per_column": 3,
+      "gap_columns": 2,
+      "min_frame_width": 12,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            20,
+            49,
+            179,
+            128
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            192,
+            49,
+            563,
+            128
+          ]
+        },
+        {
+          "name": "run",
+          "region": [
+            576,
+            49,
+            922,
+            128
+          ]
+        },
+        {
+          "name": "hurt",
+          "region": [
+            166,
+            392,
+            333,
+            496
+          ]
+        },
+        {
+          "name": "knockdown",
+          "region": [
+            589,
+            392,
+            845,
+            496
+          ]
+        },
+        {
+          "name": "getup",
+          "region": [
+            858,
+            392,
+            1126,
+            496
+          ]
+        },
+        {
+          "name": "teleport_short",
+          "region": [
+            717,
+            826,
+            922,
+            1006
+          ]
+        }
+      ]
+    },
+    {
+      "image": "../sprites/059251fb-9df4-4242-997e-68bd30896bf0.png",
+      "preview_out": "preview_awk_tp.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 34,
+      "key_threshold": 12,
+      "min_ink_per_column": 3,
+      "gap_columns": 2,
+      "min_frame_width": 12,
+      "animations": [
+        {
+          "name": "teleport_strike",
+          "region": [
+            20,
+            378,
+            448,
+            448
+          ]
+        },
+        {
+          "name": "vanish",
+          "region": [
+            461,
+            378,
+            640,
+            448
+          ]
+        },
+        {
+          "name": "reappear",
+          "region": [
+            653,
+            378,
+            845,
+            448
+          ]
+        },
+        {
+          "name": "void_slasher",
+          "region": [
+            20,
+            506,
+            410,
+            597
+          ]
+        },
+        {
+          "name": "dimension_break",
+          "region": [
+            550,
+            506,
+            845,
+            597
+          ]
+        },
+        {
+          "name": "phantom_assault",
+          "region": [
+            998,
+            506,
+            1254,
+            597
+          ]
+        },
+        {
+          "name": "teleport_impact",
+          "region": [
+            20,
+            634,
+            282,
+            725
+          ]
+        },
+        {
+          "name": "void_piercer",
+          "region": [
+            461,
+            634,
+            742,
+            725
+          ]
+        },
+        {
+          "name": "cross_dimension",
+          "region": [
+            909,
+            634,
+            1203,
+            725
+          ]
+        },
+        {
+          "name": "obliteration_burst",
+          "region": [
+            20,
+            762,
+            294,
+            840
+          ]
+        },
+        {
+          "name": "echo_combo",
+          "region": [
+            461,
+            762,
+            768,
+            840
+          ]
+        },
+        {
+          "name": "time_rift",
+          "region": [
+            922,
+            762,
+            1229,
+            840
+          ]
+        },
+        {
+          "name": "void_spear",
+          "region": [
+            20,
+            877,
+            333,
+            981
+          ]
+        },
+        {
+          "name": "teleport_storm",
+          "region": [
+            474,
+            877,
+            845,
+            981
+          ]
+        },
+        {
+          "name": "final_domain",
+          "region": [
+            922,
+            877,
+            1280,
+            981
+          ]
+        }
+      ]
+    },
+    {
+      "image": "../sprites/dc637d74-7d06-4547-ab96-7cde719ce386.png",
+      "preview_out": "preview_awk_gun.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 34,
+      "key_threshold": 12,
+      "min_ink_per_column": 3,
+      "gap_columns": 2,
+      "min_frame_width": 12,
+      "animations": [
+        {
+          "name": "quick_shot",
+          "region": [
+            243,
+            36,
+            576,
+            125
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "blade_storm_bullet",
+          "region": [
+            20,
+            845,
+            790,
+            988
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "void_slasher_finisher",
+          "region": [
+            800,
+            845,
+            1523,
+            988
+          ],
+          "force_frames": 4
+        }
+      ]
+    },
+    {
+      "image": "../sprites/fa0569d9-5bbc-4a06-a660-b0b87f85e68f.png",
+      "preview_out": "preview_awk_char.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 34,
+      "key_threshold": 12,
+      "min_ink_per_column": 3,
+      "gap_columns": 2,
+      "min_frame_width": 12,
+      "animations": [
+        {
+          "name": "transform",
+          "region": [
+            20,
+            845,
+            1523,
+            1006
+          ]
+        }
+      ]
+    }
+  ]
+}

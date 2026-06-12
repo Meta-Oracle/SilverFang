@@ -1,0 +1,28 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/vfx/706beb7c-3d59-450a-9649-42ebc73ddf06.png",
+      "preview_out": "preview_status_vfx.png",
+      "out_dir": "../Assets/Art/Sprites/VFX",
+      "bg_threshold": 30,
+      "key_threshold": 14,
+      "min_ink_per_column": 2,
+      "gap_columns": 2,
+      "min_frame_width": 8,
+      "animations": [
+        {
+          "name": "status_frozen",
+          "region": [230, 60, 445, 172]
+        },
+        {
+          "name": "status_burning",
+          "region": [230, 206, 445, 302]
+        },
+        {
+          "name": "status_radiated",
+          "region": [230, 332, 445, 400]
+        }
+      ]
+    }
+  ]
+}

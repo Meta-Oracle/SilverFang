@@ -1,0 +1,247 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87592e27bb29d6a4aafc0ee4b762b89d, type: 3}
+  m_Name: VfxLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.VFX.VfxLibrary
+  entries:
+  - id: blood_splatter
+    frames:
+    - {fileID: 21300000, guid: 3396d49b037737b479b7537049c96d47, type: 3}
+    fps: 14
+    scale: 1
+    randomRotation: 1
+  - id: bullet
+    frames:
+    - {fileID: 21300000, guid: 88223a6d7a7532d479401c8db0e9c29a, type: 3}
+    fps: 12
+    scale: 1
+    randomRotation: 0
+  - id: bullet_impact
+    frames:
+    - {fileID: 21300000, guid: 7b4e5b76ee39e684097d16a661c433d8, type: 3}
+    fps: 18
+    scale: 0.8
+    randomRotation: 1
+  - id: dash_dust
+    frames:
+    - {fileID: 21300000, guid: 2e91df35bed952645818d1c92671b960, type: 3}
+    - {fileID: 21300000, guid: e71ace381065e1042a44bb747db110b5, type: 3}
+    - {fileID: 21300000, guid: 1a19e4644e80e3e4581d95e5aad4b257, type: 3}
+    - {fileID: 21300000, guid: 2245fe036e7089140a5a2feb9f1e5c06, type: 3}
+    - {fileID: 21300000, guid: 14cfd79f6300b5644958373dd28b389d, type: 3}
+    fps: 20
+    scale: 1
+    randomRotation: 0
+  - id: gun_trail
+    frames:
+    - {fileID: 21300000, guid: dafee7ccae23d3441bb30ce949d0d84d, type: 3}
+    fps: 18
+    scale: 1
+    randomRotation: 0
+  - id: hit_spark
+    frames:
+    - {fileID: 21300000, guid: 960f9b18ecbb99a4180c68c2f03a1c48, type: 3}
+    fps: 18
+    scale: 1
+    randomRotation: 0
+  - id: howl_aura
+    frames:
+    - {fileID: 21300000, guid: 045c75ff5da2b014294c5d3bb94e3ae1, type: 3}
+    fps: 10
+    scale: 1
+    randomRotation: 0
+  - id: muzzle_burst
+    frames:
+    - {fileID: 21300000, guid: 803bacf7a24cc234ba36b3daa96fa340, type: 3}
+    fps: 20
+    scale: 0.7
+    randomRotation: 0
+  - id: overdrive_aura
+    frames:
+    - {fileID: 21300000, guid: 549272252500683408c0d121f08d73d1, type: 3}
+    fps: 10
+    scale: 1
+    randomRotation: 0
+  - id: rage_aura
+    frames:
+    - {fileID: 21300000, guid: 194afcaf5c286c04db484c196f4b52a6, type: 3}
+    fps: 10
+    scale: 1
+    randomRotation: 0
+  - id: slash_effect
+    frames:
+    - {fileID: 21300000, guid: 3f9aeb71da463ff4b9e6ce9a6360a45b, type: 3}
+    fps: 18
+    scale: 1
+    randomRotation: 0
+  - id: status_burning
+    frames:
+    - {fileID: 21300000, guid: 30eaaaea7b6f2c84089ec402576c894a, type: 3}
+    - {fileID: 21300000, guid: 3cc1aa925fb0c4d4d8fddf7cba8c126a, type: 3}
+    - {fileID: 21300000, guid: 13f0b236c15c777479382ad9955961be, type: 3}
+    - {fileID: 21300000, guid: 2c9ff8233e216844198cf5fc9e85165d, type: 3}
+    fps: 12
+    scale: 1
+    randomRotation: 0
+  - id: status_burning_chimera
+    frames:
+    - {fileID: 21300000, guid: 166a08e3836e24e43b2c1eff00ca8185, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_burning_reaper
+    frames:
+    - {fileID: 21300000, guid: db5bda051ced7414699d1295fbf53477, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_burning_samurai
+    frames:
+    - {fileID: 21300000, guid: 028e507c21087624eb3597a68c6c225c, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_burning_sentinel
+    frames:
+    - {fileID: 21300000, guid: 5b236028b9836c743a16da6262f269a7, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_burning_werewolf
+    frames:
+    - {fileID: 21300000, guid: c31369ece4071c7489c97680046effaa, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_frozen
+    frames:
+    - {fileID: 21300000, guid: d599c675e24fd184d9351555609c5ee2, type: 3}
+    - {fileID: 21300000, guid: aba234d50d32a5f42a4235acc68962f2, type: 3}
+    - {fileID: 21300000, guid: f80005cb1439e114e98e001382c5770c, type: 3}
+    fps: 10
+    scale: 1
+    randomRotation: 0
+  - id: status_frozen_chimera
+    frames:
+    - {fileID: 21300000, guid: 22aed8cbf3e893044acaf7aa84411faf, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_frozen_reaper
+    frames:
+    - {fileID: 21300000, guid: 39b5d78eb87f3484f9ffe780835e532a, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_frozen_samurai
+    frames:
+    - {fileID: 21300000, guid: 8990c68d0cad2a040b58eda0aee19684, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_frozen_sentinel
+    frames:
+    - {fileID: 21300000, guid: 1de2ad17d561acf449fdf9e60c4d97dc, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_frozen_werewolf
+    frames:
+    - {fileID: 21300000, guid: 40730df534122cc48a880912ca5571e3, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_radiated
+    frames:
+    - {fileID: 21300000, guid: 018c62fcef91a394b84c1fac90c66618, type: 3}
+    - {fileID: 21300000, guid: 3901afcf8b077644cafc4fd06feaa34a, type: 3}
+    - {fileID: 21300000, guid: f2dd4c24ca1bb5643924594a5c584378, type: 3}
+    - {fileID: 21300000, guid: fd725b40abb56324699428ddcf499ef9, type: 3}
+    fps: 10
+    scale: 1
+    randomRotation: 0
+  - id: status_radiated_chimera
+    frames:
+    - {fileID: 21300000, guid: da415d7c89e261741af7b174e74ba581, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_radiated_reaper
+    frames:
+    - {fileID: 21300000, guid: 01cf12938eec2cc40955bd3f503c53fb, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_radiated_samurai
+    frames:
+    - {fileID: 21300000, guid: 1bcaac773d8f6c64e969d25b0bccd751, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_radiated_sentinel
+    frames:
+    - {fileID: 21300000, guid: 97a1ebea6b7b3e44e81042bd7b94f993, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: status_radiated_werewolf
+    frames:
+    - {fileID: 21300000, guid: a69f2a9fd7a09214dbd74faab4a272f7, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: sword_trail_blue
+    frames:
+    - {fileID: 21300000, guid: 6e815dd29f45624408ca18f1000f686e, type: 3}
+    - {fileID: 21300000, guid: 2c3ceddd6c6b60e48a47e3c659c3c166, type: 3}
+    - {fileID: 21300000, guid: 5de42518cb4420647b08eae7369b55ac, type: 3}
+    fps: 18
+    scale: 1
+    randomRotation: 0
+  - id: sword_trail_red
+    frames:
+    - {fileID: 21300000, guid: d22e301e12b1adf4cb59cec2fa8ded6b, type: 3}
+    - {fileID: 21300000, guid: e6501f0d9c172574d9035930409f1e83, type: 3}
+    - {fileID: 21300000, guid: 1990632fbcb3fcf4ba9be1b174d5dd0b, type: 3}
+    - {fileID: 21300000, guid: 681e3f6a36da28d4f8b9ade9b76376b8, type: 3}
+    fps: 18
+    scale: 1
+    randomRotation: 0
+  - id: vanish
+    frames:
+    - {fileID: 21300000, guid: 56ce274bf528b1a45af6eb06bce2819c, type: 3}
+    - {fileID: 21300000, guid: d1d2bd83eb0eb244a8db3b00f7c103e2, type: 3}
+    - {fileID: 21300000, guid: 3fc349c40f2180649b8a4a082197f839, type: 3}
+    fps: 18
+    scale: 1
+    randomRotation: 0
+  - id: reappear
+    frames:
+    - {fileID: 21300000, guid: da260d798dd482e44ac452fc16d5436f, type: 3}
+    - {fileID: 21300000, guid: dd195bf1df0b93f49b20abb925283ebc, type: 3}
+    - {fileID: 21300000, guid: 4dd5896ef972d834ca291a7cfb5f5c6d, type: 3}
+    fps: 18
+    scale: 1
+    randomRotation: 0
+  - id: transform_burst
+    frames:
+    - {fileID: 21300000, guid: bae0a73a304543347bd85f01b0d1af3a, type: 3}
+    - {fileID: 21300000, guid: 85219895d3901a34ca5b89fa9751c807, type: 3}
+    - {fileID: 21300000, guid: de703f7baf43fd04eb736c47189acb31, type: 3}
+    - {fileID: 21300000, guid: 9b3f7923161b3b44095bec42e20696ec, type: 3}
+    - {fileID: 21300000, guid: b78a5b806ef33c7429eaee7ee7576dd2, type: 3}
+    - {fileID: 21300000, guid: ad96b5197db16fc47a7682379cfd2e89, type: 3}
+    - {fileID: 21300000, guid: f6f6f2b6ec8e43d4eba999efcd327709, type: 3}
+    - {fileID: 21300000, guid: 5d37739d9dcf24d4b8d6800298e202b9, type: 3}
+    fps: 12
+    scale: 1.2
+    randomRotation: 0

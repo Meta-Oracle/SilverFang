@@ -1,0 +1,51 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/extraframes3.png",
+      "out_dir": "../Assets/Art/Sprites/Silver",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            88,
+            46,
+            420,
+            88
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            88,
+            82,
+            420,
+            122
+          ]
+        },
+        {
+          "name": "run",
+          "region": [
+            88,
+            114,
+            420,
+            155
+          ]
+        },
+        {
+          "name": "jump",
+          "region": [
+            88,
+            151,
+            420,
+            192
+          ]
+        }
+      ]
+    }
+  ]
+}

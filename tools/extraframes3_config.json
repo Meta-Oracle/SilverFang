@@ -1,0 +1,368 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/extraframes3.png",
+      "out_dir": "../Assets/Art/Sprites/Silver",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            88,
+            54,
+            420,
+            93
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            88,
+            97,
+            420,
+            124
+          ]
+        },
+        {
+          "name": "run",
+          "region": [
+            88,
+            121,
+            420,
+            154
+          ]
+        },
+        {
+          "name": "jump",
+          "region": [
+            88,
+            157,
+            420,
+            185
+          ]
+        },
+        {
+          "name": "crouch",
+          "region": [
+            88,
+            188,
+            420,
+            212
+          ]
+        },
+        {
+          "name": "guard",
+          "region": [
+            88,
+            219,
+            420,
+            243
+          ]
+        },
+        {
+          "name": "hurt",
+          "region": [
+            88,
+            249,
+            420,
+            274
+          ]
+        },
+        {
+          "name": "hurt_heavy",
+          "region": [
+            88,
+            277,
+            420,
+            304
+          ]
+        },
+        {
+          "name": "knockdown",
+          "region": [
+            88,
+            310,
+            420,
+            332
+          ]
+        },
+        {
+          "name": "getup",
+          "region": [
+            88,
+            339,
+            420,
+            358
+          ]
+        },
+        {
+          "name": "light1",
+          "region": [
+            88,
+            378,
+            420,
+            406
+          ]
+        },
+        {
+          "name": "light2",
+          "region": [
+            88,
+            405,
+            420,
+            437
+          ]
+        },
+        {
+          "name": "light3",
+          "region": [
+            88,
+            441,
+            420,
+            468
+          ]
+        },
+        {
+          "name": "heavy1",
+          "region": [
+            88,
+            472,
+            420,
+            498
+          ]
+        },
+        {
+          "name": "heavy2",
+          "region": [
+            88,
+            503,
+            420,
+            530
+          ]
+        },
+        {
+          "name": "heavy3",
+          "region": [
+            88,
+            534,
+            420,
+            560
+          ]
+        },
+        {
+          "name": "charge_light_l1",
+          "region": [
+            88,
+            584,
+            420,
+            624
+          ]
+        },
+        {
+          "name": "charge_light_l2",
+          "region": [
+            88,
+            621,
+            420,
+            653
+          ]
+        },
+        {
+          "name": "charge_light_l3",
+          "region": [
+            88,
+            654,
+            420,
+            683
+          ]
+        },
+        {
+          "name": "charge_heavy_l1",
+          "region": [
+            88,
+            684,
+            420,
+            713
+          ]
+        },
+        {
+          "name": "charge_heavy_l2",
+          "region": [
+            88,
+            714,
+            420,
+            743
+          ]
+        },
+        {
+          "name": "charge_heavy_l3",
+          "region": [
+            88,
+            740,
+            420,
+            773
+          ]
+        },
+        {
+          "name": "dash",
+          "region": [
+            500,
+            34,
+            1060,
+            94
+          ]
+        },
+        {
+          "name": "sprint",
+          "region": [
+            500,
+            98,
+            1060,
+            148
+          ]
+        },
+        {
+          "name": "tp_short",
+          "region": [
+            1066,
+            34,
+            1536,
+            95
+          ]
+        },
+        {
+          "name": "tp_long",
+          "region": [
+            1066,
+            99,
+            1536,
+            150
+          ]
+        },
+        {
+          "name": "tp_strike",
+          "region": [
+            1066,
+            158,
+            1536,
+            211
+          ]
+        },
+        {
+          "name": "tp_strike_long",
+          "region": [
+            1066,
+            221,
+            1536,
+            280
+          ]
+        },
+        {
+          "name": "air_jump_slash",
+          "region": [
+            1066,
+            358,
+            1536,
+            406
+          ]
+        },
+        {
+          "name": "air_slash",
+          "region": [
+            1066,
+            407,
+            1536,
+            447
+          ]
+        },
+        {
+          "name": "air_spin_slash",
+          "region": [
+            1066,
+            451,
+            1536,
+            497
+          ]
+        },
+        {
+          "name": "downward_strike",
+          "region": [
+            1066,
+            500,
+            1536,
+            553
+          ]
+        },
+        {
+          "name": "charge_shot_l1",
+          "region": [
+            1066,
+            570,
+            1536,
+            619
+          ]
+        },
+        {
+          "name": "charge_shot_l2",
+          "region": [
+            1066,
+            622,
+            1536,
+            660
+          ]
+        },
+        {
+          "name": "charge_shot_l3",
+          "region": [
+            1066,
+            660,
+            1536,
+            714
+          ]
+        }
+      ]
+    },
+    {
+      "image": "../sprites/extraframes3.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "charge_awk_gun_l1",
+          "region": [
+            1066,
+            750,
+            1536,
+            788
+          ]
+        },
+        {
+          "name": "charge_awk_gun_l2",
+          "region": [
+            1066,
+            797,
+            1536,
+            837
+          ]
+        },
+        {
+          "name": "charge_awk_gun_l3",
+          "region": [
+            1066,
+            840,
+            1536,
+            876
+          ]
+        }
+      ]
+    }
+  ]
+}

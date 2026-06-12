@@ -1,0 +1,302 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/enemies/6f4d4156-f6a8-43c9-b36f-8cb64fad3e6b.png",
+      "preview_out": "preview_werewolf.png",
+      "out_dir": "../Assets/Art/Sprites/Enemies/Werewolf",
+      "bg_threshold": 38,
+      "key_threshold": 10,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            22,
+            80,
+            250,
+            168
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            272,
+            80,
+            550,
+            168
+          ]
+        },
+        {
+          "name": "attack",
+          "region": [
+            22,
+            388,
+            406,
+            460
+          ]
+        },
+        {
+          "name": "hurt",
+          "region": [
+            22,
+            706,
+            238,
+            786
+          ]
+        },
+        {
+          "name": "death",
+          "region": [
+            22,
+            862,
+            458,
+            940
+          ]
+        }
+      ],
+      "min_ink_per_column": 5,
+      "gap_columns": 1
+    },
+    {
+      "image": "../sprites/enemies/73345569-704b-47f7-bf32-e996870b23b4.png",
+      "preview_out": "preview_chimera.png",
+      "out_dir": "../Assets/Art/Sprites/Enemies/Chimera",
+      "bg_threshold": 38,
+      "key_threshold": 10,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            256,
+            72,
+            499,
+            179
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            512,
+            72,
+            755,
+            179
+          ]
+        },
+        {
+          "name": "attack",
+          "region": [
+            256,
+            371,
+            499,
+            474
+          ]
+        },
+        {
+          "name": "hurt",
+          "region": [
+            614,
+            678,
+            742,
+            794
+          ]
+        },
+        {
+          "name": "death",
+          "region": [
+            20,
+            845,
+            435,
+            947
+          ]
+        }
+      ],
+      "min_ink_per_column": 5,
+      "gap_columns": 1
+    },
+    {
+      "image": "../sprites/enemies/8404bf31-707e-48be-9ee3-5d104d91ba26.png",
+      "preview_out": "preview_reaper.png",
+      "out_dir": "../Assets/Art/Sprites/Enemies/Reaper",
+      "bg_threshold": 38,
+      "key_threshold": 10,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            20,
+            56,
+            243,
+            154
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            256,
+            56,
+            486,
+            154
+          ]
+        },
+        {
+          "name": "shoot",
+          "region": [
+            896,
+            192,
+            1164,
+            294
+          ]
+        },
+        {
+          "name": "attack",
+          "region": [
+            20,
+            346,
+            256,
+            448
+          ]
+        },
+        {
+          "name": "hurt",
+          "region": [
+            397,
+            346,
+            576,
+            448
+          ]
+        },
+        {
+          "name": "death",
+          "region": [
+            1011,
+            346,
+            1164,
+            448
+          ]
+        }
+      ],
+      "min_ink_per_column": 5,
+      "gap_columns": 1
+    },
+    {
+      "image": "../sprites/enemies/ec9cff60-7d87-4918-a5b1-c8a30d999382.png",
+      "preview_out": "preview_sentinel.png",
+      "out_dir": "../Assets/Art/Sprites/Enemies/Sentinel",
+      "bg_threshold": 38,
+      "key_threshold": 10,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            20,
+            56,
+            230,
+            148
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            243,
+            56,
+            474,
+            148
+          ]
+        },
+        {
+          "name": "attack",
+          "region": [
+            20,
+            269,
+            282,
+            358
+          ]
+        },
+        {
+          "name": "hurt",
+          "region": [
+            20,
+            896,
+            166,
+            998
+          ]
+        },
+        {
+          "name": "death",
+          "region": [
+            870,
+            896,
+            1075,
+            998
+          ]
+        }
+      ],
+      "min_ink_per_column": 5,
+      "gap_columns": 1
+    },
+    {
+      "image": "../sprites/enemies/10a43945-82de-4be1-baa8-80602453e87f.png",
+      "preview_out": "preview_samurai.png",
+      "out_dir": "../Assets/Art/Sprites/Enemies/Samurai",
+      "bg_threshold": 38,
+      "key_threshold": 10,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            20,
+            77,
+            154,
+            166
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            166,
+            77,
+            294,
+            166
+          ]
+        },
+        {
+          "name": "attack",
+          "region": [
+            20,
+            277,
+            141,
+            371
+          ]
+        },
+        {
+          "name": "attack2",
+          "region": [
+            154,
+            277,
+            282,
+            371
+          ]
+        },
+        {
+          "name": "hurt",
+          "region": [
+            20,
+            696,
+            128,
+            794
+          ]
+        },
+        {
+          "name": "knockdown",
+          "region": [
+            397,
+            696,
+            550,
+            794
+          ]
+        }
+      ],
+      "min_ink_per_column": 5,
+      "gap_columns": 1
+    }
+  ]
+}

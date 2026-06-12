@@ -1,0 +1,492 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/extraframes.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 10,
+      "animations": [
+        {
+          "name": "idle",
+          "region": [
+            8,
+            52,
+            258,
+            98
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            262,
+            52,
+            525,
+            98
+          ]
+        },
+        {
+          "name": "run",
+          "region": [
+            8,
+            103,
+            525,
+            154
+          ]
+        },
+        {
+          "name": "jump",
+          "region": [
+            8,
+            157,
+            525,
+            203
+          ]
+        },
+        {
+          "name": "crouch",
+          "region": [
+            8,
+            206,
+            525,
+            246
+          ]
+        },
+        {
+          "name": "guard",
+          "region": [
+            8,
+            252,
+            180,
+            306
+          ]
+        },
+        {
+          "name": "hurt",
+          "region": [
+            184,
+            252,
+            352,
+            306
+          ]
+        },
+        {
+          "name": "hurt_heavy",
+          "region": [
+            356,
+            252,
+            525,
+            306
+          ]
+        },
+        {
+          "name": "knockdown",
+          "region": [
+            8,
+            311,
+            318,
+            357
+          ]
+        },
+        {
+          "name": "getup",
+          "region": [
+            322,
+            311,
+            525,
+            357
+          ]
+        },
+        {
+          "name": "awk_light1",
+          "region": [
+            8,
+            359,
+            525,
+            393
+          ]
+        },
+        {
+          "name": "awk_light2",
+          "region": [
+            8,
+            398,
+            525,
+            433
+          ]
+        },
+        {
+          "name": "awk_light3",
+          "region": [
+            8,
+            440,
+            525,
+            475
+          ]
+        },
+        {
+          "name": "awk_heavy1",
+          "region": [
+            8,
+            481,
+            525,
+            515
+          ]
+        },
+        {
+          "name": "awk_heavy2",
+          "region": [
+            8,
+            522,
+            525,
+            556
+          ]
+        },
+        {
+          "name": "awk_heavy3",
+          "region": [
+            8,
+            563,
+            525,
+            598
+          ]
+        },
+        {
+          "name": "awk2_charge_light_l1",
+          "region": [
+            8,
+            614,
+            525,
+            665
+          ]
+        },
+        {
+          "name": "awk2_charge_light_l2",
+          "region": [
+            8,
+            663,
+            525,
+            705
+          ]
+        },
+        {
+          "name": "awk2_charge_light_l3",
+          "region": [
+            8,
+            703,
+            525,
+            747
+          ]
+        },
+        {
+          "name": "awk2_charge_heavy_l1",
+          "region": [
+            8,
+            749,
+            525,
+            787
+          ]
+        },
+        {
+          "name": "awk2_charge_heavy_l2",
+          "region": [
+            8,
+            789,
+            525,
+            830
+          ]
+        },
+        {
+          "name": "awk2_charge_heavy_l3",
+          "region": [
+            8,
+            827,
+            525,
+            877
+          ]
+        },
+        {
+          "name": "awk_dash",
+          "region": [
+            530,
+            28,
+            1035,
+            96
+          ]
+        },
+        {
+          "name": "awk_sprint",
+          "region": [
+            530,
+            93,
+            1035,
+            154
+          ]
+        },
+        {
+          "name": "awk_dash_atk",
+          "region": [
+            530,
+            154,
+            1035,
+            211
+          ]
+        },
+        {
+          "name": "awk_sprint_atk",
+          "region": [
+            530,
+            208,
+            1035,
+            277
+          ]
+        },
+        {
+          "name": "awk_sprint_atk2",
+          "region": [
+            530,
+            275,
+            1035,
+            327
+          ]
+        },
+        {
+          "name": "combo_a",
+          "region": [
+            530,
+            359,
+            1035,
+            405
+          ]
+        },
+        {
+          "name": "combo_b",
+          "region": [
+            530,
+            403,
+            1035,
+            446
+          ]
+        },
+        {
+          "name": "combo_c",
+          "region": [
+            530,
+            443,
+            1035,
+            490
+          ]
+        },
+        {
+          "name": "combo_d",
+          "region": [
+            530,
+            495,
+            1035,
+            531
+          ]
+        },
+        {
+          "name": "combo_e",
+          "region": [
+            530,
+            536,
+            1035,
+            605
+          ]
+        },
+        {
+          "name": "awk_shot_l1",
+          "region": [
+            530,
+            614,
+            1035,
+            680
+          ]
+        },
+        {
+          "name": "awk_shot_l2",
+          "region": [
+            530,
+            695,
+            1035,
+            733
+          ]
+        },
+        {
+          "name": "awk_shot_l3",
+          "region": [
+            530,
+            758,
+            1035,
+            810
+          ]
+        },
+        {
+          "name": "awk_tp_short",
+          "region": [
+            1040,
+            53,
+            1536,
+            97
+          ]
+        },
+        {
+          "name": "awk_tp_long",
+          "region": [
+            1040,
+            102,
+            1536,
+            156
+          ]
+        },
+        {
+          "name": "awk_tp_strike_short",
+          "region": [
+            1040,
+            163,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "awk_tp_strike_long",
+          "region": [
+            1040,
+            213,
+            1536,
+            283
+          ]
+        },
+        {
+          "name": "air_jump_slash",
+          "region": [
+            1040,
+            356,
+            1536,
+            412
+          ]
+        },
+        {
+          "name": "air_slash",
+          "region": [
+            1040,
+            416,
+            1536,
+            459
+          ]
+        },
+        {
+          "name": "air_spin_slash",
+          "region": [
+            1040,
+            466,
+            1536,
+            509
+          ]
+        },
+        {
+          "name": "awk_downward_strike",
+          "region": [
+            1040,
+            513,
+            1536,
+            570
+          ]
+        },
+        {
+          "name": "charge_awk_light_l1",
+          "region": [
+            1040,
+            614,
+            1536,
+            660
+          ]
+        },
+        {
+          "name": "charge_awk_light_l2",
+          "region": [
+            1040,
+            657,
+            1536,
+            693
+          ]
+        },
+        {
+          "name": "charge_awk_light_l3",
+          "region": [
+            1040,
+            690,
+            1536,
+            730
+          ]
+        },
+        {
+          "name": "charge_awk_heavy_l1",
+          "region": [
+            1040,
+            727,
+            1536,
+            760
+          ]
+        },
+        {
+          "name": "charge_awk_heavy_l2",
+          "region": [
+            1040,
+            757,
+            1536,
+            797
+          ]
+        },
+        {
+          "name": "charge_awk_heavy_l3",
+          "region": [
+            1040,
+            794,
+            1536,
+            827
+          ]
+        },
+        {
+          "name": "charge_awk_gun_l1",
+          "region": [
+            1040,
+            822,
+            1536,
+            860
+          ]
+        },
+        {
+          "name": "charge_awk_gun_l2",
+          "region": [
+            1040,
+            856,
+            1536,
+            895
+          ]
+        },
+        {
+          "name": "charge_awk_gun_l3",
+          "region": [
+            1040,
+            891,
+            1536,
+            930
+          ]
+        },
+        {
+          "name": "transform_ext",
+          "region": [
+            8,
+            926,
+            1408,
+            997
+          ]
+        }
+      ]
+    }
+  ]
+}

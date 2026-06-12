@@ -1,0 +1,3143 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/enemies/6f4d4156-f6a8-43c9-b36f-8cb64fad3e6b.png",
+   "preview_out": "preview_v2_werewolf.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Werewolf",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      22,
+      53,
+      235,
+      176
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      261,
+      53,
+      548,
+      176
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      569,
+      53,
+      860,
+      176
+     ]
+    },
+    {
+     "name": "dash",
+     "region": [
+      870,
+      53,
+      1224,
+      176
+     ]
+    },
+    {
+     "name": "jump",
+     "region": [
+      22,
+      199,
+      290,
+      328
+     ]
+    },
+    {
+     "name": "land",
+     "region": [
+      317,
+      199,
+      551,
+      328
+     ]
+    },
+    {
+     "name": "pounce",
+     "region": [
+      573,
+      199,
+      959,
+      328
+     ]
+    },
+    {
+     "name": "crouch",
+     "region": [
+      981,
+      199,
+      1224,
+      328
+     ]
+    },
+    {
+     "name": "claw_slash",
+     "region": [
+      25,
+      363,
+      443,
+      461
+     ]
+    },
+    {
+     "name": "double_claw",
+     "region": [
+      465,
+      363,
+      858,
+      461
+     ]
+    },
+    {
+     "name": "bite",
+     "region": [
+      884,
+      363,
+      1224,
+      461
+     ]
+    },
+    {
+     "name": "cyber_rage",
+     "region": [
+      24,
+      512,
+      352,
+      636
+     ]
+    },
+    {
+     "name": "shred_burst",
+     "region": [
+      383,
+      512,
+      715,
+      636
+     ]
+    },
+    {
+     "name": "spine_blade",
+     "region": [
+      750,
+      512,
+      1095,
+      636
+     ]
+    },
+    {
+     "name": "howl",
+     "region": [
+      1133,
+      512,
+      1224,
+      636
+     ]
+    },
+    {
+     "name": "light_hit",
+     "region": [
+      24,
+      686,
+      235,
+      793
+     ]
+    },
+    {
+     "name": "heavy_hit",
+     "region": [
+      260,
+      686,
+      482,
+      793
+     ]
+    },
+    {
+     "name": "knockdown",
+     "region": [
+      512,
+      686,
+      889,
+      793
+     ]
+    },
+    {
+     "name": "getup",
+     "region": [
+      912,
+      686,
+      1215,
+      793
+     ]
+    },
+    {
+     "name": "death",
+     "region": [
+      22,
+      819,
+      452,
+      971
+     ]
+    },
+    {
+     "name": "transform",
+     "region": [
+      483,
+      819,
+      1206,
+      971
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/73345569-704b-47f7-bf32-e996870b23b4.png",
+   "preview_out": "preview_v2_chimera.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Chimera",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      159,
+      69,
+      432,
+      189
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      464,
+      69,
+      812,
+      189
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      823,
+      69,
+      1044,
+      189
+     ]
+    },
+    {
+     "name": "dash",
+     "region": [
+      1056,
+      69,
+      1224,
+      189
+     ]
+    },
+    {
+     "name": "leap",
+     "region": [
+      148,
+      210,
+      432,
+      345
+     ]
+    },
+    {
+     "name": "land",
+     "region": [
+      448,
+      210,
+      739,
+      345
+     ]
+    },
+    {
+     "name": "roar",
+     "region": [
+      765,
+      210,
+      1022,
+      345
+     ]
+    },
+    {
+     "name": "taunt",
+     "region": [
+      1040,
+      210,
+      1224,
+      345
+     ]
+    },
+    {
+     "name": "bite",
+     "region": [
+      23,
+      368,
+      377,
+      482
+     ]
+    },
+    {
+     "name": "claw_slash",
+     "region": [
+      397,
+      368,
+      681,
+      482
+     ]
+    },
+    {
+     "name": "tail_strike",
+     "region": [
+      702,
+      368,
+      993,
+      482
+     ]
+    },
+    {
+     "name": "horn_thrust",
+     "region": [
+      1002,
+      368,
+      1224,
+      482
+     ]
+    },
+    {
+     "name": "acid_breath",
+     "region": [
+      11,
+      528,
+      357,
+      650
+     ]
+    },
+    {
+     "name": "plasma_beam",
+     "region": [
+      375,
+      528,
+      692,
+      650
+     ]
+    },
+    {
+     "name": "cyber_pounce",
+     "region": [
+      700,
+      528,
+      951,
+      650
+     ]
+    },
+    {
+     "name": "mortar_launch",
+     "region": [
+      968,
+      528,
+      1224,
+      650
+     ]
+    },
+    {
+     "name": "enrage",
+     "region": [
+      20,
+      678,
+      584,
+      807
+     ]
+    },
+    {
+     "name": "light_hit",
+     "region": [
+      606,
+      678,
+      792,
+      807
+     ]
+    },
+    {
+     "name": "heavy_hit",
+     "region": [
+      814,
+      678,
+      974,
+      807
+     ]
+    },
+    {
+     "name": "knockdown",
+     "region": [
+      985,
+      678,
+      1224,
+      807
+     ]
+    },
+    {
+     "name": "death",
+     "region": [
+      11,
+      855,
+      529,
+      978
+     ]
+    },
+    {
+     "name": "getup",
+     "region": [
+      540,
+      855,
+      724,
+      978
+     ]
+    },
+    {
+     "name": "transform",
+     "region": [
+      749,
+      855,
+      1224,
+      978
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/8404bf31-707e-48be-9ee3-5d104d91ba26.png",
+   "preview_out": "preview_v2_reaper.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Reaper",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      24,
+      74,
+      178,
+      172
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      194,
+      74,
+      237,
+      172
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      266,
+      74,
+      520,
+      172
+     ]
+    },
+    {
+     "name": "dash",
+     "region": [
+      540,
+      74,
+      1224,
+      172
+     ]
+    },
+    {
+     "name": "jump",
+     "region": [
+      14,
+      221,
+      249,
+      336
+     ]
+    },
+    {
+     "name": "fall",
+     "region": [
+      266,
+      221,
+      311,
+      336
+     ]
+    },
+    {
+     "name": "land",
+     "region": [
+      324,
+      221,
+      368,
+      336
+     ]
+    },
+    {
+     "name": "crouch",
+     "region": [
+      382,
+      221,
+      420,
+      336
+     ]
+    },
+    {
+     "name": "aim",
+     "region": [
+      433,
+      221,
+      646,
+      336
+     ]
+    },
+    {
+     "name": "shoot",
+     "region": [
+      667,
+      221,
+      1224,
+      336
+     ]
+    },
+    {
+     "name": "melee_slash",
+     "region": [
+      21,
+      375,
+      216,
+      475
+     ]
+    },
+    {
+     "name": "dash_strike",
+     "region": [
+      242,
+      375,
+      452,
+      475
+     ]
+    },
+    {
+     "name": "take_damage",
+     "region": [
+      475,
+      375,
+      631,
+      475
+     ]
+    },
+    {
+     "name": "knockdown",
+     "region": [
+      650,
+      375,
+      841,
+      475
+     ]
+    },
+    {
+     "name": "getup",
+     "region": [
+      862,
+      375,
+      994,
+      475
+     ]
+    },
+    {
+     "name": "death",
+     "region": [
+      1014,
+      375,
+      1224,
+      475
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/ec9cff60-7d87-4918-a5b1-c8a30d999382.png",
+   "preview_out": "preview_v2_sentinel.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Sentinel",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      32,
+      69,
+      263,
+      146
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      308,
+      69,
+      812,
+      146
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      863,
+      69,
+      929,
+      146
+     ]
+    },
+    {
+     "name": "dash",
+     "region": [
+      959,
+      69,
+      1203,
+      146
+     ]
+    },
+    {
+     "name": "jump",
+     "region": [
+      21,
+      165,
+      192,
+      262
+     ]
+    },
+    {
+     "name": "fall",
+     "region": [
+      220,
+      165,
+      400,
+      262
+     ]
+    },
+    {
+     "name": "land",
+     "region": [
+      435,
+      165,
+      640,
+      262
+     ]
+    },
+    {
+     "name": "crouch",
+     "region": [
+      670,
+      165,
+      850,
+      262
+     ]
+    },
+    {
+     "name": "roll",
+     "region": [
+      879,
+      165,
+      1046,
+      262
+     ]
+    },
+    {
+     "name": "getup",
+     "region": [
+      1071,
+      165,
+      1197,
+      262
+     ]
+    },
+    {
+     "name": "punch_combo",
+     "region": [
+      25,
+      329,
+      311,
+      406
+     ]
+    },
+    {
+     "name": "kick_combo",
+     "region": [
+      344,
+      329,
+      598,
+      406
+     ]
+    },
+    {
+     "name": "slash_attack",
+     "region": [
+      625,
+      329,
+      797,
+      406
+     ]
+    },
+    {
+     "name": "spin_slash",
+     "region": [
+      819,
+      329,
+      1025,
+      406
+     ]
+    },
+    {
+     "name": "uppercut",
+     "region": [
+      1062,
+      329,
+      1196,
+      406
+     ]
+    },
+    {
+     "name": "aim",
+     "region": [
+      29,
+      484,
+      79,
+      561
+     ]
+    },
+    {
+     "name": "rapid_fire",
+     "region": [
+      106,
+      484,
+      371,
+      561
+     ]
+    },
+    {
+     "name": "charged_shot",
+     "region": [
+      402,
+      484,
+      601,
+      561
+     ]
+    },
+    {
+     "name": "piercing_shot",
+     "region": [
+      631,
+      484,
+      828,
+      561
+     ]
+    },
+    {
+     "name": "spread_shot",
+     "region": [
+      857,
+      484,
+      1023,
+      561
+     ]
+    },
+    {
+     "name": "missile_launch",
+     "region": [
+      1052,
+      484,
+      1199,
+      561
+     ]
+    },
+    {
+     "name": "energy_blade",
+     "region": [
+      24,
+      624,
+      257,
+      714
+     ]
+    },
+    {
+     "name": "phase_dash",
+     "region": [
+      324,
+      624,
+      561,
+      714
+     ]
+    },
+    {
+     "name": "shield_generate",
+     "region": [
+      607,
+      624,
+      734,
+      714
+     ]
+    },
+    {
+     "name": "overdrive",
+     "region": [
+      788,
+      624,
+      972,
+      714
+     ]
+    },
+    {
+     "name": "drone_deploy",
+     "region": [
+      1009,
+      624,
+      1194,
+      714
+     ]
+    },
+    {
+     "name": "wall_run",
+     "region": [
+      25,
+      764,
+      238,
+      860
+     ]
+    },
+    {
+     "name": "wall_jump",
+     "region": [
+      266,
+      764,
+      381,
+      860
+     ]
+    },
+    {
+     "name": "air_dash",
+     "region": [
+      427,
+      764,
+      570,
+      860
+     ]
+    },
+    {
+     "name": "double_jump",
+     "region": [
+      602,
+      764,
+      970,
+      860
+     ]
+    },
+    {
+     "name": "slide",
+     "region": [
+      1000,
+      764,
+      1127,
+      860
+     ]
+    },
+    {
+     "name": "grapple",
+     "region": [
+      1154,
+      764,
+      1202,
+      860
+     ]
+    },
+    {
+     "name": "light_hit",
+     "region": [
+      25,
+      911,
+      454,
+      993
+     ]
+    },
+    {
+     "name": "heavy_hit",
+     "region": [
+      478,
+      911,
+      571,
+      993
+     ]
+    },
+    {
+     "name": "critical_hit",
+     "region": [
+      592,
+      911,
+      683,
+      993
+     ]
+    },
+    {
+     "name": "knockdown",
+     "region": [
+      711,
+      911,
+      942,
+      993
+     ]
+    },
+    {
+     "name": "death",
+     "region": [
+      963,
+      911,
+      1195,
+      993
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/chimera1.jpg",
+   "preview_out": "preview_v2_chimera.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Chimera",
+   "bg_threshold": 40,
+   "key_threshold": 16,
+   "min_ink_per_column": 8,
+   "gap_columns": 1,
+   "animations": [
+    {
+     "name": "claw_slash",
+     "region": [
+      14,
+      190,
+      84,
+      292
+     ]
+    },
+    {
+     "name": "double_claw",
+     "region": [
+      102,
+      190,
+      488,
+      292
+     ]
+    },
+    {
+     "name": "spinning_claw",
+     "region": [
+      503,
+      190,
+      666,
+      292
+     ]
+    },
+    {
+     "name": "tail_whip",
+     "region": [
+      695,
+      190,
+      836,
+      292
+     ]
+    },
+    {
+     "name": "predator_pounce",
+     "region": [
+      852,
+      190,
+      1060,
+      292
+     ]
+    },
+    {
+     "name": "blood_rend",
+     "region": [
+      16,
+      327,
+      262,
+      398
+     ]
+    },
+    {
+     "name": "hyper_claw",
+     "region": [
+      284,
+      327,
+      734,
+      398
+     ]
+    },
+    {
+     "name": "tail_spike_combo",
+     "region": [
+      755,
+      327,
+      837,
+      398
+     ]
+    },
+    {
+     "name": "frenzied_rush",
+     "region": [
+      857,
+      327,
+      1060,
+      398
+     ]
+    },
+    {
+     "name": "plasma_beam",
+     "region": [
+      16,
+      440,
+      269,
+      515
+     ]
+    },
+    {
+     "name": "acid_spray",
+     "region": [
+      288,
+      440,
+      481,
+      515
+     ]
+    },
+    {
+     "name": "homing_orbs",
+     "region": [
+      498,
+      440,
+      776,
+      515
+     ]
+    },
+    {
+     "name": "missile_barrage",
+     "region": [
+      801,
+      440,
+      1053,
+      515
+     ]
+    },
+    {
+     "name": "cyber_pounce",
+     "region": [
+      17,
+      555,
+      254,
+      622
+     ]
+    },
+    {
+     "name": "blood_explosion",
+     "region": [
+      275,
+      555,
+      380,
+      622
+     ]
+    },
+    {
+     "name": "plasma_core",
+     "region": [
+      400,
+      555,
+      513,
+      622
+     ]
+    },
+    {
+     "name": "tail_drill",
+     "region": [
+      542,
+      555,
+      1056,
+      622
+     ]
+    },
+    {
+     "name": "overheat_mode",
+     "region": [
+      16,
+      660,
+      106,
+      733
+     ]
+    },
+    {
+     "name": "armor_overdrive",
+     "region": [
+      127,
+      660,
+      271,
+      733
+     ]
+    },
+    {
+     "name": "core_exposed",
+     "region": [
+      289,
+      660,
+      761,
+      733
+     ]
+    },
+    {
+     "name": "berserk_mode",
+     "region": [
+      784,
+      660,
+      1057,
+      733
+     ]
+    },
+    {
+     "name": "light_hit",
+     "region": [
+      16,
+      773,
+      184,
+      832
+     ]
+    },
+    {
+     "name": "heavy_hit",
+     "region": [
+      216,
+      773,
+      335,
+      832
+     ]
+    },
+    {
+     "name": "critical_hit",
+     "region": [
+      351,
+      773,
+      584,
+      832
+     ]
+    },
+    {
+     "name": "knockdown",
+     "region": [
+      608,
+      773,
+      840,
+      832
+     ]
+    },
+    {
+     "name": "getup",
+     "region": [
+      857,
+      773,
+      1055,
+      832
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/werewolf1.png",
+   "preview_out": "preview_v2_werewolf.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Werewolf",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      10,
+      48,
+      540,
+      125
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      13,
+      143,
+      528,
+      204
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      13,
+      227,
+      540,
+      283
+     ]
+    },
+    {
+     "name": "dash",
+     "region": [
+      12,
+      307,
+      540,
+      365
+     ]
+    },
+    {
+     "name": "jump",
+     "region": [
+      13,
+      391,
+      540,
+      452
+     ]
+    },
+    {
+     "name": "transform",
+     "region": [
+      9,
+      493,
+      540,
+      537
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/cybersamurai.png",
+   "preview_out": "preview_v2_samurai.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Samurai",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      27,
+      65,
+      124,
+      112
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      174,
+      65,
+      492,
+      112
+     ]
+    },
+    {
+     "name": "dash",
+     "region": [
+      534,
+      65,
+      755,
+      112
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      26,
+      137,
+      755,
+      175
+     ]
+    },
+    {
+     "name": "jump_fall",
+     "region": [
+      20,
+      213,
+      266,
+      242
+     ]
+    },
+    {
+     "name": "land",
+     "region": [
+      294,
+      213,
+      497,
+      242
+     ]
+    },
+    {
+     "name": "crouch",
+     "region": [
+      518,
+      213,
+      755,
+      242
+     ]
+    },
+    {
+     "name": "block_parry",
+     "region": [
+      26,
+      267,
+      755,
+      307
+     ]
+    },
+    {
+     "name": "slash1",
+     "region": [
+      20,
+      345,
+      214,
+      395
+     ]
+    },
+    {
+     "name": "slash2",
+     "region": [
+      232,
+      345,
+      405,
+      395
+     ]
+    },
+    {
+     "name": "thrust",
+     "region": [
+      441,
+      345,
+      579,
+      395
+     ]
+    },
+    {
+     "name": "rising_slash",
+     "region": [
+      600,
+      345,
+      741,
+      395
+     ]
+    },
+    {
+     "name": "combo1",
+     "region": [
+      19,
+      441,
+      190,
+      495
+     ]
+    },
+    {
+     "name": "combo2",
+     "region": [
+      207,
+      441,
+      376,
+      495
+     ]
+    },
+    {
+     "name": "combo3",
+     "region": [
+      391,
+      441,
+      582,
+      495
+     ]
+    },
+    {
+     "name": "spin_blade",
+     "region": [
+      606,
+      441,
+      755,
+      495
+     ]
+    },
+    {
+     "name": "energy_wave",
+     "region": [
+      21,
+      545,
+      210,
+      601
+     ]
+    },
+    {
+     "name": "teleport_slash",
+     "region": [
+      236,
+      545,
+      409,
+      601
+     ]
+    },
+    {
+     "name": "pulse_slash",
+     "region": [
+      436,
+      545,
+      589,
+      601
+     ]
+    },
+    {
+     "name": "dragon_cut",
+     "region": [
+      610,
+      545,
+      755,
+      601
+     ]
+    },
+    {
+     "name": "dimension_cut",
+     "region": [
+      19,
+      652,
+      216,
+      707
+     ]
+    },
+    {
+     "name": "blade_storm",
+     "region": [
+      248,
+      652,
+      512,
+      707
+     ]
+    },
+    {
+     "name": "void_slash",
+     "region": [
+      541,
+      652,
+      755,
+      707
+     ]
+    },
+    {
+     "name": "light_hit",
+     "region": [
+      22,
+      756,
+      179,
+      803
+     ]
+    },
+    {
+     "name": "heavy_hit",
+     "region": [
+      198,
+      756,
+      364,
+      803
+     ]
+    },
+    {
+     "name": "knocked_down",
+     "region": [
+      381,
+      756,
+      588,
+      803
+     ]
+    },
+    {
+     "name": "get_up",
+     "region": [
+      608,
+      756,
+      747,
+      803
+     ]
+    },
+    {
+     "name": "death1",
+     "region": [
+      17,
+      850,
+      265,
+      893
+     ]
+    },
+    {
+     "name": "death2",
+     "region": [
+      278,
+      850,
+      515,
+      893
+     ]
+    },
+    {
+     "name": "death3",
+     "region": [
+      534,
+      850,
+      747,
+      893
+     ]
+    },
+    {
+     "name": "wall_cling",
+     "region": [
+      21,
+      937,
+      108,
+      1003
+     ]
+    },
+    {
+     "name": "wall_run",
+     "region": [
+      168,
+      937,
+      251,
+      1003
+     ]
+    },
+    {
+     "name": "wall_jump",
+     "region": [
+      312,
+      937,
+      414,
+      1003
+     ]
+    },
+    {
+     "name": "execution",
+     "region": [
+      454,
+      937,
+      755,
+      1003
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/cybersamurai.png",
+   "preview_out": "preview_v2_samuraidual.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/SamuraiDual",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      790,
+      65,
+      888,
+      114
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      924,
+      65,
+      1086,
+      114
+     ]
+    },
+    {
+     "name": "dash",
+     "region": [
+      1118,
+      65,
+      1506,
+      114
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      798,
+      138,
+      1518,
+      187
+     ]
+    },
+    {
+     "name": "jump_fall",
+     "region": [
+      792,
+      220,
+      998,
+      254
+     ]
+    },
+    {
+     "name": "land",
+     "region": [
+      1038,
+      220,
+      1235,
+      254
+     ]
+    },
+    {
+     "name": "crouch",
+     "region": [
+      1270,
+      220,
+      1517,
+      254
+     ]
+    },
+    {
+     "name": "block_parry",
+     "region": [
+      791,
+      281,
+      1516,
+      324
+     ]
+    },
+    {
+     "name": "slash1",
+     "region": [
+      785,
+      366,
+      971,
+      413
+     ]
+    },
+    {
+     "name": "slash2",
+     "region": [
+      986,
+      366,
+      1149,
+      413
+     ]
+    },
+    {
+     "name": "thrust",
+     "region": [
+      1165,
+      366,
+      1317,
+      413
+     ]
+    },
+    {
+     "name": "rising_slash",
+     "region": [
+      1337,
+      366,
+      1515,
+      413
+     ]
+    },
+    {
+     "name": "combo1",
+     "region": [
+      783,
+      463,
+      948,
+      510
+     ]
+    },
+    {
+     "name": "combo2",
+     "region": [
+      981,
+      463,
+      1153,
+      510
+     ]
+    },
+    {
+     "name": "combo3",
+     "region": [
+      1174,
+      463,
+      1345,
+      510
+     ]
+    },
+    {
+     "name": "spin_blade",
+     "region": [
+      1372,
+      463,
+      1506,
+      510
+     ]
+    },
+    {
+     "name": "energy_wave",
+     "region": [
+      784,
+      559,
+      945,
+      612
+     ]
+    },
+    {
+     "name": "teleport_slash",
+     "region": [
+      964,
+      559,
+      1126,
+      612
+     ]
+    },
+    {
+     "name": "pulse_slash",
+     "region": [
+      1143,
+      559,
+      1311,
+      612
+     ]
+    },
+    {
+     "name": "dragon_cut",
+     "region": [
+      1331,
+      559,
+      1515,
+      612
+     ]
+    },
+    {
+     "name": "dimension_cut",
+     "region": [
+      785,
+      659,
+      1016,
+      717
+     ]
+    },
+    {
+     "name": "blade_storm",
+     "region": [
+      1045,
+      659,
+      1269,
+      717
+     ]
+    },
+    {
+     "name": "void_slash",
+     "region": [
+      1294,
+      659,
+      1515,
+      717
+     ]
+    },
+    {
+     "name": "light_hit",
+     "region": [
+      782,
+      766,
+      951,
+      812
+     ]
+    },
+    {
+     "name": "heavy_hit",
+     "region": [
+      970,
+      766,
+      1152,
+      812
+     ]
+    },
+    {
+     "name": "knocked_down",
+     "region": [
+      1169,
+      766,
+      1367,
+      812
+     ]
+    },
+    {
+     "name": "get_up",
+     "region": [
+      1386,
+      766,
+      1514,
+      812
+     ]
+    },
+    {
+     "name": "death1",
+     "region": [
+      783,
+      863,
+      1023,
+      906
+     ]
+    },
+    {
+     "name": "death2",
+     "region": [
+      1035,
+      863,
+      1264,
+      906
+     ]
+    },
+    {
+     "name": "death3",
+     "region": [
+      1275,
+      863,
+      1514,
+      906
+     ]
+    },
+    {
+     "name": "wall_cling",
+     "region": [
+      786,
+      934,
+      877,
+      1005
+     ]
+    },
+    {
+     "name": "wall_run",
+     "region": [
+      932,
+      934,
+      1030,
+      1005
+     ]
+    },
+    {
+     "name": "wall_jump",
+     "region": [
+      1070,
+      934,
+      1196,
+      1005
+     ]
+    },
+    {
+     "name": "execution",
+     "region": [
+      1218,
+      934,
+      1512,
+      1005
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/hilo/enemyextraframes.png",
+   "preview_out": "preview_v2_guard.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Guard",
+   "bg_threshold": 26,
+   "key_threshold": 10,
+   "min_ink_per_column": 4,
+   "gap_columns": 1,
+   "upscale": 4,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      12,
+      53,
+      263,
+      79
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      12,
+      84,
+      263,
+      105
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      12,
+      111,
+      263,
+      133
+     ]
+    },
+    {
+     "name": "aim",
+     "region": [
+      12,
+      138,
+      263,
+      159
+     ]
+    },
+    {
+     "name": "shoot",
+     "region": [
+      12,
+      164,
+      263,
+      185
+     ]
+    },
+    {
+     "name": "reload",
+     "region": [
+      12,
+      191,
+      263,
+      211
+     ]
+    },
+    {
+     "name": "melee",
+     "region": [
+      12,
+      217,
+      263,
+      237
+     ]
+    },
+    {
+     "name": "block",
+     "region": [
+      12,
+      242,
+      263,
+      262
+     ]
+    },
+    {
+     "name": "hurt_light",
+     "region": [
+      12,
+      268,
+      263,
+      288
+     ]
+    },
+    {
+     "name": "hurt_heavy",
+     "region": [
+      12,
+      293,
+      263,
+      312
+     ]
+    },
+    {
+     "name": "knockdown",
+     "region": [
+      12,
+      320,
+      263,
+      338
+     ]
+    },
+    {
+     "name": "getup",
+     "region": [
+      12,
+      344,
+      263,
+      363
+     ]
+    },
+    {
+     "name": "death1",
+     "region": [
+      12,
+      369,
+      263,
+      388
+     ]
+    },
+    {
+     "name": "death2",
+     "region": [
+      12,
+      394,
+      263,
+      416
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/hilo/enemyextraframes.png",
+   "preview_out": "preview_v2_bruiser.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Bruiser",
+   "bg_threshold": 26,
+   "key_threshold": 10,
+   "min_ink_per_column": 4,
+   "gap_columns": 1,
+   "upscale": 4,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      287,
+      51,
+      539,
+      80
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      287,
+      83,
+      539,
+      107
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      287,
+      112,
+      539,
+      134
+     ]
+    },
+    {
+     "name": "aim",
+     "region": [
+      287,
+      139,
+      539,
+      160
+     ]
+    },
+    {
+     "name": "shoot",
+     "region": [
+      287,
+      165,
+      539,
+      186
+     ]
+    },
+    {
+     "name": "reload",
+     "region": [
+      287,
+      191,
+      539,
+      213
+     ]
+    },
+    {
+     "name": "melee",
+     "region": [
+      287,
+      217,
+      539,
+      239
+     ]
+    },
+    {
+     "name": "block",
+     "region": [
+      287,
+      244,
+      539,
+      264
+     ]
+    },
+    {
+     "name": "hurt_light",
+     "region": [
+      287,
+      270,
+      539,
+      291
+     ]
+    },
+    {
+     "name": "hurt_heavy",
+     "region": [
+      287,
+      296,
+      539,
+      316
+     ]
+    },
+    {
+     "name": "knockdown",
+     "region": [
+      287,
+      321,
+      539,
+      339
+     ]
+    },
+    {
+     "name": "getup",
+     "region": [
+      287,
+      348,
+      539,
+      363
+     ]
+    },
+    {
+     "name": "death1",
+     "region": [
+      287,
+      370,
+      539,
+      388
+     ]
+    },
+    {
+     "name": "death2",
+     "region": [
+      287,
+      394,
+      539,
+      415
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/hilo/enemyextraframes.png",
+   "preview_out": "preview_v2_ranger.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Ranger",
+   "bg_threshold": 26,
+   "key_threshold": 10,
+   "min_ink_per_column": 4,
+   "gap_columns": 1,
+   "upscale": 4,
+   "animations": [
+    {
+     "name": "row_00",
+     "region": [
+      552,
+      58,
+      840,
+      79
+     ]
+    },
+    {
+     "name": "row_01",
+     "region": [
+      552,
+      84,
+      840,
+      106
+     ]
+    },
+    {
+     "name": "row_02",
+     "region": [
+      552,
+      114,
+      840,
+      133
+     ]
+    },
+    {
+     "name": "row_03",
+     "region": [
+      552,
+      138,
+      840,
+      160
+     ]
+    },
+    {
+     "name": "row_04",
+     "region": [
+      552,
+      166,
+      840,
+      185
+     ]
+    },
+    {
+     "name": "row_05",
+     "region": [
+      552,
+      192,
+      840,
+      211
+     ]
+    },
+    {
+     "name": "row_06",
+     "region": [
+      552,
+      218,
+      840,
+      237
+     ]
+    },
+    {
+     "name": "row_07",
+     "region": [
+      552,
+      244,
+      840,
+      260
+     ]
+    },
+    {
+     "name": "row_08",
+     "region": [
+      552,
+      266,
+      840,
+      286
+     ]
+    },
+    {
+     "name": "row_09",
+     "region": [
+      552,
+      291,
+      840,
+      312
+     ]
+    },
+    {
+     "name": "row_10",
+     "region": [
+      552,
+      317,
+      840,
+      337
+     ]
+    },
+    {
+     "name": "row_11",
+     "region": [
+      552,
+      343,
+      840,
+      360
+     ]
+    },
+    {
+     "name": "row_12",
+     "region": [
+      552,
+      367,
+      840,
+      384
+     ]
+    },
+    {
+     "name": "row_13",
+     "region": [
+      552,
+      390,
+      840,
+      408
+     ]
+    },
+    {
+     "name": "row_14",
+     "region": [
+      552,
+      414,
+      840,
+      433
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/hilo/enemyextraframes.png",
+   "preview_out": "preview_v2_drone.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Drone",
+   "bg_threshold": 26,
+   "key_threshold": 10,
+   "min_ink_per_column": 4,
+   "gap_columns": 1,
+   "upscale": 4,
+   "animations": [
+    {
+     "name": "row_00",
+     "region": [
+      852,
+      59,
+      1046,
+      77
+     ]
+    },
+    {
+     "name": "row_01",
+     "region": [
+      852,
+      88,
+      1046,
+      105
+     ]
+    },
+    {
+     "name": "row_02",
+     "region": [
+      852,
+      117,
+      1046,
+      135
+     ]
+    },
+    {
+     "name": "row_03",
+     "region": [
+      852,
+      149,
+      1046,
+      167
+     ]
+    },
+    {
+     "name": "row_04",
+     "region": [
+      852,
+      182,
+      1046,
+      200
+     ]
+    },
+    {
+     "name": "row_05",
+     "region": [
+      852,
+      213,
+      1046,
+      232
+     ]
+    },
+    {
+     "name": "row_06",
+     "region": [
+      852,
+      246,
+      1046,
+      265
+     ]
+    },
+    {
+     "name": "row_07",
+     "region": [
+      852,
+      276,
+      1046,
+      297
+     ]
+    },
+    {
+     "name": "row_08",
+     "region": [
+      852,
+      308,
+      1046,
+      329
+     ]
+    },
+    {
+     "name": "row_09",
+     "region": [
+      852,
+      340,
+      1046,
+      357
+     ]
+    },
+    {
+     "name": "row_10",
+     "region": [
+      852,
+      367,
+      1046,
+      393
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/hilo/enemyextraframes.png",
+   "preview_out": "preview_v2_titan.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Titan",
+   "bg_threshold": 26,
+   "key_threshold": 10,
+   "min_ink_per_column": 4,
+   "gap_columns": 1,
+   "upscale": 4,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      1060,
+      52,
+      1289,
+      80
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      1060,
+      83,
+      1289,
+      108
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      1060,
+      112,
+      1289,
+      135
+     ]
+    },
+    {
+     "name": "aim",
+     "region": [
+      1060,
+      139,
+      1289,
+      160
+     ]
+    },
+    {
+     "name": "shoot",
+     "region": [
+      1060,
+      166,
+      1289,
+      190
+     ]
+    },
+    {
+     "name": "reload",
+     "region": [
+      1060,
+      195,
+      1289,
+      218
+     ]
+    },
+    {
+     "name": "melee",
+     "region": [
+      1060,
+      227,
+      1289,
+      247
+     ]
+    },
+    {
+     "name": "block",
+     "region": [
+      1060,
+      254,
+      1289,
+      273
+     ]
+    },
+    {
+     "name": "hurt_light",
+     "region": [
+      1060,
+      278,
+      1289,
+      297
+     ]
+    },
+    {
+     "name": "hurt_heavy",
+     "region": [
+      1060,
+      303,
+      1289,
+      321
+     ]
+    },
+    {
+     "name": "knockdown",
+     "region": [
+      1060,
+      330,
+      1289,
+      347
+     ]
+    },
+    {
+     "name": "getup",
+     "region": [
+      1060,
+      355,
+      1289,
+      372
+     ]
+    },
+    {
+     "name": "death1",
+     "region": [
+      1060,
+      379,
+      1289,
+      400
+     ]
+    },
+    {
+     "name": "death2",
+     "region": [
+      1060,
+      406,
+      1289,
+      428
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/hilo/enemyextraframes.png",
+   "preview_out": "preview_v2_shinobi.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Shinobi",
+   "bg_threshold": 26,
+   "key_threshold": 10,
+   "min_ink_per_column": 4,
+   "gap_columns": 1,
+   "upscale": 4,
+   "animations": [
+    {
+     "name": "row_00",
+     "region": [
+      1310,
+      57,
+      1519,
+      79
+     ]
+    },
+    {
+     "name": "row_01",
+     "region": [
+      1310,
+      84,
+      1519,
+      103
+     ]
+    },
+    {
+     "name": "row_02",
+     "region": [
+      1310,
+      110,
+      1519,
+      129
+     ]
+    },
+    {
+     "name": "row_03",
+     "region": [
+      1310,
+      135,
+      1519,
+      152
+     ]
+    },
+    {
+     "name": "row_04",
+     "region": [
+      1310,
+      160,
+      1519,
+      178
+     ]
+    },
+    {
+     "name": "row_05",
+     "region": [
+      1310,
+      182,
+      1519,
+      201
+     ]
+    },
+    {
+     "name": "row_06",
+     "region": [
+      1310,
+      208,
+      1519,
+      224
+     ]
+    },
+    {
+     "name": "row_07",
+     "region": [
+      1310,
+      232,
+      1519,
+      247
+     ]
+    },
+    {
+     "name": "row_08",
+     "region": [
+      1310,
+      255,
+      1519,
+      271
+     ]
+    },
+    {
+     "name": "row_09",
+     "region": [
+      1310,
+      279,
+      1519,
+      294
+     ]
+    },
+    {
+     "name": "row_10",
+     "region": [
+      1310,
+      301,
+      1519,
+      319
+     ]
+    },
+    {
+     "name": "row_11",
+     "region": [
+      1310,
+      324,
+      1519,
+      340
+     ]
+    },
+    {
+     "name": "row_12",
+     "region": [
+      1310,
+      347,
+      1519,
+      363
+     ]
+    },
+    {
+     "name": "row_13",
+     "region": [
+      1310,
+      372,
+      1519,
+      385
+     ]
+    },
+    {
+     "name": "row_14",
+     "region": [
+      1310,
+      391,
+      1519,
+      408
+     ]
+    },
+    {
+     "name": "row_15",
+     "region": [
+      1310,
+      414,
+      1519,
+      432
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/enemyextraframes.png",
+   "preview_out": "preview_eef2_guard.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Guard",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "upscale": 2,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      131,
+      54,
+      267,
+      120
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      267,
+      54,
+      522,
+      120
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      522,
+      54,
+      731,
+      120
+     ]
+    },
+    {
+     "name": "shoot",
+     "region": [
+      731,
+      54,
+      937,
+      120
+     ]
+    },
+    {
+     "name": "special",
+     "region": [
+      937,
+      54,
+      1117,
+      120
+     ]
+    },
+    {
+     "name": "hit_big",
+     "region": [
+      1117,
+      54,
+      1293,
+      120
+     ]
+    },
+    {
+     "name": "death_big",
+     "region": [
+      1293,
+      54,
+      1530,
+      120
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/enemyextraframes.png",
+   "preview_out": "preview_eef2_bruiser.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Bruiser",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "upscale": 2,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      131,
+      132,
+      267,
+      203
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      267,
+      132,
+      522,
+      203
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      522,
+      132,
+      731,
+      203
+     ]
+    },
+    {
+     "name": "shoot",
+     "region": [
+      731,
+      132,
+      937,
+      203
+     ]
+    },
+    {
+     "name": "special",
+     "region": [
+      937,
+      132,
+      1117,
+      203
+     ]
+    },
+    {
+     "name": "hit_big",
+     "region": [
+      1117,
+      132,
+      1293,
+      203
+     ]
+    },
+    {
+     "name": "death_big",
+     "region": [
+      1293,
+      132,
+      1530,
+      203
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/enemyextraframes.png",
+   "preview_out": "preview_eef2_ranger.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Ranger",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "upscale": 2,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      131,
+      211,
+      267,
+      272
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      267,
+      211,
+      522,
+      272
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      522,
+      211,
+      731,
+      272
+     ]
+    },
+    {
+     "name": "shoot",
+     "region": [
+      731,
+      211,
+      937,
+      272
+     ]
+    },
+    {
+     "name": "special",
+     "region": [
+      937,
+      211,
+      1117,
+      272
+     ]
+    },
+    {
+     "name": "hit_big",
+     "region": [
+      1117,
+      211,
+      1293,
+      272
+     ]
+    },
+    {
+     "name": "death_big",
+     "region": [
+      1293,
+      211,
+      1530,
+      272
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/enemyextraframes.png",
+   "preview_out": "preview_eef2_drone.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Drone",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "upscale": 2,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      131,
+      287,
+      267,
+      343
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      267,
+      287,
+      522,
+      343
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      522,
+      287,
+      731,
+      343
+     ]
+    },
+    {
+     "name": "shoot",
+     "region": [
+      731,
+      287,
+      937,
+      343
+     ]
+    },
+    {
+     "name": "special",
+     "region": [
+      937,
+      287,
+      1117,
+      343
+     ]
+    },
+    {
+     "name": "hit_big",
+     "region": [
+      1117,
+      287,
+      1293,
+      343
+     ]
+    },
+    {
+     "name": "death_big",
+     "region": [
+      1293,
+      287,
+      1530,
+      343
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/enemyextraframes.png",
+   "preview_out": "preview_eef2_titan.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Titan",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "upscale": 2,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      131,
+      355,
+      267,
+      431
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      267,
+      355,
+      522,
+      431
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      522,
+      355,
+      731,
+      431
+     ]
+    },
+    {
+     "name": "shoot",
+     "region": [
+      731,
+      355,
+      937,
+      431
+     ]
+    },
+    {
+     "name": "special",
+     "region": [
+      937,
+      355,
+      1117,
+      431
+     ]
+    },
+    {
+     "name": "hit_big",
+     "region": [
+      1117,
+      355,
+      1293,
+      431
+     ]
+    },
+    {
+     "name": "death_big",
+     "region": [
+      1293,
+      355,
+      1530,
+      431
+     ]
+    }
+   ]
+  },
+  {
+   "image": "../sprites/enemies/enemyextraframes.png",
+   "preview_out": "preview_eef2_shinobi.png",
+   "out_dir": "../Assets/Art/Sprites/Enemies/Shinobi",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 1,
+   "upscale": 2,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      131,
+      444,
+      267,
+      507
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      267,
+      444,
+      522,
+      507
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      522,
+      444,
+      731,
+      507
+     ]
+    },
+    {
+     "name": "shoot",
+     "region": [
+      731,
+      444,
+      937,
+      507
+     ]
+    },
+    {
+     "name": "special",
+     "region": [
+      937,
+      444,
+      1117,
+      507
+     ]
+    },
+    {
+     "name": "hit_big",
+     "region": [
+      1117,
+      444,
+      1293,
+      507
+     ]
+    },
+    {
+     "name": "death_big",
+     "region": [
+      1293,
+      444,
+      1530,
+      507
+     ]
+    }
+   ]
+  }
+ ]
+}

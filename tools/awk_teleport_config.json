@@ -1,0 +1,195 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/dashandsprintteleportattacksandanimations.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 26,
+      "key_threshold": 10,
+      "min_ink_per_column": 2,
+      "gap_columns": 3,
+      "min_frame_width": 8,
+      "animations": [
+        {
+          "name": "awkdash_1",
+          "region": [
+            8,
+            63,
+            740,
+            163
+          ],
+          "force_frames": 7
+        },
+        {
+          "name": "awkdash_2",
+          "region": [
+            8,
+            161,
+            740,
+            262
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awkdash_3",
+          "region": [
+            8,
+            260,
+            740,
+            361
+          ],
+          "force_frames": 7
+        },
+        {
+          "name": "awktp2_1",
+          "region": [
+            8,
+            399,
+            740,
+            505
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awktp2_2",
+          "region": [
+            8,
+            503,
+            740,
+            609
+          ],
+          "force_frames": 1
+        },
+        {
+          "name": "awktp2_3",
+          "region": [
+            8,
+            607,
+            740,
+            713
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "awktpatk_1",
+          "region": [
+            8,
+            751,
+            740,
+            838
+          ],
+          "force_frames": 3
+        },
+        {
+          "name": "awktpatk_2",
+          "region": [
+            8,
+            836,
+            740,
+            923
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "awktpatk_3",
+          "region": [
+            8,
+            921,
+            740,
+            1009
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "awkrun_1",
+          "region": [
+            780,
+            63,
+            1520,
+            163
+          ],
+          "force_frames": 7
+        },
+        {
+          "name": "awkrun_2",
+          "region": [
+            780,
+            161,
+            1520,
+            262
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awkrun_3",
+          "region": [
+            780,
+            260,
+            1520,
+            361
+          ],
+          "force_frames": 6
+        },
+        {
+          "name": "awkltp_1",
+          "region": [
+            780,
+            399,
+            1520,
+            505
+          ],
+          "force_frames": 5
+        },
+        {
+          "name": "awkltp_2",
+          "region": [
+            780,
+            503,
+            1520,
+            609
+          ],
+          "force_frames": 1
+        },
+        {
+          "name": "awkltp_3",
+          "region": [
+            780,
+            607,
+            1520,
+            713
+          ],
+          "force_frames": 4
+        },
+        {
+          "name": "awkltpatk_1",
+          "region": [
+            780,
+            752,
+            1520,
+            766
+          ],
+          "force_frames": 3
+        },
+        {
+          "name": "awkltpatk_2",
+          "region": [
+            780,
+            780,
+            1520,
+            878
+          ],
+          "force_frames": 3
+        },
+        {
+          "name": "awkltpatk_3",
+          "region": [
+            780,
+            890,
+            1520,
+            999
+          ],
+          "force_frames": 6
+        }
+      ]
+    }
+  ]
+}

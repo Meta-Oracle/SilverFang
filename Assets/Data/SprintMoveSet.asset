@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4fdd9228c534747a57e44c21f9d9ee, type: 3}
+  m_Name: SprintMoveSet
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.MoveSet
+  moves:
+  - id: SprintSlashAtk
+    animatorTrigger: SprintSlashAtk
+    sequence: 00000000
+    attack:
+      damage: 14
+      hitstun: 0.312
+      knockback: {x: 2.8, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.432
+  - id: SprintThrustAtk
+    animatorTrigger: SprintThrustAtk
+    sequence: 0000000000000000
+    attack:
+      damage: 16
+      hitstun: 0.328
+      knockback: {x: 3.2, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.9
+      heightScale: 0.9
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.46800002
+  - id: SprintSpinAtk
+    animatorTrigger: SprintSpinAtk
+    sequence: 0000000001000000
+    attack:
+      damage: 22
+      hitstun: 0.37600002
+      knockback: {x: 6.16, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.5
+      heightScale: 1.3
+      hitsBothSides: 1
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.51600003
+  - id: SprintHeavyAtk
+    animatorTrigger: SprintHeavyAtk
+    sequence: 01000000
+    attack:
+      damage: 22
+      hitstun: 0.37600002
+      knockback: {x: 6.16, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.49600002
+  - id: SprintShootAtk
+    animatorTrigger: SprintShootAtk
+    sequence: 02000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.32000002

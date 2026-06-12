@@ -1,0 +1,447 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4fdd9228c534747a57e44c21f9d9ee, type: 3}
+  m_Name: AwakenedMoveSet
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.MoveSet
+  moves:
+  - id: VoidSlash1
+    animatorTrigger: VoidSlash1
+    sequence: 00000000
+    attack:
+      damage: 14
+      hitstun: 0.312
+      knockback: {x: 2.8, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.432
+  - id: VoidSlash2
+    animatorTrigger: VoidSlash2
+    sequence: 0000000000000000
+    attack:
+      damage: 18
+      hitstun: 0.344
+      knockback: {x: 3.6000001, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.48400003
+  - id: EchoTeleportCombo
+    animatorTrigger: EchoTeleportCombo
+    sequence: 000000000000000000000000
+    attack:
+      damage: 26
+      hitstun: 0.40800002
+      knockback: {x: 7.28, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 1
+    duration: 0.568
+  - id: DimensionBreak
+    animatorTrigger: DimensionBreak
+    sequence: 01000000
+    attack:
+      damage: 24
+      hitstun: 0.39200002
+      knockback: {x: 6.7200003, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.512
+  - id: TeleportStrike
+    animatorTrigger: TeleportStrike
+    sequence: 0000000001000000
+    attack:
+      damage: 22
+      hitstun: 0.37600002
+      knockback: {x: 6.16, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 1
+    duration: 0.51600003
+  - id: ObliterationBurst
+    animatorTrigger: ObliterationBurst
+    sequence: 0100000001000000
+    attack:
+      damage: 32
+      hitstun: 0.45600003
+      knockback: {x: 8.96, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.596
+  - id: CrossDimensionCut
+    animatorTrigger: CrossDimensionCut
+    sequence: 000000000000000001000000
+    attack:
+      damage: 28
+      hitstun: 0.42400002
+      knockback: {x: 7.84, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.6
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.584
+  - id: TimeRiftSlash
+    animatorTrigger: TimeRiftSlash
+    sequence: 0100000000000000
+    attack:
+      damage: 24
+      hitstun: 0.39200002
+      knockback: {x: 4.8, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.532
+  - id: VoidPiercer
+    animatorTrigger: VoidPiercer
+    sequence: 010000000000000001000000
+    attack:
+      damage: 28
+      hitstun: 0.42400002
+      knockback: {x: 7.84, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.9
+      heightScale: 0.9
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 2
+    duration: 0.584
+  - id: AwakenedShot
+    animatorTrigger: AwakenedShot
+    sequence: 02000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.32000002
+  - id: RapidVoidFire
+    animatorTrigger: RapidVoidFire
+    sequence: 0200000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.34
+  - id: BladeStormBullet
+    animatorTrigger: BladeStormBullet
+    sequence: 020000000200000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.5
+      heightScale: 1.3
+      hitsBothSides: 1
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.36
+  - id: SwordDrawShot
+    animatorTrigger: SwordDrawShot
+    sequence: 0000000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.34
+  - id: VoidSpearAssault
+    animatorTrigger: VoidSpearAssault
+    sequence: 0100000002000000
+    attack:
+      damage: 26
+      hitstun: 0.40800002
+      knockback: {x: 7.28, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 2
+    duration: 0.54800004
+  - id: PhantomAssault
+    animatorTrigger: PhantomAssault
+    sequence: 0200000001000000
+    attack:
+      damage: 26
+      hitstun: 0.40800002
+      knockback: {x: 7.28, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 1
+    duration: 0.54800004
+  - id: TeleportFeint
+    animatorTrigger: TeleportFeint
+    sequence: 000000000100000000000000
+    attack:
+      damage: 18
+      hitstun: 0.344
+      knockback: {x: 3.6000001, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 2
+    duration: 0.504
+  - id: TeleportImpact
+    animatorTrigger: TeleportImpact
+    sequence: 010000000100000000000000
+    attack:
+      damage: 26
+      hitstun: 0.40800002
+      knockback: {x: 7.28, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.568
+  - id: VoidSlasherFinisher
+    animatorTrigger: VoidSlasherFinisher
+    sequence: 020000000200000001000000
+    attack:
+      damage: 34
+      hitstun: 0.472
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.632
+  - id: InfiniteTeleportStorm
+    animatorTrigger: InfiniteTeleportStorm
+    sequence: 00000000000000000000000000000000
+    attack:
+      damage: 38
+      hitstun: 0.504
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.5
+      heightScale: 1.3
+      hitsBothSides: 1
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 1
+    duration: 0.684
+  - id: FinalDomainVoidErasure
+    animatorTrigger: FinalDomainVoidErasure
+    sequence: 01000000010000000100000001000000
+    attack:
+      damage: 50
+      hitstun: 0.55
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.75
+  - id: EclipseSlash
+    animatorTrigger: EclipseSlash
+    sequence: 00000000000000000100000001000000
+    attack:
+      damage: 36
+      hitstun: 0.488
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.66800004
+  - id: ApocalypseBlade
+    animatorTrigger: ApocalypseBlade
+    sequence: 01000000010000000000000000000000
+    attack:
+      damage: 38
+      hitstun: 0.504
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 2
+    duration: 0.684
+  - id: SilentRequiem
+    animatorTrigger: SilentRequiem
+    sequence: 00000000010000000100000000000000
+    attack:
+      damage: 34
+      hitstun: 0.472
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 1
+    duration: 0.652
+  - id: CelestialJudgment
+    animatorTrigger: CelestialJudgment
+    sequence: 01000000000000000000000001000000
+    attack:
+      damage: 40
+      hitstun: 0.52000004
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.70000005
+  - id: OmegaCut
+    animatorTrigger: OmegaCut
+    sequence: 02000000020000000100000001000000
+    attack:
+      damage: 42
+      hitstun: 0.536
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 2
+    duration: 0.716
+  - id: VoidErasure
+    animatorTrigger: VoidErasure
+    sequence: 00000000020000000000000002000000
+    attack:
+      damage: 44
+      hitstun: 0.55
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.73200005
+  - id: VoidAscension
+    animatorTrigger: VoidAscension
+    sequence: 02000000000000000200000000000000
+    attack:
+      damage: 52
+      hitstun: 0.55
+      knockback: {x: 9, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 1
+    duration: 0.75

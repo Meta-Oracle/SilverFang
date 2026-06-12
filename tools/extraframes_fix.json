@@ -1,0 +1,51 @@
+{
+  "sheets": [
+    {
+      "image": "../sprites/extraframes.png",
+      "out_dir": "../Assets/Art/Sprites/Awakened",
+      "bg_threshold": 30,
+      "key_threshold": 12,
+      "min_ink_per_column": 8,
+      "gap_columns": 2,
+      "min_frame_width": 12,
+      "animations": [
+        {
+          "name": "combo_a",
+          "region": [
+            530,
+            359,
+            1035,
+            405
+          ]
+        },
+        {
+          "name": "combo_e",
+          "region": [
+            530,
+            536,
+            1035,
+            605
+          ]
+        },
+        {
+          "name": "transform_ext",
+          "region": [
+            8,
+            926,
+            1408,
+            997
+          ]
+        },
+        {
+          "name": "walk",
+          "region": [
+            262,
+            52,
+            525,
+            98
+          ]
+        }
+      ]
+    }
+  ]
+}
