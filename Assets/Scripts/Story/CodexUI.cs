@@ -67,7 +67,11 @@ namespace SilverFang.Story
                 open = false;
                 GamePause.Release(this);
             }
-            if (panel != null) panel.SetActive(open);
+            if (panel != null)
+            {
+                panel.SetActive(open);
+                if (open) panel.transform.SetAsLastSibling(); // draw above HUD/menus
+            }
         }
 
         private void Render()

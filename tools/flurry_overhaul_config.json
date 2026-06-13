@@ -1,0 +1,24 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/flurrybarrageoverhaul.png",
+   "preview_out": "preview_flurry.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "animations": [
+    {
+     "name": "flurry_barrage",
+     "region": [
+      8,
+      262,
+      1530,
+      334
+     ]
+    }
+   ]
+  }
+ ]
+}

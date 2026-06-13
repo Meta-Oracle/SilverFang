@@ -57,7 +57,11 @@ namespace SilverFang.Story
                 // wait until we can own the pause (another menu may be open)
                 if (!GamePause.TryAcquire(this)) return;
                 showing = true;
-                if (panel != null) panel.SetActive(true);
+                if (panel != null)
+                {
+                    panel.SetActive(true);
+                    panel.transform.SetAsLastSibling(); // pop above any open HUD/menu
+                }
                 ShowLine(lines.Dequeue());
                 return;
             }

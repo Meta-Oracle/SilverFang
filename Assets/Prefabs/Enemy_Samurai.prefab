@@ -152,6 +152,8 @@ MonoBehaviour:
     rangeScale: 1
     heightScale: 1
     hitsBothSides: 0
+    damageType: 0
+    spawnsDebris: 0
   attackRangeX: 1.5
   attackRangeY: 0.4
   attackCooldown: 1.5
@@ -168,12 +170,15 @@ MonoBehaviour:
       rangeScale: 1
       heightScale: 1
       hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
     tint: {r: 1, g: 1, b: 1, a: 1}
     speed: 14
     piercing: 0
     status: 0
     statusDuration: 0
     decelerates: 0
+    damageTypeOverride: 0
   firePoint: {fileID: 0}
   meleeVariants: 8
   shootVariants: 1
@@ -186,6 +191,8 @@ MonoBehaviour:
     rangeScale: 1
     heightScale: 1
     hitsBothSides: 0
+    damageType: 0
+    spawnsDebris: 0
   slash3:
     damage: 14
     hitstun: 0.45
@@ -195,6 +202,8 @@ MonoBehaviour:
     rangeScale: 1
     heightScale: 1
     hitsBothSides: 0
+    damageType: 0
+    spawnsDebris: 0
   stringGap: 0.1
 --- !u!114 &2009992366339898538
 MonoBehaviour:
@@ -267,7 +276,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4386961318339923654}

@@ -22,21 +22,21 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: 2fcde452e8824dc4caead0bd6d697dbc, type: 3}
-    - time: 0.08166666
+    - time: 0.20833334
       value: {fileID: 21300000, guid: 871baf7c020bd914db2863b2df264471, type: 3}
-    - time: 0.16333333
+    - time: 0.4166667
       value: {fileID: 21300000, guid: b95bf3b8f75535e49b0d91f896024024, type: 3}
-    - time: 0.20416667
+    - time: 0.5208334
       value: {fileID: 21300000, guid: 70ab33be0b9dd3f45939d6bd1fd85627, type: 3}
-    - time: 0.24499999
+    - time: 0.625
       value: {fileID: 21300000, guid: b4bfcc7880c0b904d88dae2546f37334, type: 3}
-    - time: 0.28583333
+    - time: 0.7291667
       value: {fileID: 21300000, guid: 92ae482ddf2346245aa14002ab372028, type: 3}
-    - time: 0.32666665
+    - time: 0.8333334
       value: {fileID: 21300000, guid: 0f16126020048ee45a2ead06688de447, type: 3}
-    - time: 0.36749998
+    - time: 0.9375
       value: {fileID: 21300000, guid: 13866f2d6a9981a49937e2f1f1d56db7, type: 3}
-    - time: 0.5833333
+    - time: 1.4880953
       value: {fileID: 21300000, guid: 13866f2d6a9981a49937e2f1f1d56db7, type: 3}
     attribute: m_Sprite
     path: 
@@ -74,7 +74,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.625
+    m_StopTime: 1.5297619
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -94,21 +94,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.16333333
+  - time: 0.4166667
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.46666667
+  - time: 1.1904763
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.55999994
+  - time: 1.4285715
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

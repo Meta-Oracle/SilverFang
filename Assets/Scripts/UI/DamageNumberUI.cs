@@ -33,7 +33,9 @@ namespace SilverFang.UI
             text.horizontalOverflow = HorizontalWrapMode.Overflow;
             text.verticalOverflow = VerticalWrapMode.Overflow;
             text.raycastTarget = false;
-            text.text = amount.ToString();
+            // Display caps at 9999 even though the real damage applied to the
+            // target (computed by the caller) can run far higher.
+            text.text = Mathf.Min(amount, 9999).ToString();
 
             var rect = text.rectTransform;
             rect.sizeDelta = new Vector2(80f, 30f);

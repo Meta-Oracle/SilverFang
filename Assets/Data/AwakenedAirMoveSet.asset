@@ -25,6 +25,8 @@ MonoBehaviour:
       rangeScale: 1
       heightScale: 1
       hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
@@ -43,6 +45,8 @@ MonoBehaviour:
       rangeScale: 1
       heightScale: 1
       hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0

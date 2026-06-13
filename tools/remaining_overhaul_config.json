@@ -1,0 +1,220 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/aircombooverhaul.png",
+   "preview_out": "preview_aircombo.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "animations": [
+    {
+     "name": "air_jump_slash",
+     "region": [
+      8,
+      124,
+      1530,
+      291
+     ]
+    },
+    {
+     "name": "jumping_slash",
+     "region": [
+      8,
+      346,
+      1530,
+      522
+     ]
+    },
+    {
+     "name": "aerial_spin",
+     "region": [
+      8,
+      566,
+      1530,
+      736
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/launchercombooverhaul.png",
+   "preview_out": "preview_launcher.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "animations": [
+    {
+     "name": "launcher_light",
+     "region": [
+      8,
+      121,
+      1530,
+      260
+     ]
+    },
+    {
+     "name": "launcher_heavy",
+     "region": [
+      8,
+      326,
+      1530,
+      476
+     ]
+    },
+    {
+     "name": "launcher_combo",
+     "region": [
+      8,
+      740,
+      1530,
+      960
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/awakenedcombolightoverhaul.png",
+   "preview_out": "preview_awklight.png",
+   "out_dir": "../Assets/Art/Sprites/Awakened",
+   "animations": [
+    {
+     "name": "awk_light1",
+     "region": [
+      8,
+      143,
+      1530,
+      285
+     ]
+    },
+    {
+     "name": "awk_light2",
+     "region": [
+      8,
+      371,
+      1530,
+      506
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/awakenedcomboheavyoverhaul.png",
+   "preview_out": "preview_awkheavy.png",
+   "out_dir": "../Assets/Art/Sprites/Awakened",
+   "animations": [
+    {
+     "name": "awk_heavy1",
+     "region": [
+      8,
+      117,
+      1530,
+      290
+     ]
+    },
+    {
+     "name": "awk_heavy2",
+     "region": [
+      8,
+      367,
+      1530,
+      513
+     ]
+    },
+    {
+     "name": "awk_heavy3",
+     "region": [
+      8,
+      570,
+      1530,
+      721
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/awakenedgunoverhaul.png",
+   "preview_out": "preview_awkgun.png",
+   "out_dir": "../Assets/Art/Sprites/Awakened",
+   "animations": [
+    {
+     "name": "awk_shot_l1",
+     "region": [
+      8,
+      88,
+      1530,
+      221
+     ]
+    },
+    {
+     "name": "awk_shot_l2",
+     "region": [
+      8,
+      236,
+      1530,
+      361
+     ]
+    },
+    {
+     "name": "quick_shot",
+     "region": [
+      8,
+      376,
+      1530,
+      503
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/awakenedairgunvfxandattacksoverhaul.png",
+   "preview_out": "preview_awkairgun.png",
+   "out_dir": "../Assets/Art/Sprites/Awakened",
+   "animations": [
+    {
+     "name": "air_slash",
+     "region": [
+      8,
+      69,
+      1530,
+      217
+     ]
+    },
+    {
+     "name": "air_spin_slash",
+     "region": [
+      8,
+      252,
+      1530,
+      358
+     ]
+    }
+   ]
+  }
+ ]
+}

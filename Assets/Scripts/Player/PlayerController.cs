@@ -175,6 +175,13 @@ namespace SilverFang.Player
         public AmmoDefinition CurrentAmmo =>
             ammoTypes != null && ammoTypes.Length > 0 ? ammoTypes[AmmoIndex] : null;
 
+        /// The round actually loaded into a shot. In awakened form every round is
+        /// overcharged into a blue psychic variant that keeps its base element.
+        public AmmoDefinition FireAmmo => Overcharge(CurrentAmmo);
+
+        private AmmoDefinition Overcharge(AmmoDefinition ammo) =>
+            (AwakenedActive && ammo != null) ? ammo.AsAwakened() : ammo;
+
         public float AwakenedMeter { get; private set; }
         public float AwakenedMaxMeter => awakenedMax;
         public bool AwakenedActive { get; private set; }
@@ -210,6 +217,7 @@ namespace SilverFang.Player
         private static readonly int HashDash = Animator.StringToHash("Dash");
         private static readonly int HashStanceSwitch = Animator.StringToHash("StanceSwitch");
         private static readonly int HashGuard = Animator.StringToHash("Guard");
+        private static readonly int HashParry = Animator.StringToHash("Parry");
         private static readonly int HashShoot = Animator.StringToHash("Shoot");
         private static readonly int HashSlashMirage = Animator.StringToHash("SlashMirage");
 
@@ -441,7 +449,7 @@ namespace SilverFang.Player
                 : transform.position + new Vector3(1.0f * Facing, 1.1f, 0f);
             VFX.VfxManager.Play("muzzle_burst", origin, Facing);
             var proj = Instantiate(projectilePrefab, origin, Quaternion.identity);
-            proj.Fire(Team.Player, CurrentAmmo, Facing, DamageScale);
+            proj.Fire(Team.Player, FireAmmo, Facing, DamageScale);
             body.linearVelocity = new Vector2(-Facing * 1.2f, body.linearVelocity.y); // light recoil
             if (animator != null) animator.SetTrigger(HashShoot);
             Core.CameraFollow.Instance?.Shake(0.025f, 0.05f);
@@ -580,7 +588,7 @@ namespace SilverFang.Player
             Vector3 origin = transform.position + (Vector3)(aim * 0.7f) + Vector3.up * 0.9f;
             VFX.VfxManager.Play("muzzle_burst", origin, h);
             var proj = Instantiate(projectilePrefab, origin, Quaternion.identity);
-            proj.Fire(Team.Player, CurrentAmmo, h, DamageScale, 1f, 1f, false, aim);
+            proj.Fire(Team.Player, FireAmmo, h, DamageScale, 1f, 1f, false, aim);
 
             // recoil + hover: firing hangs Silver aloft, drifting slowly down
             body.linearVelocity = new Vector2(-aim.x * 2.2f, body.linearVelocity.y);
@@ -724,14 +732,16 @@ namespace SilverFang.Player
                 {
                     id = "ChargeLight" + level,
                     animatorTrigger = "ChargeLight" + level,
+                    // rapid multi-hit barrage: damage is split across the hits
+                    multiHit = 4 + level * 2,
                     attack = new AttackData
                     {
-                        damage = dmg[level],
-                        hitstun = 0.32f + 0.1f * level,
-                        knockback = new Vector2(4f + 2f * level, 0f),
-                        knocksDown = level >= 2,
-                        rangeScale = 1.2f + 0.25f * level,
-                        heightScale = 1.15f
+                        damage = Mathf.Max(4, dmg[level] / (2 + level)),
+                        hitstun = 0.18f,
+                        knockback = new Vector2(1.5f + level, 0f),
+                        knocksDown = false,
+                        rangeScale = 1.4f + 0.25f * level,
+                        heightScale = 1.2f
                     },
                     duration = 0.38f + 0.08f * level
                 };
@@ -743,15 +753,18 @@ namespace SilverFang.Player
                 {
                     id = "ChargeHeavy" + level,
                     animatorTrigger = "ChargeHeavy" + level,
+                    multiHit = 1 + level, // weighty slams, then a finishing blow
                     attack = new AttackData
                     {
-                        damage = dmg[level],
+                        damage = Mathf.Max(10, dmg[level] / (1 + level)),
                         hitstun = 0.45f,
                         knockback = new Vector2(6f + 2f * level, 0f),
                         knocksDown = true,
                         launch = level >= 3 ? 8.5f : 0f,
                         rangeScale = 1.35f + 0.3f * level,
-                        heightScale = 1.4f
+                        heightScale = 1.4f,
+                        hitsBothSides = level >= 3, // full charge = large AOE cleave
+                        spawnsDebris = true          // heavy impacts kick up debris
                     },
                     firesSlashWave = level >= 3, // full-charge heavy releases a sword wave
                     duration = 0.5f + 0.1f * level
@@ -910,10 +923,16 @@ namespace SilverFang.Player
             {
                 float c = pendingChargeShot;
                 pendingChargeShot = -1f;
+                int lvl = Mathf.Clamp(pendingChargeLevel, 1, 3);
+                // Charged revolver shot scales PER LEVEL: bigger round (hurtbox),
+                // faster travel, more damage; level 3 pierces clean through.
+                float dmgMult = 1f + 1.2f * lvl;     // x2.2 / x3.4 / x4.6
+                float sizeMult = 1.1f + 0.4f * lvl;  // x1.5 / x1.9 / x2.3 hitbox
+                float speedMult = 1.1f + 0.55f * lvl; // x1.65 / x2.2 / x2.75
                 VFX.VfxManager.Play("muzzle_burst", origin, Facing, 1f + c);
                 var charged = Instantiate(projectilePrefab, origin, Quaternion.identity);
-                charged.Fire(Team.Player, CurrentAmmo, Facing, DamageScale * (1.5f + 2.5f * c),
-                    1.25f + 1.1f * c, 1.2f + 0.4f * c, pendingChargeLevel >= 3);
+                charged.Fire(Team.Player, FireAmmo, Facing, DamageScale * dmgMult,
+                    sizeMult, speedMult, lvl >= 3);
                 // recoil sells the shot's weight
                 body.linearVelocity = new Vector2(-Facing * (1.5f + 2.5f * c), 0f);
                 Core.CameraFollow.Instance?.Shake(0.05f + 0.07f * c, 0.12f);
@@ -923,7 +942,7 @@ namespace SilverFang.Player
 
             VFX.VfxManager.Play("muzzle_burst", origin, Facing);
             var proj = Instantiate(projectilePrefab, origin, Quaternion.identity);
-            proj.Fire(Team.Player, CurrentAmmo, Facing, DamageScale);
+            proj.Fire(Team.Player, FireAmmo, Facing, DamageScale);
         }
 
         private void FireSlashWave()
@@ -934,7 +953,7 @@ namespace SilverFang.Player
                 ? Mathf.Max(1f, currentMove.attack.damage / 24f)
                 : 1f;
             var wave = Instantiate(slashWavePrefab, origin, Quaternion.identity);
-            wave.Fire(Team.Player, slashWaveAmmo, Facing, DamageScale * power, 0.9f + 0.25f * power);
+            wave.Fire(Team.Player, Overcharge(slashWaveAmmo), Facing, DamageScale * power, 0.9f + 0.25f * power);
         }
 
         private void ToggleStance()
@@ -1197,6 +1216,7 @@ namespace SilverFang.Player
                     HitStop.Do(0.15f);
                     Core.CameraFollow.Instance?.Shake(0.12f, 0.16f);
                     VFX.VfxManager.Play("hit_spark", transform.position + Vector3.up * 0.9f, -attackerFacing, 1.5f);
+                    if (animator != null) animator.SetTrigger(HashParry); // dedicated parry flash pose
                     guardDeflectTimer = 0.45f;
                     AwakenedMeter = Mathf.Min(awakenedMax, AwakenedMeter + awakenedGainPerHit * 1.5f);
                     return;

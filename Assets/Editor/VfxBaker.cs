@@ -16,6 +16,7 @@ namespace SilverFang.EditorTools
         private static readonly (string id, float fps, float scale, bool randomRot)[] Tuning =
         {
             ("dash_dust",      20f, 1.0f, false),
+            ("charge_debris",  20f, 1.3f, true),
         ("slash_effect",   18f, 1.0f, false),
             ("hit_spark",      18f, 1.0f, false),
             ("blood_splatter", 14f, 1.0f, true),

@@ -94,26 +94,29 @@ namespace SilverFang.Combat
 
             var attack = currentAttack.ScaledBy(damageScale);
 
-            // critical hits: agility/luck-driven roll, amped by crit damage
+            // critical hits: agility/luck-driven roll. A crit lands for 3x the
+            // current damage (base + leveled stats already folded in), with any
+            // leveled crit-damage bonus stacked on top of that.
             bool crit = false;
             if (team == Team.Player && attack.damage > 0
                 && Random.value * 100f < Progression.PlayerProgression.GetPercentOf(Progression.ModifierType.CritRate))
             {
                 crit = true;
                 attack = attack.ScaledBy(
-                    1f + Progression.PlayerProgression.GetPercentOf(Progression.ModifierType.CritDamage) / 100f);
+                    3f + Progression.PlayerProgression.GetPercentOf(Progression.ModifierType.CritDamage) / 100f);
             }
 
             Vector3 contact = other.bounds.ClosestPoint(col.bounds.center);
             bool heavy = crit || attack.knocksDown || attack.launch > 0f;
             VFX.VfxManager.Play(team == Team.Player ? "slash_effect" : "hit_spark", contact, facing,
                 (crit ? 1.4f : 1f) + attack.damage / 45f);
+            if (attack.spawnsDebris)
+                VFX.VfxManager.Play("charge_debris", contact, facing, 1.2f + attack.damage / 40f);
             HitStop.Do(crit ? 0.13f : heavy ? 0.11f : 0.05f);
             Core.CameraFollow.Instance?.Shake(heavy ? 0.12f : 0.05f, heavy ? 0.14f : 0.1f);
             if (crit) Core.CameraFollow.Instance?.PunchIn(0.7f, 0.32f, contact);
             UI.DamageNumberUI.Spawn(contact, attack.damage,
-                crit ? new Color(1f, 0.78f, 0.25f)
-                : team == Team.Player ? new Color(1f, 0.95f, 0.8f) : new Color(1f, 0.35f, 0.3f), heavy);
+                DamageColors.Resolve(attack.damageType, crit, team == Team.Player), heavy || crit);
 
             hurtbox.Owner?.ReceiveHit(attack, facing);
             OnHit?.Invoke(hurtbox);

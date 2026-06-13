@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 namespace SilverFang.UI
 {
-    /// Character hub on the DualSense touchpad (T on keyboard): one pause
-    /// menu hosting every character screen as tabs — ATTRIBUTES (art sheet),
-    /// LEVELING (stats + skill paths), CHIP CORE (development chip). L1/R1
-    /// (Q/E) switch tabs, the d-pad drives the active screen, touchpad/T/Esc
-    /// closes.
+    /// Character hub on the DualSense touchpad (T on keyboard): one pause menu
+    /// with two tabs — STATS (live base+leveled attributes, skill-point spend,
+    /// CharacterSheetUI) and CHIP CORE (the node leveling tree, ChipCoreUI).
+    /// L1/R1 (Q/E) switch tabs, the d-pad drives the active screen, touchpad/
+    /// T/Esc closes. (The standalone LevelUpMenu is folded into STATS, which
+    /// already allocates stat + skill points, so it is kept hidden here.)
     public class CharacterHubUI : MonoBehaviour
     {
         [SerializeField] private CharacterSheetUI attributes;
@@ -19,7 +20,7 @@ namespace SilverFang.UI
         [SerializeField] private GameObject banner;
         [SerializeField] private Text tabsText;
 
-        private static readonly string[] TabNames = { "ATTRIBUTES", "LEVELING", "CHIP CORE" };
+        private static readonly string[] TabNames = { "STATS", "CHIP CORE" };
         private bool open;
         private int tab;
 
@@ -64,9 +65,11 @@ namespace SilverFang.UI
 
         private void ShowTab(int index)
         {
+            // index -1 = closed. Tab 0 = STATS, tab 1 = CHIP CORE. The standalone
+            // leveling menu is always hidden (its function lives in STATS).
             if (attributes != null) attributes.SetVisible(index == 0);
-            if (leveling != null) leveling.SetVisible(index == 1);
-            if (chipCore != null) chipCore.SetVisible(index == 2);
+            if (chipCore != null) chipCore.SetVisible(index == 1);
+            if (leveling != null) leveling.SetVisible(false);
 
             if (tabsText != null && index >= 0)
             {

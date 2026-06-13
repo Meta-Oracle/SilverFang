@@ -17,6 +17,11 @@ namespace SilverFang.Combat
         public float heightScale = 1f;
         /// Extends the hitbox behind the attacker too (spins, whirlwinds).
         public bool hitsBothSides;
+        /// Damage attribute -> drives the floating-number colour. Most melee is
+        /// Kinetic (white); elemental moves and special rounds set their own.
+        public DamageType damageType = DamageType.Kinetic;
+        /// Heavy/charged impacts kick up a debris burst on contact.
+        public bool spawnsDebris;
 
         public AttackData ScaledBy(float damageMult)
         {
@@ -30,7 +35,9 @@ namespace SilverFang.Combat
                 launch = launch,
                 rangeScale = rangeScale,
                 heightScale = heightScale,
-                hitsBothSides = hitsBothSides
+                hitsBothSides = hitsBothSides,
+                damageType = damageType,
+                spawnsDebris = spawnsDebris
             };
         }
     }

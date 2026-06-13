@@ -14,9 +14,12 @@ primary draw: every change to sprites or animation MUST hold these rules.
   Canonical heights (px @ PPU 48): Silver/Awakened 100, Hilo 92; enemies in
   `tools/normalize_enemies.py` (humanoids 86/82 = hero parity; Werewolf 104,
   Titan 112, Chimera 132, Drone 62).
-- **24fps action style**: SpriteBaker bakes attacks as anticipation (32%),
-  strike window (32–58%), follow-through; idle loops 8fps, walk 12fps,
-  run 14fps. Hitbox ON at strike start, OFF at strike end +8%. AttackEnd at
+- **24fps action style**: SpriteBaker bakes attacks as anticipation (0–28%),
+  strike window (28–70%), follow-through; each STRIKE pose holds ~2-3 frames
+  (BakeAttackClip stretches length to guarantee the min hold) for weight.
+  Locomotion (idle/walk/run/sprint) is ONE sprite per frame at a true 24fps
+  cadence (IdleFps=WalkFps=RunFps=Fps=24) — crisp 24fps that samples cleanly
+  into 60fps. Hitbox ON at strike start, OFF at strike end +8%. AttackEnd at
   93% (never the clip end — exit transitions can swallow it).
 - Dash/landing feedback is **dust** (`dash_dust` VFX), not hit sparks.
 
@@ -72,3 +75,20 @@ UnityEditor.dll). Runtime dll first, then editor dll referencing it.
 - Scene flow: IntroCrawlUI → CharacterSelectUI (heroes + HUDs start
   inactive) → gameplay. Rebuild order: Build Demo Scene → Bake Sprites →
   Bake VFX (scene rebuild wipes VfxManager).
+- Damage attributes (`Combat/DamageType.cs`): every hit carries a DamageType;
+  `DamageColors.Resolve(type, crit, fromPlayer)` colours the floating number.
+  White=Kinetic, green=Nuclear (hardest-hitting round), orange=Fire,
+  cyan=Ice, violet-blue=Psychic, indigo=Void; CRIT always overrides to gold
+  and lands for 3× (3f + leveled CritDamage%). Awakened form overcharges
+  EVERY round into a blue Psychic variant that keeps its base element/status
+  (`AmmoDefinition.AsAwakened()`, `PlayerController.FireAmmo/Overcharge`).
+  DamageNumberUI displays cap at 9999; the real damage applied is uncapped.
+- Launchers: property-driven (`launches` in BuildMoves matches
+  Rising/Uppercut/Launcher → launch 7.5, no knockdown). Three launcher
+  strings: LightLauncher (LHLL), HeavyLauncher (HLHG), DualLauncher (LHHL)
+  → launcher_light/heavy/combo folders.
+- Command list (CommandListUI): multilayer pause → scrollable ScrollRect
+  with two pages, NORMAL ATTACKS (button strings) vs SPECIAL INPUT
+  (dash/sprint/motion/teleport/awakened), labelled sections. L1/R1 page,
+  W/S or stick scroll. Content sized by ContentSizeFitter inside a RectMask2D
+  viewport so text never bleeds its box.

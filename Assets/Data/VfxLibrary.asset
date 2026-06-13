@@ -31,6 +31,17 @@ MonoBehaviour:
     fps: 18
     scale: 0.8
     randomRotation: 1
+  - id: charge_debris
+    frames:
+    - {fileID: 21300000, guid: 48ece86629a53fb4193fa1c57a3135ed, type: 3}
+    - {fileID: 21300000, guid: 330aa7fc8d7e16c41af68863d36482b6, type: 3}
+    - {fileID: 21300000, guid: 29b524c8caf8f864387a2ac2d7596e8c, type: 3}
+    - {fileID: 21300000, guid: 8b5b7aea4875b6e4eb76063f932cfb20, type: 3}
+    - {fileID: 21300000, guid: 28ceb1d194b1c6049a6a423faa70fd0f, type: 3}
+    - {fileID: 21300000, guid: f80a68937de3f154cbba50ae2de77c0b, type: 3}
+    fps: 20
+    scale: 1.3
+    randomRotation: 1
   - id: dash_dust
     frames:
     - {fileID: 21300000, guid: 2e91df35bed952645818d1c92671b960, type: 3}

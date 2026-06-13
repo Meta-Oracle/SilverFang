@@ -22,19 +22,19 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: 5605f7833d5444c4681cbca2c0bf7825, type: 3}
-    - time: 0.16062668
+    - time: 0.17361112
       value: {fileID: 21300000, guid: 29d10ea69aaa6cf46a2a1f8a86aae915, type: 3}
-    - time: 0.32125336
+    - time: 0.34722224
       value: {fileID: 21300000, guid: d8d43b065b13b2c419c80e096795d4f4, type: 3}
-    - time: 0.41762936
+    - time: 0.4513889
       value: {fileID: 21300000, guid: 6f7b00208ded6154a8cc2ddc30a0b500, type: 3}
-    - time: 0.51400536
+    - time: 0.5555556
       value: {fileID: 21300000, guid: e1a494f082fab8640bfa5f22b709d42f, type: 3}
-    - time: 0.61038136
+    - time: 0.6597222
       value: {fileID: 21300000, guid: d15d205f04b8fc84596df018d98ee086, type: 3}
-    - time: 0.70675737
+    - time: 0.7638889
       value: {fileID: 21300000, guid: 907bed886c1a2b042b16b8fbc4afe3a0, type: 3}
-    - time: 1.1473334
+    - time: 1.2400794
       value: {fileID: 21300000, guid: 907bed886c1a2b042b16b8fbc4afe3a0, type: 3}
     attribute: m_Sprite
     path: 
@@ -71,7 +71,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.189
+    m_StopTime: 1.281746
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -91,119 +91,119 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.32125336
+  - time: 0.34722224
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.36341783
+  - time: 0.39279515
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.38148835
+  - time: 0.41232643
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.42365286
+  - time: 0.45789933
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.44172335
+  - time: 0.47743055
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.48388785
+  - time: 0.5230035
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5019584
+  - time: 0.5425347
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5441228
+  - time: 0.58810765
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5621934
+  - time: 0.6076389
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.60435784
+  - time: 0.6532118
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.62242836
+  - time: 0.6727431
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.66459286
+  - time: 0.71831596
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6826633
+  - time: 0.7378472
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7248278
+  - time: 0.78342015
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.74289834
+  - time: 0.8029514
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.78506285
+  - time: 0.84852433
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1014401
+  - time: 1.1904762
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

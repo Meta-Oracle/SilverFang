@@ -125,15 +125,22 @@ namespace SilverFang.Combat
         private bool Hit(Hurtbox hurtbox)
         {
             var attack = ammo.attack.ScaledBy(damageScale);
+            // The round's attribute (nuclear green, awakened psychic blue, etc.)
+            // colours the number. Kept local so the shared ammo def isn't mutated.
+            DamageType dtype = ammo.ResolveDamageType();
+            bool crit = false;
             if (team == Team.Player && attack.damage > 0
                 && Random.value * 100f < Progression.PlayerProgression.GetPercentOf(Progression.ModifierType.CritRate))
+            {
+                crit = true;
                 attack = attack.ScaledBy(
-                    1f + Progression.PlayerProgression.GetPercentOf(Progression.ModifierType.CritDamage) / 100f);
+                    3f + Progression.PlayerProgression.GetPercentOf(Progression.ModifierType.CritDamage) / 100f);
+            }
             VFX.VfxManager.Play("bullet_impact", transform.position, direction, 1f + attack.damage / 50f);
-            HitStop.Do(0.03f);
-            Core.CameraFollow.Instance?.Shake(0.04f, 0.07f);
+            HitStop.Do(crit ? 0.07f : 0.03f);
+            Core.CameraFollow.Instance?.Shake(crit ? 0.07f : 0.04f, 0.07f);
             UI.DamageNumberUI.Spawn(transform.position, attack.damage,
-                team == Team.Player ? new Color(1f, 0.95f, 0.8f) : new Color(1f, 0.35f, 0.3f));
+                DamageColors.Resolve(dtype, crit, team == Team.Player), crit);
             hurtbox.Owner?.ReceiveHit(attack, direction);
             if (team == Team.Player) ComboTracker.Active?.RegisterHit();
             if (ammo.status != StatusType.None && hurtbox.Owner != null)

@@ -20,11 +20,13 @@ namespace SilverFang.EditorTools
         // 24fps-style action timing: strikes land on single 24fps frames while
         // anticipation and follow-through hold longer, reading cleanly at 60fps.
         private const float Fps = 24f;
-        // Loops hold each pose ~2 extra 60fps frames vs the old timing for more
-        // weight and smoother reads (idle on fours, walk/run a touch slower).
-        private const float IdleFps = 7f;
-        private const float WalkFps = 10f;
-        private const float RunFps = 12f;
+        // Locomotion runs ONE sprite per frame at a true 24fps cadence (no pose
+        // holding) so idle/walk/run/sprint read as crisp 24fps animation that
+        // samples cleanly into 60fps gameplay. Attacks, by contrast, hold each
+        // pose 2-3 frames for weight (see BakeAttackClip).
+        private const float IdleFps = Fps;
+        private const float WalkFps = Fps;
+        private const float RunFps = Fps;
 
         private const string AwakenedDir = "Assets/Art/Sprites/Awakened";
         private const string HiloDir = "Assets/Art/Sprites/Hilo";
@@ -205,6 +207,17 @@ namespace SilverFang.EditorTools
             const float strikeStart = 0.28f;
             const float strikeEnd = 0.70f;
 
+            // Hold each strike pose ~2-3 frames (at 24fps) for weight and a smooth
+            // read. If the requested length would flash poses faster than that,
+            // stretch the clip so the strike window can give every frame its hold.
+            if (strike.Length > 0)
+            {
+                const float holdFrames = 2.5f;
+                float minStrikeSpan = strike.Length * holdFrames / Fps;
+                float minLength = minStrikeSpan / (strikeEnd - strikeStart);
+                if (length < minLength) length = minLength;
+            }
+
             if (strike.Length > 0)
             {
                 var keys = new List<ObjectReferenceKeyframe>();
@@ -381,9 +394,9 @@ namespace SilverFang.EditorTools
             ("SwordCharge", "sword_charge"), ("DualArcSlash", "dual_arc_slash"),
             ("Finisher", "finisher"), ("SpecialFinisher3", "special_finisher3"),
             ("ClassicSlash", "slash"),
-            ("PhantomSlashLight", "da_slash"), ("DashHeavyAtk", "da_heavy"), ("DashShootAtk", "da_shoot"),
+            ("PhantomSlashLight", "phantom_light"), ("DashHeavyAtk", "da_heavy"), ("DashShootAtk", "da_shoot"),
             ("DashThrustAtk", "da_thrust"), ("DashUppercutAtk", "da_uppercut"), ("DashSpinAtk", "da_spin"),
-            ("SprintSlashAtk", "sp_slash"), ("PhantomSlashHeavy", "sp_heavy"), ("SprintShootAtk", "sp_shoot"),
+            ("SprintSlashAtk", "sp_slash"), ("PhantomSlashHeavy", "phantom_heavy"), ("SprintShootAtk", "sp_shoot"),
             ("SprintThrustAtk", "sp_thrust"), ("SprintSpinAtk", "spin_slash"),
             ("TeleportStrikeAtk", "tp_strike"), ("TeleportHeavyAtk", "tp_strike_long"), ("TeleportShootAtk", "tp_shoot"),
             ("AirLightSlash", "air_jump_slash"), ("AirHeavySlash", "jumping_slash"),
@@ -392,8 +405,15 @@ namespace SilverFang.EditorTools
             // 8-hit light chain + barrage/AOE; flurry_barrage/aoe_sweep/gun_* are
             // the dedicated overhaul folders, falling back to these if uncut yet
             ("LightRush5", "light1"), ("LightRush6", "light2"), ("LightRush7", "light3"),
-            ("SwordBarrage", "double_spin_slash"), ("BladeNova", "spin_slash"),
-            ("BulletBarrage", "gun_rapid"), ("ScatterNova", "gun_blast")
+            ("SwordBarrage", "flurry_barrage"), ("BladeNova", "aoe_sweep"),
+            ("BulletBarrage", "gun_barrage"), ("ScatterNova", "gun_scatter"),
+            // new 4+ hit routes reuse the overhaul marquee folders
+            ("RagingFlurry", "flurry_barrage"), ("EclipseNova", "aoe_sweep"),
+            ("PhantomTempest", "phantom_heavy"), ("VoidBarrage", "gun_barrage"),
+            ("ScatterBarrage", "gun_scatter"), ("MirageFlurry", "slash_mirage"),
+            // launcher trio (light / heavy / dual combo)
+            ("LightLauncher", "launcher_light"), ("HeavyLauncher", "launcher_heavy"),
+            ("DualLauncher", "launcher_combo")
         };
 
         private static void BakePlayer()
@@ -457,6 +477,8 @@ namespace SilverFang.EditorTools
             }
             BakeClip("Player_Roll", roll.Length > 0 ? roll : tacticalRoll, false, 0.45f);
             BakeClip("Player_Guard", guard.Length > 0 ? guard : idle, false, 0.35f);
+            var parry = LoadFrames($"{SilverDir}/parry");
+            BakeClip("Player_Parry", parry.Length > 0 ? parry : guard.Length > 0 ? guard : idle, false, 0.3f);
             BakeClip("Player_Reload", reload.Length > 0 ? reload : idle, false, 0.45f);
             BakeClip("Player_Victory", victory.Length > 0 ? victory : idle, false, 0.8f);
             // quick sword<->gun stance-switch flourish (draw/ready pose)
@@ -518,12 +540,14 @@ namespace SilverFang.EditorTools
             for (int level = 1; level <= 3; level++)
             {
                 // durations must match PlayerController.BuildChargedMove
+                // light = rapid multi-hit barrage (more hits at higher charge);
+                // heavy = a few weighty slams, full charge adds a sword wave.
                 BakeAttackClip("Player_ChargeLight" + level,
                     FramesOr($"charge_light_l{level}", "charged_slash"), windupPool,
-                    0.38f + 0.08f * level, projectile: false);
+                    0.38f + 0.08f * level, projectile: false, slashWave: false, multiHit: 4 + level * 2);
                 BakeAttackClip("Player_ChargeHeavy" + level,
                     FramesOr($"charge_heavy_l{level}", "full_charge_slash"), windupPool,
-                    0.5f + 0.1f * level, projectile: false, slashWave: level >= 3);
+                    0.5f + 0.1f * level, projectile: false, slashWave: level >= 3, multiHit: 1 + level);
                 BakeAttackClip("Player_ChargeShot" + level,
                     FramesOr($"charge_shot_l{level}", "shooting"), windupPool,
                     0.42f + 0.07f * level, projectile: true);
@@ -607,6 +631,7 @@ namespace SilverFang.EditorTools
             BakeClip("Hilo_Land", HiloFramesOr(idle, "land"), false, 0.28f);
             BakeClip("Hilo_Roll", HiloFramesOr(idle, "yin_slip", "dash"), false, 0.45f);
             BakeClip("Hilo_Guard", HiloFramesOr(idle, "guard"), false, 0.35f);
+            BakeClip("Hilo_Parry", HiloFramesOr(idle, "parry"), false, 0.3f);
             BakeClip("Hilo_Reload", HiloFramesOr(idle, "charge_bionic_l1", "crouch"), false, 0.45f);
             BakeClip("Hilo_Victory", HiloFramesOr(idle, "yinyang_burst"), false, 0.8f);
 
@@ -1065,12 +1090,12 @@ namespace SilverFang.EditorTools
                 controller.AddParameter("ChargeLight" + level, AnimatorControllerParameterType.Trigger);
                 AddTriggerState("ChargeLight" + level, BakeAttackClip("Awakened_ChargeLight" + level,
                     AwkFramesOr($"charge_awk_light_l{level}", "charge_awk_light"), idle,
-                    0.38f + 0.08f * level, projectile: false));
+                    0.38f + 0.08f * level, projectile: false, slashWave: false, multiHit: 4 + level * 2));
 
                 controller.AddParameter("ChargeHeavy" + level, AnimatorControllerParameterType.Trigger);
                 AddTriggerState("ChargeHeavy" + level, BakeAttackClip("Awakened_ChargeHeavy" + level,
                     AwkFramesOr($"charge_awk_heavy_l{level}", "charge_awk_heavy"), idle,
-                    0.5f + 0.1f * level, projectile: false, slashWave: level >= 3));
+                    0.5f + 0.1f * level, projectile: false, slashWave: level >= 3, multiHit: 1 + level));
 
                 controller.AddParameter("ChargeShot" + level, AnimatorControllerParameterType.Trigger);
                 AddTriggerState("ChargeShot" + level, BakeAttackClip("Awakened_ChargeShot" + level,

@@ -1,0 +1,25 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/gunaoeattackoverhaul.png",
+   "preview_out": "preview_gunaoe.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "animations": [
+    {
+     "name": "gun_scatter",
+     "region": [
+      8,
+      110,
+      1530,
+      240
+     ]
+    }
+   ]
+  }
+ ]
+}

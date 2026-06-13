@@ -116,7 +116,22 @@ namespace SilverFang.EditorTools
             // AOE physical sweep + the gun barrage/scatter routes
             ("HLHL", "BladeNova",      20, true,  false),
             ("LGLG", "BulletBarrage",  0,  false, true),
-            ("GHGH", "ScatterNova",    0,  false, true)
+            ("GHGH", "ScatterNova",    0,  false, true),
+
+            // New 4+ hit routes funnelling grounded strings into the overhaul
+            // marquee attacks (flurry / nova / phantom / barrage / mirage).
+            ("LLHL",  "RagingFlurry",    13, true,  false), // 6-hit flurry barrage
+            ("HLHH",  "EclipseNova",     22, true,  false), // AOE nova sweep
+            ("LHLG",  "PhantomTempest",  16, true,  false), // grounded phantom slash wave
+            ("GHLG",  "VoidBarrage",     0,  false, true),  // 8-shot bullet barrage
+            ("HLGH",  "ScatterBarrage",  0,  false, true),  // gun scatter storm
+            ("LHLHL", "MirageFlurry",    18, true,  false), // 5-hit slash-mirage flurry
+
+            // Launchers: pop the enemy airborne for juggles. A light, a heavy,
+            // and a light/heavy combo launcher, each its own animation string.
+            ("LHLL", "LightLauncher", 16, false, false),
+            ("HLHG", "HeavyLauncher", 22, false, false),
+            ("LHHL", "DualLauncher",  26, false, false)
         };
 
         private static readonly MoveSpec[] SwordMoves = BuildMoves(SwordTable);
@@ -240,8 +255,10 @@ namespace SilverFang.EditorTools
                     };
                 }
 
-                // Rising/uppercut style moves launch into a juggle instead of knocking down.
-                bool launches = name.Contains("Rising") || name.Contains("Uppercut");
+                // Rising/uppercut/launcher style moves pop the target into a
+                // juggle instead of knocking them down.
+                bool launches = name.Contains("Rising") || name.Contains("Uppercut")
+                                || name.Contains("Launcher");
 
                 // Hitbox shape from the move's nature so swipes cover their real arc:
                 // spins hit all around, thrusts reach far and thin, cleaves swing tall.
@@ -1047,6 +1064,7 @@ namespace SilverFang.EditorTools
             AddSimpleTriggerState("Reload", prefix + "_Reload", 0.45f);
             AddSimpleTriggerState("Roll", prefix + "_Roll", 0.45f);
             AddSimpleTriggerState("Guard", prefix + "_Guard", 0.35f);
+            AddSimpleTriggerState("Parry", prefix + "_Parry", 0.3f);
             AddSimpleTriggerState("Victory", prefix + "_Victory", 0.8f);
             AddSimpleTriggerState("StanceSwitch", prefix + "_StanceSwitch", 0.2f);
             AddSimpleTriggerState("SlashMirage", prefix + "_SlashMirage", 1.25f);
@@ -1336,8 +1354,8 @@ namespace SilverFang.EditorTools
                 SetPrivateField(player, "ammoTypes", new[]
                 {
                     new AmmoDefinition { type = AmmoType.Standard, attack = new AttackData { damage = 6, hitstun = 0.2f, knockback = new Vector2(1f, 0f) }, tint = Color.white, speed = 16f },
-                    new AmmoDefinition { type = AmmoType.Nuclear, attack = new AttackData { damage = 20, hitstun = 0.5f, knockback = new Vector2(6f, 0f), knocksDown = true }, tint = new Color(0.4f, 1f, 0.3f), speed = 10f,
-                        status = StatusType.Radiated, statusDuration = 5f },
+                    new AmmoDefinition { type = AmmoType.Nuclear, attack = new AttackData { damage = 34, hitstun = 0.55f, knockback = new Vector2(7f, -0.5f), knocksDown = true, rangeScale = 1.2f }, tint = new Color(0.4f, 1f, 0.3f), speed = 10f,
+                        status = StatusType.Radiated, statusDuration = 5f }, // nuclear: hardest-hitting round
                     new AmmoDefinition { type = AmmoType.Ice, attack = new AttackData { damage = 8, hitstun = 0.8f, knockback = Vector2.zero }, tint = new Color(0.5f, 0.8f, 1f), speed = 14f,
                         status = StatusType.Frozen, statusDuration = 2f },
                     new AmmoDefinition { type = AmmoType.Incendiary, attack = new AttackData { damage = 14, hitstun = 0.3f, knockback = new Vector2(2f, 0f) }, tint = new Color(1f, 0.5f, 0.2f), speed = 14f,
@@ -1908,6 +1926,10 @@ namespace SilverFang.EditorTools
             notifRect.anchorMax = new Vector2(1f, 1f);
             notifRect.pivot = new Vector2(1f, 1f);
             notifRect.anchoredPosition = new Vector2(-16f, -16f);
+            // Alerts ride above the rest of the HUD so they always read.
+            var notifCanvas = notifText.gameObject.AddComponent<Canvas>();
+            notifCanvas.overrideSorting = true;
+            notifCanvas.sortingOrder = 200;
             var notifUi = group.AddComponent<NotificationUI>();
             var notifSo = new SerializedObject(notifUi);
             notifSo.FindProperty("label").objectReferenceValue = notifText;
@@ -2021,6 +2043,10 @@ namespace SilverFang.EditorTools
             notifRect.anchorMax = new Vector2(1f, 1f);
             notifRect.pivot = new Vector2(1f, 1f);
             notifRect.anchoredPosition = new Vector2(-16f, -16f);
+            // Alerts ride above the rest of the HUD so they always read.
+            var notifCanvas = notifText.gameObject.AddComponent<Canvas>();
+            notifCanvas.overrideSorting = true;
+            notifCanvas.sortingOrder = 200;
             var notifUi = group.AddComponent<NotificationUI>();
             var notifSo = new SerializedObject(notifUi);
             notifSo.FindProperty("label").objectReferenceValue = notifText;
@@ -2277,6 +2303,11 @@ namespace SilverFang.EditorTools
             panelRect.pivot = new Vector2(0.5f, 0f);
             panelRect.anchoredPosition = new Vector2(0f, 22f);
             panelRect.sizeDelta = new Vector2(0f, 118f);
+            // Dedicated high sort order so story dialogue always draws above the
+            // HUD, menus, and any combat VFX overlay — no matter what's onscreen.
+            var dlgCanvas = panelObj.AddComponent<Canvas>();
+            dlgCanvas.overrideSorting = true;
+            dlgCanvas.sortingOrder = 320;
 
             var speaker = MakeUiText(panelObj.transform, "Speaker", new Vector2(18f, -10f), new Vector2(300f, 22f), 15, new Color(0.95f, 0.55f, 0.45f));
             var body = MakeUiText(panelObj.transform, "Body", new Vector2(18f, -36f), new Vector2(620f, 70f), 14, new Color(0.92f, 0.94f, 0.98f), TextAnchor.UpperLeft, false);
@@ -2313,6 +2344,10 @@ namespace SilverFang.EditorTools
             panelRect.anchorMax = Vector2.one;
             panelRect.offsetMin = new Vector2(60f, 50f);
             panelRect.offsetMax = new Vector2(-60f, -50f);
+            // High sort order so the codex always renders above HUD/menus.
+            var codexCanvas = panelObj.AddComponent<Canvas>();
+            codexCanvas.overrideSorting = true;
+            codexCanvas.sortingOrder = 300;
 
             Text MakeColumn(string name, float minX, float maxX)
             {
@@ -2700,29 +2735,71 @@ namespace SilverFang.EditorTools
 
             var font = GetUiFont();
 
-            Text MakeColumn(string name, float anchorMinX, float anchorMaxX)
-            {
-                var obj = new GameObject(name);
-                obj.transform.SetParent(panelObj.transform, false);
-                var text = obj.AddComponent<Text>();
-                text.font = font;
-                text.fontSize = 10;
-                text.color = new Color(0.85f, 0.9f, 1f);
-                text.alignment = TextAnchor.UpperLeft;
-                text.horizontalOverflow = HorizontalWrapMode.Wrap;
-                text.verticalOverflow = VerticalWrapMode.Overflow;
-                var rect = text.rectTransform;
-                rect.anchorMin = new Vector2(anchorMinX, 0f);
-                rect.anchorMax = new Vector2(anchorMaxX, 1f);
-                rect.offsetMin = new Vector2(12f, 40f);
-                rect.offsetMax = new Vector2(-6f, -40f);
-                return text;
-            }
+            // Page-tab line under the title: shows NORMAL / SPECIAL with the
+            // active page bracketed, plus the scroll/page hints.
+            var tabObj = new GameObject("Tabs");
+            tabObj.transform.SetParent(panelObj.transform, false);
+            var tabText = tabObj.AddComponent<Text>();
+            tabText.font = font;
+            tabText.fontSize = 13;
+            tabText.fontStyle = FontStyle.Bold;
+            tabText.color = new Color(0.7f, 0.85f, 1f);
+            tabText.alignment = TextAnchor.MiddleCenter;
+            tabText.horizontalOverflow = HorizontalWrapMode.Overflow;
+            tabText.verticalOverflow = VerticalWrapMode.Overflow;
+            var tabRect = tabText.rectTransform;
+            tabRect.anchorMin = new Vector2(0f, 1f);
+            tabRect.anchorMax = new Vector2(1f, 1f);
+            tabRect.pivot = new Vector2(0.5f, 1f);
+            tabRect.anchoredPosition = new Vector2(0f, -40f);
+            tabRect.sizeDelta = new Vector2(0f, 24f);
 
-            var colA = MakeColumn("SwordA", 0f, 0.25f);
-            var colB = MakeColumn("SwordB", 0.25f, 0.5f);
-            var colGun = MakeColumn("Gun", 0.5f, 0.75f);
-            var colAwk = MakeColumn("Awakened", 0.75f, 1f);
+            // Scroll view: viewport clips, content grows to fit the text so it can
+            // never bleed past the box; overflow scrolls with W/S or the stick.
+            var scrollObj = new GameObject("ScrollView");
+            scrollObj.transform.SetParent(panelObj.transform, false);
+            var scrollRect = scrollObj.AddComponent<ScrollRect>();
+            var scrollRT = (RectTransform)scrollObj.transform;
+            scrollRT.anchorMin = Vector2.zero;
+            scrollRT.anchorMax = Vector2.one;
+            scrollRT.offsetMin = new Vector2(14f, 40f);   // leave room for the balance row
+            scrollRT.offsetMax = new Vector2(-14f, -70f);  // leave room for title + tabs
+
+            var viewportObj = new GameObject("Viewport");
+            viewportObj.transform.SetParent(scrollObj.transform, false);
+            var viewportRT = viewportObj.AddComponent<RectTransform>();
+            viewportObj.AddComponent<RectMask2D>();
+            viewportRT.anchorMin = Vector2.zero;
+            viewportRT.anchorMax = Vector2.one;
+            viewportRT.offsetMin = Vector2.zero;
+            viewportRT.offsetMax = Vector2.zero;
+            viewportRT.pivot = new Vector2(0f, 1f);
+
+            var contentObj = new GameObject("Content");
+            contentObj.transform.SetParent(viewportObj.transform, false);
+            var bodyText = contentObj.AddComponent<Text>();
+            bodyText.font = font;
+            bodyText.fontSize = 12;
+            bodyText.color = new Color(0.85f, 0.9f, 1f);
+            bodyText.alignment = TextAnchor.UpperLeft;
+            bodyText.horizontalOverflow = HorizontalWrapMode.Wrap;
+            bodyText.verticalOverflow = VerticalWrapMode.Overflow;
+            var contentRT = bodyText.rectTransform;
+            contentRT.anchorMin = new Vector2(0f, 1f);
+            contentRT.anchorMax = new Vector2(1f, 1f);
+            contentRT.pivot = new Vector2(0.5f, 1f);
+            contentRT.anchoredPosition = Vector2.zero;
+            contentRT.sizeDelta = new Vector2(0f, 0f);
+            var fitter = contentObj.AddComponent<ContentSizeFitter>();
+            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+
+            scrollRect.viewport = viewportRT;
+            scrollRect.content = contentRT;
+            scrollRect.horizontal = false;
+            scrollRect.vertical = true;
+            scrollRect.movementType = ScrollRect.MovementType.Clamped;
+            scrollRect.scrollSensitivity = 24f;
 
             var titleObj = new GameObject("Title");
             titleObj.transform.SetParent(panelObj.transform, false);
@@ -2812,10 +2889,9 @@ namespace SilverFang.EditorTools
             so.FindProperty("menuPanel").objectReferenceValue = menuObj;
             so.FindProperty("menuText").objectReferenceValue = menuText;
             so.FindProperty("titleText").objectReferenceValue = title;
-            so.FindProperty("swordColumnA").objectReferenceValue = colA;
-            so.FindProperty("swordColumnB").objectReferenceValue = colB;
-            so.FindProperty("gunColumn").objectReferenceValue = colGun;
-            so.FindProperty("awakenedColumn").objectReferenceValue = colAwk;
+            so.FindProperty("tabText").objectReferenceValue = tabText;
+            so.FindProperty("scrollRect").objectReferenceValue = scrollRect;
+            so.FindProperty("bodyText").objectReferenceValue = bodyText;
             so.FindProperty("balanceText").objectReferenceValue = balance;
             so.ApplyModifiedPropertiesWithoutUndo();
         }

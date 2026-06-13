@@ -1,0 +1,52 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/phantomslashattackoverhaul.png",
+   "preview_out": "preview_phantom.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "animations": [
+    {
+     "name": "phantom_light",
+     "region": [
+      8,
+      160,
+      1530,
+      230
+     ]
+    },
+    {
+     "name": "phantom_heavy",
+     "region": [
+      8,
+      348,
+      1530,
+      428
+     ]
+    },
+    {
+     "name": "phantom_light_awk",
+     "region": [
+      8,
+      532,
+      1530,
+      605
+     ]
+    },
+    {
+     "name": "phantom_heavy_awk",
+     "region": [
+      8,
+      718,
+      1530,
+      798
+     ]
+    }
+   ]
+  }
+ ]
+}

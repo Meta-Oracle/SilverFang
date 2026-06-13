@@ -9,10 +9,13 @@ using UnityEngine.UI;
 
 namespace SilverFang.UI
 {
-    /// Pause menu (Esc / Tab / gamepad Start-Options). Freezes the game and
-    /// shows a small option list — Resume, Command List, Restart, Quit to
-    /// Intro. The full command/control reference is shown only when the player
-    /// picks "Command List".
+    /// Multilayered pause menu (Esc / Tab / gamepad Options). Freezes the game.
+    ///   Layer 1: option menu  - Resume, Command List, Restart, Quit to Intro.
+    ///   Layer 2: command list - a scrollable reference split into two pages,
+    ///            NORMAL ATTACKS and SPECIAL INPUT moves, each broken
+    ///            into labelled sections. L1/R1 (or A/D) flip pages; W/S (or the
+    ///            stick) scrolls. Content lives in a clipped ScrollRect so text
+    ///            never bleeds outside its box.
     public class CommandListUI : MonoBehaviour
     {
         [SerializeField] private MoveSet swordMoveSet;
@@ -32,19 +35,21 @@ namespace SilverFang.UI
         [SerializeField] private MoveSet hiloAirMoveSet;
         [SerializeField] private MoveSet hiloAwakenedAirMoveSet;
         [SerializeField] private GameObject panel;          // command-list reference panel
-        [SerializeField] private GameObject menuPanel;       // option menu
+        [SerializeField] private GameObject menuPanel;      // option menu
         [SerializeField] private Text menuText;
         [SerializeField] private Text titleText;
-        [SerializeField] private Text swordColumnA;
-        [SerializeField] private Text swordColumnB;
-        [SerializeField] private Text gunColumn;
-        [SerializeField] private Text awakenedColumn;
+        [SerializeField] private Text tabText;              // "[ BASIC ]  SPECIAL"
+        [SerializeField] private ScrollRect scrollRect;     // viewport for bodyText
+        [SerializeField] private Text bodyText;             // scroll content
         [SerializeField] private Text balanceText;
 
         private static readonly string[] Options = { "RESUME", "COMMAND LIST", "RESTART", "QUIT TO INTRO" };
+        private static readonly string[] Pages = { "NORMAL ATTACKS", "SPECIAL INPUT" };
         private enum Mode { Closed, Menu, CommandList }
         private Mode mode = Mode.Closed;
         private int cursor;
+        private int page;
+        private float repeat;
 
         private void Start()
         {
@@ -66,8 +71,17 @@ namespace SilverFang.UI
                     break;
 
                 case Mode.CommandList:
-                    // any pause/back press returns to the menu
-                    if (pausePressed || Back(kb, pad)) ShowMenu();
+                    if (pausePressed || Back(kb, pad)) { ShowMenu(); break; }
+                    // L1/R1 or A/D flip pages
+                    int pageDir = (Down(kb?.dKey) || Down(kb?.rightArrowKey) || Down(pad?.rightShoulder) ? 1 : 0)
+                                - (Down(kb?.aKey) || Down(kb?.leftArrowKey) || Down(pad?.leftShoulder) ? 1 : 0);
+                    if (pageDir != 0)
+                    {
+                        page = (page + pageDir + Pages.Length) % Pages.Length;
+                        BuildText();
+                        if (scrollRect != null) scrollRect.verticalNormalizedPosition = 1f; // top
+                    }
+                    Scroll(kb, pad);
                     break;
 
                 case Mode.Menu:
@@ -85,6 +99,33 @@ namespace SilverFang.UI
                     }
                     break;
             }
+        }
+
+        /// Smooth held-scroll of the command-list body via W/S, up/down, stick, d-pad.
+        private void Scroll(Keyboard kb, Gamepad pad)
+        {
+            if (scrollRect == null) return;
+            float v = 0f;
+            if (kb != null)
+            {
+                if (kb.wKey.isPressed || kb.upArrowKey.isPressed) v += 1f;
+                if (kb.sKey.isPressed || kb.downArrowKey.isPressed) v -= 1f;
+            }
+            if (pad != null)
+            {
+                v += pad.leftStick.ReadValue().y;
+                if (pad.dpad.up.isPressed) v += 1f;
+                if (pad.dpad.down.isPressed) v -= 1f;
+            }
+            if (Mathf.Abs(v) < 0.15f) return;
+
+            // Speed scales with how much content overflows the viewport.
+            float content = scrollRect.content != null ? scrollRect.content.rect.height : 0f;
+            float view = scrollRect.viewport != null ? scrollRect.viewport.rect.height : 1f;
+            float span = Mathf.Max(1f, content - view);
+            float delta = v * 700f * Time.unscaledDeltaTime / span;
+            scrollRect.verticalNormalizedPosition =
+                Mathf.Clamp01(scrollRect.verticalNormalizedPosition + delta);
         }
 
         private static bool Down(UnityEngine.InputSystem.Controls.ButtonControl b) => b != null && b.wasPressedThisFrame;
@@ -133,7 +174,9 @@ namespace SilverFang.UI
         private void ShowCommandList()
         {
             mode = Mode.CommandList;
+            page = 0;
             BuildText(); // rebuilt per open: shows the selected hero's lists
+            if (scrollRect != null) scrollRect.verticalNormalizedPosition = 1f;
             if (balanceText != null)
                 balanceText.text = $"{Currency.ScematicaWallet.Balance:N0} {Currency.ScematicaToken.Symbol}";
             if (menuPanel != null) menuPanel.SetActive(false);
@@ -172,58 +215,93 @@ namespace SilverFang.UI
             var airSet = hilo && hiloAirMoveSet != null ? hiloAirMoveSet : airMoveSet;
             var awkAirSet = hilo && hiloAwakenedAirMoveSet != null ? hiloAwakenedAirMoveSet : awakenedAirMoveSet;
 
-            string mainHeader = hilo ? "== CLAW STANCE ==" : "== SWORD STANCE ==";
-            string rangedHeader = hilo ? "== ENERGY STANCE ==" : "== GUN STANCE ==";
-            string awkHeader = hilo ? "== SHADOW FORM ==" : "== AWAKENED ==";
-            string tpNote = hilo ? "(shadow dash/sprint)" : "(awakened dash/sprint)";
-            string awkAirHeader = hilo ? "== SHADOW AIR ==" : "== AWAKENED AIR ==";
-
-            if (titleText != null) titleText.text = hilo ? "== PAUSED - HILO ==" : "== PAUSED - SILVER ==";
-
-            if (mainSet != null)
+            if (titleText != null) titleText.text = hilo ? "PAUSED - HILO" : "PAUSED - SILVER";
+            if (tabText != null)
             {
-                var lines = mainSet.moves;
-                int half = (lines.Count + 1) / 2;
-                if (swordColumnA != null)
-                    swordColumnA.text = mainHeader + "\n" + Format(lines, 0, half);
-                if (swordColumnB != null)
-                    swordColumnB.text = "\n" + Format(lines, half, lines.Count);
+                var t = new StringBuilder();
+                for (int i = 0; i < Pages.Length; i++)
+                {
+                    if (i > 0) t.Append("      ");
+                    t.Append(i == page ? $"[ {Pages[i]} ]" : Pages[i]);
+                }
+                t.Append("        (L1/R1 page  -  W/S scroll)");
+                tabText.text = t.ToString();
             }
 
-            if (gunColumn != null && rangedSet != null)
-            {
-                gunColumn.text = rangedHeader + "\n" + Format(rangedSet.moves, 0, rangedSet.moves.Count)
-                    + "\n== KEYBOARD ==\nL=Light(J)  H=Heavy(K)\nG=Gun(L)  Jump=Space\nQ=Stance  E=Ammo\nF=Awakened  LShift=Lock-On\nC=Character  V=Codex\nEsc/Tab=Pause\nDouble-tap A/D=Dash\n(hold after dash = Run)"
-                    + "\n\n== GAMEPAD (PS5) ==\nL=Square  H=Triangle\nG=Circle  Jump=Cross\nL1=Stance  R1=Ammo\nL2=Lock-On  R2=Awakened\nOptions=Pause  Share=Character\nR3=Codex  Move=Stick/D-pad\nDouble-tap d-pad=Dash";
-            }
+            var sb = new StringBuilder();
+            if (page == 0) BuildBasicPage(sb, hilo, mainSet, rangedSet, airSet);
+            else BuildSpecialPage(sb, hilo, dashSet, sprintSet, tpSet, awkSet, awkAirSet);
 
-            if (awakenedColumn != null && awkSet != null)
+            if (bodyText != null)
             {
-                var sb = new StringBuilder();
-                sb.Append(awkHeader).Append('\n').Append(Format(awkSet.moves, 0, awkSet.moves.Count));
-                if (dashSet != null)
-                    sb.Append("\n== DASH ATTACKS ==\n(attack during dash)\n")
-                      .Append(Format(dashSet.moves, 0, dashSet.moves.Count));
-                if (sprintSet != null)
-                    sb.Append("\n== SPRINT ATTACKS ==\n(attack while running)\n")
-                      .Append(Format(sprintSet.moves, 0, sprintSet.moves.Count));
-                if (tpSet != null)
-                    sb.Append("\n== TELEPORT ATTACKS ==\n").Append(tpNote).Append('\n')
-                      .Append(Format(tpSet.moves, 0, tpSet.moves.Count));
-                if (airSet != null)
-                    sb.Append("\n== AIR ATTACKS ==\n(jump, then attack)\n")
-                      .Append(Format(airSet.moves, 0, airSet.moves.Count));
-                if (awkAirSet != null)
-                    sb.Append("\n").Append(awkAirHeader).Append("\n(awakened jump attacks)\n")
-                      .Append(Format(awkAirSet.moves, 0, awkAirSet.moves.Count));
-                awakenedColumn.text = sb.ToString();
+                bodyText.text = sb.ToString();
+                // Resize the scroll content to the text so the viewport clips/
+                // scrolls instead of letting the text spill past its box.
+                LayoutRebuilder.ForceRebuildLayoutImmediate(bodyText.rectTransform);
             }
         }
 
-        private static string Format(System.Collections.Generic.List<MoveDefinition> moves, int from, int to)
+        // ----- Page 1: plain button-press strings (no direction needed) --------
+        private void BuildBasicPage(StringBuilder sb, bool hilo, MoveSet mainSet, MoveSet rangedSet, MoveSet airSet)
         {
+            string mainHeader = hilo ? "CLAW STANCE COMBOS" : "SWORD STANCE COMBOS";
+            string rangedHeader = hilo ? "ENERGY STANCE" : "GUN STANCE";
+
+            Section(sb, mainHeader, "tap Light/Heavy/Gun in sequence");
+            if (mainSet != null) sb.Append(Format(mainSet.moves));
+
+            Section(sb, rangedHeader, "gun-stance fire strings");
+            if (rangedSet != null) sb.Append(Format(rangedSet.moves));
+
+            Section(sb, "AIR ATTACKS", "jump, then press an attack");
+            if (airSet != null) sb.Append(Format(airSet.moves));
+
+            Section(sb, "CONTROLS - KEYBOARD", null);
+            sb.Append("L=Light(J)  H=Heavy(K)  G=Gun(L)\nJump=Space  Q=Stance  E=Ammo\nF=Awakened  LShift=Lock-On\nC=Character  V=Codex  Esc/Tab=Pause\nDouble-tap A/D=Dash (hold=Run)\n");
+            Section(sb, "CONTROLS - GAMEPAD (PS5)", null);
+            sb.Append("L=Square  H=Triangle  G=Circle\nJump=Cross  L1=Stance  R1=Ammo\nL2=Lock-On  R2=Awakened\nOptions=Pause  Share=Character\nR3=Codex  Move=Stick/D-pad\nDouble-tap d-pad=Dash\n");
+        }
+
+        // ----- Page 2: moves needing a direction / motion / special trigger ----
+        private void BuildSpecialPage(StringBuilder sb, bool hilo, MoveSet dashSet, MoveSet sprintSet,
+            MoveSet tpSet, MoveSet awkSet, MoveSet awkAirSet)
+        {
+            string awkHeader = hilo ? "SHADOW FORM" : "AWAKENED FORM";
+            string awkAirHeader = hilo ? "SHADOW AIR" : "AWAKENED AIR";
+
+            Section(sb, "DASH ATTACKS", "dash (double-tap), then attack");
+            if (dashSet != null) sb.Append(Format(dashSet.moves));
+
+            Section(sb, "SPRINT ATTACKS", "hold a run, then attack");
+            if (sprintSet != null) sb.Append(Format(sprintSet.moves));
+
+            Section(sb, "MOTION SPECIALS", "fighting-game inputs (facing-relative)");
+            sb.Append("[->][\\/][->]+L/H/G   Teleport Strike / Heavy / Shoot\n");
+            sb.Append("[<-][\\/][<-]+Heavy   Slash Mirage (invincible barrage)\n");
+            sb.Append("Dash+L  Phantom Slash (light)   Sprint+H  Phantom Slash (heavy)\n");
+
+            Section(sb, "TELEPORT ATTACKS", "while locked on / from a motion input");
+            if (tpSet != null) sb.Append(Format(tpSet.moves));
+
+            Section(sb, awkHeader, "during awakened form (R2/F)");
+            if (awkSet != null) sb.Append(Format(awkSet.moves));
+
+            Section(sb, awkAirHeader, "awakened jump attacks");
+            if (awkAirSet != null) sb.Append(Format(awkAirSet.moves));
+        }
+
+        private static void Section(StringBuilder sb, string header, string note)
+        {
+            if (sb.Length > 0) sb.Append('\n');
+            sb.Append("=== ").Append(header).Append(" ===\n");
+            if (!string.IsNullOrEmpty(note)) sb.Append('(').Append(note).Append(")\n");
+        }
+
+        private static string Format(System.Collections.Generic.List<MoveDefinition> moves)
+        {
+            if (moves == null) return "";
             var sb = new StringBuilder();
-            for (int i = from; i < to && i < moves.Count; i++)
+            for (int i = 0; i < moves.Count; i++)
             {
                 var move = moves[i];
                 var seq = new StringBuilder();

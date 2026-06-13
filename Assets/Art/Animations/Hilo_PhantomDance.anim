@@ -22,19 +22,19 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: 5605f7833d5444c4681cbca2c0bf7825, type: 3}
-    - time: 0.09622667
+    - time: 0.17361112
       value: {fileID: 21300000, guid: 29d10ea69aaa6cf46a2a1f8a86aae915, type: 3}
-    - time: 0.19245334
+    - time: 0.34722224
       value: {fileID: 21300000, guid: d8d43b065b13b2c419c80e096795d4f4, type: 3}
-    - time: 0.25018933
+    - time: 0.4513889
       value: {fileID: 21300000, guid: 6f7b00208ded6154a8cc2ddc30a0b500, type: 3}
-    - time: 0.30792534
+    - time: 0.5555556
       value: {fileID: 21300000, guid: e1a494f082fab8640bfa5f22b709d42f, type: 3}
-    - time: 0.36566132
+    - time: 0.6597222
       value: {fileID: 21300000, guid: d15d205f04b8fc84596df018d98ee086, type: 3}
-    - time: 0.42339733
+    - time: 0.7638889
       value: {fileID: 21300000, guid: 907bed886c1a2b042b16b8fbc4afe3a0, type: 3}
-    - time: 0.68733335
+    - time: 1.2400794
       value: {fileID: 21300000, guid: 907bed886c1a2b042b16b8fbc4afe3a0, type: 3}
     attribute: m_Sprite
     path: 
@@ -71,7 +71,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.72900003
+    m_StopTime: 1.281746
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -91,28 +91,28 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.19245334
+  - time: 0.34722224
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.23369335
+  - time: 0.421627
     functionName: AnimEvent_Fire
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5498667
+  - time: 0.9920635
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.65984
+  - time: 1.1904762
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

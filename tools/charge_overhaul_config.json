@@ -1,0 +1,193 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/chargedattackoverhaul.png",
+   "preview_out": "preview_charge_base.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "animations": [
+    {
+     "name": "charge_hold_light",
+     "region": [
+      8,
+      98,
+      680,
+      171
+     ]
+    },
+    {
+     "name": "charge_light_l1",
+     "region": [
+      680,
+      98,
+      1530,
+      171
+     ]
+    },
+    {
+     "name": "charge_light_l2",
+     "region": [
+      680,
+      212,
+      1530,
+      289
+     ]
+    },
+    {
+     "name": "charge_light_l3",
+     "region": [
+      680,
+      212,
+      1530,
+      289
+     ]
+    },
+    {
+     "name": "charge_hold_heavy",
+     "region": [
+      8,
+      328,
+      680,
+      414
+     ]
+    },
+    {
+     "name": "charge_heavy_l1",
+     "region": [
+      680,
+      328,
+      1530,
+      414
+     ]
+    },
+    {
+     "name": "charge_heavy_l2",
+     "region": [
+      680,
+      328,
+      1530,
+      414
+     ]
+    },
+    {
+     "name": "charge_heavy_l3",
+     "region": [
+      680,
+      431,
+      1530,
+      534
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/chargedattackoverhaul.png",
+   "preview_out": "preview_charge_awk.png",
+   "out_dir": "../Assets/Art/Sprites/Awakened",
+   "animations": [
+    {
+     "name": "charge_awk_light",
+     "region": [
+      8,
+      574,
+      680,
+      653
+     ]
+    },
+    {
+     "name": "charge_awk_light_l1",
+     "region": [
+      680,
+      574,
+      1530,
+      653
+     ]
+    },
+    {
+     "name": "charge_awk_light_l2",
+     "region": [
+      680,
+      693,
+      1530,
+      773
+     ]
+    },
+    {
+     "name": "charge_awk_light_l3",
+     "region": [
+      680,
+      693,
+      1530,
+      773
+     ]
+    },
+    {
+     "name": "charge_awk_heavy",
+     "region": [
+      8,
+      818,
+      680,
+      894
+     ]
+    },
+    {
+     "name": "charge_awk_heavy_l1",
+     "region": [
+      680,
+      818,
+      1530,
+      894
+     ]
+    },
+    {
+     "name": "charge_awk_heavy_l2",
+     "region": [
+      680,
+      818,
+      1530,
+      894
+     ]
+    },
+    {
+     "name": "charge_awk_heavy_l3",
+     "region": [
+      680,
+      913,
+      1530,
+      1019
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/chargedattackoverhaul.png",
+   "preview_out": "preview_charge_debris.png",
+   "out_dir": "../Assets/Art/Sprites/VFX",
+   "animations": [
+    {
+     "name": "charge_debris",
+     "region": [
+      1130,
+      431,
+      1530,
+      534
+     ]
+    }
+   ]
+  }
+ ]
+}
