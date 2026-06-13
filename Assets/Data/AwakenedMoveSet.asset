@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.432
+    multiHit: 1
+    aoe: 0
   - id: VoidSlash2
     animatorTrigger: VoidSlash2
     sequence: 0000000000000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.48400003
+    multiHit: 1
+    aoe: 0
   - id: EchoTeleportCombo
     animatorTrigger: EchoTeleportCombo
     sequence: 000000000000000000000000
@@ -61,6 +65,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 1
     duration: 0.568
+    multiHit: 1
+    aoe: 0
   - id: DimensionBreak
     animatorTrigger: DimensionBreak
     sequence: 01000000
@@ -77,6 +83,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.512
+    multiHit: 1
+    aoe: 0
   - id: TeleportStrike
     animatorTrigger: TeleportStrike
     sequence: 0000000001000000
@@ -93,6 +101,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 1
     duration: 0.51600003
+    multiHit: 1
+    aoe: 0
   - id: ObliterationBurst
     animatorTrigger: ObliterationBurst
     sequence: 0100000001000000
@@ -102,13 +112,15 @@ MonoBehaviour:
       knockback: {x: 8.96, y: 0}
       knocksDown: 1
       launch: 0
-      rangeScale: 1.2
-      heightScale: 1.15
-      hitsBothSides: 0
+      rangeScale: 1.7
+      heightScale: 1.4
+      hitsBothSides: 1
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
     duration: 0.596
+    multiHit: 1
+    aoe: 1
   - id: CrossDimensionCut
     animatorTrigger: CrossDimensionCut
     sequence: 000000000000000001000000
@@ -118,13 +130,15 @@ MonoBehaviour:
       knockback: {x: 7.84, y: 0}
       knocksDown: 1
       launch: 0
-      rangeScale: 1.6
+      rangeScale: 1.7
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
     duration: 0.584
+    multiHit: 1
+    aoe: 0
   - id: TimeRiftSlash
     animatorTrigger: TimeRiftSlash
     sequence: 0100000000000000
@@ -141,6 +155,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.532
+    multiHit: 1
+    aoe: 0
   - id: VoidPiercer
     animatorTrigger: VoidPiercer
     sequence: 010000000000000001000000
@@ -157,6 +173,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 2
     duration: 0.584
+    multiHit: 1
+    aoe: 0
   - id: AwakenedShot
     animatorTrigger: AwakenedShot
     sequence: 02000000
@@ -173,6 +191,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.32000002
+    multiHit: 1
+    aoe: 0
   - id: RapidVoidFire
     animatorTrigger: RapidVoidFire
     sequence: 0200000002000000
@@ -188,7 +208,9 @@ MonoBehaviour:
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
-    duration: 0.34
+    duration: 0.58
+    multiHit: 4
+    aoe: 0
   - id: BladeStormBullet
     animatorTrigger: BladeStormBullet
     sequence: 020000000200000002000000
@@ -205,6 +227,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: SwordDrawShot
     animatorTrigger: SwordDrawShot
     sequence: 0000000002000000
@@ -221,6 +245,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: VoidSpearAssault
     animatorTrigger: VoidSpearAssault
     sequence: 0100000002000000
@@ -237,6 +263,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 2
     duration: 0.54800004
+    multiHit: 1
+    aoe: 0
   - id: PhantomAssault
     animatorTrigger: PhantomAssault
     sequence: 0200000001000000
@@ -250,9 +278,11 @@ MonoBehaviour:
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
-    firesSlashWave: 0
+    firesSlashWave: 1
     teleport: 1
     duration: 0.54800004
+    multiHit: 1
+    aoe: 0
   - id: TeleportFeint
     animatorTrigger: TeleportFeint
     sequence: 000000000100000000000000
@@ -269,6 +299,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 2
     duration: 0.504
+    multiHit: 1
+    aoe: 0
   - id: TeleportImpact
     animatorTrigger: TeleportImpact
     sequence: 010000000100000000000000
@@ -285,6 +317,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.568
+    multiHit: 1
+    aoe: 0
   - id: VoidSlasherFinisher
     animatorTrigger: VoidSlasherFinisher
     sequence: 020000000200000001000000
@@ -301,6 +335,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.632
+    multiHit: 1
+    aoe: 0
   - id: InfiniteTeleportStorm
     animatorTrigger: InfiniteTeleportStorm
     sequence: 00000000000000000000000000000000
@@ -317,6 +353,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 1
     duration: 0.684
+    multiHit: 1
+    aoe: 0
   - id: FinalDomainVoidErasure
     animatorTrigger: FinalDomainVoidErasure
     sequence: 01000000010000000100000001000000
@@ -332,7 +370,9 @@ MonoBehaviour:
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
-    duration: 0.75
+    duration: 0.78000003
+    multiHit: 1
+    aoe: 0
   - id: EclipseSlash
     animatorTrigger: EclipseSlash
     sequence: 00000000000000000100000001000000
@@ -349,6 +389,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.66800004
+    multiHit: 1
+    aoe: 0
   - id: ApocalypseBlade
     animatorTrigger: ApocalypseBlade
     sequence: 01000000010000000000000000000000
@@ -365,6 +407,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 2
     duration: 0.684
+    multiHit: 1
+    aoe: 0
   - id: SilentRequiem
     animatorTrigger: SilentRequiem
     sequence: 00000000010000000100000000000000
@@ -381,6 +425,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 1
     duration: 0.652
+    multiHit: 1
+    aoe: 0
   - id: CelestialJudgment
     animatorTrigger: CelestialJudgment
     sequence: 01000000000000000000000001000000
@@ -397,6 +443,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.70000005
+    multiHit: 1
+    aoe: 0
   - id: OmegaCut
     animatorTrigger: OmegaCut
     sequence: 02000000020000000100000001000000
@@ -413,6 +461,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 2
     duration: 0.716
+    multiHit: 1
+    aoe: 0
   - id: VoidErasure
     animatorTrigger: VoidErasure
     sequence: 00000000020000000000000002000000
@@ -429,6 +479,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.73200005
+    multiHit: 1
+    aoe: 0
   - id: VoidAscension
     animatorTrigger: VoidAscension
     sequence: 02000000000000000200000000000000
@@ -444,4 +496,6 @@ MonoBehaviour:
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 1
-    duration: 0.75
+    duration: 0.796
+    multiHit: 1
+    aoe: 0

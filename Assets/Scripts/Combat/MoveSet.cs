@@ -24,6 +24,11 @@ namespace SilverFang.Combat
         public TeleportKind teleport = TeleportKind.None;
         /// Animation clip length; used as a watchdog so a missed AttackEnd event can't lock the character.
         public float duration = 0.4f;
+        /// Number of distinct hitbox windows in this attack (>1 = multi-hit
+        /// flurry/barrage; each window re-arms the hitbox so it connects again).
+        public int multiHit = 1;
+        /// Area attack: the hitbox covers both sides of the body.
+        public bool aoe;
     }
 
     [CreateAssetMenu(menuName = "SilverFang/Move Set")]

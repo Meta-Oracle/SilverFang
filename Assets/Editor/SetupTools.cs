@@ -34,6 +34,8 @@ namespace SilverFang.EditorTools
             public bool slashWave;
             public TeleportKind teleport = TeleportKind.None;
             public float length = 0.4f;
+            public int multiHit = 1;
+            public bool aoe;
         }
 
         // (sequence, move name, damage, knocksDown, firesProjectile)
@@ -102,7 +104,19 @@ namespace SilverFang.EditorTools
             ("HHHG", "ChargeUp",           10, false, false),
             ("HHLH", "PowerSlash",         34, true,  false),
             ("HHGL", "SwordCharge",        28, false, false),
-            ("GGHG", "ClassicSlash",       18, false, false)
+            ("GGHG", "ClassicSlash",       18, false, false),
+
+            // Light chain extended to 8 presses -> sword barrage (Jotaro-style
+            // ORA flurry of many rapid blows). 5-7 keep the string alive.
+            ("LLLLL",    "LightRush5",   9,  false, false),
+            ("LLLLLL",   "LightRush6",   9,  false, false),
+            ("LLLLLLL",  "LightRush7",   11, false, false),
+            ("LLLLLLLL", "SwordBarrage", 12, true,  false),
+
+            // AOE physical sweep + the gun barrage/scatter routes
+            ("HLHL", "BladeNova",      20, true,  false),
+            ("LGLG", "BulletBarrage",  0,  false, true),
+            ("GHGH", "ScatterNova",    0,  false, true)
         };
 
         private static readonly MoveSpec[] SwordMoves = BuildMoves(SwordTable);
@@ -143,7 +157,7 @@ namespace SilverFang.EditorTools
         // contextual attacks fired out of a dash, sprint, or awakened teleport
         private static readonly (string seq, string name, int dmg, bool kd, bool proj)[] DashTable =
         {
-            ("L", "DashSlashAtk", 12, false, false),
+            ("L", "PhantomSlashLight", 14, false, false), // dash + Light = light phantom slash
             ("LL", "DashThrustAtk", 14, false, false),
             ("LH", "DashUppercutAtk", 18, true, false),
             ("LLH", "DashSpinAtk", 20, true, false),
@@ -156,7 +170,7 @@ namespace SilverFang.EditorTools
             ("L", "SprintSlashAtk", 14, false, false),
             ("LL", "SprintThrustAtk", 16, false, false),
             ("LH", "SprintSpinAtk", 22, true, false),
-            ("H", "SprintHeavyAtk", 22, true,  false),
+            ("H", "PhantomSlashHeavy", 26, true,  false), // sprint + Heavy = heavy phantom slash
             ("G", "SprintShootAtk", 0,  false, true)
         };
 
@@ -239,8 +253,14 @@ namespace SilverFang.EditorTools
                                 || name.Contains("Cleave") || name.Contains("Downward") || name.Contains("Execution");
                 bool wide = name.Contains("Wide") || name.Contains("Wave") || name.Contains("Crescent")
                             || name.Contains("Cross") || name.Contains("Arc");
-                float range = thrust ? 1.9f : wide ? 1.6f : spin ? 1.5f : overhead ? 1.3f : 1.2f;
-                float height = overhead ? 1.6f : spin ? 1.3f : thrust ? 0.9f : 1.15f;
+                bool aoe = name.Contains("Aoe") || name.Contains("AOE") || name.Contains("Nova")
+                           || name.Contains("Burst") || name.Contains("Quake");
+                // flurry/barrage moves rain many rapid blows from one input
+                int multiHit = name.Contains("Barrage") ? 8 : name.Contains("Flurry") ? 6
+                               : name.Contains("Rapid") ? 4 : 1;
+                bool wideArc = wide || aoe;
+                float range = thrust ? 1.9f : wideArc ? 1.7f : spin ? 1.5f : overhead ? 1.3f : 1.2f;
+                float height = overhead ? 1.6f : spin ? 1.3f : aoe ? 1.4f : thrust ? 0.9f : 1.15f;
 
                 result[i] = new MoveSpec
                 {
@@ -248,8 +268,11 @@ namespace SilverFang.EditorTools
                     trigger = name,
                     seq = tokens,
                     projectile = proj,
-                    slashWave = name.Contains("Wave"),
-                    length = Mathf.Clamp(0.3f + dmg * 0.008f + seq.Length * 0.02f, 0.3f, 0.75f),
+                    slashWave = name.Contains("Wave") || name.Contains("Phantom"),
+                    multiHit = multiHit,
+                    aoe = aoe,
+                    length = Mathf.Clamp(0.3f + dmg * 0.008f + seq.Length * 0.02f
+                                         + (multiHit > 1 ? 0.06f * multiHit : 0f), 0.3f, 1.1f),
                     attack = new AttackData
                     {
                         damage = dmg > 0 ? dmg : 6,
@@ -259,7 +282,7 @@ namespace SilverFang.EditorTools
                         launch = launches ? 7.5f : 0f,
                         rangeScale = range,
                         heightScale = height,
-                        hitsBothSides = spin
+                        hitsBothSides = spin || aoe
                     }
                 };
             }
@@ -790,7 +813,9 @@ namespace SilverFang.EditorTools
                 firesProjectile = s.projectile,
                 firesSlashWave = s.slashWave,
                 teleport = s.teleport,
-                duration = s.length
+                duration = s.length,
+                multiHit = s.multiHit,
+                aoe = s.aoe
             }).ToList();
 
             EditorUtility.SetDirty(set);
@@ -1023,6 +1048,8 @@ namespace SilverFang.EditorTools
             AddSimpleTriggerState("Roll", prefix + "_Roll", 0.45f);
             AddSimpleTriggerState("Guard", prefix + "_Guard", 0.35f);
             AddSimpleTriggerState("Victory", prefix + "_Victory", 0.8f);
+            AddSimpleTriggerState("StanceSwitch", prefix + "_StanceSwitch", 0.2f);
+            AddSimpleTriggerState("SlashMirage", prefix + "_SlashMirage", 1.25f);
 
             controller.AddParameter("Dash", AnimatorControllerParameterType.Trigger);
             var dashState = sm.AddState("Dash");
@@ -1302,8 +1329,9 @@ namespace SilverFang.EditorTools
                     type = AmmoType.Standard,
                     attack = new AttackData { damage = 14, hitstun = 0.3f, knockback = new Vector2(4f, 0f) },
                     tint = new Color(0.55f, 0.85f, 1f),
-                    speed = 12f,
-                    piercing = true
+                    speed = 22f,
+                    piercing = true,
+                    decelerates = true // phantom slash: launches fast, slows, fades
                 });
                 SetPrivateField(player, "ammoTypes", new[]
                 {
@@ -1741,6 +1769,49 @@ namespace SilverFang.EditorTools
             so.ApplyModifiedPropertiesWithoutUndo();
         }
 
+        /// Animated revolver cylinder HUD (bottom-left), base/awakened art.
+        private static void BuildRevolverAmmo(GameObject group, GameObject hero)
+        {
+            var obj = new GameObject("RevolverAmmo");
+            obj.transform.SetParent(group.transform, false);
+            var img = obj.AddComponent<Image>();
+            img.preserveAspect = true;
+            var rect = img.rectTransform;
+            rect.anchorMin = new Vector2(0f, 0f);
+            rect.anchorMax = new Vector2(0f, 0f);
+            rect.pivot = new Vector2(0f, 0f);
+            rect.anchoredPosition = new Vector2(14f, 14f);
+            rect.sizeDelta = new Vector2(46f, 46f);
+
+            var count = MakeUiText(group.transform, "RevolverCount", Vector2.zero, new Vector2(90f, 16f),
+                10, new Color(0.95f, 0.9f, 0.7f));
+            var countRect = count.rectTransform;
+            countRect.anchorMin = new Vector2(0f, 0f);
+            countRect.anchorMax = new Vector2(0f, 0f);
+            countRect.pivot = new Vector2(0f, 0f);
+            countRect.anchoredPosition = new Vector2(64f, 26f);
+
+            var ui = group.AddComponent<RevolverAmmoUI>();
+            var so = new SerializedObject(ui);
+            so.FindProperty("player").objectReferenceValue = hero.GetComponent<PlayerController>();
+            so.FindProperty("cylinder").objectReferenceValue = img;
+            so.FindProperty("countText").objectReferenceValue = count;
+
+            void FillStates(string prop, string who, int n, string suffix)
+            {
+                var arr = so.FindProperty(prop);
+                arr.arraySize = n;
+                for (int i = 0; i < n; i++)
+                    arr.GetArrayElementAtIndex(i).objectReferenceValue =
+                        ImportUiSprite($"{UiDir}/Revolver/{who}_{suffix}{i}.png");
+            }
+            FillStates("baseStates", "base", 7, "");
+            FillStates("awkStates", "awk", 7, "");
+            FillStates("baseFire", "base", 3, "fire");
+            FillStates("awkFire", "awk", 3, "fire");
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         /// World-space lock-on reticle marker, per-hero art.
         private static void WireLockReticle(GameObject hero, string who)
         {
@@ -1846,6 +1917,7 @@ namespace SilverFang.EditorTools
             BuildComboCounter(group, player, new Color(0.55f, 0.8f, 1f), "silver");
             BuildComboLevelMeter(group, player, "silver");
             WireLockReticle(player, "silver");
+            BuildRevolverAmmo(group, player);
 
             var dmgUi = canvasObj.AddComponent<DamageNumberUI>();
             var dmgSo = new SerializedObject(dmgUi);
@@ -1958,6 +2030,7 @@ namespace SilverFang.EditorTools
             BuildComboCounter(group, hilo, new Color(0.78f, 0.5f, 1f), "hilo");
             BuildComboLevelMeter(group, hilo, "hilo");
             WireLockReticle(hilo, "hilo");
+            BuildRevolverAmmo(group, hilo);
 
             return group;
         }
@@ -2694,6 +2767,34 @@ namespace SilverFang.EditorTools
             balanceRect.anchoredPosition = new Vector2(44f, 8f);
             balanceRect.sizeDelta = new Vector2(300f, 24f);
 
+            // compact option menu (the command list is now one option on it)
+            var menuObj = new GameObject("PauseMenuPanel");
+            menuObj.transform.SetParent(canvas.transform, false);
+            var menuBg = menuObj.AddComponent<Image>();
+            menuBg.color = new Color(0.02f, 0.025f, 0.06f, 0.95f);
+            var menuRect = menuBg.rectTransform;
+            menuRect.anchorMin = new Vector2(0.5f, 0.5f);
+            menuRect.anchorMax = new Vector2(0.5f, 0.5f);
+            menuRect.pivot = new Vector2(0.5f, 0.5f);
+            menuRect.anchoredPosition = Vector2.zero;
+            menuRect.sizeDelta = new Vector2(320f, 230f);
+
+            var menuTextObj = new GameObject("MenuText");
+            menuTextObj.transform.SetParent(menuObj.transform, false);
+            var menuText = menuTextObj.AddComponent<Text>();
+            menuText.font = font;
+            menuText.fontSize = 16;
+            menuText.fontStyle = FontStyle.Bold;
+            menuText.color = new Color(0.88f, 0.93f, 1f);
+            menuText.alignment = TextAnchor.MiddleCenter;
+            menuText.horizontalOverflow = HorizontalWrapMode.Overflow;
+            menuText.verticalOverflow = VerticalWrapMode.Overflow;
+            var menuTextRect = menuText.rectTransform;
+            menuTextRect.anchorMin = Vector2.zero;
+            menuTextRect.anchorMax = Vector2.one;
+            menuTextRect.offsetMin = new Vector2(10f, 10f);
+            menuTextRect.offsetMax = new Vector2(-10f, -10f);
+
             var uiObj = new GameObject("CommandListUI");
             uiObj.transform.SetParent(canvas.transform, false);
             var ui = uiObj.AddComponent<UI.CommandListUI>();
@@ -2708,6 +2809,8 @@ namespace SilverFang.EditorTools
             so.FindProperty("awakenedAirMoveSet").objectReferenceValue = AssetDatabase.LoadAssetAtPath<MoveSet>($"{DataDir}/AwakenedAirMoveSet.asset");
             WireHiloCommandListSets(so);
             so.FindProperty("panel").objectReferenceValue = panelObj;
+            so.FindProperty("menuPanel").objectReferenceValue = menuObj;
+            so.FindProperty("menuText").objectReferenceValue = menuText;
             so.FindProperty("titleText").objectReferenceValue = title;
             so.FindProperty("swordColumnA").objectReferenceValue = colA;
             so.FindProperty("swordColumnB").objectReferenceValue = colB;

@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.384
+    multiHit: 1
+    aoe: 0
   - id: PowerStraight
     animatorTrigger: PowerStraight
     sequence: 01000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.448
+    multiHit: 1
+    aoe: 0
   - id: HiloQuickShot
     animatorTrigger: HiloQuickShot
     sequence: 02000000
@@ -61,6 +65,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.32000002
+    multiHit: 1
+    aoe: 0
   - id: ClawCross
     animatorTrigger: ClawCross
     sequence: 0000000000000000
@@ -70,13 +76,15 @@ MonoBehaviour:
       knockback: {x: 2, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.6
+      rangeScale: 1.7
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
     duration: 0.42000002
+    multiHit: 1
+    aoe: 0
   - id: RisingPalm
     animatorTrigger: RisingPalm
     sequence: 0000000001000000
@@ -93,6 +101,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.45200002
+    multiHit: 1
+    aoe: 0
   - id: PhantomBeam
     animatorTrigger: PhantomBeam
     sequence: 0000000002000000
@@ -106,9 +116,11 @@ MonoBehaviour:
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 1
-    firesSlashWave: 0
+    firesSlashWave: 1
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: FrontKick
     animatorTrigger: FrontKick
     sequence: 0100000000000000
@@ -125,6 +137,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.43600002
+    multiHit: 1
+    aoe: 0
   - id: AxeKick
     animatorTrigger: AxeKick
     sequence: 0100000001000000
@@ -141,6 +155,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.532
+    multiHit: 1
+    aoe: 0
   - id: BurstCannon
     animatorTrigger: BurstCannon
     sequence: 0100000002000000
@@ -150,13 +166,15 @@ MonoBehaviour:
       knockback: {x: 1.5, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.2
-      heightScale: 1.15
-      hitsBothSides: 0
+      rangeScale: 1.7
+      heightScale: 1.4
+      hitsBothSides: 1
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 1
   - id: SideKick
     animatorTrigger: SideKick
     sequence: 0200000000000000
@@ -173,6 +191,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.42000002
+    multiHit: 1
+    aoe: 0
   - id: BackKick
     animatorTrigger: BackKick
     sequence: 0200000001000000
@@ -189,6 +209,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.48400003
+    multiHit: 1
+    aoe: 0
   - id: WideBeam
     animatorTrigger: WideBeam
     sequence: 0200000002000000
@@ -198,13 +220,15 @@ MonoBehaviour:
       knockback: {x: 1.5, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.6
+      rangeScale: 1.7
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: ClawFlurry
     animatorTrigger: ClawFlurry
     sequence: 000000000000000000000000
@@ -220,7 +244,9 @@ MonoBehaviour:
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
-    duration: 0.472
+    duration: 0.832
+    multiHit: 6
+    aoe: 0
   - id: ClawUppercut
     animatorTrigger: ClawUppercut
     sequence: 000000000000000001000000
@@ -237,6 +263,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.52000004
+    multiHit: 1
+    aoe: 0
   - id: EnergyWave
     animatorTrigger: EnergyWave
     sequence: 000000000000000002000000
@@ -246,13 +274,15 @@ MonoBehaviour:
       knockback: {x: 3.2, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.6
+      rangeScale: 1.7
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
     firesSlashWave: 1
     teleport: 0
     duration: 0.488
+    multiHit: 1
+    aoe: 0
   - id: SnapKick
     animatorTrigger: SnapKick
     sequence: 000000000100000000000000
@@ -269,6 +299,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.48000002
+    multiHit: 1
+    aoe: 0
   - id: SpinningClaw
     animatorTrigger: SpinningClaw
     sequence: 000000000100000001000000
@@ -285,6 +317,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.536
+    multiHit: 1
+    aoe: 0
   - id: HomingMissile
     animatorTrigger: HomingMissile
     sequence: 000000000100000002000000
@@ -301,6 +335,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: ClawSlash
     animatorTrigger: ClawSlash
     sequence: 000000000200000000000000
@@ -317,6 +353,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.488
+    multiHit: 1
+    aoe: 0
   - id: ClawSpin
     animatorTrigger: ClawSpin
     sequence: 000000000200000001000000
@@ -333,6 +371,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.52000004
+    multiHit: 1
+    aoe: 0
   - id: YinYangBurst
     animatorTrigger: YinYangBurst
     sequence: 000000000200000002000000
@@ -342,13 +382,15 @@ MonoBehaviour:
       knockback: {x: 1.5, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.2
-      heightScale: 1.15
-      hitsBothSides: 0
+      rangeScale: 1.7
+      heightScale: 1.4
+      hitsBothSides: 1
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 1
   - id: RoundhouseKick
     animatorTrigger: RoundhouseKick
     sequence: 010000000000000000000000
@@ -365,6 +407,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.472
+    multiHit: 1
+    aoe: 0
   - id: FlyingRoundhouse
     animatorTrigger: FlyingRoundhouse
     sequence: 010000000000000001000000
@@ -381,6 +425,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.504
+    multiHit: 1
+    aoe: 0
   - id: PhantomVolley
     animatorTrigger: PhantomVolley
     sequence: 010000000000000002000000
@@ -394,9 +440,11 @@ MonoBehaviour:
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 1
-    firesSlashWave: 0
+    firesSlashWave: 1
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: DoubleRoundhouse
     animatorTrigger: DoubleRoundhouse
     sequence: 010000000100000000000000
@@ -413,6 +461,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.52000004
+    multiHit: 1
+    aoe: 0
   - id: HurricaneKick
     animatorTrigger: HurricaneKick
     sequence: 010000000100000001000000
@@ -429,6 +479,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.584
+    multiHit: 1
+    aoe: 0
   - id: EnergyClaw
     animatorTrigger: EnergyClaw
     sequence: 010000000100000002000000
@@ -445,6 +497,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.504
+    multiHit: 1
+    aoe: 0
   - id: ClawThrust
     animatorTrigger: ClawThrust
     sequence: 010000000200000000000000
@@ -461,6 +515,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.48000002
+    multiHit: 1
+    aoe: 0
   - id: CycloneKick
     animatorTrigger: CycloneKick
     sequence: 010000000200000001000000
@@ -477,6 +533,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.55200005
+    multiHit: 1
+    aoe: 0
   - id: MissileBarrage
     animatorTrigger: MissileBarrage
     sequence: 010000000200000002000000
@@ -492,7 +550,9 @@ MonoBehaviour:
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
-    duration: 0.36
+    duration: 0.84
+    multiHit: 8
+    aoe: 0
   - id: BionicComboA
     animatorTrigger: BionicComboA
     sequence: 020000000000000000000000
@@ -509,6 +569,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.472
+    multiHit: 1
+    aoe: 0
   - id: FlyingSideKick
     animatorTrigger: FlyingSideKick
     sequence: 020000000000000001000000
@@ -525,6 +587,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.504
+    multiHit: 1
+    aoe: 0
   - id: CannonVolley
     animatorTrigger: CannonVolley
     sequence: 020000000000000002000000
@@ -541,6 +605,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: SpinningKick
     animatorTrigger: SpinningKick
     sequence: 020000000100000000000000
@@ -557,6 +623,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.49600002
+    multiHit: 1
+    aoe: 0
   - id: JumpKick
     animatorTrigger: JumpKick
     sequence: 020000000100000001000000
@@ -573,6 +641,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.536
+    multiHit: 1
+    aoe: 0
   - id: PhantomStrike
     animatorTrigger: PhantomStrike
     sequence: 020000000100000002000000
@@ -586,9 +656,11 @@ MonoBehaviour:
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
-    firesSlashWave: 0
+    firesSlashWave: 1
     teleport: 0
     duration: 0.568
+    multiHit: 1
+    aoe: 0
   - id: BionicComboB
     animatorTrigger: BionicComboB
     sequence: 020000000200000000000000
@@ -605,6 +677,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.472
+    multiHit: 1
+    aoe: 0
   - id: TwinClawCombo
     animatorTrigger: TwinClawCombo
     sequence: 020000000200000001000000
@@ -621,6 +695,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.52000004
+    multiHit: 1
+    aoe: 0
   - id: OmniBeam
     animatorTrigger: OmniBeam
     sequence: 020000000200000002000000
@@ -637,6 +713,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: KillCombo
     animatorTrigger: KillCombo
     sequence: 00000000000000000000000000000000
@@ -653,6 +731,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.652
+    multiHit: 1
+    aoe: 0
   - id: SavageClawFinisher
     animatorTrigger: SavageClawFinisher
     sequence: 01000000010000000100000001000000
@@ -669,6 +749,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.70000005
+    multiHit: 1
+    aoe: 0
   - id: YinYangOverdrive
     animatorTrigger: YinYangOverdrive
     sequence: 02000000020000000200000002000000
@@ -685,6 +767,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.38
+    multiHit: 1
+    aoe: 0
   - id: PhantomDance
     animatorTrigger: PhantomDance
     sequence: 00000000010000000000000001000000
@@ -698,9 +782,11 @@ MonoBehaviour:
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
-    firesSlashWave: 0
+    firesSlashWave: 1
     teleport: 0
     duration: 0.60400003
+    multiHit: 1
+    aoe: 0
   - id: CycloneFinisher
     animatorTrigger: CycloneFinisher
     sequence: 01000000010000000000000000000000
@@ -717,6 +803,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.63600004
+    multiHit: 1
+    aoe: 0
   - id: ShadowCloneStrike
     animatorTrigger: ShadowCloneStrike
     sequence: 02000000020000000100000001000000
@@ -733,3 +821,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.66800004
+    multiHit: 1
+    aoe: 0

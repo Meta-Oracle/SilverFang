@@ -1,0 +1,52 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/awakenedmovementoverhaul.png",
+   "preview_out": "preview_awkmv.png",
+   "out_dir": "../Assets/Art/Sprites/Awakened",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 50,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      8,
+      100,
+      505,
+      205
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      540,
+      100,
+      1430,
+      205
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      8,
+      242,
+      1495,
+      316
+     ]
+    },
+    {
+     "name": "sprint",
+     "region": [
+      8,
+      333,
+      1495,
+      406
+     ]
+    }
+   ]
+  }
+ ]
+}

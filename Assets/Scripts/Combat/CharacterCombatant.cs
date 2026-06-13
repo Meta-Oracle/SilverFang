@@ -62,6 +62,10 @@ namespace SilverFang.Combat
                               && !Juggled && Status != StatusType.Frozen;
         public Health Health => health;
 
+        /// When true, incoming enemy projectiles are deflected back instead of
+        /// landing (set during dash i-frames, guard, and parry windows).
+        public virtual bool DeflectsProjectiles => false;
+
         protected static readonly int HashMoveSpeed = Animator.StringToHash("MoveSpeed");
         protected static readonly int HashHurt = Animator.StringToHash("Hurt");
         protected static readonly int HashKnockdown = Animator.StringToHash("Knockdown");

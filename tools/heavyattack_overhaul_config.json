@@ -1,0 +1,52 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/silverheavyattackoverhaul.png",
+   "preview_out": "preview_heavy.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 54,
+   "animations": [
+    {
+     "name": "great_cleave",
+     "region": [
+      16,
+      120,
+      500,
+      232
+     ]
+    },
+    {
+     "name": "overhead_slash",
+     "region": [
+      505,
+      120,
+      820,
+      232
+     ]
+    },
+    {
+     "name": "forward_thrust",
+     "region": [
+      835,
+      120,
+      1180,
+      232
+     ]
+    },
+    {
+     "name": "ground_slam",
+     "region": [
+      1195,
+      120,
+      1536,
+      232
+     ]
+    }
+   ]
+  }
+ ]
+}

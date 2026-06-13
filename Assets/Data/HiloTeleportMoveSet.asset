@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.528
+    multiHit: 1
+    aoe: 0
   - id: HiloShadowClone
     animatorTrigger: HiloShadowClone
     sequence: 01000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.56
+    multiHit: 1
+    aoe: 0
   - id: HiloShadowBeam
     animatorTrigger: HiloShadowBeam
     sequence: 02000000
@@ -61,3 +65,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.32000002
+    multiHit: 1
+    aoe: 0

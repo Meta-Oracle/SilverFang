@@ -13,22 +13,24 @@ MonoBehaviour:
   m_Name: DashMoveSet
   m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.MoveSet
   moves:
-  - id: DashSlashAtk
-    animatorTrigger: DashSlashAtk
+  - id: PhantomSlashLight
+    animatorTrigger: PhantomSlashLight
     sequence: 00000000
     attack:
-      damage: 12
-      hitstun: 0.296
-      knockback: {x: 2.4, y: 0}
+      damage: 14
+      hitstun: 0.312
+      knockback: {x: 2.8, y: 0}
       knocksDown: 0
       launch: 0
       rangeScale: 1.2
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
-    firesSlashWave: 0
+    firesSlashWave: 1
     teleport: 0
-    duration: 0.416
+    duration: 0.432
+    multiHit: 1
+    aoe: 0
   - id: DashThrustAtk
     animatorTrigger: DashThrustAtk
     sequence: 0000000000000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.45200002
+    multiHit: 1
+    aoe: 0
   - id: DashUppercutAtk
     animatorTrigger: DashUppercutAtk
     sequence: 0000000001000000
@@ -61,6 +65,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.48400003
+    multiHit: 1
+    aoe: 0
   - id: DashSpinAtk
     animatorTrigger: DashSpinAtk
     sequence: 000000000000000001000000
@@ -77,6 +83,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.52000004
+    multiHit: 1
+    aoe: 0
   - id: DashHeavyAtk
     animatorTrigger: DashHeavyAtk
     sequence: 01000000
@@ -93,6 +101,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.46400002
+    multiHit: 1
+    aoe: 0
   - id: DashShootAtk
     animatorTrigger: DashShootAtk
     sequence: 02000000
@@ -109,3 +119,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.32000002
+    multiHit: 1
+    aoe: 0

@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: HiloAirHeavyKick
     animatorTrigger: HiloAirHeavyKick
     sequence: 01000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.48
+    multiHit: 1
+    aoe: 0
   - id: HiloAirClaw
     animatorTrigger: HiloAirClaw
     sequence: 0000000000000000
@@ -61,6 +65,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: HiloAirSpinKick
     animatorTrigger: HiloAirSpinKick
     sequence: 0000000001000000
@@ -77,6 +83,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.42
+    multiHit: 1
+    aoe: 0
   - id: HiloAirDiveKick
     animatorTrigger: HiloAirDiveKick
     sequence: 0100000001000000
@@ -93,6 +101,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.46
+    multiHit: 1
+    aoe: 0
   - id: HiloAirDownSlash
     animatorTrigger: HiloAirDownSlash
     sequence: 0100000000000000
@@ -109,6 +119,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.4
+    multiHit: 1
+    aoe: 0
   - id: HiloAirBurst
     animatorTrigger: HiloAirBurst
     sequence: 02000000
@@ -125,6 +137,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.38
+    multiHit: 1
+    aoe: 0
   - id: HiloAerialCombo
     animatorTrigger: HiloAerialCombo
     sequence: 000000000000000000000000
@@ -141,3 +155,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.6
+    multiHit: 1
+    aoe: 0

@@ -22,6 +22,13 @@ namespace SilverFang.UI
 
         private void Start()
         {
+            // Restart from the pause menu skips straight past the crawl.
+            if (CharacterRoster.QuickRestart)
+            {
+                if (characterSelect != null) characterSelect.SetActive(true);
+                Destroy(gameObject);
+                return;
+            }
             GamePause.TryAcquire(this);
             if (hintText != null)
                 hintText.text = "J / ENTER / Ⓐ  SKIP";

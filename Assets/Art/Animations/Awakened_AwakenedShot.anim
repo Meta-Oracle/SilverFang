@@ -22,17 +22,17 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: daefb4b6d82be4f4696b113335cf09e7, type: 3}
-    - time: 0.051200002
+    - time: 0.056466673
       value: {fileID: 21300000, guid: 0b3dc16a58d9982459586f5169b429a5, type: 3}
-    - time: 0.102400005
+    - time: 0.112933345
       value: {fileID: 21300000, guid: 09ca0fad88785c44d84cffa162ef2c80, type: 3}
-    - time: 0.12320001
+    - time: 0.15528335
       value: {fileID: 21300000, guid: f36fcc1e68de79f4f98298368fc73cc3, type: 3}
-    - time: 0.14400001
+    - time: 0.19763334
       value: {fileID: 21300000, guid: e8124860459f0d04381194e7891dfdb7, type: 3}
-    - time: 0.1648
+    - time: 0.23998335
       value: {fileID: 21300000, guid: 98c456a6666a86844b94360dc95c1269, type: 3}
-    - time: 0.32000002
+    - time: 0.40333337
       value: {fileID: 21300000, guid: 98c456a6666a86844b94360dc95c1269, type: 3}
     attribute: m_Sprite
     path: 
@@ -68,7 +68,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.36166668
+    m_StopTime: 0.44500002
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -88,14 +88,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.115200005
+  - time: 0.12906668
     functionName: AnimEvent_Fire
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.29760003
+  - time: 0.38720003
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

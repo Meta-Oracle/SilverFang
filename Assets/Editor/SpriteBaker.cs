@@ -20,8 +20,11 @@ namespace SilverFang.EditorTools
         // 24fps-style action timing: strikes land on single 24fps frames while
         // anticipation and follow-through hold longer, reading cleanly at 60fps.
         private const float Fps = 24f;
-        private const float IdleFps = 8f;   // calm loops hold on threes
-        private const float WalkFps = 12f;  // locomotion on twos
+        // Loops hold each pose ~2 extra 60fps frames vs the old timing for more
+        // weight and smoother reads (idle on fours, walk/run a touch slower).
+        private const float IdleFps = 7f;
+        private const float WalkFps = 10f;
+        private const float RunFps = 12f;
 
         private const string AwakenedDir = "Assets/Art/Sprites/Awakened";
         private const string HiloDir = "Assets/Art/Sprites/Hilo";
@@ -155,7 +158,7 @@ namespace SilverFang.EditorTools
         /// Short strips (1-2 poses) get a windup pose prepended so every swing
         /// still reads as wind-up -> contact -> recovery.
         private static AnimationClip BakeAttackClip(string clipName, Sprite[] frames, Sprite[] windupPool,
-            float length, bool projectile, bool slashWave = false)
+            float length, bool projectile, bool slashWave = false, int multiHit = 1)
         {
             string path = $"{AnimDir}/{clipName}.anim";
             var clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
@@ -168,6 +171,10 @@ namespace SilverFang.EditorTools
             clip.ClearCurves();
             AnimationUtility.SetAnimationEvents(clip, new AnimationEvent[0]);
             clip.frameRate = Fps;
+
+            // Hold each pose ~2 extra frames: lengthens the swing for weight and
+            // a smoother read; event fractions scale with length so timing holds.
+            length += 2f / Fps;
 
             // Split into windup + strike.
             Sprite[] windup, strike;
@@ -192,8 +199,11 @@ namespace SilverFang.EditorTools
                 strike = new Sprite[0];
             }
 
-            const float strikeStart = 0.32f;
-            const float strikeEnd = 0.58f;
+            // Strike frames span a wider window so the swing plays out smoothly
+            // instead of snapping through in a few frames, and the active pose
+            // lingers into the follow-through (less jolty, more weighty).
+            const float strikeStart = 0.28f;
+            const float strikeEnd = 0.70f;
 
             if (strike.Length > 0)
             {
@@ -229,16 +239,42 @@ namespace SilverFang.EditorTools
             var events = new List<AnimationEvent>();
             if (projectile)
             {
-                events.Add(new AnimationEvent { time = length * (strikeStart + 0.04f), functionName = "AnimEvent_Fire" });
+                if (multiHit > 1)
+                {
+                    // bullet barrage: spray a burst of shots across the window
+                    for (int h = 0; h < multiHit; h++)
+                    {
+                        float t = strikeStart + (strikeEnd - strikeStart) * h / (multiHit - 1);
+                        events.Add(new AnimationEvent { time = length * t, functionName = "AnimEvent_Fire" });
+                    }
+                }
+                else
+                {
+                    events.Add(new AnimationEvent { time = length * (strikeStart + 0.04f), functionName = "AnimEvent_Fire" });
+                }
+            }
+            else if (multiHit > 1)
+            {
+                // flurry/barrage: many rapid hitbox windows, each re-arms the
+                // box so every blow of the storm connects (Jotaro ORA flurry)
+                for (int h = 0; h < multiHit; h++)
+                {
+                    float on = strikeStart + (strikeEnd - strikeStart) * h / multiHit;
+                    float off = strikeStart + (strikeEnd - strikeStart) * (h + 0.7f) / multiHit;
+                    events.Add(new AnimationEvent { time = length * on, functionName = "AnimEvent_HitboxOn" });
+                    events.Add(new AnimationEvent { time = length * off, functionName = "AnimEvent_HitboxOff" });
+                }
             }
             else
             {
                 events.Add(new AnimationEvent { time = length * strikeStart, functionName = "AnimEvent_HitboxOn" });
                 if (slashWave)
                     events.Add(new AnimationEvent { time = length * (strikeStart + 0.06f), functionName = "AnimEvent_Fire" });
-                events.Add(new AnimationEvent { time = length * (strikeEnd + 0.08f), functionName = "AnimEvent_HitboxOff" });
+                // hitbox lingers a touch past the last strike pose so the swing
+                // keeps connecting through the follow-through
+                events.Add(new AnimationEvent { time = length * (strikeEnd + 0.1f), functionName = "AnimEvent_HitboxOff" });
             }
-            events.Add(new AnimationEvent { time = length * 0.93f, functionName = "AnimEvent_AttackEnd" });
+            events.Add(new AnimationEvent { time = length * 0.96f, functionName = "AnimEvent_AttackEnd" });
             AnimationUtility.SetAnimationEvents(clip, events.ToArray());
 
             var so = new SerializedObject(clip);
@@ -317,7 +353,7 @@ namespace SilverFang.EditorTools
         // sprint / teleport move. Unmapped moves fall back to slash poses.
         private static readonly (string move, string folder)[] PlayerArtMap =
         {
-            ("BasicSlash1", "light1"), ("BasicSlash2", "light2"), ("BasicSlash3", "slash"),
+            ("BasicSlash1", "light1"), ("BasicSlash2", "light2"), ("BasicSlash3", "light3"),
             ("RisingSlash", "rising_slash"), ("OverheadSlash", "overhead_slash"),
             ("ForwardThrust", "forward_thrust"), ("LungeSlash", "lunge_slash"),
             ("HorizontalWide", "horizontal_wide"), ("SpinSlash", "spin_slash"),
@@ -335,24 +371,29 @@ namespace SilverFang.EditorTools
             ("BladeStorm", "special_finisher2"), ("UppercutSlash", "rising_slash"),
             ("PistolWhip", "sheath_strike"), ("SlideSlash", "slide"),
             ("KickShot", "kick_shot"), ("MortarKick", "kick_shot"),
-            ("QuickShot", "shooting"), ("RapidShot", "rapid_shot"), ("DualShot", "shooting"),
-            ("TripleTap", "shooting"), ("RicochetShot", "shooting"), ("PiercingVolley", "shooting"),
-            ("OverdriveShot", "rapid_shot"), ("BulletStorm", "rapid_shot"),
+            ("QuickShot", "gun_quick"), ("RapidShot", "gun_rapid"), ("DualShot", "gun_blast"),
+            ("TripleTap", "gun_rapid"), ("RicochetShot", "gun_blast"), ("PiercingVolley", "gun_piercing"),
+            ("OverdriveShot", "gun_charged"), ("BulletStorm", "gun_rapid"),
             ("SupportFire", "rapid_shot"), ("SupportBarrage", "bullet_rain"),
             ("BulletRain", "bullet_rain"), ("DragonShot", "dragon_slash"),
             ("Gunslinger", "gunslinger"), ("GunslingerFinisher", "gunslinger"),
-            ("Shoot", "shooting"), ("ChargeUp", "charge_up"), ("PowerSlash", "power_slash"),
+            ("Shoot", "gun_quick"), ("ChargeUp", "charge_up"), ("PowerSlash", "power_slash"),
             ("SwordCharge", "sword_charge"), ("DualArcSlash", "dual_arc_slash"),
             ("Finisher", "finisher"), ("SpecialFinisher3", "special_finisher3"),
             ("ClassicSlash", "slash"),
-            ("DashSlashAtk", "da_slash"), ("DashHeavyAtk", "da_heavy"), ("DashShootAtk", "da_shoot"),
+            ("PhantomSlashLight", "da_slash"), ("DashHeavyAtk", "da_heavy"), ("DashShootAtk", "da_shoot"),
             ("DashThrustAtk", "da_thrust"), ("DashUppercutAtk", "da_uppercut"), ("DashSpinAtk", "da_spin"),
-            ("SprintSlashAtk", "sp_slash"), ("SprintHeavyAtk", "sp_heavy"), ("SprintShootAtk", "sp_shoot"),
+            ("SprintSlashAtk", "sp_slash"), ("PhantomSlashHeavy", "sp_heavy"), ("SprintShootAtk", "sp_shoot"),
             ("SprintThrustAtk", "sp_thrust"), ("SprintSpinAtk", "spin_slash"),
             ("TeleportStrikeAtk", "tp_strike"), ("TeleportHeavyAtk", "tp_strike_long"), ("TeleportShootAtk", "tp_shoot"),
             ("AirLightSlash", "air_jump_slash"), ("AirHeavySlash", "jumping_slash"),
             ("AirRisingSpin", "aerial_spin"), ("AirJumpSlash", "air_jump_slash"),
-            ("JumpingSlash", "jumping_slash")
+            ("JumpingSlash", "jumping_slash"),
+            // 8-hit light chain + barrage/AOE; flurry_barrage/aoe_sweep/gun_* are
+            // the dedicated overhaul folders, falling back to these if uncut yet
+            ("LightRush5", "light1"), ("LightRush6", "light2"), ("LightRush7", "light3"),
+            ("SwordBarrage", "double_spin_slash"), ("BladeNova", "spin_slash"),
+            ("BulletBarrage", "gun_rapid"), ("ScatterNova", "gun_blast")
         };
 
         private static void BakePlayer()
@@ -388,7 +429,7 @@ namespace SilverFang.EditorTools
             var walkBack = walkFrames.Reverse().ToArray();
             BakeClip("Player_WalkBack", walkBack, true, LoopLength(walkBack, WalkFps));
             var runFrames = run.Length > 0 ? run : walk;
-            EnsureRunState(BakeClip("Player_Run", runFrames, true, LoopLength(runFrames, 14f)));
+            EnsureRunState(BakeClip("Player_Run", runFrames, true, LoopLength(runFrames, RunFps)));
             BakeClip("Player_DashAnim", dash.Length > 0 ? dash : run, false, 0.22f);
             BakeClip("Player_Hurt", hurt, false, 0.3f);
             var hurtHeavy = LoadFrames($"{SilverDir}/hurt_heavy");
@@ -418,6 +459,10 @@ namespace SilverFang.EditorTools
             BakeClip("Player_Guard", guard.Length > 0 ? guard : idle, false, 0.35f);
             BakeClip("Player_Reload", reload.Length > 0 ? reload : idle, false, 0.45f);
             BakeClip("Player_Victory", victory.Length > 0 ? victory : idle, false, 0.8f);
+            // quick sword<->gun stance-switch flourish (draw/ready pose)
+            var drawFrames = LoadFrames($"{SilverDir}/gun_quick");
+            BakeClip("Player_StanceSwitch", drawFrames.Length > 0
+                ? drawFrames.Take(Mathf.Min(3, drawFrames.Length)).ToArray() : idle, false, 0.2f);
 
             // Windup poses for short strips: plain slash poses only — blue
             // charge frames are reserved for charge attacks and finishers.
@@ -435,10 +480,16 @@ namespace SilverFang.EditorTools
                     frames = spec.projectile && idle.Length > 0 ? new[] { idle[0] } : slash;
                 }
 
-                BakeAttackClip("Player_" + spec.id, frames, windupPool, spec.length, spec.projectile, spec.slashWave);
+                BakeAttackClip("Player_" + spec.id, frames, windupPool, spec.length, spec.projectile, spec.slashWave, spec.multiHit);
             }
 
             BakeChargeClips(windupPool, idle);
+
+            // Slash Mirage: dense after-image barrage clip with many hit windows
+            var mirage = LoadFrames($"{SilverDir}/slash_mirage");
+            if (mirage.Length > 0)
+                BakeAttackClip("Player_SlashMirage", mirage, slash, 1.25f, projectile: false,
+                    slashWave: false, multiHit: 14);
         }
 
         /// Charge hold loops + the nine charged releases (chargedattacks.png).
@@ -541,7 +592,7 @@ namespace SilverFang.EditorTools
             var hiloWalkBack = walkFrames.Reverse().ToArray();
             BakeClip("Hilo_WalkBack", hiloWalkBack, true, LoopLength(hiloWalkBack, WalkFps));
             var runFrames = run.Length > 0 ? run : walk;
-            BakeClip("Hilo_Run", runFrames, true, LoopLength(runFrames, 14f));
+            BakeClip("Hilo_Run", runFrames, true, LoopLength(runFrames, RunFps));
             BakeClip("Hilo_DashAnim", HiloFramesOr(runFrames, "dash"), false, 0.22f);
             BakeClip("Hilo_Hurt", crouch.Length > 0 ? crouch : idle, false, 0.3f);
             BakeClip("Hilo_HurtHeavy", HiloFramesOr(crouch.Length > 0 ? crouch : idle, "yin_slip"), false, 0.38f);
@@ -572,10 +623,17 @@ namespace SilverFang.EditorTools
                     frames = spec.projectile ? new[] { idle[0] } : basicClaw;
                 }
 
-                BakeAttackClip("Hilo_" + spec.id, frames, windupPool, spec.length, spec.projectile, spec.slashWave);
+                BakeAttackClip("Hilo_" + spec.id, frames, windupPool, spec.length, spec.projectile, spec.slashWave, spec.multiHit);
             }
 
             BakeHiloChargeClips(windupPool, idle);
+
+            // Slash Mirage shares the after-image barrage clip
+            var hiloMirage = LoadFrames($"{SilverDir}/slash_mirage");
+            if (hiloMirage.Length > 0)
+                BakeAttackClip("Hilo_SlashMirage", hiloMirage, basicClaw.Length > 0 ? basicClaw : idle,
+                    1.25f, projectile: false, slashWave: false, multiHit: 14);
+
             BakeHiloAwakened(idle, crouch, slip);
         }
 
@@ -629,7 +687,7 @@ namespace SilverFang.EditorTools
 
             var idleClip = BakeClip("HiloAwakened_Idle", idle, true, LoopLength(idle, IdleFps));
             var walkClip = BakeClip("HiloAwakened_Walk", walkSrc, true, LoopLength(walkSrc, WalkFps));
-            var runClip = BakeClip("HiloAwakened_Run", runSrc, true, LoopLength(runSrc, 14f));
+            var runClip = BakeClip("HiloAwakened_Run", runSrc, true, LoopLength(runSrc, RunFps));
             var hurtClip = BakeClip("HiloAwakened_Hurt", crouch.Length > 0 ? crouch : idle, false, 0.3f);
             var knockdownClip = BakeClip("HiloAwakened_Knockdown", slip.Length > 0 ? slip : crouch, false, 0.5f);
             var getUpClip = BakeClip("HiloAwakened_GetUp", crouch.Length > 0 ? crouch : idle, false, 0.4f);
@@ -735,7 +793,7 @@ namespace SilverFang.EditorTools
                 if (frames.Length == 0) frames = new[] { idle[0] };
 
                 var clip = BakeAttackClip("HiloAwakened_" + move.id, frames, idle, move.length,
-                    move.projectile, move.slashWave);
+                    move.projectile, move.slashWave, move.multiHit);
                 AddTriggerState(move.trigger, clip);
             }
 
@@ -864,7 +922,7 @@ namespace SilverFang.EditorTools
             var walkClip = BakeClip("Awakened_Walk", walkSrc, true, LoopLength(walkSrc, WalkFps));
             var awakenedRun = LoadFrames($"{AwakenedDir}/awkrun_2");
             var runSrc = awakenedRun.Length > 0 ? awakenedRun : run.Length > 0 ? run : walk;
-            var runClip = BakeClip("Awakened_Run", runSrc, true, LoopLength(runSrc, 14f));
+            var runClip = BakeClip("Awakened_Run", runSrc, true, LoopLength(runSrc, RunFps));
             var hurtClip = BakeClip("Awakened_Hurt", hurt, false, 0.3f);
             var knockdownClip = BakeClip("Awakened_Knockdown", knockdown, false, 0.5f);
             var getUpClip = BakeClip("Awakened_GetUp", getup, false, 0.4f);
@@ -978,7 +1036,7 @@ namespace SilverFang.EditorTools
                 if (frames.Length == 0) frames = new[] { idle[0] };
 
                 var clip = BakeAttackClip("Awakened_" + move.id, frames, idle, move.length,
-                    move.projectile, move.slashWave);
+                    move.projectile, move.slashWave, move.multiHit);
                 AddTriggerState(move.trigger, clip);
             }
 
@@ -1134,7 +1192,7 @@ namespace SilverFang.EditorTools
                 string p = enemy.folder;
                 var idleClip = BakeClip($"{p}_Idle", idle, true, LoopLength(idle, IdleFps));
                 var walkClip = BakeClip($"{p}_Walk", walk, true, LoopLength(walk, WalkFps));
-                var runClip = BakeClip($"{p}_Run", run, true, LoopLength(run, 14f));
+                var runClip = BakeClip($"{p}_Run", run, true, LoopLength(run, RunFps));
                 // clip length grows with the strip so rich animations play out
                 var attackClips = attackSets
                     .Select((frames, i) => BakeAttackClip($"{p}_Attack{(i == 0 ? "" : (i + 1).ToString())}",

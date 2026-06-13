@@ -22,23 +22,23 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: 530ea83f7a7f1164a97ffc84aa43e788, type: 3}
-    - time: 0.0768
+    - time: 0.07886667
       value: {fileID: 21300000, guid: 69cd3b81a9c540347b7ae06d288d913b, type: 3}
-    - time: 0.1536
+    - time: 0.15773334
       value: {fileID: 21300000, guid: d603521cf5eb5b44c875b6e229d418f2, type: 3}
-    - time: 0.17142858
+    - time: 0.19153333
       value: {fileID: 21300000, guid: 17025e9423fffa4499171cb70f33e524, type: 3}
-    - time: 0.18925714
+    - time: 0.22533333
       value: {fileID: 21300000, guid: a1de72066f600e2448eaaa751801ad9e, type: 3}
-    - time: 0.20708571
+    - time: 0.25913334
       value: {fileID: 21300000, guid: 2be55c27bedff5546b9e027d32ed4c5a, type: 3}
-    - time: 0.22491428
+    - time: 0.29293332
       value: {fileID: 21300000, guid: 2e82b1f5cf8d16b499b589b79a2fdf1c, type: 3}
-    - time: 0.24274287
+    - time: 0.32673332
       value: {fileID: 21300000, guid: 26161645b6cd6e9468c234962147f664, type: 3}
-    - time: 0.26057142
+    - time: 0.36053333
       value: {fileID: 21300000, guid: b95f0481fa3a38149bf75cb947724cc8, type: 3}
-    - time: 0.48000002
+    - time: 0.56333333
       value: {fileID: 21300000, guid: b95f0481fa3a38149bf75cb947724cc8, type: 3}
     attribute: m_Sprite
     path: 
@@ -77,7 +77,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5216667
+    m_StopTime: 0.605
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -97,21 +97,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.1536
+  - time: 0.15773334
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.3168
+  - time: 0.45066667
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.44640002
+  - time: 0.5408
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.448
+    multiHit: 1
+    aoe: 0
   - id: ShadowRush
     animatorTrigger: ShadowRush
     sequence: 0000000000000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 2
     duration: 0.5
+    multiHit: 1
+    aoe: 0
   - id: PhantomBarrage
     animatorTrigger: PhantomBarrage
     sequence: 000000000000000000000000
@@ -58,9 +62,11 @@ MonoBehaviour:
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
-    firesSlashWave: 0
+    firesSlashWave: 1
     teleport: 1
-    duration: 0.584
+    duration: 1.064
+    multiHit: 8
+    aoe: 0
   - id: ShadowAxe
     animatorTrigger: ShadowAxe
     sequence: 01000000
@@ -77,6 +83,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.528
+    multiHit: 1
+    aoe: 0
   - id: ShadowCyclone
     animatorTrigger: ShadowCyclone
     sequence: 0100000001000000
@@ -93,6 +101,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.596
+    multiHit: 1
+    aoe: 0
   - id: ShadowPierce
     animatorTrigger: ShadowPierce
     sequence: 0000000001000000
@@ -109,6 +119,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 1
     duration: 0.532
+    multiHit: 1
+    aoe: 0
   - id: YinYangPalm
     animatorTrigger: YinYangPalm
     sequence: 0100000000000000
@@ -125,6 +137,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.532
+    multiHit: 1
+    aoe: 0
   - id: ShadowBeam
     animatorTrigger: ShadowBeam
     sequence: 02000000
@@ -141,6 +155,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.32000002
+    multiHit: 1
+    aoe: 0
   - id: ShadowBurst
     animatorTrigger: ShadowBurst
     sequence: 0200000002000000
@@ -150,13 +166,15 @@ MonoBehaviour:
       knockback: {x: 1.5, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.2
-      heightScale: 1.15
-      hitsBothSides: 0
+      rangeScale: 1.7
+      heightScale: 1.4
+      hitsBothSides: 1
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 1
   - id: OmniCannon
     animatorTrigger: OmniCannon
     sequence: 020000000200000002000000
@@ -173,6 +191,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: CloneAssault
     animatorTrigger: CloneAssault
     sequence: 010000000100000000000000
@@ -189,6 +209,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 2
     duration: 0.584
+    multiHit: 1
+    aoe: 0
   - id: MissileStorm
     animatorTrigger: MissileStorm
     sequence: 0200000001000000
@@ -205,6 +227,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: ShadowHurricane
     animatorTrigger: ShadowHurricane
     sequence: 0100000002000000
@@ -221,6 +245,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 2
     duration: 0.58000004
+    multiHit: 1
+    aoe: 0
   - id: ShadowWave
     animatorTrigger: ShadowWave
     sequence: 0000000002000000
@@ -230,13 +256,15 @@ MonoBehaviour:
       knockback: {x: 4.4, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.6
+      rangeScale: 1.7
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
     firesSlashWave: 1
     teleport: 0
     duration: 0.51600003
+    multiHit: 1
+    aoe: 0
   - id: ShadowKillCombo
     animatorTrigger: ShadowKillCombo
     sequence: 00000000000000000000000000000000
@@ -253,6 +281,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 1
     duration: 0.716
+    multiHit: 1
+    aoe: 0
   - id: FinalYinYang
     animatorTrigger: FinalYinYang
     sequence: 01000000010000000100000001000000
@@ -268,7 +298,9 @@ MonoBehaviour:
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
-    duration: 0.75
+    duration: 0.796
+    multiHit: 1
+    aoe: 0
   - id: InfinityBeam
     animatorTrigger: InfinityBeam
     sequence: 02000000020000000200000002000000
@@ -285,3 +317,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.38
+    multiHit: 1
+    aoe: 0

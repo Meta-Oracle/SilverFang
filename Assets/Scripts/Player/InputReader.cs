@@ -78,8 +78,70 @@ namespace SilverFang.Player
         public bool HeavyHeld => KeyHeld(Keyboard.current?.kKey) || PadHeld(Gamepad.current?.buttonNorth);
         public bool GunHeld => KeyHeld(Keyboard.current?.lKey) || PadHeld(Gamepad.current?.buttonEast);
         public bool JumpHeld => KeyHeld(Keyboard.current?.spaceKey) || PadHeld(Gamepad.current?.buttonSouth);
-        public bool StancePressed => KeyDown(Keyboard.current?.qKey) || PadDown(Gamepad.current?.leftShoulder);
         public bool AmmoPressed => KeyDown(Keyboard.current?.eKey) || PadDown(Gamepad.current?.rightShoulder);
+
+        // Stance button is dual-use: a quick TAP switches stance, a HOLD guards
+        // (Q / L1). Keyboard Left-Ctrl is a dedicated guard too. Tick() drives
+        // the tap-vs-hold split; read StanceTapped / GuardHeld after.
+        private const float TapWindow = 0.2f;
+        private float qHeld, l1Held;
+        public bool StanceTapped { get; private set; }
+        public bool GuardHeld { get; private set; }
+
+        // Fighting-game motion buffer: forward-relative numpad directions with
+        // timestamps, so QCF (236) / QCB (214) specials can be detected.
+        private readonly System.Collections.Generic.List<(int dir, float t)> motion
+            = new System.Collections.Generic.List<(int, float)>();
+        private const float MotionWindow = 0.45f;
+
+        public void Tick(float facing = 1f)
+        {
+            var kb = Keyboard.current;
+            var pad = Gamepad.current;
+            bool qNow = kb != null && kb.qKey.isPressed;
+            bool l1Now = pad != null && pad.leftShoulder.isPressed;
+            StanceTapped = false;
+
+            if (qNow) qHeld += Time.unscaledDeltaTime;
+            else { if (qHeld > 0f && qHeld < TapWindow) StanceTapped = true; qHeld = 0f; }
+            if (l1Now) l1Held += Time.unscaledDeltaTime;
+            else { if (l1Held > 0f && l1Held < TapWindow) StanceTapped = true; l1Held = 0f; }
+
+            GuardHeld = (kb != null && kb.leftCtrlKey.isPressed)
+                        || qHeld >= TapWindow || l1Held >= TapWindow;
+
+            int dir = CurrentNumpad(facing);
+            if (motion.Count == 0 || motion[motion.Count - 1].dir != dir)
+                motion.Add((dir, Time.unscaledTime));
+            motion.RemoveAll(m => Time.unscaledTime - m.t > MotionWindow);
+        }
+
+        /// Forward-relative numpad direction (6 = toward facing, 4 = away).
+        private int CurrentNumpad(float facing)
+        {
+            Vector2 m = Move;
+            int h = m.x * Mathf.Sign(facing) > 0.4f ? 1 : m.x * Mathf.Sign(facing) < -0.4f ? -1 : 0;
+            int v = m.y > 0.4f ? 1 : m.y < -0.4f ? -1 : 0;
+            if (v < 0) return h > 0 ? 3 : h < 0 ? 1 : 2;
+            if (v > 0) return h > 0 ? 9 : h < 0 ? 7 : 8;
+            return h > 0 ? 6 : h < 0 ? 4 : 5;
+        }
+
+        /// True if the recent direction history contains the motion in order,
+        /// ending now (consumes the buffer so it can't double-fire).
+        public bool ConsumeMotion(params int[] seq)
+        {
+            int si = 0;
+            foreach (var m in motion)
+            {
+                if (m.dir == seq[si])
+                {
+                    si++;
+                    if (si == seq.Length) { motion.Clear(); return true; }
+                }
+            }
+            return false;
+        }
 
         public bool AwakenedPressed
         {

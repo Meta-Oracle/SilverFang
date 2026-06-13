@@ -21,5 +21,7 @@ namespace SilverFang.Combat
         public bool piercing;
         public StatusType status = StatusType.None;
         public float statusDuration;
+        /// Phantom-slash style: launches fast then decelerates and fades out.
+        public bool decelerates;
     }
 }

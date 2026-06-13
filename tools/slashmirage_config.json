@@ -1,0 +1,36 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/deadlyslashbarrageoverhaul.png",
+   "preview_out": "preview_mirage.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 36,
+   "key_threshold": 14,
+   "min_ink_per_column": 4,
+   "gap_columns": 2,
+   "split_threshold": 48,
+   "animations": [
+    {
+     "name": "slash_mirage",
+     "region": [
+      8,
+      285,
+      1530,
+      395
+     ],
+     "force_frames": 12
+    },
+    {
+     "name": "slash_mirage_awk",
+     "region": [
+      8,
+      740,
+      1530,
+      825
+     ],
+     "force_frames": 10
+    }
+   ]
+  }
+ ]
+}

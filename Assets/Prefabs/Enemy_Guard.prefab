@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8025264138644509989}
@@ -315,6 +315,7 @@ MonoBehaviour:
     piercing: 0
     status: 0
     statusDuration: 0
+    decelerates: 0
   firePoint: {fileID: 2779955784690306022}
   meleeVariants: 1
   shootVariants: 1

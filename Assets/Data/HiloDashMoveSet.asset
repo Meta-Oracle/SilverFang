@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.416
+    multiHit: 1
+    aoe: 0
   - id: HiloDashRush
     animatorTrigger: HiloDashRush
     sequence: 0000000000000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.45200002
+    multiHit: 1
+    aoe: 0
   - id: HiloDashSpin
     animatorTrigger: HiloDashSpin
     sequence: 0000000001000000
@@ -61,6 +65,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.5
+    multiHit: 1
+    aoe: 0
   - id: HiloDashKick
     animatorTrigger: HiloDashKick
     sequence: 01000000
@@ -77,6 +83,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.46400002
+    multiHit: 1
+    aoe: 0
   - id: HiloDashShot
     animatorTrigger: HiloDashShot
     sequence: 02000000
@@ -93,3 +101,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.32000002
+    multiHit: 1
+    aoe: 0

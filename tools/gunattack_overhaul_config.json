@@ -1,0 +1,88 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/revolverandgunstanceoverhaul.png",
+   "preview_out": "preview_gunatk.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 54,
+   "animations": [
+    {
+     "name": "gun_quick",
+     "region": [
+      8,
+      80,
+      383,
+      170
+     ]
+    },
+    {
+     "name": "gun_rapid",
+     "region": [
+      383,
+      80,
+      766,
+      170
+     ]
+    },
+    {
+     "name": "gun_aimed",
+     "region": [
+      766,
+      80,
+      1149,
+      170
+     ]
+    },
+    {
+     "name": "gun_charged",
+     "region": [
+      1149,
+      80,
+      1530,
+      170
+     ]
+    },
+    {
+     "name": "gun_piercing",
+     "region": [
+      8,
+      217,
+      383,
+      308
+     ]
+    },
+    {
+     "name": "gun_blast",
+     "region": [
+      383,
+      217,
+      766,
+      308
+     ]
+    },
+    {
+     "name": "gun_up",
+     "region": [
+      766,
+      217,
+      1149,
+      308
+     ]
+    },
+    {
+     "name": "gun_down",
+     "region": [
+      1149,
+      217,
+      1530,
+      308
+     ]
+    }
+   ]
+  }
+ ]
+}

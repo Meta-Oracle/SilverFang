@@ -493,6 +493,7 @@ MonoBehaviour:
     piercing: 0
     status: 0
     statusDuration: 0
+    decelerates: 0
   - type: 1
     attack:
       damage: 20
@@ -508,6 +509,7 @@ MonoBehaviour:
     piercing: 0
     status: 3
     statusDuration: 5
+    decelerates: 0
   - type: 2
     attack:
       damage: 8
@@ -523,6 +525,7 @@ MonoBehaviour:
     piercing: 0
     status: 1
     statusDuration: 2
+    decelerates: 0
   - type: 3
     attack:
       damage: 14
@@ -538,6 +541,7 @@ MonoBehaviour:
     piercing: 0
     status: 2
     statusDuration: 4
+    decelerates: 0
   - type: 4
     attack:
       damage: 10
@@ -553,12 +557,14 @@ MonoBehaviour:
     piercing: 1
     status: 0
     statusDuration: 0
+    decelerates: 0
   jumpVelocity: 8.5
   jumpGravity: -28
   fallGravityMult: 1.55
   maxAirAttacks: 3
   airAttackLunge: 4.5
-  airAttackFloat: 0.12
+  airAttackFloat: 0.32
+  hoverDrift: -1.2
   visual: {fileID: 1604970924946255724}
   chargeStartDelay: 0.3
   chargeFullTime: 2
@@ -577,10 +583,11 @@ MonoBehaviour:
       heightScale: 1
       hitsBothSides: 0
     tint: {r: 0.55, g: 0.85, b: 1, a: 1}
-    speed: 12
+    speed: 22
     piercing: 1
     status: 0
     statusDuration: 0
+    decelerates: 1
   dashSpeed: 13
   dashDuration: 0.16
   runMultiplier: 1.6
@@ -594,6 +601,10 @@ MonoBehaviour:
   teleportDashDistance: 3.5
   teleportInvuln: 0.3
   teleportBehindRange: 8
+  parryWindow: 0.18
+  guardDamageMult: 0.25
+  reloadDuration: 0.7
+  mirageDuration: 1.25
   lockOnRange: 11
 --- !u!114 &4484694557409041876
 MonoBehaviour:

@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: HiloAirBionicStrike
     animatorTrigger: HiloAirBionicStrike
     sequence: 01000000
@@ -45,3 +47,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.52
+    multiHit: 1
+    aoe: 0

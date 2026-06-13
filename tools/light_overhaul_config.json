@@ -1,0 +1,43 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/silverspriteoverhaul1.png",
+   "preview_out": "preview_light.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 50,
+   "animations": [
+    {
+     "name": "light1",
+     "region": [
+      8,
+      66,
+      405,
+      138
+     ]
+    },
+    {
+     "name": "light2",
+     "region": [
+      415,
+      66,
+      760,
+      138
+     ]
+    },
+    {
+     "name": "light3",
+     "region": [
+      8,
+      156,
+      430,
+      230
+     ]
+    }
+   ]
+  }
+ ]
+}

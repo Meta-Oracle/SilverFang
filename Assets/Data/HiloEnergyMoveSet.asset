@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.32000002
+    multiHit: 1
+    aoe: 0
   - id: ClawJab
     animatorTrigger: ClawJab
     sequence: 00000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.384
+    multiHit: 1
+    aoe: 0
   - id: AxeKick
     animatorTrigger: AxeKick
     sequence: 01000000
@@ -61,6 +65,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.512
+    multiHit: 1
+    aoe: 0
   - id: BurstCannon
     animatorTrigger: BurstCannon
     sequence: 0200000002000000
@@ -70,13 +76,15 @@ MonoBehaviour:
       knockback: {x: 1.5, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.2
-      heightScale: 1.15
-      hitsBothSides: 0
+      rangeScale: 1.7
+      heightScale: 1.4
+      hitsBothSides: 1
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 1
   - id: HomingMissile
     animatorTrigger: HomingMissile
     sequence: 0200000000000000
@@ -93,6 +101,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: PhantomBeam
     animatorTrigger: PhantomBeam
     sequence: 0200000001000000
@@ -106,9 +116,11 @@ MonoBehaviour:
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 1
-    firesSlashWave: 0
+    firesSlashWave: 1
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: EnergyWave
     animatorTrigger: EnergyWave
     sequence: 0000000002000000
@@ -118,13 +130,15 @@ MonoBehaviour:
       knockback: {x: 3.2, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.6
+      rangeScale: 1.7
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
     firesSlashWave: 1
     teleport: 0
     duration: 0.46800002
+    multiHit: 1
+    aoe: 0
   - id: YinYangBurst
     animatorTrigger: YinYangBurst
     sequence: 0100000002000000
@@ -134,13 +148,15 @@ MonoBehaviour:
       knockback: {x: 1.5, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.2
-      heightScale: 1.15
-      hitsBothSides: 0
+      rangeScale: 1.7
+      heightScale: 1.4
+      hitsBothSides: 1
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 1
   - id: ClawCross
     animatorTrigger: ClawCross
     sequence: 0000000000000000
@@ -150,13 +166,15 @@ MonoBehaviour:
       knockback: {x: 2, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.6
+      rangeScale: 1.7
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
     duration: 0.42000002
+    multiHit: 1
+    aoe: 0
   - id: RisingPalm
     animatorTrigger: RisingPalm
     sequence: 0000000001000000
@@ -173,6 +191,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.45200002
+    multiHit: 1
+    aoe: 0
   - id: CycloneKick
     animatorTrigger: CycloneKick
     sequence: 0100000001000000
@@ -189,6 +209,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.532
+    multiHit: 1
+    aoe: 0
   - id: WideBeam
     animatorTrigger: WideBeam
     sequence: 020000000200000002000000
@@ -198,13 +220,15 @@ MonoBehaviour:
       knockback: {x: 1.5, y: 0}
       knocksDown: 0
       launch: 0
-      rangeScale: 1.6
+      rangeScale: 1.7
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: MissileBarrage
     animatorTrigger: MissileBarrage
     sequence: 020000000200000000000000
@@ -220,7 +244,9 @@ MonoBehaviour:
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
-    duration: 0.36
+    duration: 0.84
+    multiHit: 8
+    aoe: 0
   - id: OmniBeam
     animatorTrigger: OmniBeam
     sequence: 020000000200000001000000
@@ -237,6 +263,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: YinYangOverdrive
     animatorTrigger: YinYangOverdrive
     sequence: 02000000020000000200000002000000
@@ -253,3 +281,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.38
+    multiHit: 1
+    aoe: 0

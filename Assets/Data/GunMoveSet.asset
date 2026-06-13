@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.32000002
+    multiHit: 1
+    aoe: 0
   - id: PistolWhip
     animatorTrigger: PistolWhip
     sequence: 00000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.384
+    multiHit: 1
+    aoe: 0
   - id: KickShot
     animatorTrigger: KickShot
     sequence: 01000000
@@ -61,6 +65,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.432
+    multiHit: 1
+    aoe: 0
   - id: RapidShot
     animatorTrigger: RapidShot
     sequence: 0200000002000000
@@ -76,7 +82,9 @@ MonoBehaviour:
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
-    duration: 0.34
+    duration: 0.58
+    multiHit: 4
+    aoe: 0
   - id: TripleTap
     animatorTrigger: TripleTap
     sequence: 0200000000000000
@@ -93,6 +101,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: RicochetShot
     animatorTrigger: RicochetShot
     sequence: 0200000001000000
@@ -109,6 +119,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: Gunslinger
     animatorTrigger: Gunslinger
     sequence: 0000000002000000
@@ -125,6 +137,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: MortarKick
     animatorTrigger: MortarKick
     sequence: 0100000002000000
@@ -141,6 +155,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.46800002
+    multiHit: 1
+    aoe: 0
   - id: SlideSlash
     animatorTrigger: SlideSlash
     sequence: 0000000000000000
@@ -157,6 +173,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.45200002
+    multiHit: 1
+    aoe: 0
   - id: PiercingVolley
     animatorTrigger: PiercingVolley
     sequence: 0000000001000000
@@ -173,6 +191,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: DragonShot
     animatorTrigger: DragonShot
     sequence: 0100000001000000
@@ -189,6 +209,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.48400003
+    multiHit: 1
+    aoe: 0
   - id: SupportFire
     animatorTrigger: SupportFire
     sequence: 020000000200000002000000
@@ -205,6 +227,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: DualShot
     animatorTrigger: DualShot
     sequence: 020000000200000000000000
@@ -221,6 +245,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: OverdriveShot
     animatorTrigger: OverdriveShot
     sequence: 020000000200000001000000
@@ -237,6 +263,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: BulletRain
     animatorTrigger: BulletRain
     sequence: 020000000000000002000000
@@ -253,6 +281,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: BulletStorm
     animatorTrigger: BulletStorm
     sequence: 020000000100000002000000
@@ -269,6 +299,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.36
+    multiHit: 1
+    aoe: 0
   - id: SupportBarrage
     animatorTrigger: SupportBarrage
     sequence: 000000000200000002000000
@@ -284,7 +316,9 @@ MonoBehaviour:
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
-    duration: 0.36
+    duration: 0.84
+    multiHit: 8
+    aoe: 0
   - id: GunslingerFinisher
     animatorTrigger: GunslingerFinisher
     sequence: 010000000200000002000000
@@ -301,3 +335,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.6
+    multiHit: 1
+    aoe: 0

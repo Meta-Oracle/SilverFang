@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.34
+    multiHit: 1
+    aoe: 0
   - id: AirHeavySlash
     animatorTrigger: AirHeavySlash
     sequence: 01000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.48
+    multiHit: 1
+    aoe: 0
   - id: AirRisingSpin
     animatorTrigger: AirRisingSpin
     sequence: 0000000000000000
@@ -61,6 +65,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.4
+    multiHit: 1
+    aoe: 0
   - id: AirJumpSlash
     animatorTrigger: AirJumpSlash
     sequence: 0000000001000000
@@ -77,6 +83,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.42
+    multiHit: 1
+    aoe: 0
   - id: JumpingSlash
     animatorTrigger: JumpingSlash
     sequence: 0100000001000000
@@ -93,3 +101,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.5
+    multiHit: 1
+    aoe: 0

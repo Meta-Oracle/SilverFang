@@ -1,0 +1,52 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/teleportattackoverhaul.png",
+   "preview_out": "preview_tp.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "animations": [
+    {
+     "name": "tp_strike",
+     "region": [
+      8,
+      170,
+      1530,
+      272
+     ]
+    },
+    {
+     "name": "tp_strike_long",
+     "region": [
+      8,
+      376,
+      1530,
+      480
+     ]
+    },
+    {
+     "name": "tp_short",
+     "region": [
+      8,
+      575,
+      1530,
+      662
+     ]
+    },
+    {
+     "name": "tp_long",
+     "region": [
+      8,
+      768,
+      1530,
+      874
+     ]
+    }
+   ]
+  }
+ ]
+}

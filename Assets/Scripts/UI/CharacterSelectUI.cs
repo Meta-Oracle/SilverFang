@@ -30,6 +30,13 @@ namespace SilverFang.UI
 
         private void Start()
         {
+            // Restart from the pause menu re-spawns the chosen hero instantly.
+            if (CharacterRoster.QuickRestart)
+            {
+                CharacterRoster.QuickRestart = false;
+                Choose(CharacterRoster.Selected);
+                return;
+            }
             GamePause.TryAcquire(this);
             ApplyHighlight();
             if (hintText != null)

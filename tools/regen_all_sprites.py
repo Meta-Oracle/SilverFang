@@ -39,6 +39,7 @@ PLAN = [
     # reserved for charge/finisher/awakened states per art direction)
     ("silver_locomotion_fix", "extract_v2.py"),
     ("silverjumping_config", "extract_v2.py"),  # dedicated jump/landing arc
+    ("silvermovement_overhaul_config", "extract_v2.py"),  # overhaul idle/run/sprint/roll
     # effects keep the original keyer (soft additive glows)
     ("vfx_config", "extract_sprites.py"),
     ("status_vfx_config", "extract_sprites.py"),
@@ -83,6 +84,13 @@ def main():
         failures += run(["tools/normalize_sprite_canvases.py", root,
                          "--target-height", str(height),
                          "--clamp", str(clamp[0]), str(clamp[1])]) != 0
+
+    # jump/landing poses are drawn larger and stretch in the air; re-anchor
+    # them on their tallest frame so the figure caps at standing size and stays
+    # uniform through every jump -> peak -> land transition.
+    failures += run(["tools/normalize_sprite_canvases.py", "Assets/Art/Sprites/Silver",
+                     "--only", "jump_full,land_full", "--anchor", "max",
+                     "--target-height", "112", "--clamp", "0.4", "1.6"]) != 0
 
     for script in POST:
         failures += run([f"tools/{script}"]) != 0

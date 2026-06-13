@@ -22,13 +22,13 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: e61fa30c9e7ddd24ca65d93281972516, type: 3}
-    - time: 0.20799999
+    - time: 0.20533332
       value: {fileID: 21300000, guid: 4aebe8f7970dc564cbe2c9108b9e89ca, type: 3}
-    - time: 0.2643333
+    - time: 0.30799997
       value: {fileID: 21300000, guid: c5e0bf1edfa6b9f48a6b8682d413e023, type: 3}
-    - time: 0.32066664
+    - time: 0.41066664
       value: {fileID: 21300000, guid: b5431abe76663c84c9e16468cd7fa7c3, type: 3}
-    - time: 0.65
+    - time: 0.7333333
       value: {fileID: 21300000, guid: b5431abe76663c84c9e16468cd7fa7c3, type: 3}
     attribute: m_Sprite
     path: 
@@ -62,7 +62,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.69166666
+    m_StopTime: 0.775
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -82,21 +82,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.20799999
+  - time: 0.20533332
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.42899996
+  - time: 0.58666664
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6045
+  - time: 0.70399994
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

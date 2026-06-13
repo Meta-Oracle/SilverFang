@@ -22,29 +22,29 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: 8fcff6c8772784b46ad750c254a130da, type: 3}
-    - time: 0.10432
+    - time: 0.10294667
       value: {fileID: 21300000, guid: 72117f4f314787944b8dacf1085f3221, type: 3}
-    - time: 0.20864
+    - time: 0.20589334
       value: {fileID: 21300000, guid: 6be0f246c7a72a6478cc1adbad9a8439, type: 3}
-    - time: 0.225592
+    - time: 0.23677734
       value: {fileID: 21300000, guid: 87fadfb87d1a6584c9119ca4bf2edb3e, type: 3}
-    - time: 0.242544
+    - time: 0.26766133
       value: {fileID: 21300000, guid: 74bb723ca7bf15740a9f880aebc86006, type: 3}
-    - time: 0.259496
+    - time: 0.29854533
       value: {fileID: 21300000, guid: 70bdbd82b81c86b43ac236e37f1cca46, type: 3}
-    - time: 0.276448
+    - time: 0.32942933
       value: {fileID: 21300000, guid: c5731f42b38b58941b979a858bff3975, type: 3}
-    - time: 0.2934
+    - time: 0.36031333
       value: {fileID: 21300000, guid: f21b2db1b0e181d49a08855cf671a6b3, type: 3}
-    - time: 0.310352
+    - time: 0.39119732
       value: {fileID: 21300000, guid: 7f6aecadcb6553f4980866ec2423aeba, type: 3}
-    - time: 0.327304
+    - time: 0.42208132
       value: {fileID: 21300000, guid: f367a156a9e918646bb7a523ef4dcef0, type: 3}
-    - time: 0.34425598
+    - time: 0.45296532
       value: {fileID: 21300000, guid: 3d4c1423f7c8958439d7b015a35ba1ac, type: 3}
-    - time: 0.361208
+    - time: 0.48384932
       value: {fileID: 21300000, guid: 9fbf8523c1d10ed49b11d2cf7f42ce91, type: 3}
-    - time: 0.652
+    - time: 0.7353333
       value: {fileID: 21300000, guid: 9fbf8523c1d10ed49b11d2cf7f42ce91, type: 3}
     attribute: m_Sprite
     path: 
@@ -86,7 +86,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6936667
+    m_StopTime: 0.777
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -106,21 +106,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.20864
+  - time: 0.20589334
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.43032
+  - time: 0.5882667
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.60636
+  - time: 0.70592
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

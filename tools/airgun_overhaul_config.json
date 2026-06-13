@@ -1,0 +1,61 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/airgunattackoverhaul.png",
+   "preview_out": "preview_airgun.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "animations": [
+    {
+     "name": "air_gun_dive",
+     "region": [
+      8,
+      174,
+      1530,
+      240
+     ]
+    },
+    {
+     "name": "air_gun_flurry",
+     "region": [
+      8,
+      410,
+      1530,
+      500
+     ]
+    },
+    {
+     "name": "air_gun_radial",
+     "region": [
+      8,
+      630,
+      1530,
+      692
+     ]
+    },
+    {
+     "name": "air_gun_rapid",
+     "region": [
+      8,
+      767,
+      1530,
+      853
+     ]
+    },
+    {
+     "name": "air_gun_dir",
+     "region": [
+      8,
+      904,
+      1530,
+      972
+     ]
+    }
+   ]
+  }
+ ]
+}

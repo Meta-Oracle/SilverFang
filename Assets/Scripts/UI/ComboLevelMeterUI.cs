@@ -55,10 +55,17 @@ namespace SilverFang.UI
         private void OnLevelChanged(int level)
         {
             ApplyTier(level);
+            // tier up: empty the bar so it visibly refills for the new tier
+            // (rises 0 -> full as the chain escalates) instead of draining
+            if (level > 0) shownFill = 0f;
             punch = 1f;
         }
 
-        private void OnDropped(int finalCount, string rank) => ApplyTier(0);
+        private void OnDropped(int finalCount, string rank)
+        {
+            ApplyTier(0);
+            shownFill = 0f;
+        }
 
         private void Update()
         {

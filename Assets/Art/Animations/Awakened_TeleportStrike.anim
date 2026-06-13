@@ -22,21 +22,21 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: a8343c39200c3fc46b03d451ccc682d5, type: 3}
-    - time: 0.08256
+    - time: 0.083906665
       value: {fileID: 21300000, guid: 091cd93c0644da44f880643de645d8df, type: 3}
-    - time: 0.16512
+    - time: 0.16781333
       value: {fileID: 21300000, guid: ab86281cf23a5a84da77f7932a557772, type: 3}
-    - time: 0.18748
+    - time: 0.20976667
       value: {fileID: 21300000, guid: 9f0e06adde2722e4fa0c9462e9a50cfd, type: 3}
-    - time: 0.20984001
+    - time: 0.25172
       value: {fileID: 21300000, guid: 4cb307a45044b84489cd2e84e69136a0, type: 3}
-    - time: 0.23220001
+    - time: 0.29367334
       value: {fileID: 21300000, guid: 3dfb399c9fd47cb409898331c67edec6, type: 3}
-    - time: 0.25456002
+    - time: 0.33562666
       value: {fileID: 21300000, guid: d62929144f19b9b4c9d550e9003f79da, type: 3}
-    - time: 0.27692002
+    - time: 0.37758002
       value: {fileID: 21300000, guid: 3722cee52dd3c084e8fcc35332b263fd, type: 3}
-    - time: 0.51600003
+    - time: 0.59933335
       value: {fileID: 21300000, guid: 3722cee52dd3c084e8fcc35332b263fd, type: 3}
     attribute: m_Sprite
     path: 
@@ -74,7 +74,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5576667
+    m_StopTime: 0.64100003
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -94,21 +94,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.16512
+  - time: 0.16781333
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.34056002
+  - time: 0.47946668
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.47988003
+  - time: 0.57536
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

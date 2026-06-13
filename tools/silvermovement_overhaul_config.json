@@ -1,0 +1,70 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/silvermovementoverhaul.png",
+   "preview_out": "preview_silvermv.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      8,
+      90,
+      760,
+      192
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      8,
+      248,
+      760,
+      318
+     ]
+    },
+    {
+     "name": "sprint",
+     "region": [
+      768,
+      248,
+      1530,
+      318
+     ]
+    },
+    {
+     "name": "roll",
+     "region": [
+      8,
+      746,
+      1530,
+      818
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      768,
+      90,
+      1530,
+      192
+     ]
+    },
+    {
+     "name": "dash",
+     "region": [
+      8,
+      418,
+      760,
+      490
+     ]
+    }
+   ]
+  }
+ ]
+}

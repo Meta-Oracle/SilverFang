@@ -1,14 +1,18 @@
 using System.Text;
 using SilverFang.Combat;
+using SilverFang.Core;
 using SilverFang.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace SilverFang.UI
 {
     /// Pause menu (Esc / Tab / gamepad Start-Options). Freezes the game and
-    /// shows the full command list, controls, and Scematica balance.
+    /// shows a small option list — Resume, Command List, Restart, Quit to
+    /// Intro. The full command/control reference is shown only when the player
+    /// picks "Command List".
     public class CommandListUI : MonoBehaviour
     {
         [SerializeField] private MoveSet swordMoveSet;
@@ -27,7 +31,9 @@ namespace SilverFang.UI
         [SerializeField] private MoveSet hiloTeleportMoveSet;
         [SerializeField] private MoveSet hiloAirMoveSet;
         [SerializeField] private MoveSet hiloAwakenedAirMoveSet;
-        [SerializeField] private GameObject panel;
+        [SerializeField] private GameObject panel;          // command-list reference panel
+        [SerializeField] private GameObject menuPanel;       // option menu
+        [SerializeField] private Text menuText;
         [SerializeField] private Text titleText;
         [SerializeField] private Text swordColumnA;
         [SerializeField] private Text swordColumnB;
@@ -35,34 +41,122 @@ namespace SilverFang.UI
         [SerializeField] private Text awakenedColumn;
         [SerializeField] private Text balanceText;
 
-        private bool open;
+        private static readonly string[] Options = { "RESUME", "COMMAND LIST", "RESTART", "QUIT TO INTRO" };
+        private enum Mode { Closed, Menu, CommandList }
+        private Mode mode = Mode.Closed;
+        private int cursor;
 
         private void Start()
         {
             if (panel != null) panel.SetActive(false);
+            if (menuPanel != null) menuPanel.SetActive(false);
         }
 
         private void Update()
         {
             var kb = Keyboard.current;
-            bool pressed = (kb != null && (kb.tabKey.wasPressedThisFrame || kb.escapeKey.wasPressedThisFrame))
-                        || (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame);
-            if (!pressed) return;
+            var pad = Gamepad.current;
+            bool pausePressed = (kb != null && (kb.tabKey.wasPressedThisFrame || kb.escapeKey.wasPressedThisFrame))
+                             || (pad != null && pad.startButton.wasPressedThisFrame);
 
-            if (!open)
+            switch (mode)
             {
-                if (!Core.GamePause.TryAcquire(this)) return;
-                open = true;
-                BuildText(); // rebuilt per open: shows the selected hero's lists
-                if (balanceText != null)
-                    balanceText.text = $"{Currency.ScematicaWallet.Balance:N0} {Currency.ScematicaToken.Symbol}";
+                case Mode.Closed:
+                    if (pausePressed && Core.GamePause.TryAcquire(this)) OpenMenu();
+                    break;
+
+                case Mode.CommandList:
+                    // any pause/back press returns to the menu
+                    if (pausePressed || Back(kb, pad)) ShowMenu();
+                    break;
+
+                case Mode.Menu:
+                    if (pausePressed) { Resume(); break; }
+                    int dir = (Down(kb?.sKey) || Down(kb?.downArrowKey) || Down(pad?.dpad.down) ? 1 : 0)
+                            - (Down(kb?.wKey) || Down(kb?.upArrowKey) || Down(pad?.dpad.up) ? 1 : 0);
+                    if (dir != 0)
+                    {
+                        cursor = (cursor + dir + Options.Length) % Options.Length;
+                        RenderMenu();
+                    }
+                    else if (Confirm(kb, pad))
+                    {
+                        Select();
+                    }
+                    break;
             }
-            else
+        }
+
+        private static bool Down(UnityEngine.InputSystem.Controls.ButtonControl b) => b != null && b.wasPressedThisFrame;
+        private static bool Confirm(Keyboard kb, Gamepad pad) =>
+            Down(kb?.jKey) || Down(kb?.enterKey) || Down(kb?.spaceKey) || Down(pad?.buttonSouth);
+        private static bool Back(Keyboard kb, Gamepad pad) => Down(pad?.buttonEast);
+
+        private void OpenMenu()
+        {
+            cursor = 0;
+            ShowMenu();
+        }
+
+        private void ShowMenu()
+        {
+            mode = Mode.Menu;
+            if (panel != null) panel.SetActive(false);
+            if (menuPanel != null) menuPanel.SetActive(true);
+            RenderMenu();
+        }
+
+        private void RenderMenu()
+        {
+            if (menuText == null) return;
+            bool hilo = CharacterRoster.Selected == PlayableCharacter.Hilo;
+            var sb = new StringBuilder();
+            sb.Append(hilo ? "== PAUSED - HILO ==\n\n" : "== PAUSED - SILVER ==\n\n");
+            for (int i = 0; i < Options.Length; i++)
+                sb.AppendLine(i == cursor ? $"> {Options[i]}" : $"   {Options[i]}");
+            sb.Append('\n').Append($"{Currency.ScematicaWallet.Balance:N0} {Currency.ScematicaToken.Symbol}");
+            sb.Append("\n\nW/S move   J select   Esc resume");
+            menuText.text = sb.ToString();
+        }
+
+        private void Select()
+        {
+            switch (cursor)
             {
-                open = false;
-                Core.GamePause.Release(this);
+                case 0: Resume(); break;
+                case 1: ShowCommandList(); break;
+                case 2: ReloadScene(quickRestart: true); break;   // RESTART
+                case 3: ReloadScene(quickRestart: false); break;  // QUIT TO INTRO
             }
-            if (panel != null) panel.SetActive(open);
+        }
+
+        private void ShowCommandList()
+        {
+            mode = Mode.CommandList;
+            BuildText(); // rebuilt per open: shows the selected hero's lists
+            if (balanceText != null)
+                balanceText.text = $"{Currency.ScematicaWallet.Balance:N0} {Currency.ScematicaToken.Symbol}";
+            if (menuPanel != null) menuPanel.SetActive(false);
+            if (panel != null) panel.SetActive(true);
+        }
+
+        private void Resume()
+        {
+            mode = Mode.Closed;
+            if (panel != null) panel.SetActive(false);
+            if (menuPanel != null) menuPanel.SetActive(false);
+            Core.GamePause.Release(this);
+        }
+
+        private void ReloadScene(bool quickRestart)
+        {
+            // Restart keeps the chosen hero and skips the intro; Quit to Intro
+            // resets the selection so the crawl and select screen play again.
+            CharacterRoster.QuickRestart = quickRestart;
+            if (!quickRestart) CharacterRoster.SelectionMade = false;
+            Core.GamePause.Release(this);
+            Time.timeScale = 1f; // GamePause froze it; the new scene starts live
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         private void BuildText()

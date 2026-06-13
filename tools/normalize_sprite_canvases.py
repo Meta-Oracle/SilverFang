@@ -28,7 +28,7 @@ def folder_frames(folder):
     return sorted(p for p in folder.glob("*.png"))
 
 
-def char_height(folder):
+def char_height(folder, anchor="lq"):
     heights = []
     for path in folder_frames(folder):
         with Image.open(path).convert("RGBA") as im:
@@ -37,10 +37,15 @@ def char_height(folder):
                 heights.append(bbox[3] - bbox[1])
     if not heights:
         return 0
-    # arcs/effect trails inflate most attack frames; the lower quartile is
-    # the bare-body windup/recovery height, keeping the BODY scale uniform
-    # between idle and attack folders
     heights.sort()
+    if anchor == "max":
+        # airborne / extended-pose folders: anchor on the TALLEST frame (90th
+        # pct, robust to a single outlier) so the most-stretched pose hits the
+        # cap and the figure never inflates above standing size mid-arc.
+        return heights[min(len(heights) - 1, int(round((len(heights) - 1) * 0.9)))]
+    # default: arcs/effect trails inflate most attack frames; the lower
+    # quartile is the bare-body windup/recovery height, keeping the BODY scale
+    # uniform between idle and attack folders
     return heights[max(0, (len(heights) - 1) // 4)]
 
 
@@ -53,10 +58,17 @@ def main():
     parser.add_argument("--target-height", type=float, default=0,
                         help="absolute character pixel height (e.g. Silver's idle height) "
                              "so different roots stay the same size in game")
+    parser.add_argument("--anchor", choices=("lq", "max"), default="lq",
+                        help="lq = lower-quartile body height (default); "
+                             "max = tallest frame, for airborne/extended folders")
+    parser.add_argument("--only", default="",
+                        help="comma-separated folder names to process (default: all)")
     args = parser.parse_args()
 
     root = Path(args.root)
-    folders = [d for d in sorted(root.iterdir()) if d.is_dir() and folder_frames(d)]
+    only = {s for s in args.only.split(",") if s}
+    folders = [d for d in sorted(root.iterdir())
+               if d.is_dir() and folder_frames(d) and (not only or d.name in only)]
     if not folders:
         print(f"{root}: no frame folders")
         return
@@ -73,7 +85,7 @@ def main():
     # Pass 1: per-folder uniform rescale toward the reference character height.
     rescaled = 0
     for folder in folders:
-        h = char_height(folder)
+        h = char_height(folder, args.anchor)
         if not h:
             continue
         factor = ref_h / h

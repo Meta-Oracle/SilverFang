@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.432
+    multiHit: 1
+    aoe: 0
   - id: HiloSprintRush
     animatorTrigger: HiloSprintRush
     sequence: 0000000000000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.46800002
+    multiHit: 1
+    aoe: 0
   - id: HiloSprintCyclone
     animatorTrigger: HiloSprintCyclone
     sequence: 0000000001000000
@@ -61,6 +65,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.51600003
+    multiHit: 1
+    aoe: 0
   - id: HiloSprintHurricane
     animatorTrigger: HiloSprintHurricane
     sequence: 01000000
@@ -77,6 +83,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.49600002
+    multiHit: 1
+    aoe: 0
   - id: HiloSprintCannon
     animatorTrigger: HiloSprintCannon
     sequence: 02000000
@@ -93,3 +101,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.32000002
+    multiHit: 1
+    aoe: 0

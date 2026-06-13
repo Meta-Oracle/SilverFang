@@ -29,6 +29,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.432
+    multiHit: 1
+    aoe: 0
   - id: SprintThrustAtk
     animatorTrigger: SprintThrustAtk
     sequence: 0000000000000000
@@ -45,6 +47,8 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.46800002
+    multiHit: 1
+    aoe: 0
   - id: SprintSpinAtk
     animatorTrigger: SprintSpinAtk
     sequence: 0000000001000000
@@ -61,22 +65,26 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.51600003
-  - id: SprintHeavyAtk
-    animatorTrigger: SprintHeavyAtk
+    multiHit: 1
+    aoe: 0
+  - id: PhantomSlashHeavy
+    animatorTrigger: PhantomSlashHeavy
     sequence: 01000000
     attack:
-      damage: 22
-      hitstun: 0.37600002
-      knockback: {x: 6.16, y: 0}
+      damage: 26
+      hitstun: 0.40800002
+      knockback: {x: 7.28, y: 0}
       knocksDown: 1
       launch: 0
       rangeScale: 1.2
       heightScale: 1.15
       hitsBothSides: 0
     firesProjectile: 0
-    firesSlashWave: 0
+    firesSlashWave: 1
     teleport: 0
-    duration: 0.49600002
+    duration: 0.528
+    multiHit: 1
+    aoe: 0
   - id: SprintShootAtk
     animatorTrigger: SprintShootAtk
     sequence: 02000000
@@ -93,3 +101,5 @@ MonoBehaviour:
     firesSlashWave: 0
     teleport: 0
     duration: 0.32000002
+    multiHit: 1
+    aoe: 0
