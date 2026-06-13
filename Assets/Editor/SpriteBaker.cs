@@ -397,10 +397,23 @@ namespace SilverFang.EditorTools
             BakeClip("Player_GetUp", getup, false, 0.4f);
             BakeClip("Player_Dead", death.Length > 0 ? death : knockdown, false,
                 Mathf.Max(death.Length / Fps, 0.6f));
-            BakeClip("Player_Jump", jump.Length > 0 ? jump
-                : run.Length > 0 ? new[] { run[run.Length - 1] } : idle, false, 0.7f);
-            BakeClip("Player_Fall", fall.Length > 0 ? fall : jump, false, 0.35f);
-            BakeClip("Player_Land", land.Length > 0 ? land : idle, false, 0.28f);
+            // dedicated silverjumping.png arc: prepare/takeoff/ascend/peak ->
+            // jump; descend frames -> fall; impact/stabilize/recovery -> land
+            var jumpFull = LoadFrames($"{SilverDir}/jump_full");
+            var landFull = LoadFrames($"{SilverDir}/land_full");
+            if (jumpFull.Length >= 7 && landFull.Length >= 5)
+            {
+                BakeClip("Player_Jump", jumpFull.Take(4).ToArray(), false, 0.7f);
+                BakeClip("Player_Fall", new[] { jumpFull[4], landFull[0] }, false, 0.35f);
+                BakeClip("Player_Land", landFull.Skip(1).ToArray(), false, 0.4f);
+            }
+            else
+            {
+                BakeClip("Player_Jump", jump.Length > 0 ? jump
+                    : run.Length > 0 ? new[] { run[run.Length - 1] } : idle, false, 0.7f);
+                BakeClip("Player_Fall", fall.Length > 0 ? fall : jump, false, 0.35f);
+                BakeClip("Player_Land", land.Length > 0 ? land : idle, false, 0.28f);
+            }
             BakeClip("Player_Roll", roll.Length > 0 ? roll : tacticalRoll, false, 0.45f);
             BakeClip("Player_Guard", guard.Length > 0 ? guard : idle, false, 0.35f);
             BakeClip("Player_Reload", reload.Length > 0 ? reload : idle, false, 0.45f);
@@ -1037,7 +1050,7 @@ namespace SilverFang.EditorTools
             public string prefab;
             public string[] attacks = { "attack" };  // melee variants -> Attack, Attack2, ...
             public string special = "attack2";
-            public string shoot = "shoot";
+            public string[] shoots = { "shoot" };
             public string hurt = "hurt";
             public string hurtHeavy = "heavy_hit";
             public string knockdown = "knockdown";
@@ -1050,27 +1063,28 @@ namespace SilverFang.EditorTools
         private static readonly EnemyAnims[] Enemies =
         {
             new EnemyAnims { folder = "Werewolf", prefab = "Assets/Prefabs/Enemy_Werewolf.prefab",
-                attacks = new[] { "claw_slash", "double_claw", "bite" }, special = "shred_burst",
-                shoot = "spine_blade", hurt = "light_hit" },
+                attacks = new[] { "claw_slash", "double_claw", "bite", "pounce" }, special = "shred_burst",
+                shoots = new[] { "spine_blade" }, hurt = "light_hit" },
             new EnemyAnims { folder = "Chimera", prefab = "Assets/Prefabs/Enemy_Chimera.prefab",
-                attacks = new[] { "bite", "hyper_claw", "predator_pounce", "tail_whip" }, special = "tail_drill",
-                shoot = "plasma_beam", hurt = "light_hit" },
+                attacks = new[] { "bite", "hyper_claw", "predator_pounce", "tail_whip", "blood_rend", "spinning_claw", "tail_spike_combo", "frenzied_rush" },
+                special = "tail_drill",
+                shoots = new[] { "plasma_beam", "acid_spray", "homing_orbs", "missile_barrage" }, hurt = "light_hit" },
             new EnemyAnims { folder = "Reaper", prefab = "Assets/Prefabs/Enemy_Reaper.prefab",
                 attacks = new[] { "melee_slash", "dash_strike" }, special = "melee_slash",
-                hurt = "take_damage" },
+                shoots = new[] { "shoot" }, hurt = "take_damage" },
             new EnemyAnims { folder = "Sentinel", prefab = "Assets/Prefabs/Enemy_Sentinel.prefab",
-                attacks = new[] { "punch_combo", "kick_combo", "slash_attack" }, special = "spin_slash",
-                shoot = "rapid_fire", hurt = "light_hit" },
+                attacks = new[] { "punch_combo" }, special = "punch_combo",
+                shoots = new[] { "punch_combo" }, hurt = "light_hit" },
             new EnemyAnims { folder = "Samurai", prefab = "Assets/Prefabs/Enemy_Samurai.prefab",
-                attacks = new[] { "slash1", "slash2", "thrust", "combo1", "combo2", "combo3" },
-                special = "dragon_cut", shoot = "energy_wave", hurt = "light_hit",
+                attacks = new[] { "slash1", "slash2", "thrust", "combo1", "combo2", "combo3", "rising_slash", "pulse_slash" },
+                special = "dragon_cut", shoots = new[] { "energy_wave" }, hurt = "light_hit",
                 knockdown = "knocked_down", getup = "get_up", death = "death1" },
             new EnemyAnims { folder = "SamuraiDual", prefab = "Assets/Prefabs/Enemy_SamuraiDual.prefab",
-                attacks = new[] { "slash1", "slash2", "thrust", "combo1", "combo2", "combo3" },
-                special = "void_slash", shoot = "energy_wave", hurt = "light_hit",
+                attacks = new[] { "slash1", "slash2", "thrust", "combo1", "combo2", "combo3", "rising_slash", "blade_storm" },
+                special = "void_slash", shoots = new[] { "energy_wave" }, hurt = "light_hit",
                 knockdown = "knocked_down", getup = "get_up", death = "death2" },
             new EnemyAnims { folder = "Guard", prefab = "Assets/Prefabs/Enemy_Guard.prefab",
-                attacks = new[] { "melee" }, special = "special", hurt = "hit_big", hurtHeavy = "hurt_heavy", death = "death_big" },
+                attacks = new[] { "melee" }, special = "special", shoots = new[] { "shoot" }, hurt = "hit_big", hurtHeavy = "hurt_heavy", death = "death_big" },
             new EnemyAnims { folder = "Bruiser", prefab = "Assets/Prefabs/Enemy_Bruiser.prefab",
                 attacks = new[] { "melee" }, special = "special", hurt = "hit_big", hurtHeavy = "hurt_heavy", death = "death_big" },
             new EnemyAnims { folder = "Titan", prefab = "Assets/Prefabs/Enemy_Titan.prefab",
@@ -1111,19 +1125,27 @@ namespace SilverFang.EditorTools
                 if (attackSets.Count == 0) attackSets.Add(idle);
                 var special = LoadFrames($"{dir}/{enemy.special}");
                 if (special.Length == 0) special = attackSets[attackSets.Count - 1];
-                var shoot = LoadFrames($"{dir}/{enemy.shoot}");
-                if (shoot.Length == 0) shoot = attackSets[0];
+                var shootSets = enemy.shoots
+                    .Select(folder => LoadFrames($"{dir}/{folder}"))
+                    .Where(frames => frames.Length > 0)
+                    .ToList();
+                if (shootSets.Count == 0) shootSets.Add(attackSets[0]);
 
                 string p = enemy.folder;
                 var idleClip = BakeClip($"{p}_Idle", idle, true, LoopLength(idle, IdleFps));
                 var walkClip = BakeClip($"{p}_Walk", walk, true, LoopLength(walk, WalkFps));
                 var runClip = BakeClip($"{p}_Run", run, true, LoopLength(run, 14f));
+                // clip length grows with the strip so rich animations play out
                 var attackClips = attackSets
                     .Select((frames, i) => BakeAttackClip($"{p}_Attack{(i == 0 ? "" : (i + 1).ToString())}",
-                        frames, idle, 0.5f, projectile: false))
+                        frames, idle, Mathf.Max(0.5f, frames.Length / 24f + 0.14f), projectile: false))
                     .ToArray();
-                var specialClip = BakeAttackClip($"{p}_Special", special, idle, 0.65f, projectile: false);
-                var shootClip = BakeAttackClip($"{p}_Shoot", shoot, idle, 0.5f, projectile: true);
+                var specialClip = BakeAttackClip($"{p}_Special", special, idle,
+                    Mathf.Max(0.65f, special.Length / 24f + 0.16f), projectile: false);
+                var shootClips = shootSets
+                    .Select((frames, i) => BakeAttackClip($"{p}_Shoot{(i == 0 ? "" : (i + 1).ToString())}",
+                        frames, idle, Mathf.Max(0.5f, frames.Length / 24f + 0.12f), projectile: true))
+                    .ToArray();
                 var hurtClip = BakeClip($"{p}_Hurt", hurt, false, 0.3f);
                 var hurtHeavyClip = BakeClip($"{p}_HurtHeavy", hurtHeavy, false, 0.38f);
                 var knockdownClip = BakeClip($"{p}_Knockdown", knockdown, false, 0.5f);
@@ -1131,14 +1153,14 @@ namespace SilverFang.EditorTools
                 var deadClip = BakeClip($"{p}_Dead", death, false, Mathf.Max(death.Length / Fps, 0.6f));
 
                 var controller = BuildEnemyController(p, idleClip, walkClip, runClip, attackClips,
-                    specialClip, shootClip, hurtClip, hurtHeavyClip, knockdownClip, getUpClip, deadClip);
+                    specialClip, shootClips, hurtClip, hurtHeavyClip, knockdownClip, getUpClip, deadClip);
 
-                ApplyToPrefab(enemy.prefab, controller, idle[0], attackClips.Length);
+                ApplyToPrefab(enemy.prefab, controller, idle[0], attackClips.Length, shootClips.Length);
             }
         }
 
         private static AnimatorController BuildEnemyController(string name, AnimationClip idle, AnimationClip walk,
-            AnimationClip run, AnimationClip[] attacks, AnimationClip special, AnimationClip shoot,
+            AnimationClip run, AnimationClip[] attacks, AnimationClip special, AnimationClip[] shoots,
             AnimationClip hurt, AnimationClip hurtHeavy, AnimationClip knockdown, AnimationClip getUp, AnimationClip dead)
         {
             string path = $"{AnimDir}/{name}Animator.controller";
@@ -1206,7 +1228,8 @@ namespace SilverFang.EditorTools
             for (int i = 0; i < attacks.Length; i++)
                 AddTriggerState(i == 0 ? "Attack" : "Attack" + (i + 1), attacks[i]);
             AddTriggerState("Special", special);
-            AddTriggerState("Shoot", shoot);
+            for (int i = 0; i < shoots.Length; i++)
+                AddTriggerState(i == 0 ? "Shoot" : "Shoot" + (i + 1), shoots[i]);
             AddTriggerState("Hurt", hurt);
             AddTriggerState("HurtHeavy", hurtHeavy);
             AddTriggerState("Dead", dead, backToIdle: false);
@@ -1233,7 +1256,7 @@ namespace SilverFang.EditorTools
         }
 
         private static void ApplyToPrefab(string prefabPath, AnimatorController controller, Sprite idleSprite,
-            int meleeVariants = 1)
+            int meleeVariants = 1, int shootVariants = 1)
         {
             if (AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath) == null) return;
             var root = PrefabUtility.LoadPrefabContents(prefabPath);
@@ -1252,11 +1275,10 @@ namespace SilverFang.EditorTools
                 {
                     var so = new SerializedObject(ai);
                     var prop = so.FindProperty("meleeVariants");
-                    if (prop != null)
-                    {
-                        prop.intValue = meleeVariants;
-                        so.ApplyModifiedPropertiesWithoutUndo();
-                    }
+                    if (prop != null) prop.intValue = meleeVariants;
+                    var sprop = so.FindProperty("shootVariants");
+                    if (sprop != null) sprop.intValue = shootVariants;
+                    so.ApplyModifiedPropertiesWithoutUndo();
                 }
 
                 PrefabUtility.SaveAsPrefabAsset(root, prefabPath);

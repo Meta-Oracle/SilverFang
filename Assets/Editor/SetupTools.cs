@@ -1265,17 +1265,17 @@ namespace SilverFang.EditorTools
             // Base sword-reach box; Hitbox reshapes it per attack (range/height/both-sides).
             var hitObj = new GameObject("Hitbox");
             hitObj.transform.SetParent(root.transform, false);
-            hitObj.transform.localPosition = new Vector3(1.05f, 0.9f, 0f);
+            hitObj.transform.localPosition = new Vector3(1.18f, 0.95f, 0f);
             var hitCol = hitObj.AddComponent<BoxCollider2D>();
             hitCol.isTrigger = true;
             hitCol.enabled = false;
-            hitCol.size = new Vector2(1.55f, 1.2f);
+            hitCol.size = new Vector2(1.75f, 1.35f); // formidable hero reach
             var hitbox = hitObj.AddComponent<Hitbox>();
             SetPrivateField(hitbox, "team", team);
 
             var firePoint = new GameObject("FirePoint");
             firePoint.transform.SetParent(root.transform, false);
-            firePoint.transform.localPosition = new Vector3(0.8f, 0.9f, 0f);
+            firePoint.transform.localPosition = new Vector3(1.0f, 1.1f, 0f); // muzzle height for the larger sprites
 
             CharacterCombatant combatant = isPlayer
                 ? root.AddComponent<PlayerController>()
@@ -1368,7 +1368,7 @@ namespace SilverFang.EditorTools
 
             var firePoint = new GameObject("FirePoint");
             firePoint.transform.SetParent(root.transform, false);
-            firePoint.transform.localPosition = new Vector3(0.8f, 0.9f, 0f);
+            firePoint.transform.localPosition = new Vector3(1.0f, 1.1f, 0f); // muzzle height for the larger sprites
 
             var ai = (EnemyAI)root.AddComponent(spec.aiType);
             SetPrivateField(ai, "hitbox", hitbox, typeof(CharacterCombatant));

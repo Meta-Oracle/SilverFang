@@ -9,7 +9,7 @@ namespace SilverFang.Enemies
     {
         [Header("AI")]
         [SerializeField] protected AttackData meleeAttack = new AttackData();
-        [SerializeField] protected float attackRangeX = 1.2f;
+        [SerializeField] protected float attackRangeX = 1.5f; // larger sprites = longer arms
         [SerializeField] protected float attackRangeY = 0.4f;
         [SerializeField] protected float attackCooldown = 1.5f;
         [SerializeField] protected float aggroRange = 10f;
@@ -83,12 +83,20 @@ namespace SilverFang.Enemies
         // SpriteBaker sets this to however many attack strips the sheet had,
         // so enemies cycle through their full move arsenal.
         [SerializeField] protected int meleeVariants = 1;
+        [SerializeField] protected int shootVariants = 1;
 
         protected int PickMeleeTrigger()
         {
             if (meleeVariants <= 1) return HashAttack;
             int pick = Random.Range(0, meleeVariants);
             return pick == 0 ? HashAttack : Animator.StringToHash("Attack" + (pick + 1));
+        }
+
+        protected int PickShootTrigger()
+        {
+            if (shootVariants <= 1) return HashShoot;
+            int pick = Random.Range(0, shootVariants);
+            return pick == 0 ? HashShoot : Animator.StringToHash("Shoot" + (pick + 1));
         }
 
         protected void ApproachMelee(float speedScale = 1f)
@@ -117,7 +125,7 @@ namespace SilverFang.Enemies
             attackTimeout = 1.1f;
             cooldownTimer = attackCooldown;
             Stop();
-            if (animator != null) animator.SetTrigger(HashShoot);
+            if (animator != null) animator.SetTrigger(PickShootTrigger());
         }
 
         public override void AnimEvent_Fire()
@@ -125,7 +133,7 @@ namespace SilverFang.Enemies
             if (projectilePrefab == null || rangedAmmo == null) return;
             Vector3 origin = firePoint != null
                 ? firePoint.position
-                : transform.position + new Vector3(0.8f * Facing, 0.8f, 0f);
+                : transform.position + new Vector3(1.0f * Facing, 1.1f, 0f);
             VFX.VfxManager.Play("muzzle_burst", origin, Facing);
             var proj = Instantiate(projectilePrefab, origin, Quaternion.identity);
             proj.Fire(Team.Enemy, rangedAmmo, Facing, DamageScale);

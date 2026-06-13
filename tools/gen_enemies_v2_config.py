@@ -43,7 +43,7 @@ SHEETS = [
             ["idle", "walk", "run", "dash"],
             ["jump", "land", "pounce", "crouch"],
             ["claw_slash", "double_claw", "bite"],
-            ["cyber_rage", "shred_burst", "spine_blade", "howl"],
+            ["cyber_rage", "shred_burst", "spine_blade", "_"],
             ["light_hit", "heavy_hit", "knockdown", "getup"],
             ["death", "transform"],
         ]),
@@ -51,33 +51,30 @@ SHEETS = [
     ("73345569-704b-47f7-bf32-e996870b23b4.png", "Chimera", [
         ((8, 1224), [
             ["_", "idle", "walk", "run", "dash"],
-            ["_", "leap", "land", "roar", "taunt"],
+            ["_", "leap", "land", "_", "_"],
             ["bite", "claw_slash", "tail_strike", "horn_thrust"],
             ["acid_breath", "plasma_beam", "cyber_pounce", "mortar_launch"],
             ["enrage", "light_hit", "heavy_hit", "knockdown"],
             ["death", "getup", "transform"],
         ]),
     ]),
-    ("8404bf31-707e-48be-9ee3-5d104d91ba26.png", "Reaper", [
-        ((8, 1224), [
-            ["idle", "walk", "run", "dash"],
-            ["jump", "fall", "land", "crouch", "aim", "shoot"],
-            ["melee_slash", "dash_strike", "take_damage", "knockdown", "getup", "death"],
-            None,  # variants + abilities showcase
-            None,  # attack effects strip
-        ]),
-    ]),
-    ("ec9cff60-7d87-4918-a5b1-c8a30d999382.png", "Sentinel", [
-        ((8, 1224), [
-            ["idle", "walk", "run", "dash"],
-            ["jump", "fall", "land", "crouch", "roll", "getup"],
-            ["punch_combo", "kick_combo", "slash_attack", "spin_slash", "uppercut"],
-            ["aim", "rapid_fire", "charged_shot", "piercing_shot", "spread_shot", "missile_launch"],
-            ["energy_blade", "phase_dash", "shield_generate", "overdrive", "drone_deploy"],
-            ["wall_run", "wall_jump", "air_dash", "double_jump", "slide", "grapple"],
-            ["light_hit", "heavy_hit", "critical_hit", "knockdown", "death"],
-        ]),
-    ]),
+    ("8404bf31-707e-48be-9ee3-5d104d91ba26.png", "Reaper", [], {"extra": [
+        ("idle", [20, 56, 243, 154]),
+        ("walk", [256, 56, 486, 154]),
+        ("run", [499, 56, 738, 154]),
+        ("shoot", [896, 192, 1164, 294]),
+        ("melee_slash", [20, 346, 256, 448]),
+        ("take_damage", [397, 346, 576, 448]),
+        ("death", [1011, 346, 1164, 448]),
+    ]}),
+    ("ec9cff60-7d87-4918-a5b1-c8a30d999382.png", "Sentinel", [], {"extra": [
+        ("idle", [20, 56, 230, 148]),
+        ("walk", [243, 56, 474, 148]),
+        ("run", [486, 56, 716, 148]),
+        ("punch_combo", [20, 269, 282, 358]),
+        ("light_hit", [20, 896, 166, 998]),
+        ("death", [870, 896, 1075, 998]),
+    ]}),
     ("chimera1.jpg", "Chimera", [
         ((8, 1068), [
             None,  # fused idle/sneak/sprint/roar block: explicit regions below
@@ -240,11 +237,13 @@ def main():
         for name, region in (extra or {}).get("extra", []):
             anims.append({"name": name, "region": list(region)})
         jpg = fname.endswith(".jpg")
+        bright = fname.startswith(("6f4d4156", "73345569", "8404bf31", "ec9cff60"))
         sheets_out.append({
             "image": f"../sprites/enemies/{fname}",
             "preview_out": f"preview_v2_{out_dir.lower()}.png",
             "out_dir": f"../Assets/Art/Sprites/Enemies/{out_dir}",
             "bg_threshold": 40 if jpg else 38, "key_threshold": 16 if jpg else 10,
+            "split_threshold": 52 if bright else (40 if jpg else 38),
             "min_ink_per_column": 8 if jpg else 5, "gap_columns": 1,
             "animations": anims,
         })

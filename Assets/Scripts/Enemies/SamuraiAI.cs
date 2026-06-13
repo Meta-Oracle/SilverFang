@@ -25,12 +25,12 @@ namespace SilverFang.Enemies
                         case 0:
                             stringStep = 1;
                             cooldownTimer = stringGap;
-                            StartMeleeAttack(meleeAttack, HashAttack);
+                            StartMeleeAttack(meleeAttack, PickMeleeTrigger());
                             break;
                         case 1:
                             stringStep = 2;
                             cooldownTimer = stringGap;
-                            StartMeleeAttack(slash2, HashAttack);
+                            StartMeleeAttack(slash2, PickMeleeTrigger());
                             break;
                         default:
                             stringStep = 0;

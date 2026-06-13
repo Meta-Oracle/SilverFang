@@ -135,9 +135,32 @@ def key_frame(rgb, threshold):
             comp = flood_mask(holes & ~seen, [(sy, sx)])
             seen |= comp
             if comp.sum() > max_hole:
-                holes &= ~comp
+                holes &= ~comp  # arc interior, not body shadow
     alpha = ~bg | holes
-    return alpha
+
+    # 4. morphological closing: the source art draws near-black connective
+    #    joints (grey mech undersuits) that no luminance key can keep —
+    #    bridge small gaps and restore the original dark pixels there so
+    #    limbs stay attached to bodies.
+    def shift_or(m):
+        out = m.copy()
+        out[1:, :] |= m[:-1, :]
+        out[:-1, :] |= m[1:, :]
+        out[:, 1:] |= m[:, :-1]
+        out[:, :-1] |= m[:, 1:]
+        return out
+
+    def shift_and(m):
+        out = m.copy()
+        out[1:, :] &= m[:-1, :]
+        out[:-1, :] &= m[1:, :]
+        out[:, 1:] &= m[:, :-1]
+        out[:, :-1] &= m[:, 1:]
+        return out
+
+    grown = shift_or(shift_or(alpha))
+    closed = shift_and(shift_and(grown))
+    return alpha | closed
 
 
 def components(alpha):
@@ -235,11 +258,12 @@ def process_sheet(sheet, mode, base_dir):
     # blocky nearest-neighbor stairs when frames get blown up to game size.
     upscale_passes = {1: 0, 2: 1, 4: 2}.get(int(sheet.get("upscale", 1)), 0)
 
+    split_thr = sheet.get("split_threshold", threshold)
     for anim in sheet["animations"]:
         x0, y0, x1, y1 = anim["region"]
         region = np.asarray(img.crop((x0, y0, x1, y1)), dtype=np.uint8)
         lum = region.max(axis=2)
-        ink_cols = (lum > threshold).sum(axis=0)
+        ink_cols = (lum > split_thr).sum(axis=0)
         if "force_frames" in anim:
             # contiguous effects defeat gap splitting: cut an even grid
             n = anim["force_frames"]

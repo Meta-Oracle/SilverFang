@@ -152,7 +152,7 @@ MonoBehaviour:
     rangeScale: 1
     heightScale: 1
     hitsBothSides: 0
-  attackRangeX: 1.2
+  attackRangeX: 1.5
   attackRangeY: 0.4
   attackCooldown: 1.5
   aggroRange: 10
@@ -174,7 +174,8 @@ MonoBehaviour:
     status: 0
     statusDuration: 0
   firePoint: {fileID: 0}
-  meleeVariants: 6
+  meleeVariants: 8
+  shootVariants: 1
   slash2:
     damage: 8
     hitstun: 0.3
@@ -324,7 +325,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.9791666, y: 1.875}
+  m_Size: {x: 1.4583334, y: 1.7916666}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -402,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 6216040236584585458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 0.9, z: 0}
+  m_LocalPosition: {x: 1, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

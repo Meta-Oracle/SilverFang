@@ -6,6 +6,7 @@
    "out_dir": "../Assets/Art/Sprites/Enemies/Werewolf",
    "bg_threshold": 38,
    "key_threshold": 10,
+   "split_threshold": 52,
    "min_ink_per_column": 5,
    "gap_columns": 1,
    "animations": [
@@ -136,15 +137,6 @@
      ]
     },
     {
-     "name": "howl",
-     "region": [
-      1133,
-      512,
-      1224,
-      636
-     ]
-    },
-    {
      "name": "light_hit",
      "region": [
       24,
@@ -206,6 +198,7 @@
    "out_dir": "../Assets/Art/Sprites/Enemies/Chimera",
    "bg_threshold": 38,
    "key_threshold": 10,
+   "split_threshold": 52,
    "min_ink_per_column": 5,
    "gap_columns": 1,
    "animations": [
@@ -260,24 +253,6 @@
       448,
       210,
       739,
-      345
-     ]
-    },
-    {
-     "name": "roar",
-     "region": [
-      765,
-      210,
-      1022,
-      345
-     ]
-    },
-    {
-     "name": "taunt",
-     "region": [
-      1040,
-      210,
-      1224,
       345
      ]
     },
@@ -424,151 +399,71 @@
    "out_dir": "../Assets/Art/Sprites/Enemies/Reaper",
    "bg_threshold": 38,
    "key_threshold": 10,
+   "split_threshold": 52,
    "min_ink_per_column": 5,
    "gap_columns": 1,
    "animations": [
     {
      "name": "idle",
      "region": [
-      24,
-      74,
-      178,
-      172
+      20,
+      56,
+      243,
+      154
      ]
     },
     {
      "name": "walk",
      "region": [
-      194,
-      74,
-      237,
-      172
+      256,
+      56,
+      486,
+      154
      ]
     },
     {
      "name": "run",
      "region": [
-      266,
-      74,
-      520,
-      172
-     ]
-    },
-    {
-     "name": "dash",
-     "region": [
-      540,
-      74,
-      1224,
-      172
-     ]
-    },
-    {
-     "name": "jump",
-     "region": [
-      14,
-      221,
-      249,
-      336
-     ]
-    },
-    {
-     "name": "fall",
-     "region": [
-      266,
-      221,
-      311,
-      336
-     ]
-    },
-    {
-     "name": "land",
-     "region": [
-      324,
-      221,
-      368,
-      336
-     ]
-    },
-    {
-     "name": "crouch",
-     "region": [
-      382,
-      221,
-      420,
-      336
-     ]
-    },
-    {
-     "name": "aim",
-     "region": [
-      433,
-      221,
-      646,
-      336
+      499,
+      56,
+      738,
+      154
      ]
     },
     {
      "name": "shoot",
      "region": [
-      667,
-      221,
-      1224,
-      336
+      896,
+      192,
+      1164,
+      294
      ]
     },
     {
      "name": "melee_slash",
      "region": [
-      21,
-      375,
-      216,
-      475
-     ]
-    },
-    {
-     "name": "dash_strike",
-     "region": [
-      242,
-      375,
-      452,
-      475
+      20,
+      346,
+      256,
+      448
      ]
     },
     {
      "name": "take_damage",
      "region": [
-      475,
-      375,
-      631,
-      475
-     ]
-    },
-    {
-     "name": "knockdown",
-     "region": [
-      650,
-      375,
-      841,
-      475
-     ]
-    },
-    {
-     "name": "getup",
-     "region": [
-      862,
-      375,
-      994,
-      475
+      397,
+      346,
+      576,
+      448
      ]
     },
     {
      "name": "death",
      "region": [
-      1014,
-      375,
-      1224,
-      475
+      1011,
+      346,
+      1164,
+      448
      ]
     }
    ]
@@ -579,340 +474,62 @@
    "out_dir": "../Assets/Art/Sprites/Enemies/Sentinel",
    "bg_threshold": 38,
    "key_threshold": 10,
+   "split_threshold": 52,
    "min_ink_per_column": 5,
    "gap_columns": 1,
    "animations": [
     {
      "name": "idle",
      "region": [
-      32,
-      69,
-      263,
-      146
+      20,
+      56,
+      230,
+      148
      ]
     },
     {
      "name": "walk",
      "region": [
-      308,
-      69,
-      812,
-      146
+      243,
+      56,
+      474,
+      148
      ]
     },
     {
      "name": "run",
      "region": [
-      863,
-      69,
-      929,
-      146
-     ]
-    },
-    {
-     "name": "dash",
-     "region": [
-      959,
-      69,
-      1203,
-      146
-     ]
-    },
-    {
-     "name": "jump",
-     "region": [
-      21,
-      165,
-      192,
-      262
-     ]
-    },
-    {
-     "name": "fall",
-     "region": [
-      220,
-      165,
-      400,
-      262
-     ]
-    },
-    {
-     "name": "land",
-     "region": [
-      435,
-      165,
-      640,
-      262
-     ]
-    },
-    {
-     "name": "crouch",
-     "region": [
-      670,
-      165,
-      850,
-      262
-     ]
-    },
-    {
-     "name": "roll",
-     "region": [
-      879,
-      165,
-      1046,
-      262
-     ]
-    },
-    {
-     "name": "getup",
-     "region": [
-      1071,
-      165,
-      1197,
-      262
+      486,
+      56,
+      716,
+      148
      ]
     },
     {
      "name": "punch_combo",
      "region": [
-      25,
-      329,
-      311,
-      406
-     ]
-    },
-    {
-     "name": "kick_combo",
-     "region": [
-      344,
-      329,
-      598,
-      406
-     ]
-    },
-    {
-     "name": "slash_attack",
-     "region": [
-      625,
-      329,
-      797,
-      406
-     ]
-    },
-    {
-     "name": "spin_slash",
-     "region": [
-      819,
-      329,
-      1025,
-      406
-     ]
-    },
-    {
-     "name": "uppercut",
-     "region": [
-      1062,
-      329,
-      1196,
-      406
-     ]
-    },
-    {
-     "name": "aim",
-     "region": [
-      29,
-      484,
-      79,
-      561
-     ]
-    },
-    {
-     "name": "rapid_fire",
-     "region": [
-      106,
-      484,
-      371,
-      561
-     ]
-    },
-    {
-     "name": "charged_shot",
-     "region": [
-      402,
-      484,
-      601,
-      561
-     ]
-    },
-    {
-     "name": "piercing_shot",
-     "region": [
-      631,
-      484,
-      828,
-      561
-     ]
-    },
-    {
-     "name": "spread_shot",
-     "region": [
-      857,
-      484,
-      1023,
-      561
-     ]
-    },
-    {
-     "name": "missile_launch",
-     "region": [
-      1052,
-      484,
-      1199,
-      561
-     ]
-    },
-    {
-     "name": "energy_blade",
-     "region": [
-      24,
-      624,
-      257,
-      714
-     ]
-    },
-    {
-     "name": "phase_dash",
-     "region": [
-      324,
-      624,
-      561,
-      714
-     ]
-    },
-    {
-     "name": "shield_generate",
-     "region": [
-      607,
-      624,
-      734,
-      714
-     ]
-    },
-    {
-     "name": "overdrive",
-     "region": [
-      788,
-      624,
-      972,
-      714
-     ]
-    },
-    {
-     "name": "drone_deploy",
-     "region": [
-      1009,
-      624,
-      1194,
-      714
-     ]
-    },
-    {
-     "name": "wall_run",
-     "region": [
-      25,
-      764,
-      238,
-      860
-     ]
-    },
-    {
-     "name": "wall_jump",
-     "region": [
-      266,
-      764,
-      381,
-      860
-     ]
-    },
-    {
-     "name": "air_dash",
-     "region": [
-      427,
-      764,
-      570,
-      860
-     ]
-    },
-    {
-     "name": "double_jump",
-     "region": [
-      602,
-      764,
-      970,
-      860
-     ]
-    },
-    {
-     "name": "slide",
-     "region": [
-      1000,
-      764,
-      1127,
-      860
-     ]
-    },
-    {
-     "name": "grapple",
-     "region": [
-      1154,
-      764,
-      1202,
-      860
+      20,
+      269,
+      282,
+      358
      ]
     },
     {
      "name": "light_hit",
      "region": [
-      25,
-      911,
-      454,
-      993
-     ]
-    },
-    {
-     "name": "heavy_hit",
-     "region": [
-      478,
-      911,
-      571,
-      993
-     ]
-    },
-    {
-     "name": "critical_hit",
-     "region": [
-      592,
-      911,
-      683,
-      993
-     ]
-    },
-    {
-     "name": "knockdown",
-     "region": [
-      711,
-      911,
-      942,
-      993
+      20,
+      896,
+      166,
+      998
      ]
     },
     {
      "name": "death",
      "region": [
-      963,
-      911,
-      1195,
-      993
+      870,
+      896,
+      1075,
+      998
      ]
     }
    ]
@@ -923,6 +540,7 @@
    "out_dir": "../Assets/Art/Sprites/Enemies/Chimera",
    "bg_threshold": 40,
    "key_threshold": 16,
+   "split_threshold": 40,
    "min_ink_per_column": 8,
    "gap_columns": 1,
    "animations": [
@@ -1168,6 +786,7 @@
    "out_dir": "../Assets/Art/Sprites/Enemies/Werewolf",
    "bg_threshold": 38,
    "key_threshold": 10,
+   "split_threshold": 38,
    "min_ink_per_column": 5,
    "gap_columns": 1,
    "animations": [
@@ -1233,6 +852,7 @@
    "out_dir": "../Assets/Art/Sprites/Enemies/Samurai",
    "bg_threshold": 38,
    "key_threshold": 10,
+   "split_threshold": 38,
    "min_ink_per_column": 5,
    "gap_columns": 1,
    "animations": [
@@ -1550,6 +1170,7 @@
    "out_dir": "../Assets/Art/Sprites/Enemies/SamuraiDual",
    "bg_threshold": 38,
    "key_threshold": 10,
+   "split_threshold": 38,
    "min_ink_per_column": 5,
    "gap_columns": 1,
    "animations": [

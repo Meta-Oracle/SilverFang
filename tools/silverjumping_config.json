@@ -1,0 +1,33 @@
+{
+ "sheets": [
+  {
+   "image": "../sprites/silverjumping.png",
+   "preview_out": "preview_silverjump.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "bg_threshold": 38,
+   "key_threshold": 10,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "animations": [
+    {
+     "name": "jump_full",
+     "region": [
+      24,
+      160,
+      1520,
+      500
+     ]
+    },
+    {
+     "name": "land_full",
+     "region": [
+      24,
+      580,
+      1520,
+      990
+     ]
+    }
+   ]
+  }
+ ]
+}

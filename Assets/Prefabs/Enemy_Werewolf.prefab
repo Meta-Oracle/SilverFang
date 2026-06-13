@@ -117,7 +117,7 @@ Transform:
   m_GameObject: {fileID: 3537338232005828263}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 0.9, z: 0}
+  m_LocalPosition: {x: 1, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -275,7 +275,7 @@ MonoBehaviour:
     rangeScale: 1
     heightScale: 1
     hitsBothSides: 0
-  attackRangeX: 1.2
+  attackRangeX: 1.5
   attackRangeY: 0.4
   attackCooldown: 1.5
   aggroRange: 10
@@ -297,7 +297,8 @@ MonoBehaviour:
     status: 0
     statusDuration: 0
   firePoint: {fileID: 0}
-  meleeVariants: 3
+  meleeVariants: 4
+  shootVariants: 1
   pounceAttack:
     damage: 14
     hitstun: 0.4

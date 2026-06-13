@@ -38,6 +38,7 @@ PLAN = [
     # plain photo-sheet locomotion overrides the blue 24fps rows (blue is
     # reserved for charge/finisher/awakened states per art direction)
     ("silver_locomotion_fix", "extract_v2.py"),
+    ("silverjumping_config", "extract_v2.py"),  # dedicated jump/landing arc
     # effects keep the original keyer (soft additive glows)
     ("vfx_config", "extract_sprites.py"),
     ("status_vfx_config", "extract_sprites.py"),
