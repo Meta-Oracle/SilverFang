@@ -1,0 +1,43 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/aircombooverhaul.png",
+   "preview_out": "p.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "animations": [
+    {
+     "name": "air_jump_slash",
+     "region": [
+      175,
+      124,
+      1530,
+      291
+     ]
+    },
+    {
+     "name": "jumping_slash",
+     "region": [
+      175,
+      346,
+      1530,
+      522
+     ]
+    },
+    {
+     "name": "aerial_spin",
+     "region": [
+      175,
+      566,
+      1530,
+      736
+     ]
+    }
+   ]
+  }
+ ]
+}

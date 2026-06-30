@@ -1,0 +1,25 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/aoeattackoverhaul.png",
+   "preview_out": "p.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "animations": [
+    {
+     "name": "aoe_sweep",
+     "region": [
+      185,
+      112,
+      1530,
+      235
+     ]
+    }
+   ]
+  }
+ ]
+}

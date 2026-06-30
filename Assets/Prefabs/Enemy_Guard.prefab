@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3366848715154692722}
   - component: {fileID: 1970368806839883039}
   - component: {fileID: 7923906468061498421}
+  - component: {fileID: 5302435028440649619}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -142,6 +143,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39b63a641366804a951167b2cf15f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.AnimationEventRelay
+--- !u!114 &5302435028440649619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104797401056798669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7451713bcb100ee49acbec02aed1034c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Animation.SpriteMotionEngine
+  body: {fileID: 0}
+  leanPerSpeed: 0.9
+  maxLean: 9
+  leanSmoothing: 9
+  recoilDamp: 12
 --- !u!1 &1776110550087751591
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,12 +297,17 @@ MonoBehaviour:
   deceleration: 40
   hitbox: {fileID: 4305869851514235275}
   knockdownDuration: 1
+  hitMaterial: 0
+  impactStyle: 0
+  weight: 1
   burnDps: 4
   radiationDps: 2.5
   radiationSlowFactor: 0.6
   statusVfxVariant: guard
   statusVfxScale: 1
   statusVfxOffsetY: 0.7
+  stunMax: 100
+  stunDecay: 18
   meleeAttack:
     damage: 6
     hitstun: 0.25
@@ -296,6 +319,11 @@ MonoBehaviour:
     hitsBothSides: 0
     damageType: 0
     spawnsDebris: 0
+    wallBounce: 0
+    groundBounce: 0
+    otg: 0
+    spike: 0
+    bonusHitstun: 0
   attackRangeX: 1.5
   attackRangeY: 0.4
   attackCooldown: 1.5
@@ -314,12 +342,21 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     tint: {r: 1, g: 0.65, b: 0.3, a: 1}
     speed: 12
     piercing: 0
     status: 0
     statusDuration: 0
     decelerates: 0
+    isBeam: 0
+    beamTickInterval: 0
+    sticky: 0
+    strength: 0
     damageTypeOverride: 0
   firePoint: {fileID: 2779955784690306022}
   meleeVariants: 1

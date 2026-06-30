@@ -11,7 +11,7 @@ namespace SilverFang.Combat
         // Realistic-but-visible: bullets cross the screen fast. The global
         // multiplier turns the readable design speeds (~14) into tracer-fast
         // velocities (~45+) while staying on-screen for a couple frames.
-        private const float SpeedRealism = 3.2f;
+        private const float SpeedRealism = 5.0f; // bullets/beams cross fast and true
         // Movement is swept in sub-steps no longer than this, so a bullet never
         // tunnels through a thin hurtbox between frames at high speed.
         private const float MaxStep = 0.22f;
@@ -23,9 +23,14 @@ namespace SilverFang.Combat
         private float damageScale = 1f;
         private float speedScale = 1f;
         private bool forcePiercing;
+        private float strength;                 // ballistics: clash force
+        private ImpactStyle projStyle = ImpactStyle.Neutral; // shooter aura for impact VFX
+        public Team Team => team;
+        public float Strength => strength;
         private Collider2D col;
         private SpriteRenderer sr;
         private readonly HashSet<Hurtbox> alreadyHit = new HashSet<Hurtbox>();
+        private readonly Dictionary<Hurtbox, float> beamNextHit = new Dictionary<Hurtbox, float>();
         private static readonly Collider2D[] Overlaps = new Collider2D[8];
 
         private void Awake()
@@ -36,13 +41,15 @@ namespace SilverFang.Combat
 
         public void Fire(Team ownerTeam, AmmoDefinition ammoDef, float facing, float scale,
             float sizeScale = 1f, float speedMult = 1f, bool piercingOverride = false,
-            Vector2? aimDirection = null)
+            Vector2? aimDirection = null, ImpactStyle style = ImpactStyle.Neutral)
         {
             team = ownerTeam;
             ammo = ammoDef;
             damageScale = scale;
             speedScale = speedMult;
             forcePiercing = piercingOverride;
+            projStyle = style;
+            strength = CombatBallistics.AutoStrength(ammoDef, scale);
             alreadyHit.Clear();
             if (!Mathf.Approximately(sizeScale, 1f))
                 transform.localScale *= sizeScale;
@@ -105,21 +112,67 @@ namespace SilverFang.Combat
             int n = Physics2D.OverlapBoxNonAlloc(b.center, b.size, 0f, Overlaps);
             for (int i = 0; i < n; i++)
             {
+                // Ballistics clash: opposing rounds collide. The lower-id side
+                // resolves it once for both (stronger punches through, equal
+                // annihilate). Beams have high strength so they shove through fire.
+                var otherProj = Overlaps[i].GetComponentInParent<Projectile>();
+                if (otherProj != null && otherProj != this && otherProj.team != team
+                    && GetInstanceID() < otherProj.GetInstanceID())
+                {
+                    if (ResolveClash(otherProj)) return true;
+                    continue;
+                }
+
                 var hurtbox = Overlaps[i].GetComponent<Hurtbox>();
                 if (hurtbox == null || hurtbox.Team == team) continue;
-                if (!alreadyHit.Add(hurtbox)) continue;
 
-                // deflection: a guarding/parrying/dashing defender bats the
-                // round back at its sender instead of taking the hit.
-                if (hurtbox.Owner != null && hurtbox.Owner.DeflectsProjectiles)
+                // True-Aim deflection: a guarding/parrying/dashing/SWINGING
+                // defender bats the round back — but only up to Heavy class. The
+                // top two power classes (Beam, Apex) punch straight through a swing.
+                if (hurtbox.Owner != null && hurtbox.Owner.DeflectsProjectiles
+                    && CombatBallistics.SwordCanDeflect(CombatBallistics.ClassOf(strength)))
                 {
                     Deflect(hurtbox.Team);
                     return false;
                 }
 
+                if (ammo.isBeam)
+                {
+                    // Beam pierces and RE-HITS each enemy on an interval, locking
+                    // sticky targets in the beam path. Never destroys on contact.
+                    if (beamNextHit.TryGetValue(hurtbox, out float next) && Time.time < next) continue;
+                    beamNextHit[hurtbox] = Time.time + Mathf.Max(0.05f, ammo.beamTickInterval);
+                    Hit(hurtbox);
+                    continue;
+                }
+
+                if (!alreadyHit.Add(hurtbox)) continue;
                 if (Hit(hurtbox)) return true;
             }
             return false;
+        }
+
+        /// Two opposing rounds meet. Returns true if THIS round is destroyed.
+        private bool ResolveClash(Projectile other)
+        {
+            Vector3 mid = (transform.position + other.transform.position) * 0.5f;
+            VFX.VfxManager.Play("hit_spark", mid, direction, 1.3f);
+            HitStop.Do(0.03f);
+            var result = CombatBallistics.Resolve(strength, other.strength, out float leftover);
+            switch (result)
+            {
+                case CombatBallistics.ClashResult.Win:
+                    strength = leftover;            // punches through, weakened
+                    Destroy(other.gameObject);
+                    return false;
+                case CombatBallistics.ClashResult.Lose:
+                    Destroy(gameObject);
+                    return true;
+                default:                            // mutual annihilation
+                    Destroy(other.gameObject);
+                    Destroy(gameObject);
+                    return true;
+            }
         }
 
         private bool Hit(Hurtbox hurtbox)
@@ -141,7 +194,24 @@ namespace SilverFang.Combat
             Core.CameraFollow.Instance?.Shake(crit ? 0.07f : 0.04f, 0.07f);
             UI.DamageNumberUI.Spawn(transform.position, attack.damage,
                 DamageColors.Resolve(dtype, crit, team == Team.Player), crit);
+            // electric shooter styles add ~3 frames of hitstun (before the hit lands)
+            if (projStyle == ImpactStyle.LucasGold || projStyle == ImpactStyle.BigManRed)
+                attack = attack.WithBonusHitstun(CharacterCombatant.ElectricHitstunBonus);
             hurtbox.Owner?.ReceiveHit(attack, direction);
+            // Impact VFX System on projectile hits: shooter style + ammo element,
+            // material-aware and layered (Hilo beams bloom behind, etc.).
+            if (hurtbox.Owner != null)
+            {
+                VFX.CombatVfx.Resolve(new VFX.CombatVfx.ImpactInfo
+                {
+                    pos = transform.position, facing = direction, damage = attack.damage, crit = crit,
+                    isProjectile = true, material = hurtbox.Owner.Material, element = dtype,
+                    style = projStyle, target = hurtbox.Owner
+                });
+                // sticky beam pins the caught enemy in the beam path each tick
+                if (ammo.isBeam && ammo.sticky)
+                    hurtbox.Owner.PinInPlace(ammo.beamTickInterval * 2.2f);
+            }
             if (team == Team.Player) ComboTracker.Active?.RegisterHit();
             if (ammo.status != StatusType.None && hurtbox.Owner != null)
             {

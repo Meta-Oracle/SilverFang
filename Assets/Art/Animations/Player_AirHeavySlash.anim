@@ -22,28 +22,30 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: ea6127d8609c17a44bdfcac2cf81d01b, type: 3}
-    - time: 0.3125
+    - time: 0.06578947
       value: {fileID: 21300000, guid: 3cc9d942781f6c1408ff60b1bcec2cbf, type: 3}
-    - time: 0.625
+    - time: 0.13157894
       value: {fileID: 21300000, guid: f5c18a99019c9424e806f08b55a044cf, type: 3}
-    - time: 0.7291667
+    - time: 0.21491228
       value: {fileID: 21300000, guid: e7f87c1acae61f446b21328d80dab80b, type: 3}
-    - time: 0.8333334
+    - time: 0.2982456
       value: {fileID: 21300000, guid: 8efb04935e34a7e488f1e06b636d55e9, type: 3}
-    - time: 0.9375
+    - time: 0.38157895
       value: {fileID: 21300000, guid: 350b10b002ef49944af396a51bda4b3c, type: 3}
-    - time: 1.0416667
-      value: {fileID: 21300000, guid: c4cdcc15037a4d44c8e7f47eccaa4a28, type: 3}
-    - time: 1.1458334
-      value: {fileID: 21300000, guid: 8e744a266907f314998a88c17a7b0fb8, type: 3}
-    - time: 1.25
+    - time: 0.46491227
+      value: {fileID: 21300000, guid: 781a04d030e466743af818359cc2e5ce, type: 3}
+    - time: 0.5482456
+      value: {fileID: 21300000, guid: 9171be59193150844962f794d921628a, type: 3}
+    - time: 0.6315789
+      value: {fileID: 21300000, guid: ddb55e66b30339c4c96744b32009f9a3, type: 3}
+    - time: 0.71491224
+      value: {fileID: 21300000, guid: b258b25403c11a94baa92c8c0c397cec, type: 3}
+    - time: 0.7982456
+      value: {fileID: 21300000, guid: 156ca13525ef3a847a25ecb26300fd70, type: 3}
+    - time: 0.8815789
       value: {fileID: 21300000, guid: 7d29c4520d552db4ba2ca6bb190955e7, type: 3}
-    - time: 1.3541667
-      value: {fileID: 21300000, guid: 020c1e2f76e985746b6fd383f29db2c8, type: 3}
-    - time: 1.4583334
-      value: {fileID: 21300000, guid: c44e08483f7443f4b8f13e373be1459d, type: 3}
-    - time: 2.232143
-      value: {fileID: 21300000, guid: c44e08483f7443f4b8f13e373be1459d, type: 3}
+    - time: 1.0964912
+      value: {fileID: 21300000, guid: 7d29c4520d552db4ba2ca6bb190955e7, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -72,18 +74,19 @@ AnimationClip:
     - {fileID: 21300000, guid: e7f87c1acae61f446b21328d80dab80b, type: 3}
     - {fileID: 21300000, guid: 8efb04935e34a7e488f1e06b636d55e9, type: 3}
     - {fileID: 21300000, guid: 350b10b002ef49944af396a51bda4b3c, type: 3}
-    - {fileID: 21300000, guid: c4cdcc15037a4d44c8e7f47eccaa4a28, type: 3}
-    - {fileID: 21300000, guid: 8e744a266907f314998a88c17a7b0fb8, type: 3}
+    - {fileID: 21300000, guid: 781a04d030e466743af818359cc2e5ce, type: 3}
+    - {fileID: 21300000, guid: 9171be59193150844962f794d921628a, type: 3}
+    - {fileID: 21300000, guid: ddb55e66b30339c4c96744b32009f9a3, type: 3}
+    - {fileID: 21300000, guid: b258b25403c11a94baa92c8c0c397cec, type: 3}
+    - {fileID: 21300000, guid: 156ca13525ef3a847a25ecb26300fd70, type: 3}
     - {fileID: 21300000, guid: 7d29c4520d552db4ba2ca6bb190955e7, type: 3}
-    - {fileID: 21300000, guid: 020c1e2f76e985746b6fd383f29db2c8, type: 3}
-    - {fileID: 21300000, guid: c44e08483f7443f4b8f13e373be1459d, type: 3}
-    - {fileID: 21300000, guid: c44e08483f7443f4b8f13e373be1459d, type: 3}
+    - {fileID: 21300000, guid: 7d29c4520d552db4ba2ca6bb190955e7, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 2.2738097
+    m_StopTime: 1.1381578
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -103,22 +106,22 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.625
+  - time: 0.13157894
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.7857144
-    functionName: AnimEvent_HitboxOff
+  - time: 1.0526315
+    functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.142857
-    functionName: AnimEvent_AttackEnd
+  - time: 1.0745614
+    functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

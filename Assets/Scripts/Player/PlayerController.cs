@@ -20,7 +20,7 @@ namespace SilverFang.Player
         [SerializeField] private MoveSet teleportMoveSet;
         [SerializeField] private MoveSet airMoveSet;
         [SerializeField] private MoveSet awakenedAirMoveSet;
-        [SerializeField] private float chainWindow = 0.6f;
+        [SerializeField] private float chainWindow = 0.85f; // wider: forgiving combo routing
 
         [Header("Gun")]
         [SerializeField] private Projectile projectilePrefab;
@@ -33,8 +33,9 @@ namespace SilverFang.Player
         [SerializeField] private float fallGravityMult = 1.55f; // faster fall = weighty arc
         [SerializeField] private int maxAirAttacks = 3; // room for 3-token air raves
         [SerializeField] private float airAttackLunge = 4.5f;
-        [SerializeField] private float airAttackFloat = 0.32f;   // hover time per air hit
-        [SerializeField] private float hoverDrift = -1.2f;        // gentle descent while hovering
+        [SerializeField] private float airAttackFloat = 0.45f;   // hover time per air hit
+        [SerializeField] private float hoverDrift = -1.0f;        // gentle descent while hovering
+        [SerializeField] private float airHoverMax = 1.3f;        // hold-Jump hover budget per leap
         [SerializeField] private Transform visual;
 
         [Header("Charge")]
@@ -61,8 +62,14 @@ namespace SilverFang.Player
         [SerializeField] private MoveSet awakenedMoveSet;
         [SerializeField] private RuntimeAnimatorController awakenedController;
         [SerializeField] private float teleportDashDistance = 3.5f;
-        [SerializeField] private float teleportInvuln = 0.3f;
+        [SerializeField] private float teleportInvuln = 0.55f; // covers blink + strike active frames
         [SerializeField] private float teleportBehindRange = 8f;
+
+        [Header("Impact Aura")]
+        [SerializeField] private ImpactStyle baseStyle = ImpactStyle.Neutral;
+        [SerializeField] private ImpactStyle awakenedStyle = ImpactStyle.Neutral;
+        /// Effective impact aura — switches to the awakened/state style while active.
+        public override ImpactStyle Style => AwakenedActive ? awakenedStyle : baseStyle;
 
         private RuntimeAnimatorController baseController;
 
@@ -71,6 +78,7 @@ namespace SilverFang.Player
         private ComboResolver contextResolver;
         private MoveDefinition currentMove;
         private InputToken? bufferedToken;
+        private float comboCancelAt; // earliest time a buffered hit may cancel the current attack
         private float bufferedAt;
         private MoveSet activeContextMoveSet;
         private MoveSet chainOverrideMoveSet;
@@ -81,17 +89,29 @@ namespace SilverFang.Player
         private bool airborne;
         private int airAttacksRemaining;
         private float airFloatTimer;
+        private float airHoverBudget; // remaining hold-Jump hover time this leap
+        private float airMomentumX;   // horizontal momentum carried through a leap (sprint-jump)
         private bool fallTriggered;
 
         private float dashTimer;
         private float dashDir;
         private bool running;
+        private float sprintDustTimer; // spaces out the per-step sprint dust puffs
+        private bool flurryActive;     // Jotaro flurry: front-armoured, forward-creeping
+        private float flurryTimer;
+        // CQC clinch state
+        private bool clinchActive;
+        private CharacterCombatant clinchEnemy;
+        private float clinchTimer;
+        [SerializeField] private float clinchRange = 1.7f;  // grab reach
+        [SerializeField] private float clinchHold = 0.95f;  // distance the held foe is pinned in front
         private int lastTapDir;
         private float lastTapTime = -10f;
 
         // charge state
         private float lightHold, heavyHold, gunHold;
         private bool attackCharging;
+        private InputToken? chargeLatch; // button that auto-fired at full charge; blocks re-charge until released
         private InputToken chargeButton;
         private float chargeTime;
         private float chargePulseTimer;
@@ -101,7 +121,11 @@ namespace SilverFang.Player
 
         // Dash sweeps through gunfire batting rounds back; guard/parry will
         // extend this window once those mechanics land.
-        public override bool DeflectsProjectiles => dashTimer > 0f || guardDeflectTimer > 0f;
+        // True-Aim: dash i-frames, guard/parry, AND active melee swing frames all
+        // bat rounds aside (the swing's blade arc deflects). The power-class gate
+        // in Projectile lets the top two classes punch through regardless.
+        public override bool DeflectsProjectiles => dashTimer > 0f || guardDeflectTimer > 0f
+            || (IsAttacking && currentMove != null && !currentMove.firesProjectile && !airborne);
         private float guardDeflectTimer;
 
         // --- Guard / Parry: hold the stance button (or Left-Ctrl) to block.
@@ -181,6 +205,161 @@ namespace SilverFang.Player
 
         private AmmoDefinition Overcharge(AmmoDefinition ammo) =>
             (AwakenedActive && ammo != null) ? ammo.AsAwakened() : ammo;
+
+        // --- Lucas multi-weapon loadout (gated by multiWeapon) ---
+        // Each weapon keeps its OWN ammo count; switching weapons RELOADS the one
+        // you switch to (quick-rotation), and each has its own fire rate, pellet
+        // count, spread, damage and a dual-wield option.
+        [SerializeField] private bool multiWeapon;
+        private struct Weapon { public string name; public int ammoMax; public float fireInterval; public int pellets; public float spreadDeg; public float dmgMult; public bool piercing; public bool dual; }
+        private static readonly Weapon[] LucasWeapons =
+        {
+            new Weapon { name = "RIFLE",   ammoMax = 30, fireInterval = 0.09f, pellets = 1, spreadDeg = 2f,  dmgMult = 1.0f, piercing = false, dual = false },
+            new Weapon { name = "SHOTGUN", ammoMax = 8,  fireInterval = 0.55f, pellets = 5, spreadDeg = 22f, dmgMult = 0.8f, piercing = false, dual = false },
+            new Weapon { name = "SMG",     ammoMax = 45, fireInterval = 0.05f, pellets = 1, spreadDeg = 5f,  dmgMult = 0.7f, piercing = false, dual = false },
+            new Weapon { name = "RAIL",    ammoMax = 5,  fireInterval = 0.70f, pellets = 1, spreadDeg = 0f,  dmgMult = 2.6f, piercing = true,  dual = false },
+            new Weapon { name = "DUAL",    ammoMax = 24, fireInterval = 0.12f, pellets = 2, spreadDeg = 6f,  dmgMult = 0.9f, piercing = false, dual = true  }
+        };
+        private int[] weaponAmmo;
+        private int currentWeapon;
+        private float weaponFireTimer;
+        public bool MultiWeapon => multiWeapon;
+        public int CurrentWeaponAmmo => weaponAmmo != null && weaponAmmo.Length > 0 ? weaponAmmo[currentWeapon] : 0;
+        public int CurrentWeaponMax => multiWeapon ? LucasWeapons[currentWeapon].ammoMax : 0;
+        public string CurrentWeaponName => multiWeapon ? LucasWeapons[currentWeapon].name : "";
+
+        private void EnsureWeapons()
+        {
+            if (weaponAmmo != null) return;
+            weaponAmmo = new int[LucasWeapons.Length];
+            for (int i = 0; i < weaponAmmo.Length; i++) weaponAmmo[i] = LucasWeapons[i].ammoMax;
+        }
+
+        private void CycleWeapon()
+        {
+            EnsureWeapons();
+            currentWeapon = (currentWeapon + 1) % LucasWeapons.Length;
+            weaponAmmo[currentWeapon] = LucasWeapons[currentWeapon].ammoMax; // switch reloads it
+            weaponFireTimer = 0.15f;
+            OnRevolverChanged?.Invoke();
+            VFX.VfxManager.Play("dash_dust", transform.position + Vector3.up * 0.55f, Facing, 0.4f);
+        }
+
+        private void FireWeapon()
+        {
+            EnsureWeapons();
+            if (weaponFireTimer > 0f) return;
+            if (projectilePrefab == null || CurrentAmmo == null) return;
+            var w = LucasWeapons[currentWeapon];
+            if (weaponAmmo[currentWeapon] <= 0) { CycleWeapon(); return; } // dry -> rotate (reloads next)
+            weaponAmmo[currentWeapon]--;
+            weaponFireTimer = w.fireInterval;
+            OnRevolverChanged?.Invoke();
+            if (IsAttacking) InterruptAttack();
+
+            Vector3 origin = MuzzleOrigin;
+            VFX.VfxManager.Play("muzzle_burst", origin, Facing, w.pellets > 1 ? 1.2f : 1f);
+            MuzzleBlast(origin);
+            for (int p = 0; p < w.pellets; p++)
+            {
+                float ang = w.spreadDeg > 0f ? Random.Range(-w.spreadDeg, w.spreadDeg) : 0f;
+                Vector2 aim = (Vector2)(Quaternion.Euler(0f, 0f, ang) * new Vector3(Facing, 0f, 0f));
+                Vector3 o = w.dual ? origin + new Vector3(0f, p % 2 == 0 ? 0.28f : -0.28f, 0f) : origin;
+                var proj = Instantiate(projectilePrefab, o, Quaternion.identity);
+                proj.Fire(Team.Player, FireAmmo, Facing, DamageScale * w.dmgMult, 1f, 1f, w.piercing, aim, Style);
+            }
+            body.linearVelocity = new Vector2(-Facing * (w.pellets > 1 ? 2f : 1f), body.linearVelocity.y);
+            if (animator != null) animator.SetTrigger(HashShoot);
+            Core.CameraFollow.Instance?.Shake(0.03f, 0.05f);
+        }
+
+        // --- Lucas gadgets: gravity well, sonic stun, frag bomb, electric bomb ---
+        private int currentGadget;
+        private float gadgetCooldown;
+        public string CurrentGadgetName => multiWeapon
+            ? new[] { "GRAVITY", "SONIC", "FRAG", "ELECTRIC" }[currentGadget] : "";
+        private static readonly Collider2D[] GadgetHits = new Collider2D[16];
+
+        private void ThrowGadget()
+        {
+            if (gadgetCooldown > 0f) return;
+            gadgetCooldown = 0.8f;
+            Vector3 at = transform.position + new Vector3(Facing * 2.2f, 0.5f, 0f);
+            if (animator != null) animator.SetTrigger(HashShoot);
+            HitStop.Do(0.03f);
+            Core.CameraFollow.Instance?.Shake(0.06f, 0.1f);
+            switch (currentGadget)
+            {
+                case 0: Gadget_Gravity(at); break;
+                case 1: Gadget_Sonic(at); break;
+                case 2: Gadget_Frag(at); break;
+                default: Gadget_Electric(at); break;
+            }
+            currentGadget = (currentGadget + 1) % 4; // quick rotation through the kit
+            OnRevolverChanged?.Invoke();
+        }
+
+        private void Gadget_Gravity(Vector3 at)
+        {
+            VFX.VfxManager.Play("throw_impact", at, Facing, 1.6f);
+            int n = Physics2D.OverlapCircleNonAlloc(at, 3.5f, GadgetHits);
+            for (int i = 0; i < n; i++)
+            {
+                var hb = GadgetHits[i].GetComponent<Hurtbox>();
+                if (hb == null || hb.Team == Team.Player || hb.Owner == null) continue;
+                Vector2 pull = ((Vector2)at - (Vector2)hb.Owner.transform.position).normalized * 7f;
+                hb.Owner.GetComponent<Rigidbody2D>()?.AddForce(pull, ForceMode2D.Impulse);
+                hb.Owner.PinInPlace(0.15f);
+            }
+        }
+
+        private void Gadget_Sonic(Vector3 at)
+        {
+            VFX.VfxManager.Play("throw_impact", at, Facing, 1.9f, null, new Color(0.6f, 0.9f, 1f));
+            int n = Physics2D.OverlapCircleNonAlloc(at, 3.8f, GadgetHits);
+            for (int i = 0; i < n; i++)
+            {
+                var hb = GadgetHits[i].GetComponent<Hurtbox>();
+                if (hb == null || hb.Team == Team.Player || hb.Owner == null) continue;
+                hb.Owner.AddStun(60f); // heavy stun build-up — sonic disorients
+            }
+        }
+
+        private void Gadget_Frag(Vector3 at)
+        {
+            VFX.DebrisManager.Burst(at, Facing, 2f, VFX.DebrisSpec.Default(Team.Player, 2f));
+            int n = Physics2D.OverlapCircleNonAlloc(at, 3f, GadgetHits);
+            for (int i = 0; i < n; i++)
+            {
+                var hb = GadgetHits[i].GetComponent<Hurtbox>();
+                if (hb == null || hb.Team == Team.Player || hb.Owner == null) continue;
+                float dir = Mathf.Sign(hb.Owner.transform.position.x - at.x);
+                if (dir == 0f) dir = Facing;
+                hb.Owner.ReceiveHit(new AttackData { damage = 22, hitstun = 0.4f, knockback = new Vector2(7f, 1f), knocksDown = true, spawnsDebris = true }.ScaledBy(DamageScale), dir);
+            }
+        }
+
+        private void Gadget_Electric(Vector3 at)
+        {
+            VFX.VfxManager.Play("electric_bigman", at, Facing, 1.8f);
+            int n = Physics2D.OverlapCircleNonAlloc(at, 3.2f, GadgetHits);
+            for (int i = 0; i < n; i++)
+            {
+                var hb = GadgetHits[i].GetComponent<Hurtbox>();
+                if (hb == null || hb.Team == Team.Player || hb.Owner == null) continue;
+                float dir = Mathf.Sign(hb.Owner.transform.position.x - at.x);
+                if (dir == 0f) dir = Facing;
+                hb.Owner.AddStun(35f);
+                hb.Owner.ReceiveHit(new AttackData { damage = 14, hitstun = 0.5f, knockback = new Vector2(3f, 0.5f) }.ScaledBy(DamageScale), dir);
+            }
+        }
+
+        /// World position of the revolver muzzle tip, mirrored to the way Silver
+        /// faces so shots always leave the barrel on the correct side.
+        private Vector3 MuzzleOrigin => firePoint != null
+            ? transform.position + new Vector3(Mathf.Abs(firePoint.localPosition.x) * Facing,
+                                               firePoint.localPosition.y, firePoint.localPosition.z)
+            : transform.position + new Vector3(0.9f * Facing, 0.9f, 0f);
 
         public float AwakenedMeter { get; private set; }
         public float AwakenedMaxMeter => awakenedMax;
@@ -267,6 +446,9 @@ namespace SilverFang.Player
 
             input.Tick(Facing); // drives stance-tap/guard-hold + motion inputs
 
+            // CQC clinch: while grappling, only clinch logic runs (throws/slams).
+            if (clinchActive) { UpdateClinch(); return; }
+
             UpdateAwakened();
             UpdateJumpArc();
             UpdateReload();
@@ -300,6 +482,20 @@ namespace SilverFang.Player
             if (input.AmmoPressed) CycleAmmo();
             if (input.AwakenedPressed) TryActivateAwakened();
 
+            // CQC grab: lock-on + Grab near a foe enters a close-quarters clinch.
+            if (input.GrabPressed && input.LockOnHeld && CanAct && TryStartClinch()) return;
+
+            // Lucas multi-weapon auto-fire + gadget throws (timers count down even
+            // mid-action; hold the gun button to rip the current weapon).
+            if (multiWeapon)
+            {
+                if (weaponFireTimer > 0f) weaponFireTimer -= Time.deltaTime;
+                if (gadgetCooldown > 0f) gadgetCooldown -= Time.deltaTime;
+                if (input.GadgetPressed && CanAct) ThrowGadget();
+                if (input.GunHeld && !AwakenedActive && !Guarding && !airborne && CanAct)
+                    FireWeapon();
+            }
+
             // jump-cancel: after a landed hit you can cancel attack recovery
             // straight into a jump to chase a launched enemy skyward
             if (jumpCancelTimer > 0f) jumpCancelTimer -= Time.deltaTime;
@@ -313,6 +509,14 @@ namespace SilverFang.Player
             var token = ReadToken();
             if (token.HasValue) HandleToken(token.Value);
 
+            // combo fluidity: a buffered next-hit cancels the recovery ONLY once the
+            // current swing has actually played far enough to read (its strike has
+            // landed). Gated on the live clip progress so stretched clips still show
+            // every swing instead of being cut off — fixes dropped/skipped swings.
+            if (IsAttacking && bufferedToken.HasValue && Time.time >= comboCancelAt
+                && AttackClipProgress() >= 0.6f)
+                AnimEvent_AttackEnd();
+
             if (CanAct && !airborne && input.JumpPressed)
                 BeginJumpCharge();
 
@@ -324,7 +528,11 @@ namespace SilverFang.Player
                 var move = input.Move;
                 HandleDoubleTap();
 
-                if (dashTimer > 0f)
+                if (airborne)
+                {
+                    ApplyAirMomentum(move);
+                }
+                else if (dashTimer > 0f)
                 {
                     dashTimer -= Time.deltaTime;
                     SetFacing(dashDir);
@@ -361,18 +569,52 @@ namespace SilverFang.Player
                         SetBackPedal(false);
                         SetFacing(move.x);
                         Move(running ? move * runMultiplier : move);
+                        // Dust at every major sprint step: a kicked-up puff behind
+                        // the trailing foot, paced to the run cadence.
+                        if (running && Mathf.Abs(move.x) > 0.3f)
+                        {
+                            sprintDustTimer -= Time.deltaTime;
+                            if (sprintDustTimer <= 0f)
+                            {
+                                sprintDustTimer = 0.2f;
+                                VFX.VfxManager.Play("dash_dust",
+                                    transform.position + new Vector3(-Facing * 0.45f, 0.1f, 0f),
+                                    -Facing, 0.55f);
+                            }
+                        }
+                        else sprintDustTimer = 0f;
                     }
                 }
             }
             else if (IsAttacking)
             {
-                // lunge momentum bleeds off through the swing instead of stopping dead
-                AttackDrift(IsHeavyAttack() ? 10f : 14f);
+                if (flurryActive)
+                {
+                    // Jotaro flurry: creep slowly FORWARD through the barrage (momentum),
+                    // then stop dead during the wind-up pause before the cleave.
+                    flurryTimer -= Time.deltaTime;
+                    bool pausing = flurryTimer <= 0.46f && flurryTimer > 0.28f; // ~the pause window
+                    body.linearVelocity = new Vector2(pausing ? 0f : Facing * 2.2f, body.linearVelocity.y);
+                    if (animator != null) animator.SetFloat(HashMoveSpeed, 0f);
+                }
+                else
+                {
+                    // lunge momentum bleeds off through the swing instead of stopping dead
+                    AttackDrift(IsHeavyAttack() ? 10f : 14f);
+                }
             }
         }
 
         private bool IsHeavyAttack() =>
             currentAttack != null && (currentAttack.knocksDown || currentAttack.launch > 0f);
+
+        /// 0..1 progress through the CURRENT attack clip (clip-length agnostic), so
+        /// combo cancels wait for the real swing to read regardless of bake stretch.
+        private float AttackClipProgress()
+        {
+            if (animator == null) return 1f;
+            return Mathf.Repeat(animator.GetCurrentAnimatorStateInfo(0).normalizedTime, 1f);
+        }
 
         private void TrackHolds()
         {
@@ -380,6 +622,11 @@ namespace SilverFang.Player
             lightHold = input.LightHeld ? lightHold + dt : 0f;
             heavyHold = input.HeavyHeld ? heavyHold + dt : 0f;
             gunHold = input.GunHeld ? gunHold + dt : 0f;
+            // A full-charge auto-fire latches its button so holding it down can't
+            // immediately re-charge in a loop; releasing the button clears it.
+            if (chargeLatch == InputToken.Light && !input.LightHeld) chargeLatch = null;
+            else if (chargeLatch == InputToken.Heavy && !input.HeavyHeld) chargeLatch = null;
+            else if (chargeLatch == InputToken.Gun && !input.GunHeld) chargeLatch = null;
         }
 
         private void HandleDoubleTap()
@@ -429,14 +676,18 @@ namespace SilverFang.Player
             return null;
         }
 
-        private static readonly int[] Qcf = { 2, 3, 6 }; // quarter-circle forward
-        private static readonly int[] Qcb = { 2, 1, 4 }; // quarter-circle back
+        // Two-step motions (down -> forward / down -> back). The optional diagonal
+        // is skipped so keyboard players, who can't hold a clean 3/1 diagonal,
+        // can still execute every directional special — not just the teleport.
+        private static readonly int[] Qcf = { 2, 6 }; // quarter-circle forward
+        private static readonly int[] Qcb = { 2, 4 }; // quarter-circle back
 
         /// Semi-automatic revolver: one shot per trigger pull, no cooldown, no
         /// auto/hold fire. Cancels a prior shot's recovery so the player can
         /// mash to empty the cylinder as fast as they can tap.
         private void SemiAutoFire()
         {
+            if (multiWeapon) { FireWeapon(); return; } // Lucas: fire the current loadout weapon
             if (Reloading) return;
             if (RevolverRounds <= 0) { StartReload(); return; }
             if (projectilePrefab == null || CurrentAmmo == null) return;
@@ -444,15 +695,28 @@ namespace SilverFang.Player
 
             RevolverRounds--;
             OnRevolverChanged?.Invoke();
-            Vector3 origin = firePoint != null
-                ? firePoint.position
-                : transform.position + new Vector3(1.0f * Facing, 1.1f, 0f);
+            Vector3 origin = MuzzleOrigin; // exactly at the revolver barrel tip
             VFX.VfxManager.Play("muzzle_burst", origin, Facing);
+            MuzzleBlast(origin); // muzzle-flare hurtbox: point-blank flash damage
             var proj = Instantiate(projectilePrefab, origin, Quaternion.identity);
-            proj.Fire(Team.Player, FireAmmo, Facing, DamageScale);
+            proj.Fire(Team.Player, FireAmmo, Facing, DamageScale, style: Style);
             body.linearVelocity = new Vector2(-Facing * 1.2f, body.linearVelocity.y); // light recoil
             if (animator != null) animator.SetTrigger(HashShoot);
             Core.CameraFollow.Instance?.Shake(0.025f, 0.05f);
+        }
+
+        /// Muzzle-flare hurtbox: a brief point-blank hit at the barrel so firing
+        /// into a foe at contact range singes them with the flash itself.
+        private static readonly Collider2D[] MuzzleHits = new Collider2D[6];
+        private void MuzzleBlast(Vector3 origin)
+        {
+            int n = Physics2D.OverlapCircleNonAlloc(origin, 0.55f, MuzzleHits);
+            for (int i = 0; i < n; i++)
+            {
+                var hb = MuzzleHits[i].GetComponent<Hurtbox>();
+                if (hb == null || hb.Team == Team.Player || hb.Owner == null) continue;
+                hb.Owner.ReceiveHit(new AttackData { damage = 4, hitstun = 0.12f, knockback = new Vector2(2f, 0f) }, Facing);
+            }
         }
 
         /// Slash Mirage: start-up slashes, then a hyper-accel barrage where
@@ -516,7 +780,10 @@ namespace SilverFang.Player
             // Semi-auto gun: in gun stance every Gun press is one immediate
             // shot (trigger-pull, not auto/hold) with no cooldown, so the
             // player can mash to empty the cylinder as fast as they can press.
-            if (token == InputToken.Gun && UsesRevolver && !Guarding)
+            // The Gun button always fires the revolver with the SAME firing
+            // animation in BOTH sword and gun stance (consistency) — only the
+            // awakened energy form overrides it.
+            if (token == InputToken.Gun && !AwakenedActive && !Guarding)
             {
                 SemiAutoFire();
                 return;
@@ -588,7 +855,7 @@ namespace SilverFang.Player
             Vector3 origin = transform.position + (Vector3)(aim * 0.7f) + Vector3.up * 0.9f;
             VFX.VfxManager.Play("muzzle_burst", origin, h);
             var proj = Instantiate(projectilePrefab, origin, Quaternion.identity);
-            proj.Fire(Team.Player, FireAmmo, h, DamageScale, 1f, 1f, false, aim);
+            proj.Fire(Team.Player, FireAmmo, h, DamageScale, 1f, 1f, false, aim, Style);
 
             // recoil + hover: firing hangs Silver aloft, drifting slowly down
             body.linearVelocity = new Vector2(-aim.x * 2.2f, body.linearVelocity.y);
@@ -668,9 +935,9 @@ namespace SilverFang.Player
 
             InputToken? button = null;
             float hold = 0f;
-            if (lightHold >= chargeStartDelay) { button = InputToken.Light; hold = lightHold; }
-            else if (heavyHold >= chargeStartDelay) { button = InputToken.Heavy; hold = heavyHold; }
-            else if (gunHold >= chargeStartDelay) { button = InputToken.Gun; hold = gunHold; }
+            if (lightHold >= chargeStartDelay && chargeLatch != InputToken.Light) { button = InputToken.Light; hold = lightHold; }
+            else if (heavyHold >= chargeStartDelay && chargeLatch != InputToken.Heavy) { button = InputToken.Heavy; hold = heavyHold; }
+            else if (gunHold >= chargeStartDelay && chargeLatch != InputToken.Gun) { button = InputToken.Gun; hold = gunHold; }
             if (!button.HasValue) return;
 
             attackCharging = true;
@@ -715,6 +982,8 @@ namespace SilverFang.Player
         private void ReleaseChargedAttack()
         {
             attackCharging = false;
+            // Auto-fired at max? latch the button so it won't re-charge on hold.
+            if (chargeTime >= chargeFullTime) chargeLatch = chargeButton;
             float charge01 = Mathf.Clamp01(chargeTime / chargeFullTime);
             int level = charge01 >= 0.65f ? 3 : charge01 >= 0.3f ? 2 : 1;
             pendingChargeShot = chargeButton == InputToken.Gun ? charge01 : -1f;
@@ -793,7 +1062,13 @@ namespace SilverFang.Player
             currentMove = move;
             currentAttack = move.attack;
             IsAttacking = true;
-            attackTimeout = move.duration + 0.35f; // safety net if AttackEnd never fires
+            // Jotaro flurry: a grounded high-multiHit melee move runs the special
+            // 1.5s flurry (front-armoured, forward-creeping, cleave finisher).
+            flurryActive = !move.firesProjectile && move.multiHit >= 6;
+            flurryTimer = flurryActive ? 1.55f : 0f;
+            attackTimeout = (flurryActive ? 1.55f : move.duration) + 0.35f; // safety net if AttackEnd never fires
+            // cancel point: after the strike lands a buffered next-hit may flow in
+            comboCancelAt = Time.time + Mathf.Max(0.1f, move.duration * 0.55f);
             chainOverrideMoveSet = chainSet;
 
             if (fromAir)
@@ -870,6 +1145,8 @@ namespace SilverFang.Player
         {
             bool wasGunMove = currentMove != null && currentMove.firesProjectile;
             currentMove = null;
+            flurryActive = false;
+            flurryTimer = 0f;
             base.AnimEvent_AttackEnd();
 
             if (bufferedToken.HasValue && Time.time - bufferedAt <= ChainWindow)
@@ -891,6 +1168,50 @@ namespace SilverFang.Player
                 activeContextMoveSet = null;
                 contextResolver.Reset();
             }
+        }
+
+        // Jotaro flurry: a small, fast paced slash flash per blow (front of Silver).
+        public override void AnimEvent_FlurryImpact()
+        {
+            Vector3 front = transform.position
+                + new Vector3(Facing * (0.9f + Random.Range(0f, 0.5f)), 0.2f + Random.Range(-0.2f, 0.6f), 0f);
+            VFX.CombatVfx.Slash(front, Facing, Style, 0.55f);
+        }
+
+        // Jotaro flurry finisher: after the wind-up pause, one explosive heavy
+        // cleave — a strong AoE in front that spikes airborne foes / pops grounded
+        // ones and GROUND-BOUNCES them, with debris, shake and hitstop.
+        public override void AnimEvent_FinisherHit()
+        {
+            Vector3 center = transform.position + new Vector3(Facing * 1.2f, 0.5f, 0f);
+            var cleave = new AttackData
+            {
+                damage = 34, hitstun = 0.45f, knockback = new Vector2(6f, -1f),
+                launch = 5f, spike = true, groundBounce = true, spawnsDebris = true,
+                rangeScale = 1.6f, heightScale = 1.5f
+            }.ScaledBy(DamageScale);
+
+            var seen = new System.Collections.Generic.HashSet<CharacterCombatant>();
+            foreach (var c in Physics2D.OverlapCircleAll(center, 2.2f))
+            {
+                var hb = c.GetComponent<Hurtbox>();
+                if (hb == null || hb.Team == Team.Player || hb.Owner == null || !seen.Add(hb.Owner)) continue;
+                float dir = Mathf.Sign(hb.Owner.transform.position.x - transform.position.x);
+                if (dir == 0f) dir = Facing;
+                VFX.CombatVfx.Resolve(new VFX.CombatVfx.ImpactInfo
+                {
+                    pos = hb.Owner.transform.position, facing = dir, damage = cleave.damage, crit = true,
+                    isProjectile = false, material = hb.Owner.Material, element = DamageType.Kinetic,
+                    style = Style, target = hb.Owner
+                });
+                hb.Owner.ReceiveHit(cleave, Facing);
+            }
+
+            VFX.DebrisManager.Burst(center, Facing, 1.7f);
+            VFX.VfxManager.Play("charge_debris", center, Facing, 1.2f);
+            Core.CameraFollow.Instance?.Shake(0.18f, 0.2f);
+            HitStop.Do(0.12f);
+            body.linearVelocity = new Vector2(Facing * 3.5f, 0f); // drive into the cleave
         }
 
         // Called from animation event on shooting / wave-release frames.
@@ -915,9 +1236,7 @@ namespace SilverFang.Player
                 OnRevolverChanged?.Invoke();
             }
 
-            Vector3 origin = firePoint != null
-                ? firePoint.position
-                : transform.position + new Vector3(0.8f * Facing, 0.8f, 0f);
+            Vector3 origin = MuzzleOrigin;
 
             if (pendingChargeShot >= 0f)
             {
@@ -926,13 +1245,13 @@ namespace SilverFang.Player
                 int lvl = Mathf.Clamp(pendingChargeLevel, 1, 3);
                 // Charged revolver shot scales PER LEVEL: bigger round (hurtbox),
                 // faster travel, more damage; level 3 pierces clean through.
-                float dmgMult = 1f + 1.2f * lvl;     // x2.2 / x3.4 / x4.6
-                float sizeMult = 1.1f + 0.4f * lvl;  // x1.5 / x1.9 / x2.3 hitbox
-                float speedMult = 1.1f + 0.55f * lvl; // x1.65 / x2.2 / x2.75
+                float dmgMult = 1f + 1.2f * lvl;      // x2.2 / x3.4 / x4.6
+                float sizeMult = 0.95f + 0.2f * lvl;  // x1.15 / x1.35 / x1.55 (was oversized)
+                float speedMult = 1.1f + 0.5f * lvl;  // x1.6 / x2.1 / x2.6
                 VFX.VfxManager.Play("muzzle_burst", origin, Facing, 1f + c);
                 var charged = Instantiate(projectilePrefab, origin, Quaternion.identity);
                 charged.Fire(Team.Player, FireAmmo, Facing, DamageScale * dmgMult,
-                    sizeMult, speedMult, lvl >= 3);
+                    sizeMult, speedMult, lvl >= 3, null, Style);
                 // recoil sells the shot's weight
                 body.linearVelocity = new Vector2(-Facing * (1.5f + 2.5f * c), 0f);
                 Core.CameraFollow.Instance?.Shake(0.05f + 0.07f * c, 0.12f);
@@ -940,9 +1259,34 @@ namespace SilverFang.Player
                 return;
             }
 
-            VFX.VfxManager.Play("muzzle_burst", origin, Facing);
-            var proj = Instantiate(projectilePrefab, origin, Quaternion.identity);
-            proj.Fire(Team.Player, FireAmmo, Facing, DamageScale);
+            // Barrage / scatter / rain moves spray a fan of rounds in the spread
+            // the animation shows; plain shots fire a single round forward. Ammo
+            // (equipped element AND awakened psychic form) comes from FireAmmo, so
+            // every pellet matches the state and projectile type.
+            int pellets = 1; float spreadDeg = 0f;
+            string moveId = currentMove != null ? currentMove.id ?? "" : "";
+            if (moveId.Contains("Scatter")) { pellets = 5; spreadDeg = 54f; }
+            else if (moveId.Contains("Rain")) { pellets = 4; spreadDeg = 80f; }
+            else if (moveId.Contains("Barrage")) { pellets = 3; spreadDeg = 18f; }
+
+            VFX.VfxManager.Play("muzzle_burst", origin, Facing, pellets > 1 ? 1.3f : 1f);
+            if (pellets == 1)
+            {
+                var proj = Instantiate(projectilePrefab, origin, Quaternion.identity);
+                proj.Fire(Team.Player, FireAmmo, Facing, DamageScale, style: Style);
+            }
+            else
+            {
+                float fwd = Mathf.Sign(Facing);
+                for (int i = 0; i < pellets; i++)
+                {
+                    float t = pellets == 1 ? 0f : i / (float)(pellets - 1) - 0.5f;
+                    float ang = t * spreadDeg * Mathf.Deg2Rad;
+                    Vector2 dir = new Vector2(fwd * Mathf.Cos(ang), Mathf.Sin(ang));
+                    var pellet = Instantiate(projectilePrefab, origin, Quaternion.identity);
+                    pellet.Fire(Team.Player, FireAmmo, Facing, DamageScale, 1f, 1f, false, dir, Style);
+                }
+            }
         }
 
         private void FireSlashWave()
@@ -953,7 +1297,8 @@ namespace SilverFang.Player
                 ? Mathf.Max(1f, currentMove.attack.damage / 24f)
                 : 1f;
             var wave = Instantiate(slashWavePrefab, origin, Quaternion.identity);
-            wave.Fire(Team.Player, Overcharge(slashWaveAmmo), Facing, DamageScale * power, 0.9f + 0.25f * power);
+            wave.Fire(Team.Player, Overcharge(slashWaveAmmo), Facing, DamageScale * power, 0.9f + 0.25f * power,
+                1f, false, null, Style);
         }
 
         private void ToggleStance()
@@ -976,6 +1321,8 @@ namespace SilverFang.Player
 
         private void CycleAmmo()
         {
+            // Lucas: the ammo button rotates his weapon loadout (reloading the next).
+            if (multiWeapon) { CycleWeapon(); return; }
             // in gun stance with spent chambers, the ammo button reloads instead
             if (UsesRevolver && RevolverRounds < RevolverMax) { StartReload(); return; }
             if (ammoTypes == null || ammoTypes.Length == 0) return;
@@ -1003,6 +1350,7 @@ namespace SilverFang.Player
                     lockTarget = null;
                     SetBackPedal(false);
                 }
+                if (Core.CameraFollow.Instance != null) Core.CameraFollow.Instance.LockedOn = false;
                 return;
             }
 
@@ -1010,6 +1358,106 @@ namespace SilverFang.Player
                 || Vector2.Distance(lockTarget.transform.position, transform.position) > lockOnRange * 1.25f))
                 lockTarget = null;
             if (lockTarget == null) lockTarget = FindLockTarget();
+            // CQC camera: enable the locked-on close-quarters zoom while a target is held.
+            if (Core.CameraFollow.Instance != null) Core.CameraFollow.Instance.LockedOn = lockTarget != null;
+        }
+
+        // --- CQC Engine: grapple / clinch ---
+        private enum ThrowKind { Forward, Slam, Back }
+
+        private bool TryStartClinch()
+        {
+            CharacterCombatant best = null;
+            float bestD = clinchRange;
+            foreach (var e in FindObjectsByType<Enemies.EnemyAI>(FindObjectsInactive.Exclude))
+            {
+                if (e.IsDead || !e.gameObject.activeInHierarchy) continue;
+                if (Mathf.Sign(e.transform.position.x - transform.position.x) != Mathf.Sign(Facing)) continue; // in front
+                float d = Vector2.Distance(e.transform.position, transform.position);
+                if (d < bestD) { bestD = d; best = e; }
+            }
+            if (best == null) return false;
+
+            clinchActive = true;
+            clinchEnemy = best;
+            clinchTimer = 3f; // auto-release if no throw chosen
+            SetFacing(best.transform.position.x - transform.position.x);
+            Stop();
+            best.SetHeld(0.3f);
+            if (animator != null) animator.SetTrigger(HashGuard); // clinch hold pose
+            Core.CameraFollow.Instance?.BeginClinch(transform);
+            VFX.VfxManager.Play("hit_spark", best.transform.position + Vector3.up * 0.8f, Facing, 0.7f);
+            return true;
+        }
+
+        private void UpdateClinch()
+        {
+            if (clinchEnemy == null || clinchEnemy.IsDead) { EndClinch(); return; }
+            clinchTimer -= Time.deltaTime;
+
+            // pin the foe in front of Silver (exact grapple placement)
+            Vector3 spot = transform.position + new Vector3(Facing * clinchHold, 0f, 0f);
+            clinchEnemy.transform.position = Vector3.Lerp(clinchEnemy.transform.position, spot, 0.5f);
+            clinchEnemy.SetHeld(0.3f);
+            body.linearVelocity = Vector2.zero;
+
+            var token = ReadToken();
+            if (token == InputToken.Light) ExecuteThrow(ThrowKind.Forward);
+            else if (token == InputToken.Heavy) ExecuteThrow(ThrowKind.Slam);
+            else if (token == InputToken.Gun) ExecuteThrow(ThrowKind.Back);
+            else if (input.GrabPressed || clinchTimer <= 0f) EndClinch();
+        }
+
+        private void ExecuteThrow(ThrowKind kind)
+        {
+            var e = clinchEnemy;
+            clinchActive = false;
+            clinchEnemy = null;
+            Core.CameraFollow.Instance?.EndClinch();
+            if (e == null) return;
+            e.SetHeld(0f);
+
+            float dir = Facing;
+            AttackData atk;
+            switch (kind)
+            {
+                case ThrowKind.Slam: // drive them down -> spike + ground bounce
+                    atk = new AttackData { damage = 28, hitstun = 0.5f, knockback = new Vector2(2f, 0f),
+                        launch = 4f, spike = true, groundBounce = true, spawnsDebris = true };
+                    if (animator != null) animator.SetTrigger("GroundSlam");
+                    break;
+                case ThrowKind.Back: // toss behind Silver
+                    dir = -Facing;
+                    atk = new AttackData { damage = 22, hitstun = 0.45f, knockback = new Vector2(9f, 1f), knocksDown = true };
+                    if (animator != null) animator.SetTrigger("GreatCleave");
+                    break;
+                default: // Forward throw, into a wall if there is one
+                    atk = new AttackData { damage = 24, hitstun = 0.45f, knockback = new Vector2(10f, 1.5f),
+                        knocksDown = true, wallBounce = true };
+                    if (animator != null) animator.SetTrigger("GreatCleave");
+                    break;
+            }
+
+            Vector3 at = e.transform.position + Vector3.up * 0.8f;
+            VFX.VfxManager.Play("throw_impact", at, dir, 1.2f);   // dedicated throw/slam VFX category
+            VFX.DebrisManager.Burst(at, dir, 1.3f);
+            VFX.CombatVfx.Resolve(new VFX.CombatVfx.ImpactInfo
+            {
+                pos = at, facing = dir, damage = atk.damage, crit = true,
+                isProjectile = false, material = e.Material, element = DamageType.Kinetic,
+                style = Style, target = e
+            });
+            e.ReceiveHit(atk.ScaledBy(DamageScale), dir);
+            Core.CameraFollow.Instance?.Shake(0.16f, 0.18f);
+            HitStop.Do(0.1f);
+        }
+
+        private void EndClinch()
+        {
+            clinchActive = false;
+            Core.CameraFollow.Instance?.EndClinch();
+            if (clinchEnemy != null) clinchEnemy.SetHeld(0f);
+            clinchEnemy = null;
         }
 
         private Enemies.EnemyAI FindLockTarget()
@@ -1146,25 +1594,51 @@ namespace SilverFang.Player
             airAttacksRemaining = maxAirAttacks;
             airChain.Clear();
             airFloatTimer = 0f;
+            airHoverBudget = airHoverMax; // fresh hover budget each leap
             fallTriggered = false;
+            // Sprint-jump: a leap out of a run keeps its full horizontal momentum.
+            float sprintSpeed = moveSpeedX * runMultiplier * SpeedScale;
+            airMomentumX = running
+                ? Physics.CombatPhysics.SprintJumpMomentum(body.linearVelocity.x, sprintSpeed, Facing)
+                : body.linearVelocity.x;
             verticalVelocity = jumpVelocity * (1f + jumpChargeBonus * charge01);
+            // launch dust kicked off the ground at the feet
+            VFX.CombatVfx.Dust(transform.position + Vector3.down * 0.85f, Facing, 0.5f + 0.4f * charge01);
             if (charge01 > 0.4f)
-            {
-                VFX.VfxManager.Play("hit_spark", transform.position + Vector3.up * 0.2f, Facing, 0.7f + charge01);
                 Core.CameraFollow.Instance?.Shake(0.05f * charge01, 0.1f);
-            }
             if (animator != null) animator.SetTrigger(HashJump);
+        }
+
+        /// Airborne horizontal control: keep the carried sprint-jump momentum and
+        /// allow light steering, instead of the grounded move snapping velocity to
+        /// input (which would kill a running leap the instant you let go).
+        private void ApplyAirMomentum(Vector2 move)
+        {
+            if (Mathf.Abs(move.x) > 0.25f)
+            {
+                float target = Mathf.Sign(move.x) * Mathf.Max(Mathf.Abs(airMomentumX), moveSpeedX * SpeedScale);
+                airMomentumX = Physics.CombatPhysics.AirControl(airMomentumX, target, Time.deltaTime, 4f);
+                SetFacing(move.x);
+            }
+            body.linearVelocity = new Vector2(airMomentumX, body.linearVelocity.y);
+            if (animator != null) animator.SetFloat(HashMoveSpeed, Mathf.Abs(airMomentumX));
         }
 
         private void UpdateJumpArc()
         {
             if (!airborne || visual == null) return;
-            if (airFloatTimer > 0f)
+            // Hover triggers two ways: briefly after each air action (airFloatTimer)
+            // and on demand by HOLDING Jump near/after the apex (spends a per-leap
+            // budget). Either way Silver hangs and drifts slowly down instead of
+            // falling, so air combos stay aloft and read as deliberate floating.
+            bool actionHover = airFloatTimer > 0f;
+            bool holdHover = input != null && input.JumpHeld && airHoverBudget > 0f
+                             && verticalVelocity < 3f; // engages around the apex / on descent
+            if (actionHover || holdHover)
             {
-                // air-combo hover: drift slowly downward instead of falling, so
-                // chaining air attacks keeps Silver aloft and gently descending
-                airFloatTimer -= Time.deltaTime;
-                verticalVelocity = Mathf.MoveTowards(verticalVelocity, hoverDrift, 40f * Time.deltaTime);
+                if (actionHover) airFloatTimer -= Time.deltaTime;
+                else airHoverBudget -= Time.deltaTime;
+                verticalVelocity = Mathf.MoveTowards(verticalVelocity, hoverDrift, 45f * Time.deltaTime);
             }
             else
             {
@@ -1190,14 +1664,21 @@ namespace SilverFang.Player
                 airChain.Clear();
                 airFloatTimer = 0f;
                 fallTriggered = false;
+                // every landing kicks up a dust puff at the feet; heavy landings
+                // add a thud, bigger dust, camera shake and a beat of recovery
+                Vector3 feet = transform.position + Vector3.down * 0.85f;
                 if (impact > heavyLandThreshold)
                 {
-                    // heavy landing: thud, dust, and a beat of recovery
                     float over = Mathf.Clamp01((impact - heavyLandThreshold) / 10f);
                     landRecovery = 0.1f + 0.15f * over;
                     Core.CameraFollow.Instance?.Shake(0.06f + 0.08f * over, 0.14f);
                     HitStop.Do(0.02f + 0.02f * over);
-                    VFX.VfxManager.Play("dash_dust", transform.position + Vector3.up * 0.1f, Facing, 0.9f + over);
+                    VFX.CombatVfx.Dust(feet, Facing, 0.8f + over * 0.6f);
+                    VFX.CombatVfx.Dust(feet + new Vector3(-Facing * 0.4f, 0f, 0f), -Facing, 0.5f + over * 0.4f);
+                }
+                else
+                {
+                    VFX.CombatVfx.Dust(feet, Facing, 0.4f);
                 }
                 if (animator != null) animator.SetTrigger(HashLand);
             }
@@ -1206,6 +1687,16 @@ namespace SilverFang.Player
 
         public override void ReceiveHit(AttackData attack, float attackerFacing)
         {
+            // Jotaro flurry: the whirling blade wall makes Silver's FRONT nearly
+            // invincible; only hits landing on his exposed BACK get through.
+            if (flurryActive && !IsDead && attack != null
+                && Mathf.Sign(attackerFacing) == -Mathf.Sign(Facing))
+            {
+                VFX.VfxManager.Play("hit_spark",
+                    transform.position + new Vector3(Facing * 0.6f, 0.8f, 0f), -attackerFacing, 0.6f);
+                return; // deflected on the armoured front
+            }
+
             // Guard / parry intercept before any damage or combo break.
             if (Guarding && !IsDead && attack != null)
             {

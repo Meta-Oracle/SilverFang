@@ -34,9 +34,14 @@ namespace SilverFang.EditorTools
             {
                 var ui = select.GetComponent<UI.CharacterSelectUI>();
                 var so = new SerializedObject(ui);
-                foreach (var field in new[] { "silverRoot", "hiloRoot", "silverHud", "hiloHud", "silverFrame", "hiloFrame" })
+                foreach (var field in new[] { "silverRoot", "hiloRoot", "silverHud", "hiloHud" })
+                {
+                    var p = so.FindProperty(field);
                     Debug.Log($"AUDIT select.{field}: " +
-                        (so.FindProperty(field).objectReferenceValue != null ? "ok" : "NULL"));
+                        (p != null && p.objectReferenceValue != null ? "ok" : "NULL"));
+                }
+                var slicesProp = so.FindProperty("slices");
+                Debug.Log("AUDIT select.slices: " + (slicesProp != null ? slicesProp.arraySize + " slices" : "NULL"));
             }
 
             var crawl = FindAnyIncludingInactive("IntroCrawl");
@@ -57,6 +62,7 @@ namespace SilverFang.EditorTools
             CheckMoves("Awakened", "AwakenedAnimator", new[] { "Awakened", "Teleport", "AwakenedAir" });
             CheckMoves("Hilo", "HiloAnimator", new[] { "HiloCombo", "HiloEnergy", "HiloDash", "HiloSprint", "HiloTeleport", "HiloAir" });
             CheckMoves("HiloAwakened", "HiloAwakenedAnimator", new[] { "HiloAwakened", "HiloTeleport", "HiloAwakenedAir" });
+            CheckMoves("Lucas", "LucasAnimator", new[] { "LucasCombo", "LucasGun", "LucasDash", "LucasSprint", "LucasTeleport", "LucasAir" });
         }
 
         private static void CheckMoves(string clipPrefix, string controllerName, string[] setNames)

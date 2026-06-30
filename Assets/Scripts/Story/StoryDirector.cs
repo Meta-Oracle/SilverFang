@@ -7,10 +7,17 @@ namespace SilverFang.Story
     public class StoryDirector : MonoBehaviour
     {
         [SerializeField] private string openingBeat = "intro";
+        [SerializeField] private string hiloOpeningBeat = "hilo_intro";
         [SerializeField] private float delay = 0.75f;
 
         private void Start() => Invoke(nameof(PlayOpening), delay);
 
-        private void PlayOpening() => DialogueUI.PlayBeat(openingBeat);
+        private void PlayOpening()
+        {
+            // Hilo's story runs in parallel from the start: she gets her own
+            // opening beat when she's the selected hero.
+            bool hilo = Core.CharacterRoster.Selected == Core.PlayableCharacter.Hilo;
+            DialogueUI.PlayBeat(hilo ? hiloOpeningBeat : openingBeat);
+        }
     }
 }

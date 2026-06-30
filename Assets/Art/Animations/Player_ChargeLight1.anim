@@ -21,27 +21,37 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: ecc51d5433866e344b5b0b4f5b615462, type: 3}
-    - time: 0.2777778
+      value: {fileID: 21300000, guid: 903b72b216e986c44821cda3f064299d, type: 3}
+    - time: 0.12
       value: {fileID: 21300000, guid: 9e25d9ac232e268478973811c7884a85, type: 3}
-    - time: 0.5555556
+    - time: 0.195
       value: {fileID: 21300000, guid: 53f85d545499a7646b9b33de8b6e9118, type: 3}
-    - time: 0.65972227
+    - time: 0.27
       value: {fileID: 21300000, guid: ed11b33174444a04592e7f835e0f2c45, type: 3}
-    - time: 0.7638889
+    - time: 0.345
       value: {fileID: 21300000, guid: 3e97c05625fd8a74fa7c47b2c5c96cb1, type: 3}
-    - time: 0.8680556
+    - time: 0.42
       value: {fileID: 21300000, guid: bd3b67a72f770254785ceb9d55f5d1a8, type: 3}
-    - time: 0.97222227
-      value: {fileID: 21300000, guid: 040c72f12cb65d343a8c3832dd1301c2, type: 3}
-    - time: 1.076389
-      value: {fileID: 21300000, guid: 3bcd13751dcf2fa48a407b9b7111951c, type: 3}
-    - time: 1.1805556
-      value: {fileID: 21300000, guid: da80e4303f225e74ebd71cb3f7e5bb16, type: 3}
-    - time: 1.2847222
-      value: {fileID: 21300000, guid: a4fa63d19b070884592d9e0c1c9b33f1, type: 3}
-    - time: 1.984127
-      value: {fileID: 21300000, guid: a4fa63d19b070884592d9e0c1c9b33f1, type: 3}
+    - time: 0.49499997
+      value: {fileID: 21300000, guid: 9e25d9ac232e268478973811c7884a85, type: 3}
+    - time: 0.57
+      value: {fileID: 21300000, guid: 53f85d545499a7646b9b33de8b6e9118, type: 3}
+    - time: 0.645
+      value: {fileID: 21300000, guid: ed11b33174444a04592e7f835e0f2c45, type: 3}
+    - time: 0.72
+      value: {fileID: 21300000, guid: 3e97c05625fd8a74fa7c47b2c5c96cb1, type: 3}
+    - time: 0.79499996
+      value: {fileID: 21300000, guid: bd3b67a72f770254785ceb9d55f5d1a8, type: 3}
+    - time: 0.86999995
+      value: {fileID: 21300000, guid: 9e25d9ac232e268478973811c7884a85, type: 3}
+    - time: 0.945
+      value: {fileID: 21300000, guid: 53f85d545499a7646b9b33de8b6e9118, type: 3}
+    - time: 1.04
+      value: {fileID: 21300000, guid: 903b72b216e986c44821cda3f064299d, type: 3}
+    - time: 1.22
+      value: {fileID: 21300000, guid: bd3b67a72f770254785ceb9d55f5d1a8, type: 3}
+    - time: 1.5
+      value: {fileID: 21300000, guid: bd3b67a72f770254785ceb9d55f5d1a8, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -64,23 +74,28 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: ecc51d5433866e344b5b0b4f5b615462, type: 3}
+    - {fileID: 21300000, guid: 903b72b216e986c44821cda3f064299d, type: 3}
     - {fileID: 21300000, guid: 9e25d9ac232e268478973811c7884a85, type: 3}
     - {fileID: 21300000, guid: 53f85d545499a7646b9b33de8b6e9118, type: 3}
     - {fileID: 21300000, guid: ed11b33174444a04592e7f835e0f2c45, type: 3}
     - {fileID: 21300000, guid: 3e97c05625fd8a74fa7c47b2c5c96cb1, type: 3}
     - {fileID: 21300000, guid: bd3b67a72f770254785ceb9d55f5d1a8, type: 3}
-    - {fileID: 21300000, guid: 040c72f12cb65d343a8c3832dd1301c2, type: 3}
-    - {fileID: 21300000, guid: 3bcd13751dcf2fa48a407b9b7111951c, type: 3}
-    - {fileID: 21300000, guid: da80e4303f225e74ebd71cb3f7e5bb16, type: 3}
-    - {fileID: 21300000, guid: a4fa63d19b070884592d9e0c1c9b33f1, type: 3}
-    - {fileID: 21300000, guid: a4fa63d19b070884592d9e0c1c9b33f1, type: 3}
+    - {fileID: 21300000, guid: 9e25d9ac232e268478973811c7884a85, type: 3}
+    - {fileID: 21300000, guid: 53f85d545499a7646b9b33de8b6e9118, type: 3}
+    - {fileID: 21300000, guid: ed11b33174444a04592e7f835e0f2c45, type: 3}
+    - {fileID: 21300000, guid: 3e97c05625fd8a74fa7c47b2c5c96cb1, type: 3}
+    - {fileID: 21300000, guid: bd3b67a72f770254785ceb9d55f5d1a8, type: 3}
+    - {fileID: 21300000, guid: 9e25d9ac232e268478973811c7884a85, type: 3}
+    - {fileID: 21300000, guid: 53f85d545499a7646b9b33de8b6e9118, type: 3}
+    - {fileID: 21300000, guid: 903b72b216e986c44821cda3f064299d, type: 3}
+    - {fileID: 21300000, guid: bd3b67a72f770254785ceb9d55f5d1a8, type: 3}
+    - {fileID: 21300000, guid: bd3b67a72f770254785ceb9d55f5d1a8, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 2.0257938
+    m_StopTime: 1.5416666
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -100,91 +115,266 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.5555556
+  - time: 0.12
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6527778
+  - time: 0.12
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.155
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6944445
+  - time: 0.195
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7916667
+  - time: 0.195
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.22999999
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.8333333
+  - time: 0.27
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.9305555
+  - time: 0.27
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.305
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.97222227
+  - time: 0.345
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.0694444
+  - time: 0.345
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.38
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1111112
+  - time: 0.42
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.2083333
+  - time: 0.42
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.45499998
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.25
+  - time: 0.49499997
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.3472222
+  - time: 0.49499997
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.53
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.9047619
+  - time: 0.57
+    functionName: AnimEvent_HitboxOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.57
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.605
+    functionName: AnimEvent_HitboxOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.645
+    functionName: AnimEvent_HitboxOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.645
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.68
+    functionName: AnimEvent_HitboxOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.72
+    functionName: AnimEvent_HitboxOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.72
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.75500005
+    functionName: AnimEvent_HitboxOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.79499996
+    functionName: AnimEvent_HitboxOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.79499996
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.83
+    functionName: AnimEvent_HitboxOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.86999995
+    functionName: AnimEvent_HitboxOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.86999995
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.905
+    functionName: AnimEvent_HitboxOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.945
+    functionName: AnimEvent_HitboxOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.945
+    functionName: AnimEvent_FlurryImpact
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.98
+    functionName: AnimEvent_HitboxOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.28
+    functionName: AnimEvent_FinisherHit
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.455
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

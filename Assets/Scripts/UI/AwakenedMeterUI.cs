@@ -4,14 +4,20 @@ using UnityEngine.UI;
 
 namespace SilverFang.UI
 {
-    /// HUD bar for the Awakened meter. Pulses when full, drains while active.
+    /// HUD bar for the Awakened / transformation meter. Pulses when full, drains
+    /// while active. Tinted to the hero's AURA colour (Silver blue, Hilo purple,
+    /// Lucas red) so each fighter's meter reads as their own energy.
     public class AwakenedMeterUI : MonoBehaviour
     {
         [SerializeField] private PlayerController player;
         [SerializeField] private Image fill;
+        /// Hero aura colour — set per HUD when the meter is built.
+        [SerializeField] private Color aura = new Color(0.55f, 0.7f, 1f); // default: Silver blue
 
-        private static readonly Color Charging = new Color(0.55f, 0.35f, 0.9f);
-        private static readonly Color Ready = new Color(0.8f, 0.55f, 1f);
+        public void SetAura(Color c) => aura = c;
+
+        private Color Charging => Color.Lerp(aura, Color.black, 0.35f); // dim while filling
+        private Color Ready => Color.Lerp(aura, Color.white, 0.35f);    // bright when ready/active
 
         private void Update()
         {

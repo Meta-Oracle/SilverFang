@@ -18,6 +18,7 @@ import statistics
 from pathlib import Path
 
 from PIL import Image
+import numpy as np
 
 
 def alpha_bbox(im):
@@ -95,9 +96,13 @@ def main():
         for path in folder_frames(folder):
             with Image.open(path).convert("RGBA") as im:
                 new_size = (max(1, round(im.width * factor)), max(1, round(im.height * factor)))
-                # big upscales (tiny source art) stay crisp with nearest
-                resample = Image.NEAREST if (factor >= 1.4 and im.height < 60) else Image.LANCZOS
-                im.resize(new_size, resample).save(path)
+                # PIXEL-PERFECT: nearest-neighbour only (no smoothing / anti-alias /
+                # feathered edges), then hard-binarize alpha so transparency stays
+                # crisp 0/255 with no soft halo. This is the sprite-art look.
+                resized = im.resize(new_size, Image.NEAREST)
+                arr = np.array(resized)
+                arr[:, :, 3] = np.where(arr[:, :, 3] >= 128, 255, 0).astype(np.uint8)
+                Image.fromarray(arr, "RGBA").save(path)
         rescaled += 1
         print(f"  {folder.name}: char {h:.0f}px -> x{factor:.2f}")
 

@@ -1,0 +1,61 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/hilo/firsthilospritesetoverhaul.png",
+   "preview_out": "preview_hiloloco.png",
+   "out_dir": "../Assets/Art/Sprites/Hilo",
+   "animations": [
+    {
+     "name": "idle",
+     "region": [
+      8,
+      88,
+      1528,
+      215
+     ]
+    },
+    {
+     "name": "walk",
+     "region": [
+      8,
+      251,
+      1528,
+      373
+     ]
+    },
+    {
+     "name": "run",
+     "region": [
+      8,
+      414,
+      1528,
+      522
+     ]
+    },
+    {
+     "name": "sprint",
+     "region": [
+      8,
+      568,
+      1528,
+      667
+     ]
+    },
+    {
+     "name": "dash",
+     "region": [
+      8,
+      738,
+      1528,
+      837
+     ]
+    }
+   ]
+  }
+ ]
+}

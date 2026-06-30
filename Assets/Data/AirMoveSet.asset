@@ -27,6 +27,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
@@ -47,6 +52,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
@@ -67,6 +77,11 @@ MonoBehaviour:
       hitsBothSides: 1
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
@@ -87,6 +102,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
@@ -107,6 +127,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0

@@ -1,0 +1,133 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/silverdeatharticulator.png",
+   "preview_out": "p_death.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "animations": [
+    {
+     "name": "death",
+     "region": [
+      7,
+      218,
+      984,
+      308
+     ]
+    },
+    {
+     "name": "death2",
+     "region": [
+      1009,
+      218,
+      1478,
+      308
+     ]
+    },
+    {
+     "name": "death3",
+     "region": [
+      7,
+      475,
+      700,
+      550
+     ]
+    },
+    {
+     "name": "death4",
+     "region": [
+      719,
+      475,
+      1218,
+      550
+     ]
+    },
+    {
+     "name": "death5",
+     "region": [
+      1242,
+      475,
+      1420,
+      550
+     ]
+    },
+    {
+     "name": "death6",
+     "region": [
+      7,
+      590,
+      939,
+      678
+     ]
+    },
+    {
+     "name": "death7",
+     "region": [
+      965,
+      590,
+      1531,
+      678
+     ]
+    },
+    {
+     "name": "death8",
+     "region": [
+      7,
+      825,
+      945,
+      904
+     ]
+    },
+    {
+     "name": "death9",
+     "region": [
+      975,
+      825,
+      1531,
+      904
+     ]
+    },
+    {
+     "name": "death10",
+     "region": [
+      7,
+      940,
+      285,
+      1009
+     ]
+    },
+    {
+     "name": "death11",
+     "region": [
+      305,
+      940,
+      1080,
+      1009
+     ]
+    },
+    {
+     "name": "death12",
+     "region": [
+      1101,
+      940,
+      1372,
+      1009
+     ]
+    },
+    {
+     "name": "death13",
+     "region": [
+      1391,
+      940,
+      1531,
+      1009
+     ]
+    }
+   ]
+  }
+ ]
+}

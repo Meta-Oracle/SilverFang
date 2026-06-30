@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3586737084109173314}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1.1, z: 0}
+  m_LocalPosition: {x: 0.8, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 496392833714182025}
   - component: {fileID: 709261468001015156}
   - component: {fileID: 522024802807430331}
+  - component: {fileID: 5594121273928892823}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -120,7 +121,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.5208334, y: 2.125}
+  m_Size: {x: 1.2291666, y: 2.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -173,6 +174,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39b63a641366804a951167b2cf15f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.AnimationEventRelay
+--- !u!114 &5594121273928892823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4933732436495614370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7451713bcb100ee49acbec02aed1034c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Animation.SpriteMotionEngine
+  body: {fileID: 0}
+  leanPerSpeed: 0.9
+  maxLean: 9
+  leanSmoothing: 9
+  recoilDamp: 12
 --- !u!1 &5637389781342068946
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,12 +326,17 @@ MonoBehaviour:
   deceleration: 40
   hitbox: {fileID: 6232909078490594634}
   knockdownDuration: 1
+  hitMaterial: 0
+  impactStyle: 0
+  weight: 1
   burnDps: 4
   radiationDps: 2.5
   radiationSlowFactor: 0.6
   statusVfxVariant: 
   statusVfxScale: 1
   statusVfxOffsetY: 0.8
+  stunMax: 100
+  stunDecay: 18
   swordMoveSet: {fileID: 11400000, guid: 3b2ba0bf6d0f6e944a33dc00a25614e8, type: 2}
   gunMoveSet: {fileID: 11400000, guid: 1eed19fe5deadef41b6ff8691130cadd, type: 2}
   dashMoveSet: {fileID: 11400000, guid: 7ed31bdb050f4c54a8c7d88361da1e05, type: 2}
@@ -321,7 +344,7 @@ MonoBehaviour:
   teleportMoveSet: {fileID: 11400000, guid: 6e43d91b6ee29fb44b23a5ffb9d05c0a, type: 2}
   airMoveSet: {fileID: 11400000, guid: 0afb067dcf99f2443956ffa0e0334f3b, type: 2}
   awakenedAirMoveSet: {fileID: 11400000, guid: cc1e76e95f6c5fb4fad8a8dcf5140d49, type: 2}
-  chainWindow: 0.6
+  chainWindow: 0.85
   projectilePrefab: {fileID: 4634339334854579550, guid: 44c1a331ae2a7a04fbca688f948aad14, type: 3}
   firePoint: {fileID: 4807103692125528359}
   ammoTypes:
@@ -337,12 +360,21 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     tint: {r: 1, g: 1, b: 1, a: 1}
-    speed: 16
+    speed: 22
     piercing: 0
     status: 0
     statusDuration: 0
     decelerates: 0
+    isBeam: 0
+    beamTickInterval: 0
+    sticky: 0
+    strength: 0
     damageTypeOverride: 0
   - type: 1
     attack:
@@ -356,12 +388,21 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     tint: {r: 0.4, g: 1, b: 0.3, a: 1}
-    speed: 10
+    speed: 18
     piercing: 0
     status: 3
     statusDuration: 5
     decelerates: 0
+    isBeam: 0
+    beamTickInterval: 0
+    sticky: 0
+    strength: 0
     damageTypeOverride: 0
   - type: 2
     attack:
@@ -375,12 +416,21 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     tint: {r: 0.5, g: 0.8, b: 1, a: 1}
-    speed: 14
+    speed: 20
     piercing: 0
     status: 1
     statusDuration: 2
     decelerates: 0
+    isBeam: 0
+    beamTickInterval: 0
+    sticky: 0
+    strength: 0
     damageTypeOverride: 0
   - type: 3
     attack:
@@ -394,12 +444,21 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     tint: {r: 1, g: 0.5, b: 0.2, a: 1}
-    speed: 14
+    speed: 20
     piercing: 0
     status: 2
     statusDuration: 4
     decelerates: 0
+    isBeam: 0
+    beamTickInterval: 0
+    sticky: 0
+    strength: 0
     damageTypeOverride: 0
   - type: 4
     attack:
@@ -413,45 +472,64 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     tint: {r: 0.8, g: 0.5, b: 1, a: 1}
-    speed: 20
+    speed: 26
     piercing: 1
     status: 0
     statusDuration: 0
     decelerates: 0
+    isBeam: 0
+    beamTickInterval: 0
+    sticky: 0
+    strength: 0
     damageTypeOverride: 0
   jumpVelocity: 8.5
   jumpGravity: -28
   fallGravityMult: 1.55
   maxAirAttacks: 3
   airAttackLunge: 4.5
-  airAttackFloat: 0.32
-  hoverDrift: -1.2
+  airAttackFloat: 0.45
+  hoverDrift: -1
+  airHoverMax: 1.3
   visual: {fileID: 3261792580155959092}
   chargeStartDelay: 0.3
   chargeFullTime: 2
   jumpChargeBonus: 0.8
   heavyLandThreshold: 10
-  slashWavePrefab: {fileID: 5488197237546903994, guid: 397ae70caae551c4bb6a8f67cf9c1d9a, type: 3}
+  slashWavePrefab: {fileID: 3989231705264591215, guid: 397ae70caae551c4bb6a8f67cf9c1d9a, type: 3}
   slashWaveAmmo:
     type: 0
     attack:
-      damage: 14
-      hitstun: 0.3
-      knockback: {x: 4, y: 0}
-      knocksDown: 0
+      damage: 20
+      hitstun: 0.42
+      knockback: {x: 6, y: -0.8}
+      knocksDown: 1
       launch: 0
       rangeScale: 1
       heightScale: 1
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     tint: {r: 0.55, g: 0.85, b: 1, a: 1}
-    speed: 22
+    speed: 24
     piercing: 1
     status: 0
     statusDuration: 0
     decelerates: 1
+    isBeam: 0
+    beamTickInterval: 0
+    sticky: 0
+    strength: 26
     damageTypeOverride: 0
   dashSpeed: 13
   dashDuration: 0.16
@@ -464,11 +542,16 @@ MonoBehaviour:
   awakenedMoveSet: {fileID: 11400000, guid: 0c55a116e321d69499429586f4c400cc, type: 2}
   awakenedController: {fileID: 9100000, guid: fb60c6875f6b1fb4b9af80a3ab535f32, type: 2}
   teleportDashDistance: 3.5
-  teleportInvuln: 0.3
+  teleportInvuln: 0.55
   teleportBehindRange: 8
+  baseStyle: 0
+  awakenedStyle: 1
+  clinchRange: 1.7
+  clinchHold: 0.95
   parryWindow: 0.18
   guardDamageMult: 0.25
   reloadDuration: 0.7
+  multiWeapon: 0
   mirageDuration: 1.25
   lockOnRange: 11
 --- !u!114 &8457420608647873237

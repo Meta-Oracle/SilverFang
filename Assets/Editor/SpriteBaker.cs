@@ -24,12 +24,17 @@ namespace SilverFang.EditorTools
         // holding) so idle/walk/run/sprint read as crisp 24fps animation that
         // samples cleanly into 60fps gameplay. Attacks, by contrast, hold each
         // pose 2-3 frames for weight (see BakeAttackClip).
-        private const float IdleFps = Fps;
+        // Idle breathes slowly for a natural, settled stance; locomotion stays
+        // crisp at the full action cadence.
+        private const float IdleFps = 9f;
         private const float WalkFps = Fps;
         private const float RunFps = Fps;
 
         private const string AwakenedDir = "Assets/Art/Sprites/Awakened";
         private const string HiloDir = "Assets/Art/Sprites/Hilo";
+        private const string LucasDir = "Assets/Art/Sprites/Lucas";
+        private const string LucasBigManDir = "Assets/Art/Sprites/LucasBigMan";
+        private const string HiloPsionicDir = "Assets/Art/Sprites/HiloPsionic";
 
         [MenuItem("SilverFang/Bake Sprites Into Game")]
         public static void BakeAll()
@@ -39,10 +44,13 @@ namespace SilverFang.EditorTools
             ImportCharacterSprites(EnemiesDir);
             ImportCharacterSprites(AwakenedDir);
             ImportCharacterSprites(HiloDir);
+            ImportCharacterSprites(LucasDir);
             BakePlayer();
             BakeEnemies();
             BakeAwakened();
             BakeHilo();
+            BakeLucas();
+            BakeBigMan();
             AddBackgroundToScene();
             AssetDatabase.SaveAssets();
             Debug.Log("SpriteBaker: done");
@@ -174,9 +182,13 @@ namespace SilverFang.EditorTools
             AnimationUtility.SetAnimationEvents(clip, new AnimationEvent[0]);
             clip.frameRate = Fps;
 
-            // Hold each pose ~2 extra frames: lengthens the swing for weight and
-            // a smoother read; event fractions scale with length so timing holds.
-            length += 2f / Fps;
+            // Jotaro flurry: high-multiHit moves get the special semi-looping
+            // barrage -> dramatic wind-up pause -> explosive cleave finisher clip.
+            if (multiHit >= 6 && frames.Length > 0)
+                return BakeFlurryClip(clip, frames, windupPool);
+
+            // Snappy action style: only a touch of padding so swings read fast.
+            length += 1f / Fps;
 
             // Split into windup + strike.
             Sprite[] windup, strike;
@@ -201,19 +213,27 @@ namespace SilverFang.EditorTools
                 strike = new Sprite[0];
             }
 
-            // Strike frames span a wider window so the swing plays out smoothly
-            // instead of snapping through in a few frames, and the active pose
-            // lingers into the follow-through (less jolty, more weighty).
-            const float strikeStart = 0.28f;
-            const float strikeEnd = 0.70f;
+            // High-speed action timing: a tiny anticipation (0-12%), then the
+            // action keyframes fill the MAJORITY of the clip (12-88%) flashing
+            // fast, with only a short follow-through tail. Strike poses linger no
+            // more than ~2 frames so combos read crisp and chain cleanly.
+            const float strikeStart = 0.12f;
+            const float strikeEnd = 0.88f;
 
             // Hold each strike pose ~2-3 frames (at 24fps) for weight and a smooth
             // read. If the requested length would flash poses faster than that,
             // stretch the clip so the strike window can give every frame its hold.
+            // Jotaro-style flurry: high-multiHit attacks REPEAT their strike frames
+            // across the window (semi-loop) so the swing reads as a rapid, growing
+            // barrage of blows rather than one pass.
+            int strikeLoops = multiHit >= 8 ? 3 : multiHit >= 6 ? 2 : 1;
+            int totalStrike = Mathf.Max(1, strike.Length) * strikeLoops;
+
             if (strike.Length > 0)
             {
-                const float holdFrames = 2.5f;
-                float minStrikeSpan = strike.Length * holdFrames / Fps;
+                // Linger 2 frames max (flurry blows snap even faster at ~1.3).
+                float holdFrames = strikeLoops > 1 ? 1.3f : 2f;
+                float minStrikeSpan = totalStrike * holdFrames / Fps;
                 float minLength = minStrikeSpan / (strikeEnd - strikeStart);
                 if (length < minLength) length = minLength;
             }
@@ -227,12 +247,17 @@ namespace SilverFang.EditorTools
                         time = length * strikeStart * i / windup.Length,
                         value = windup[i]
                     });
-                for (int i = 0; i < strike.Length; i++)
-                    keys.Add(new ObjectReferenceKeyframe
+                // emit the strike frames strikeLoops times (flurry semi-loop)
+                for (int rep = 0; rep < strikeLoops; rep++)
+                    for (int i = 0; i < strike.Length; i++)
                     {
-                        time = length * (strikeStart + (strikeEnd - strikeStart) * i / strike.Length),
-                        value = strike[i]
-                    });
+                        int idx = rep * strike.Length + i;
+                        keys.Add(new ObjectReferenceKeyframe
+                        {
+                            time = length * (strikeStart + (strikeEnd - strikeStart) * idx / totalStrike),
+                            value = strike[i]
+                        });
+                    }
                 // follow-through: hold the last strike pose to the end
                 keys.Add(new ObjectReferenceKeyframe { time = length, value = strike[strike.Length - 1] });
 
@@ -294,6 +319,57 @@ namespace SilverFang.EditorTools
             so.FindProperty("m_AnimationClipSettings.m_LoopTime").boolValue = false;
             so.ApplyModifiedPropertiesWithoutUndo();
 
+            EditorUtility.SetDirty(clip);
+            return clip;
+        }
+
+        /// Jotaro-style flurry clip (1.5s): a quick wind-up, then the blow frames
+        /// semi-loop FAST for a near-infinite barrage (a hitbox window + paced
+        /// impact per blow), then a dramatic FULL PAUSE on a wind-up pose, ending
+        /// in one explosive heavy cleave (AnimEvent_FinisherHit spikes/bounces).
+        private static AnimationClip BakeFlurryClip(AnimationClip clip, Sprite[] frames, Sprite[] windupPool)
+        {
+            const float length = 1.5f;
+            clip.frameRate = Fps;
+
+            Sprite windup = windupPool != null && windupPool.Length > 0 ? windupPool[0] : frames[0];
+            Sprite[] blows = frames.Length >= 3 ? frames.Skip(1).ToArray() : frames;
+            Sprite cleave = frames[frames.Length - 1]; // the biggest swing = the finisher pose
+
+            const float loopStart = 0.12f, loopEnd = 1.02f; // barrage window
+            const float pauseStart = 1.04f, cleaveStart = 1.22f; // pause then cleave
+            const int blowCount = 12;
+
+            var keys = new List<ObjectReferenceKeyframe>
+            {
+                new ObjectReferenceKeyframe { time = 0f, value = windup }
+            };
+            var events = new List<AnimationEvent>();
+
+            for (int i = 0; i < blowCount; i++)
+            {
+                float t = Mathf.Lerp(loopStart, loopEnd, i / (float)blowCount);
+                keys.Add(new ObjectReferenceKeyframe { time = t, value = blows[i % blows.Length] });
+                events.Add(new AnimationEvent { time = t, functionName = "AnimEvent_HitboxOn" });
+                events.Add(new AnimationEvent { time = t, functionName = "AnimEvent_FlurryImpact" });
+                events.Add(new AnimationEvent { time = t + 0.035f, functionName = "AnimEvent_HitboxOff" });
+            }
+
+            // dramatic pause on the wind-up pose
+            keys.Add(new ObjectReferenceKeyframe { time = pauseStart, value = windup });
+            // explosive cleave
+            keys.Add(new ObjectReferenceKeyframe { time = cleaveStart, value = cleave });
+            keys.Add(new ObjectReferenceKeyframe { time = length, value = cleave });
+            events.Add(new AnimationEvent { time = cleaveStart + 0.06f, functionName = "AnimEvent_FinisherHit" });
+            events.Add(new AnimationEvent { time = length * 0.97f, functionName = "AnimEvent_AttackEnd" });
+
+            var binding = new EditorCurveBinding { path = "", type = typeof(SpriteRenderer), propertyName = "m_Sprite" };
+            AnimationUtility.SetObjectReferenceCurve(clip, binding, keys.ToArray());
+            AnimationUtility.SetAnimationEvents(clip, events.ToArray());
+
+            var so = new SerializedObject(clip);
+            so.FindProperty("m_AnimationClipSettings.m_LoopTime").boolValue = false;
+            so.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(clip);
             return clip;
         }
@@ -362,56 +438,63 @@ namespace SilverFang.EditorTools
             EditorUtility.SetDirty(controller);
         }
 
-        // Move id -> extracted art folder for every sword / gun / dash /
-        // sprint / teleport move. Unmapped moves fall back to slash poses.
+        // Combat Fluidity Engine art map: EVERY move points at an OVERHAUL-sheet
+        // folder (light/heavy/gun/air/launcher/phantom/flurry/aoe/barrage/charge
+        // /teleport). The pre-overhaul stub folders (1-3 frame, blurry) are no
+        // longer referenced and are retired from disk.
         private static readonly (string move, string folder)[] PlayerArtMap =
         {
+            // --- base sword combos ---
             ("BasicSlash1", "light1"), ("BasicSlash2", "light2"), ("BasicSlash3", "light3"),
-            ("RisingSlash", "rising_slash"), ("OverheadSlash", "overhead_slash"),
-            ("ForwardThrust", "forward_thrust"), ("LungeSlash", "lunge_slash"),
-            ("HorizontalWide", "horizontal_wide"), ("SpinSlash", "spin_slash"),
-            ("DoubleSpinSlash", "double_spin_slash"), ("DownwardStrike", "ground_slam"),
-            ("DiagonalSlash", "diagonal_slash"), ("BackhandSlash", "backhand_slash"),
-            ("CrescentSlash", "crescent_slash"), ("GreatCleave", "great_cleave"),
-            ("ChargedSlash", "charged_slash"), ("FullChargeSlash", "full_charge_slash"),
-            ("DashSlash", "dash_slash"), ("BlinkSlash", "blink_slash"),
-            ("SpinningLunge", "spinning_lunge"), ("WhirlwindFinisher", "whirlwind"),
-            ("GroundSlam", "ground_slam"), ("EarthSplitter", "earth_splitter"),
-            ("WaveSlash", "wave_slash"), ("CrossSlash", "cross_slash"),
-            ("SheathStrike", "sheath_strike"), ("TurningSlash", "turning_slash"),
-            ("GuardBreak", "guard_break"), ("DisarmStrike", "disarm"),
-            ("Execution", "execution"), ("SpecialFinisher1", "special_finisher1"),
-            ("BladeStorm", "special_finisher2"), ("UppercutSlash", "rising_slash"),
-            ("PistolWhip", "sheath_strike"), ("SlideSlash", "slide"),
-            ("KickShot", "kick_shot"), ("MortarKick", "kick_shot"),
+            ("RisingSlash", "launcher_light"), ("OverheadSlash", "overhead_slash"),
+            ("ForwardThrust", "forward_thrust"), ("LungeSlash", "forward_thrust"),
+            ("HorizontalWide", "great_cleave"), ("SpinSlash", "aoe_sweep"),
+            ("DoubleSpinSlash", "aoe_sweep"), ("DownwardStrike", "ground_slam"),
+            ("DiagonalSlash", "light3"), ("BackhandSlash", "light2"),
+            ("CrescentSlash", "great_cleave"), ("GreatCleave", "great_cleave"),
+            ("ChargedSlash", "flurry_barrage"), ("FullChargeSlash", "great_cleave"),
+            ("DashSlash", "great_cleave"), ("BlinkSlash", "phantom_light"),
+            ("SpinningLunge", "forward_thrust"), ("WhirlwindFinisher", "aoe_sweep"),
+            ("GroundSlam", "ground_slam"), ("EarthSplitter", "ground_slam"),
+            ("WaveSlash", "phantom_light"), ("CrossSlash", "light3"),
+            ("SheathStrike", "light1"), ("TurningSlash", "aoe_sweep"),
+            ("GuardBreak", "overhead_slash"), ("DisarmStrike", "light2"),
+            ("Execution", "great_cleave"), ("SpecialFinisher1", "flurry_barrage"),
+            ("BladeStorm", "flurry_barrage"), ("UppercutSlash", "launcher_light"),
+            ("PistolWhip", "light1"), ("SlideSlash", "forward_thrust"),
+            ("KickShot", "gun_blast"), ("MortarKick", "gun_blast"),
+            ("PowerSlash", "great_cleave"), ("SwordCharge", "charge_hold_heavy"),
+            ("ChargeUp", "charge_hold_light"), ("DualArcSlash", "flurry_barrage"),
+            ("Finisher", "slash_mirage"), ("SpecialFinisher3", "slash_mirage"),
+            ("ClassicSlash", "light1"),
+            // --- gun stance ---
             ("QuickShot", "gun_quick"), ("RapidShot", "gun_rapid"), ("DualShot", "gun_blast"),
             ("TripleTap", "gun_rapid"), ("RicochetShot", "gun_blast"), ("PiercingVolley", "gun_piercing"),
             ("OverdriveShot", "gun_charged"), ("BulletStorm", "gun_rapid"),
-            ("SupportFire", "rapid_shot"), ("SupportBarrage", "bullet_rain"),
-            ("BulletRain", "bullet_rain"), ("DragonShot", "dragon_slash"),
-            ("Gunslinger", "gunslinger"), ("GunslingerFinisher", "gunslinger"),
-            ("Shoot", "gun_quick"), ("ChargeUp", "charge_up"), ("PowerSlash", "power_slash"),
-            ("SwordCharge", "sword_charge"), ("DualArcSlash", "dual_arc_slash"),
-            ("Finisher", "finisher"), ("SpecialFinisher3", "special_finisher3"),
-            ("ClassicSlash", "slash"),
-            ("PhantomSlashLight", "phantom_light"), ("DashHeavyAtk", "da_heavy"), ("DashShootAtk", "da_shoot"),
-            ("DashThrustAtk", "da_thrust"), ("DashUppercutAtk", "da_uppercut"), ("DashSpinAtk", "da_spin"),
-            ("SprintSlashAtk", "sp_slash"), ("PhantomSlashHeavy", "phantom_heavy"), ("SprintShootAtk", "sp_shoot"),
-            ("SprintThrustAtk", "sp_thrust"), ("SprintSpinAtk", "spin_slash"),
-            ("TeleportStrikeAtk", "tp_strike"), ("TeleportHeavyAtk", "tp_strike_long"), ("TeleportShootAtk", "tp_shoot"),
+            ("SupportFire", "gun_rapid"), ("SupportBarrage", "gun_barrage"),
+            ("BulletRain", "gun_scatter"), ("DragonShot", "gun_piercing"),
+            ("Gunslinger", "gun_rapid"), ("GunslingerFinisher", "gun_barrage"),
+            ("Shoot", "gun_quick"),
+            // --- phantom / dash / sprint / teleport (all overhaul folders) ---
+            ("PhantomSlashLight", "phantom_light"), ("PhantomSlashHeavy", "phantom_heavy"),
+            ("DashHeavyAtk", "great_cleave"), ("DashShootAtk", "gun_blast"),
+            ("DashThrustAtk", "forward_thrust"), ("DashUppercutAtk", "launcher_light"),
+            ("DashSpinAtk", "aoe_sweep"),
+            ("SprintSlashAtk", "light3"), ("SprintShootAtk", "gun_rapid"),
+            ("SprintThrustAtk", "forward_thrust"), ("SprintSpinAtk", "aoe_sweep"),
+            ("TeleportStrikeAtk", "tp_strike"), ("TeleportHeavyAtk", "tp_strike_long"),
+            ("TeleportShootAtk", "gun_quick"),
+            // --- air ---
             ("AirLightSlash", "air_jump_slash"), ("AirHeavySlash", "jumping_slash"),
             ("AirRisingSpin", "aerial_spin"), ("AirJumpSlash", "air_jump_slash"),
             ("JumpingSlash", "jumping_slash"),
-            // 8-hit light chain + barrage/AOE; flurry_barrage/aoe_sweep/gun_* are
-            // the dedicated overhaul folders, falling back to these if uncut yet
+            // --- 8-hit light chain + barrage / AOE / launchers ---
             ("LightRush5", "light1"), ("LightRush6", "light2"), ("LightRush7", "light3"),
             ("SwordBarrage", "flurry_barrage"), ("BladeNova", "aoe_sweep"),
             ("BulletBarrage", "gun_barrage"), ("ScatterNova", "gun_scatter"),
-            // new 4+ hit routes reuse the overhaul marquee folders
             ("RagingFlurry", "flurry_barrage"), ("EclipseNova", "aoe_sweep"),
             ("PhantomTempest", "phantom_heavy"), ("VoidBarrage", "gun_barrage"),
             ("ScatterBarrage", "gun_scatter"), ("MirageFlurry", "slash_mirage"),
-            // launcher trio (light / heavy / dual combo)
             ("LightLauncher", "launcher_light"), ("HeavyLauncher", "launcher_heavy"),
             ("DualLauncher", "launcher_combo")
         };
@@ -438,8 +521,8 @@ namespace SilverFang.EditorTools
             var getup = LoadFrames($"{SilverDir}/getup");
             var death = LoadFrames($"{SilverDir}/death");
             var victory = LoadFrames($"{SilverDir}/victory");
-            var slash = LoadFrames($"{SilverDir}/basic_slash");
-            if (slash.Length == 0) slash = LoadFrames($"{SilverDir}/slash");
+            // Windup-pose source: overhaul light1 (old basic_slash/slash retired).
+            var slash = LoadFrames($"{SilverDir}/light1");
 
             BakeClip("Player_Idle", idle, true, LoopLength(idle, IdleFps));
             var walkFrames = walk.Length > 0 ? walk : run;
@@ -452,12 +535,22 @@ namespace SilverFang.EditorTools
             EnsureRunState(BakeClip("Player_Run", runFrames, true, LoopLength(runFrames, RunFps)));
             BakeClip("Player_DashAnim", dash.Length > 0 ? dash : run, false, 0.22f);
             BakeClip("Player_Hurt", hurt, false, 0.3f);
+            // CQC stun: a looping stagger built from the hurt/recoil frames.
+            BakeClip("Player_Stun", hurt.Length > 0 ? hurt : idle, true, LoopLength(hurt.Length > 0 ? hurt : idle, 8f));
             var hurtHeavy = LoadFrames($"{SilverDir}/hurt_heavy");
             BakeClip("Player_HurtHeavy", hurtHeavy.Length > 0 ? hurtHeavy : hurt, false, 0.38f);
             BakeClip("Player_Knockdown", knockdown, false, 0.5f);
             BakeClip("Player_GetUp", getup, false, 0.4f);
             BakeClip("Player_Dead", death.Length > 0 ? death : knockdown, false,
                 Mathf.Max(death.Length / Fps, 0.6f));
+            // Death Articulator Engine: bake every death-variant folder (death2..)
+            // into Player_Dead2.. so the animator's DeadN states have real poses.
+            for (int dn = 2; dn <= 20; dn++)
+            {
+                var dv = LoadFrames($"{SilverDir}/death{dn}");
+                if (dv.Length == 0) break;
+                BakeClip("Player_Dead" + dn, dv, false, Mathf.Max(dv.Length / Fps, 0.5f));
+            }
             // dedicated silverjumping.png arc: prepare/takeoff/ascend/peak ->
             // jump; descend frames -> fall; impact/stabilize/recovery -> land
             var jumpFull = LoadFrames($"{SilverDir}/jump_full");
@@ -543,45 +636,66 @@ namespace SilverFang.EditorTools
                 // light = rapid multi-hit barrage (more hits at higher charge);
                 // heavy = a few weighty slams, full charge adds a sword wave.
                 BakeAttackClip("Player_ChargeLight" + level,
-                    FramesOr($"charge_light_l{level}", "charged_slash"), windupPool,
+                    FramesOr($"charge_light_l{level}", "flurry_barrage"), windupPool,
                     0.38f + 0.08f * level, projectile: false, slashWave: false, multiHit: 4 + level * 2);
                 BakeAttackClip("Player_ChargeHeavy" + level,
-                    FramesOr($"charge_heavy_l{level}", "full_charge_slash"), windupPool,
+                    FramesOr($"charge_heavy_l{level}", "great_cleave"), windupPool,
                     0.5f + 0.1f * level, projectile: false, slashWave: level >= 3, multiHit: 1 + level);
                 BakeAttackClip("Player_ChargeShot" + level,
-                    FramesOr($"charge_shot_l{level}", "shooting"), windupPool,
+                    FramesOr($"charge_shot_l{level}", "gun_charged"), windupPool,
                     0.42f + 0.07f * level, projectile: true);
             }
         }
 
         // Hilo move id -> extracted art folder (sprites/hilo sheets). Every
         // route in SetupTools' Hilo tables maps to a real strip.
+        // Hilo Combat Fluidity Engine art map: melee moves use the OVERHAUL combo
+        // routes (punch / kick / mixed / claw-ender / heavy from the Hilo overhaul
+        // sheets) by family. Gun/energy/air/awakened moves keep their current
+        // folders until those Hilo overhaul sheets land.
         private static readonly (string move, string folder)[] HiloArtMap =
         {
-            ("ClawJab", "light1"), ("PowerStraight", "heavy1"), ("HiloQuickShot", "quick_shot"),
-            ("ClawCross", "light2"), ("RisingPalm", "rising_palm"), ("PhantomBeam", "phantom_beam"),
-            ("FrontKick", "front_kick"), ("AxeKick", "axe_kick"), ("BurstCannon", "burst_cannon"),
-            ("SideKick", "side_kick"), ("BackKick", "back_kick"), ("WideBeam", "wide_beam"),
-            ("ClawFlurry", "light3"), ("ClawUppercut", "claw_uppercut"), ("EnergyWave", "energy_wave"),
-            ("SnapKick", "snap_kick"), ("SpinningClaw", "spinning_claw"), ("HomingMissile", "homing_missile"),
-            ("ClawSlash", "claw_slash"), ("ClawSpin", "claw_spin"), ("YinYangBurst", "yinyang_burst"),
-            ("RoundhouseKick", "roundhouse_kick"), ("FlyingRoundhouse", "flying_roundhouse"), ("PhantomVolley", "phantom_beam"),
-            ("DoubleRoundhouse", "roundhouse2"), ("HurricaneKick", "hurricane_kick"), ("EnergyClaw", "energy_claw"),
-            ("ClawThrust", "claw_thrust"), ("CycloneKick", "cyclone_kick"), ("MissileBarrage", "homing_missile"),
-            ("BionicComboA", "punch_combo_a"), ("FlyingSideKick", "flying_side_kick"), ("CannonVolley", "burst_cannon"),
-            ("SpinningKick", "spinning_kick"), ("JumpKick", "jump_kick"), ("PhantomStrike", "phantom_strike"),
-            ("BionicComboB", "punch_combo_b"), ("TwinClawCombo", "claw_combo_a"), ("OmniBeam", "wide_beam"),
-            ("KillCombo", "kill_combo"), ("SavageClawFinisher", "claw_combo_b"), ("YinYangOverdrive", "yinyang_burst"),
-            ("PhantomDance", "phantom_strike"), ("CycloneFinisher", "cyclone_kick"), ("ShadowCloneStrike", "shadow_clone"),
-            ("HiloDashClaw", "claw_thrust"), ("HiloDashRush", "punch_combo_a"), ("HiloDashSpin", "claw_spin"),
-            ("HiloDashKick", "flying_side_kick"), ("HiloDashShot", "quick_shot"),
-            ("HiloSprintKick", "front_kick"), ("HiloSprintRush", "punch_combo_b"), ("HiloSprintCyclone", "cyclone_kick"),
-            ("HiloSprintHurricane", "hurricane_kick"), ("HiloSprintCannon", "burst_cannon"),
-            ("HiloShadowStrike", "phantom_strike"), ("HiloShadowClone", "shadow_clone"), ("HiloShadowBeam", "phantom_beam"),
-            ("HiloAirKick", "air_jump_light"), ("HiloAirHeavyKick", "air_jump_heavy"),
-            ("HiloAirClaw", "air_jump_claw"), ("HiloAirSpinKick", "air_spin_kick"),
-            ("HiloAirDiveKick", "air_dive_kick"), ("HiloAirDownSlash", "air_downward_slash"),
-            ("HiloAirBurst", "air_energy_burst"), ("HiloAerialCombo", "aerial_combo")
+            // --- punches / claw strikes ---
+            ("ClawJab", "hilo_punch_a"), ("ClawCross", "hilo_punch_b"),
+            ("ClawFlurry", "hilo_punch_a"), ("ClawUppercut", "hilo_punch_b"),
+            ("ClawThrust", "hilo_punch_a"), ("RisingPalm", "hilo_punch_b"),
+            ("BionicComboA", "hilo_punch_a"), ("BionicComboB", "hilo_punch_b"),
+            ("PowerStraight", "hilo_heavy_punch"),
+            // --- kicks ---
+            ("FrontKick", "hilo_kick_a"), ("AxeKick", "hilo_kick_b"),
+            ("SideKick", "hilo_kick_a"), ("BackKick", "hilo_kick_b"),
+            ("SnapKick", "hilo_kick_a"), ("RoundhouseKick", "hilo_kick_b"),
+            ("DoubleRoundhouse", "hilo_kick_b"), ("FlyingRoundhouse", "hilo_kick_a"),
+            ("SpinningKick", "hilo_kick_a"), ("JumpKick", "hilo_kick_b"),
+            ("FlyingSideKick", "hilo_kick_a"),
+            ("HurricaneKick", "hilo_heavy_kick"), ("CycloneKick", "hilo_heavy_kick"),
+            ("CycloneFinisher", "hilo_heavy_kick"),
+            // --- claw finishers / mixed routes ---
+            ("ClawSlash", "hilo_mixed_a"), ("ClawSpin", "hilo_claw_ender1"),
+            ("SpinningClaw", "hilo_claw_ender2"), ("TwinClawCombo", "hilo_claw_ender1"),
+            ("SavageClawFinisher", "hilo_claw_ender2"), ("EnergyClaw", "hilo_claw_ender1"),
+            ("KillCombo", "hilo_claw_ender2"), ("PhantomStrike", "hilo_heavy_mixed"),
+            ("PhantomDance", "hilo_heavy_mixed"),
+            // --- dash / sprint / shadow melee (overhaul routes) ---
+            ("HiloDashClaw", "hilo_punch_a"), ("HiloDashRush", "hilo_punch_b"),
+            ("HiloDashSpin", "hilo_claw_ender1"), ("HiloDashKick", "hilo_kick_a"),
+            ("HiloSprintKick", "hilo_kick_b"), ("HiloSprintRush", "hilo_heavy_punch"),
+            ("HiloSprintCyclone", "hilo_heavy_kick"), ("HiloSprintHurricane", "hilo_heavy_kick"),
+            ("HiloShadowStrike", "hilo_heavy_mixed"),
+            // --- gun / energy / air / awakened: keep current art until overhauled ---
+            ("HiloQuickShot", "quick_shot"), ("PhantomBeam", "phantom_beam"),
+            ("BurstCannon", "burst_cannon"), ("WideBeam", "wide_beam"),
+            ("EnergyWave", "energy_wave"), ("HomingMissile", "homing_missile"),
+            ("YinYangBurst", "yinyang_burst"), ("PhantomVolley", "phantom_beam"),
+            ("MissileBarrage", "homing_missile"), ("CannonVolley", "burst_cannon"),
+            ("OmniBeam", "wide_beam"), ("YinYangOverdrive", "yinyang_burst"),
+            ("ShadowCloneStrike", "shadow_clone"), ("HiloDashShot", "quick_shot"),
+            ("HiloSprintCannon", "burst_cannon"), ("HiloShadowClone", "shadow_clone"),
+            ("HiloShadowBeam", "phantom_beam"),
+            ("HiloAirKick", "hilo_air_a"), ("HiloAirHeavyKick", "hilo_air_b1"),
+            ("HiloAirClaw", "hilo_air_c"), ("HiloAirSpinKick", "hilo_air_b2"),
+            ("HiloAirDiveKick", "hilo_air_b1"), ("HiloAirDownSlash", "hilo_air_c"),
+            ("HiloAirBurst", "hilo_air_ender"), ("HiloAerialCombo", "hilo_air_ender")
         };
 
         private static Sprite[] HiloFramesOr(Sprite[] fallback, params string[] folders)
@@ -592,6 +706,189 @@ namespace SilverFang.EditorTools
                 if (frames.Length > 0) return frames;
             }
             return fallback;
+        }
+
+        // Lucas move id -> staged art folder (Assets/Art/Sprites/Lucas).
+        private static readonly (string move, string folder)[] LucasArtMap =
+        {
+            // melee combos
+            ("LucasJab", "light_a"), ("LucasCombo2", "light_b"), ("LucasCombo3", "light_c"),
+            ("LucasRush", "light_d"), ("LucasHeavy", "heavy_a"), ("LucasUppercut", "heavy_b"),
+            ("LucasSlam", "heavy_c"), ("LucasCrush", "heavy_d"), ("LucasPistolWhip", "light_a"),
+            // multi-weapon firing loadout
+            ("LucasRifle", "fire_rifle"), ("LucasShot", "fire_rifle"), ("LucasDashShot", "fire_rifle"),
+            ("LucasSMGFire", "fire_smg"), ("LucasRapidFire", "fire_smg"), ("LucasSprintShot", "fire_smg"),
+            ("LucasShotgun", "fire_shotgun"), ("LucasScatter", "fire_shotgun"),
+            ("LucasRailShot", "fire_rail"), ("LucasBlinkShot", "fire_rail"),
+            ("LucasDualFire", "fire_dual_a"), ("LucasBarrage", "fire_dual_b"),
+            // dash / sprint / blink melee
+            ("LucasDashStrike", "light_a"), ("LucasDashHeavy", "heavy_a"),
+            ("LucasSprintStrike", "light_b"), ("LucasSprintHeavy", "heavy_b"),
+            ("LucasBlinkStrike", "light_c"), ("LucasBlinkHeavy", "heavy_c"),
+            // air
+            ("LucasAirA", "air_a"), ("LucasAirB", "air_b"), ("LucasAirC", "air_c"), ("LucasAirD", "air_d")
+        };
+
+        private static Sprite[] LucasFramesOr(Sprite[] fallback, params string[] folders)
+        {
+            foreach (var folder in folders)
+            {
+                var frames = LoadFrames($"{LucasDir}/{folder}");
+                if (frames.Length > 0) return frames;
+            }
+            return fallback;
+        }
+
+        private static void BakeLucas()
+        {
+            var idle = LoadFrames($"{LucasDir}/idle");
+            if (idle.Length == 0)
+            {
+                Debug.LogWarning("SpriteBaker: no Lucas frames found, skipping Lucas bake");
+                return;
+            }
+            NormalizePlayerVisual("Assets/Prefabs/Lucas.prefab", idle[0]);
+
+            var walk = LucasFramesOr(idle, "walk");
+            var run = LucasFramesOr(walk, "run");
+            var dash = LucasFramesOr(run, "dash");
+            var jump = LucasFramesOr(idle, "jump");
+            var lightWindup = LoadFrames($"{LucasDir}/light_a");
+            var windupPool = lightWindup.Length > 0 ? new[] { lightWindup[0] } : idle;
+
+            BakeClip("Lucas_Idle", idle, true, LoopLength(idle, IdleFps));
+            BakeClip("Lucas_Walk", walk, true, LoopLength(walk, WalkFps));
+            BakeClip("Lucas_WalkBack", walk.Reverse().ToArray(), true, LoopLength(walk, WalkFps));
+            BakeClip("Lucas_Run", run, true, LoopLength(run, RunFps));
+            BakeClip("Lucas_DashAnim", dash, false, 0.22f);
+            BakeClip("Lucas_Jump", jump, false, 0.7f);
+            BakeClip("Lucas_Fall", jump, false, 0.35f);
+            BakeClip("Lucas_Land", idle, false, 0.28f);
+            BakeClip("Lucas_Roll", dash, false, 0.45f);
+            BakeClip("Lucas_Guard", idle, false, 0.35f);
+            BakeClip("Lucas_Parry", idle, false, 0.3f);
+            BakeClip("Lucas_Reload", LucasFramesOr(idle, "fire_rifle"), false, 0.45f);
+            BakeClip("Lucas_Victory", idle, false, 0.8f);
+            BakeClip("Lucas_StanceSwitch", idle, false, 0.2f);
+            BakeClip("Lucas_Hurt", idle, false, 0.3f);
+            BakeClip("Lucas_HurtHeavy", idle, false, 0.38f);
+            BakeClip("Lucas_Knockdown", idle, false, 0.5f);
+            BakeClip("Lucas_Stun", idle, true, LoopLength(idle, 8f));
+            BakeClip("Lucas_GetUp", idle, false, 0.4f);
+            BakeClip("Lucas_Dead", idle, false, 0.6f);
+            BakeClip("Lucas_SlashMirage", LucasFramesOr(idle, "heavy_d"), false, 1.25f);
+
+            foreach (var spec in SetupTools.AllLucasMoveSpecs)
+            {
+                string folder = LucasArtMap.FirstOrDefault(m => m.move == spec.id).folder;
+                Sprite[] frames = folder != null ? LoadFrames($"{LucasDir}/{folder}") : new Sprite[0];
+                if (frames.Length == 0)
+                    frames = spec.projectile ? new[] { idle[0] } : (lightWindup.Length > 0 ? lightWindup : idle);
+                BakeAttackClip("Lucas_" + spec.id, frames, windupPool, spec.length, spec.projectile, spec.slashWave, spec.multiHit);
+            }
+
+            var chargeHold = LucasFramesOr(idle, "charge_hold");
+            BakeClip("Lucas_ChargeHoldLight", chargeHold, true, LoopLength(chargeHold, 10f));
+            BakeClip("Lucas_ChargeHoldHeavy", chargeHold, true, LoopLength(chargeHold, 10f));
+            BakeClip("Lucas_ChargeHoldGun", chargeHold, true, LoopLength(chargeHold, 10f));
+            for (int level = 1; level <= 3; level++)
+            {
+                var cl = LucasFramesOr(chargeHold, $"charge_l{level}");
+                BakeAttackClip("Lucas_ChargeLight" + level, cl, windupPool, 0.38f + 0.08f * level, false, false, 4 + level * 2);
+                BakeAttackClip("Lucas_ChargeHeavy" + level, cl, windupPool, 0.5f + 0.1f * level, false, level >= 3, 1 + level);
+                BakeAttackClip("Lucas_ChargeShot" + level, LucasFramesOr(cl, "fire_rail"), windupPool, 0.42f + 0.07f * level, true);
+            }
+        }
+
+        // Big Man art with base-Lucas fallback for folders the Big Man sheets
+        // don't cover yet (firing / air / charge).
+        private static Sprite[] BigManFrames(string folder)
+        {
+            var fr = LoadFrames($"{LucasBigManDir}/{folder}");
+            return fr.Length > 0 ? fr : LoadFrames($"{LucasDir}/{folder}");
+        }
+
+        /// Lucas's awakened BIG MAN state: same routes, baked from the Big Man
+        /// sheets (locomotion + light + heavy), falling back to base Lucas art for
+        /// anything the Big Man sheets don't cover. Sets Lucas's awakenedController.
+        private static void BakeBigMan()
+        {
+            var idle = BigManFrames("idle");
+            if (idle.Length == 0)
+            {
+                Debug.LogWarning("SpriteBaker: no Big Man frames found, skipping");
+                return;
+            }
+            var walk = BigManFrames("walk"); if (walk.Length == 0) walk = idle;
+            var run = BigManFrames("run"); if (run.Length == 0) run = walk;
+            var dash = BigManFrames("dash"); if (dash.Length == 0) dash = run;
+            var jump = BigManFrames("jump"); if (jump.Length == 0) jump = idle;
+            var lightWindup = BigManFrames("light_a");
+            var windupPool = lightWindup.Length > 0 ? new[] { lightWindup[0] } : idle;
+
+            BakeClip("LucasBigMan_Idle", idle, true, LoopLength(idle, IdleFps));
+            BakeClip("LucasBigMan_Walk", walk, true, LoopLength(walk, WalkFps));
+            BakeClip("LucasBigMan_WalkBack", walk.Reverse().ToArray(), true, LoopLength(walk, WalkFps));
+            BakeClip("LucasBigMan_Run", run, true, LoopLength(run, RunFps));
+            BakeClip("LucasBigMan_DashAnim", dash, false, 0.22f);
+            BakeClip("LucasBigMan_Jump", jump, false, 0.7f);
+            BakeClip("LucasBigMan_Fall", jump, false, 0.35f);
+            BakeClip("LucasBigMan_Land", idle, false, 0.28f);
+            BakeClip("LucasBigMan_Roll", dash, false, 0.45f);
+            BakeClip("LucasBigMan_Guard", idle, false, 0.35f);
+            BakeClip("LucasBigMan_Parry", idle, false, 0.3f);
+            BakeClip("LucasBigMan_Reload", BigManFrames("fire_rifle").Length > 0 ? BigManFrames("fire_rifle") : idle, false, 0.45f);
+            BakeClip("LucasBigMan_Victory", idle, false, 0.8f);
+            BakeClip("LucasBigMan_StanceSwitch", idle, false, 0.2f);
+            BakeClip("LucasBigMan_Hurt", idle, false, 0.3f);
+            BakeClip("LucasBigMan_HurtHeavy", idle, false, 0.38f);
+            BakeClip("LucasBigMan_Knockdown", idle, false, 0.5f);
+            BakeClip("LucasBigMan_Stun", idle, true, LoopLength(idle, 8f));
+            BakeClip("LucasBigMan_GetUp", idle, false, 0.4f);
+            BakeClip("LucasBigMan_Dead", idle, false, 0.6f);
+            BakeClip("LucasBigMan_SlashMirage", BigManFrames("heavy_d"), false, 1.25f);
+
+            foreach (var spec in SetupTools.AllLucasMoveSpecs)
+            {
+                string folder = LucasArtMap.FirstOrDefault(m => m.move == spec.id).folder;
+                Sprite[] frames = folder != null ? BigManFrames(folder) : new Sprite[0];
+                if (frames.Length == 0)
+                    frames = spec.projectile ? new[] { idle[0] } : (lightWindup.Length > 0 ? lightWindup : idle);
+                BakeAttackClip("LucasBigMan_" + spec.id, frames, windupPool, spec.length, spec.projectile, spec.slashWave, spec.multiHit);
+            }
+
+            var chargeHold = BigManFrames("charge_hold"); if (chargeHold.Length == 0) chargeHold = idle;
+            BakeClip("LucasBigMan_ChargeHoldLight", chargeHold, true, LoopLength(chargeHold, 10f));
+            BakeClip("LucasBigMan_ChargeHoldHeavy", chargeHold, true, LoopLength(chargeHold, 10f));
+            BakeClip("LucasBigMan_ChargeHoldGun", chargeHold, true, LoopLength(chargeHold, 10f));
+            for (int level = 1; level <= 3; level++)
+            {
+                var cl = BigManFrames($"charge_l{level}"); if (cl.Length == 0) cl = chargeHold;
+                BakeAttackClip("LucasBigMan_ChargeLight" + level, cl, windupPool, 0.38f + 0.08f * level, false, false, 4 + level * 2);
+                BakeAttackClip("LucasBigMan_ChargeHeavy" + level, cl, windupPool, 0.5f + 0.1f * level, false, level >= 3, 1 + level);
+                BakeAttackClip("LucasBigMan_ChargeShot" + level, cl, windupPool, 0.42f + 0.07f * level, true);
+            }
+
+            // Point Lucas's awakened form at the Big Man controller.
+            var controller = AssetDatabase.LoadAssetAtPath<UnityEditor.Animations.AnimatorController>(
+                $"{AnimDir}/LucasBigManAnimator.controller");
+            string lucasPath = "Assets/Prefabs/Lucas.prefab";
+            if (controller != null && AssetDatabase.LoadAssetAtPath<GameObject>(lucasPath) != null)
+            {
+                var root = PrefabUtility.LoadPrefabContents(lucasPath);
+                try
+                {
+                    var player = root.GetComponent<SilverFang.Player.PlayerController>();
+                    if (player != null)
+                    {
+                        var so = new SerializedObject(player);
+                        so.FindProperty("awakenedController").objectReferenceValue = controller;
+                        so.ApplyModifiedPropertiesWithoutUndo();
+                    }
+                    PrefabUtility.SaveAsPrefabAsset(root, lucasPath);
+                }
+                finally { PrefabUtility.UnloadPrefabContents(root); }
+            }
         }
 
         private static void BakeHilo()
@@ -621,6 +918,8 @@ namespace SilverFang.EditorTools
             BakeClip("Hilo_Hurt", crouch.Length > 0 ? crouch : idle, false, 0.3f);
             BakeClip("Hilo_HurtHeavy", HiloFramesOr(crouch.Length > 0 ? crouch : idle, "yin_slip"), false, 0.38f);
             BakeClip("Hilo_Knockdown", slip.Length > 0 ? slip : crouch, false, 0.5f);
+            var hiloStun = crouch.Length > 0 ? crouch : idle;
+            BakeClip("Hilo_Stun", hiloStun, true, LoopLength(hiloStun, 8f));
             BakeClip("Hilo_GetUp", crouch.Length > 0 ? crouch : idle, false, 0.4f);
             BakeClip("Hilo_Dead", slip.Length > 0 ? slip : crouch, false, 0.6f);
             // jump + double_jump strips concatenated: a full 11-frame arc
@@ -704,10 +1003,16 @@ namespace SilverFang.EditorTools
 
         private static void BakeHiloAwakened(Sprite[] baseIdle, Sprite[] crouch, Sprite[] slip)
         {
-            var idle = HiloFramesOr(baseIdle, "awk_idle");
-            var movement = HiloFramesOr(new Sprite[0], "awk_movement");
-            var walkSrc = movement.Length > 0 ? movement : LoadFrames($"{HiloDir}/walk");
-            var runSrc = movement.Length > 0 ? movement : LoadFrames($"{HiloDir}/run");
+            // True Psionic state: prefer the dedicated psionic sheets, falling back
+            // to the old awakened art where the psionic sheets don't reach.
+            Sprite[] Ps(string folder, Sprite[] fallback)
+            {
+                var fr = LoadFrames($"{HiloPsionicDir}/{folder}");
+                return fr.Length > 0 ? fr : fallback;
+            }
+            var idle = Ps("idle", HiloFramesOr(baseIdle, "awk_idle"));
+            var walkSrc = Ps("walk", LoadFrames($"{HiloDir}/walk"));
+            var runSrc = Ps("run", LoadFrames($"{HiloDir}/run"));
             var transform = HiloFramesOr(idle, "yinyang_burst");
 
             var idleClip = BakeClip("HiloAwakened_Idle", idle, true, LoopLength(idle, IdleFps));
@@ -807,14 +1112,32 @@ namespace SilverFang.EditorTools
             getUpBack.exitTime = 1f;
             getUpBack.duration = 0f;
 
+            int psLight = 0, psHeavy = 0; // cycle through the psionic combo rows
             foreach (var move in SetupTools.HiloAwakenedMoves.Concat(SetupTools.HiloTeleportMoves)
                          .Concat(SetupTools.HiloAwakenedAirMoves))
             {
                 if (controller.parameters.Any(p => p.name == move.trigger)) continue;
                 controller.AddParameter(move.trigger, AnimatorControllerParameterType.Trigger);
 
-                string folder = HiloAwakenedArtMap.FirstOrDefault(m => m.move == move.id).folder;
-                var frames = folder != null ? LoadFrames($"{HiloDir}/{folder}") : new Sprite[0];
+                Sprite[] frames;
+                if (move.projectile)
+                {
+                    string folder = HiloAwakenedArtMap.FirstOrDefault(m => m.move == move.id).folder;
+                    frames = folder != null ? LoadFrames($"{HiloDir}/{folder}") : new Sprite[0];
+                }
+                else
+                {
+                    // melee psionic moves use the psionic combo sheets, cycling rows;
+                    // heavy/knockdown moves draw from the heavy rows.
+                    bool heavy = move.attack != null && (move.attack.knocksDown || move.attack.launch > 0f);
+                    string pf = heavy ? $"heavy_{(char)('a' + psHeavy++ % 4)}" : $"light_{(char)('a' + psLight++ % 4)}";
+                    frames = LoadFrames($"{HiloPsionicDir}/{pf}");
+                    if (frames.Length == 0)
+                    {
+                        string folder = HiloAwakenedArtMap.FirstOrDefault(m => m.move == move.id).folder;
+                        frames = folder != null ? LoadFrames($"{HiloDir}/{folder}") : new Sprite[0];
+                    }
+                }
                 if (frames.Length == 0) frames = new[] { idle[0] };
 
                 var clip = BakeAttackClip("HiloAwakened_" + move.id, frames, idle, move.length,
@@ -1232,6 +1555,8 @@ namespace SilverFang.EditorTools
                 var hurtClip = BakeClip($"{p}_Hurt", hurt, false, 0.3f);
                 var hurtHeavyClip = BakeClip($"{p}_HurtHeavy", hurtHeavy, false, 0.38f);
                 var knockdownClip = BakeClip($"{p}_Knockdown", knockdown, false, 0.5f);
+                BakeClip($"{p}_Stun", hurt.Length > 0 ? hurt : idle, true,
+                    LoopLength(hurt.Length > 0 ? hurt : idle, 8f)); // CQC stun loop
                 var getUpClip = BakeClip($"{p}_GetUp", getup, false, 0.4f);
                 var deadClip = BakeClip($"{p}_Dead", death, false, Mathf.Max(death.Length / Fps, 0.6f));
 

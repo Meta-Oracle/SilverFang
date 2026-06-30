@@ -21,23 +21,25 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 6a5d23d4147a8984bb29fdd0eb830e53, type: 3}
-    - time: 0.20833334
-      value: {fileID: 21300000, guid: a9514d1584c0b17478c800956d6f5848, type: 3}
-    - time: 0.4166667
-      value: {fileID: 21300000, guid: 638acd62b699e6d40946446b4329378b, type: 3}
-    - time: 0.5208334
-      value: {fileID: 21300000, guid: b30eceaa6d65ac349a0c8d7b62f5c76f, type: 3}
-    - time: 0.625
-      value: {fileID: 21300000, guid: 5d3bb8a708122a846954845652971ca2, type: 3}
-    - time: 0.7291667
-      value: {fileID: 21300000, guid: a51253b67a1be0f4cbe096cd1a1b74fd, type: 3}
-    - time: 0.8333334
-      value: {fileID: 21300000, guid: f27f5a935d292d44fb91f98cdbf25ab4, type: 3}
-    - time: 0.9375
-      value: {fileID: 21300000, guid: ce5e663438b419748b7324661d0352fe, type: 3}
-    - time: 1.4880953
-      value: {fileID: 21300000, guid: ce5e663438b419748b7324661d0352fe, type: 3}
+      value: {fileID: 21300000, guid: f76160b21a9955d40a0b5d8b8bc336d1, type: 3}
+    - time: 0.04605263
+      value: {fileID: 21300000, guid: 046d69e976937b04a8755cf40804e510, type: 3}
+    - time: 0.09210526
+      value: {fileID: 21300000, guid: d83e9652b0fc0094da230526fb51b24b, type: 3}
+    - time: 0.1754386
+      value: {fileID: 21300000, guid: 8e2248145b235174d8f5b33e9ad3ccc1, type: 3}
+    - time: 0.25877193
+      value: {fileID: 21300000, guid: f4556db1fb0b406439f6d9b7b74b23cc, type: 3}
+    - time: 0.34210527
+      value: {fileID: 21300000, guid: b68f3e81fde22da4dac4721d56cd144d, type: 3}
+    - time: 0.42543858
+      value: {fileID: 21300000, guid: cdbd6fc7433f1c64fb3af92f074730aa, type: 3}
+    - time: 0.5087719
+      value: {fileID: 21300000, guid: 2a6dfcb148f28384d82834420f1fab61, type: 3}
+    - time: 0.59210527
+      value: {fileID: 21300000, guid: 084380f5e7cdd7849816f58cad1e6109, type: 3}
+    - time: 0.76754385
+      value: {fileID: 21300000, guid: 084380f5e7cdd7849816f58cad1e6109, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -60,21 +62,22 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 6a5d23d4147a8984bb29fdd0eb830e53, type: 3}
-    - {fileID: 21300000, guid: a9514d1584c0b17478c800956d6f5848, type: 3}
-    - {fileID: 21300000, guid: 638acd62b699e6d40946446b4329378b, type: 3}
-    - {fileID: 21300000, guid: b30eceaa6d65ac349a0c8d7b62f5c76f, type: 3}
-    - {fileID: 21300000, guid: 5d3bb8a708122a846954845652971ca2, type: 3}
-    - {fileID: 21300000, guid: a51253b67a1be0f4cbe096cd1a1b74fd, type: 3}
-    - {fileID: 21300000, guid: f27f5a935d292d44fb91f98cdbf25ab4, type: 3}
-    - {fileID: 21300000, guid: ce5e663438b419748b7324661d0352fe, type: 3}
-    - {fileID: 21300000, guid: ce5e663438b419748b7324661d0352fe, type: 3}
+    - {fileID: 21300000, guid: f76160b21a9955d40a0b5d8b8bc336d1, type: 3}
+    - {fileID: 21300000, guid: 046d69e976937b04a8755cf40804e510, type: 3}
+    - {fileID: 21300000, guid: d83e9652b0fc0094da230526fb51b24b, type: 3}
+    - {fileID: 21300000, guid: 8e2248145b235174d8f5b33e9ad3ccc1, type: 3}
+    - {fileID: 21300000, guid: f4556db1fb0b406439f6d9b7b74b23cc, type: 3}
+    - {fileID: 21300000, guid: b68f3e81fde22da4dac4721d56cd144d, type: 3}
+    - {fileID: 21300000, guid: cdbd6fc7433f1c64fb3af92f074730aa, type: 3}
+    - {fileID: 21300000, guid: 2a6dfcb148f28384d82834420f1fab61, type: 3}
+    - {fileID: 21300000, guid: 084380f5e7cdd7849816f58cad1e6109, type: 3}
+    - {fileID: 21300000, guid: 084380f5e7cdd7849816f58cad1e6109, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.5297619
+    m_StopTime: 0.80921054
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -94,22 +97,22 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.4166667
+  - time: 0.09210526
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1904763
-    functionName: AnimEvent_HitboxOff
+  - time: 0.7368421
+    functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.4285715
-    functionName: AnimEvent_AttackEnd
+  - time: 0.752193
+    functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -79,6 +79,10 @@ namespace SilverFang.Player
         public bool GunHeld => KeyHeld(Keyboard.current?.lKey) || PadHeld(Gamepad.current?.buttonEast);
         public bool JumpHeld => KeyHeld(Keyboard.current?.spaceKey) || PadHeld(Gamepad.current?.buttonSouth);
         public bool AmmoPressed => KeyDown(Keyboard.current?.eKey) || PadDown(Gamepad.current?.rightShoulder);
+        /// CQC grapple/clinch trigger (V / right-stick click).
+        public bool GrabPressed => KeyDown(Keyboard.current?.vKey) || PadDown(Gamepad.current?.rightStickButton);
+        /// Lucas gadget throw (B / left-stick click) — rotates through the 4 gadgets.
+        public bool GadgetPressed => KeyDown(Keyboard.current?.bKey) || PadDown(Gamepad.current?.leftStickButton);
 
         // Stance button is dual-use: a quick TAP switches stance, a HOLD guards
         // (Q / L1). Keyboard Left-Ctrl is a dedicated guard too. Tick() drives
@@ -92,7 +96,7 @@ namespace SilverFang.Player
         // timestamps, so QCF (236) / QCB (214) specials can be detected.
         private readonly System.Collections.Generic.List<(int dir, float t)> motion
             = new System.Collections.Generic.List<(int, float)>();
-        private const float MotionWindow = 0.45f;
+        private const float MotionWindow = 0.55f; // forgiving directional-special window
 
         public void Tick(float facing = 1f)
         {

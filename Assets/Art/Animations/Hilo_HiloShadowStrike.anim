@@ -21,21 +21,25 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: 5605f7833d5444c4681cbca2c0bf7825, type: 3}
-    - time: 0.17361112
-      value: {fileID: 21300000, guid: 29d10ea69aaa6cf46a2a1f8a86aae915, type: 3}
-    - time: 0.34722224
-      value: {fileID: 21300000, guid: d8d43b065b13b2c419c80e096795d4f4, type: 3}
-    - time: 0.4513889
-      value: {fileID: 21300000, guid: 6f7b00208ded6154a8cc2ddc30a0b500, type: 3}
-    - time: 0.5555556
-      value: {fileID: 21300000, guid: e1a494f082fab8640bfa5f22b709d42f, type: 3}
-    - time: 0.6597222
-      value: {fileID: 21300000, guid: d15d205f04b8fc84596df018d98ee086, type: 3}
-    - time: 0.7638889
-      value: {fileID: 21300000, guid: 907bed886c1a2b042b16b8fbc4afe3a0, type: 3}
-    - time: 1.2400794
-      value: {fileID: 21300000, guid: 907bed886c1a2b042b16b8fbc4afe3a0, type: 3}
+      value: {fileID: 21300000, guid: c1ec452b5d5259d46b968eca7d728ecd, type: 3}
+    - time: 0.04605263
+      value: {fileID: 21300000, guid: c86d6f88cbc95004587f9755d6908c02, type: 3}
+    - time: 0.09210526
+      value: {fileID: 21300000, guid: 5c068aa0e746d094eae7e10ec002791c, type: 3}
+    - time: 0.1754386
+      value: {fileID: 21300000, guid: 76114b6856e7d4c41813ca649a1fabbb, type: 3}
+    - time: 0.25877193
+      value: {fileID: 21300000, guid: 9c07cc89560feff46ae37d3fe0dbeb0b, type: 3}
+    - time: 0.34210527
+      value: {fileID: 21300000, guid: 8482c44a3da106f458f715a9a2b8b89b, type: 3}
+    - time: 0.42543858
+      value: {fileID: 21300000, guid: 0a8bd9c39f8ee6240b0fd593a5294856, type: 3}
+    - time: 0.5087719
+      value: {fileID: 21300000, guid: 1f6e9fc6774204e46b077744f9d2190d, type: 3}
+    - time: 0.59210527
+      value: {fileID: 21300000, guid: 79db052c17f043449be05192b61ceb94, type: 3}
+    - time: 0.76754385
+      value: {fileID: 21300000, guid: 79db052c17f043449be05192b61ceb94, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -58,20 +62,22 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 5605f7833d5444c4681cbca2c0bf7825, type: 3}
-    - {fileID: 21300000, guid: 29d10ea69aaa6cf46a2a1f8a86aae915, type: 3}
-    - {fileID: 21300000, guid: d8d43b065b13b2c419c80e096795d4f4, type: 3}
-    - {fileID: 21300000, guid: 6f7b00208ded6154a8cc2ddc30a0b500, type: 3}
-    - {fileID: 21300000, guid: e1a494f082fab8640bfa5f22b709d42f, type: 3}
-    - {fileID: 21300000, guid: d15d205f04b8fc84596df018d98ee086, type: 3}
-    - {fileID: 21300000, guid: 907bed886c1a2b042b16b8fbc4afe3a0, type: 3}
-    - {fileID: 21300000, guid: 907bed886c1a2b042b16b8fbc4afe3a0, type: 3}
+    - {fileID: 21300000, guid: c1ec452b5d5259d46b968eca7d728ecd, type: 3}
+    - {fileID: 21300000, guid: c86d6f88cbc95004587f9755d6908c02, type: 3}
+    - {fileID: 21300000, guid: 5c068aa0e746d094eae7e10ec002791c, type: 3}
+    - {fileID: 21300000, guid: 76114b6856e7d4c41813ca649a1fabbb, type: 3}
+    - {fileID: 21300000, guid: 9c07cc89560feff46ae37d3fe0dbeb0b, type: 3}
+    - {fileID: 21300000, guid: 8482c44a3da106f458f715a9a2b8b89b, type: 3}
+    - {fileID: 21300000, guid: 0a8bd9c39f8ee6240b0fd593a5294856, type: 3}
+    - {fileID: 21300000, guid: 1f6e9fc6774204e46b077744f9d2190d, type: 3}
+    - {fileID: 21300000, guid: 79db052c17f043449be05192b61ceb94, type: 3}
+    - {fileID: 21300000, guid: 79db052c17f043449be05192b61ceb94, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.281746
+    m_StopTime: 0.80921054
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -91,22 +97,22 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.34722224
+  - time: 0.09210526
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.9920635
-    functionName: AnimEvent_HitboxOff
+  - time: 0.7368421
+    functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1904762
-    functionName: AnimEvent_AttackEnd
+  - time: 0.752193
+    functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

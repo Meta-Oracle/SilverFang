@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 1031337975787208904}
   - component: {fileID: 5038589750483001918}
   - component: {fileID: 4056595306820358321}
+  - component: {fileID: 1744230722832265406}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -234,6 +235,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39b63a641366804a951167b2cf15f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.AnimationEventRelay
+--- !u!114 &1744230722832265406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105870093988244532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7451713bcb100ee49acbec02aed1034c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Animation.SpriteMotionEngine
+  body: {fileID: 0}
+  leanPerSpeed: 0.9
+  maxLean: 9
+  leanSmoothing: 9
+  recoilDamp: 12
 --- !u!1 &7315536189214847547
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,12 +512,17 @@ MonoBehaviour:
   deceleration: 40
   hitbox: {fileID: 8581330516761221866}
   knockdownDuration: 1
+  hitMaterial: 0
+  impactStyle: 0
+  weight: 2
   burnDps: 4
   radiationDps: 2.5
   radiationSlowFactor: 0.6
   statusVfxVariant: bruiser
   statusVfxScale: 1
   statusVfxOffsetY: 0.7
+  stunMax: 100
+  stunDecay: 18
   meleeAttack:
     damage: 12
     hitstun: 0.4
@@ -511,6 +534,11 @@ MonoBehaviour:
     hitsBothSides: 0
     damageType: 0
     spawnsDebris: 0
+    wallBounce: 0
+    groundBounce: 0
+    otg: 0
+    spike: 0
+    bonusHitstun: 0
   attackRangeX: 1.5
   attackRangeY: 0.4
   attackCooldown: 1.5
@@ -529,12 +557,21 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     tint: {r: 1, g: 1, b: 1, a: 1}
     speed: 14
     piercing: 0
     status: 0
     statusDuration: 0
     decelerates: 0
+    isBeam: 0
+    beamTickInterval: 0
+    sticky: 0
+    strength: 0
     damageTypeOverride: 0
   firePoint: {fileID: 0}
   meleeVariants: 1
@@ -550,6 +587,11 @@ MonoBehaviour:
     hitsBothSides: 0
     damageType: 0
     spawnsDebris: 0
+    wallBounce: 0
+    groundBounce: 0
+    otg: 0
+    spike: 0
+    bonusHitstun: 0
   pounceMinRange: 3
   pounceMaxRange: 6
   pounceSpeed: 12

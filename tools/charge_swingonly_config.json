@@ -1,0 +1,136 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/chargedattackoverhaul.png",
+   "preview_out": "p_cl.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "animations": [
+    {
+     "name": "charge_light_l1",
+     "region": [
+      680,
+      98,
+      1080,
+      171
+     ]
+    },
+    {
+     "name": "charge_light_l2",
+     "region": [
+      680,
+      212,
+      1080,
+      289
+     ]
+    },
+    {
+     "name": "charge_light_l3",
+     "region": [
+      680,
+      212,
+      1080,
+      289
+     ]
+    },
+    {
+     "name": "charge_heavy_l1",
+     "region": [
+      680,
+      328,
+      1080,
+      414
+     ]
+    },
+    {
+     "name": "charge_heavy_l2",
+     "region": [
+      680,
+      328,
+      1080,
+      414
+     ]
+    },
+    {
+     "name": "charge_heavy_l3",
+     "region": [
+      680,
+      431,
+      1080,
+      534
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/chargedattackoverhaul.png",
+   "preview_out": "p_ca.png",
+   "out_dir": "../Assets/Art/Sprites/Awakened",
+   "animations": [
+    {
+     "name": "charge_awk_light_l1",
+     "region": [
+      680,
+      574,
+      1080,
+      653
+     ]
+    },
+    {
+     "name": "charge_awk_light_l2",
+     "region": [
+      680,
+      693,
+      1080,
+      773
+     ]
+    },
+    {
+     "name": "charge_awk_light_l3",
+     "region": [
+      680,
+      693,
+      1080,
+      773
+     ]
+    },
+    {
+     "name": "charge_awk_heavy_l1",
+     "region": [
+      680,
+      818,
+      1080,
+      894
+     ]
+    },
+    {
+     "name": "charge_awk_heavy_l2",
+     "region": [
+      680,
+      818,
+      1080,
+      894
+     ]
+    },
+    {
+     "name": "charge_awk_heavy_l3",
+     "region": [
+      680,
+      913,
+      1080,
+      1019
+     ]
+    }
+   ]
+  }
+ ]
+}

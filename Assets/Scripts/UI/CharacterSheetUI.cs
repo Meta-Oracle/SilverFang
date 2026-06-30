@@ -124,8 +124,8 @@ namespace SilverFang.UI
 
             if (identityText != null)
                 identityText.text = hilo
-                    ? "NAME\n  HILO\n\nTITLE\n  Yin-Yang Clan Warrior\n\nCLAN / FACTION\n  The Yin-Yang Clan\n\nROLE\n  Bionic Striker"
-                    : "NAME\n  SILVER\n\nTITLE\n  The Wolf Fang Protocol\n\nCLAN / FACTION\n  Scematica Gun-Hunters\n\nROLE\n  Vanguard Hunter (S-1L)";
+                    ? "NAME\n  HILO\n\nTITLE\n  Cyber-Geneticist of Thread C\n\nORIGIN\n  A timeline with no Scematica —\n  gutted by the Hemarex Virus\n\nROLE\n  Bionic Striker / seeker of the\n  pure-birth cure (built her own arm)"
+                    : "NAME\n  SILVER\n\nTITLE\n  The Wolf Fang Protocol\n\nCLAN / FACTION\n  Scematica Gun-Hunters\n\nROLE\n  Vanguard Hunter (S-1L) — pure-birth";
 
             if (levelText != null)
             {

@@ -3,7 +3,8 @@ namespace SilverFang.Core
     public enum PlayableCharacter
     {
         Silver,
-        Hilo
+        Hilo,
+        Lucas
     }
 
     /// Which hero the player picked on the start screen. Survives scene loads.

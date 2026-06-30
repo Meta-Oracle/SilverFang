@@ -55,7 +55,7 @@ namespace SilverFang.UI
                 rect.anchorMax = a;
                 rect.pivot = new Vector2(0.5f, 0.5f);
                 rect.anchoredPosition = Vector2.zero;
-                rect.sizeDelta = node.ring == 8 ? new Vector2(26f, 26f) : new Vector2(11f, 11f);
+                rect.sizeDelta = node.ring == 8 ? new Vector2(36f, 36f) : new Vector2(19f, 19f);
                 rect.localRotation = Quaternion.Euler(0f, 0f, 45f);
                 widgets[i] = img;
                 widgetRects[i] = rect;
@@ -165,8 +165,9 @@ namespace SilverFang.UI
                     : can ? new Color(1f, 0.85f, 0.4f, 0.95f)
                     : new Color(0.25f, 0.3f, 0.45f, 0.55f);
                 bool isSel = node == selected;
-                widgetRects[i].localScale = Vector3.one * (isSel ? 1.7f : 1f);
-                if (isSel) img.color = Color.Lerp(img.color, Color.white, 0.45f);
+                // selected node pops large + bright white so it's unmistakable
+                widgetRects[i].localScale = Vector3.one * (isSel ? 2.5f : 1f);
+                if (isSel) img.color = Color.Lerp(img.color, Color.white, 0.7f);
             }
 
             if (pointsText != null) pointsText.text = $"{ChipCore.PointsRemaining:000}";

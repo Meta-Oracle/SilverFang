@@ -23,6 +23,18 @@ namespace SilverFang.Combat
         public float statusDuration;
         /// Phantom-slash style: launches fast then decelerates and fades out.
         public bool decelerates;
+        /// Beam round: pierces everything and re-hits each enemy on an interval
+        /// (multihit) as it passes through, instead of a single one-shot hit.
+        public bool isBeam;
+        /// Seconds between successive beam ticks on the same target.
+        public float beamTickInterval;
+        /// Sticky beam: each tick pins the caught enemy in place (held in the
+        /// beam path) on top of the damage/hitstun.
+        public bool sticky;
+        /// Ballistics: force carried into a projectile CLASH. 0 = auto-derive from
+        /// damage (+ beam/pierce bonus). A stronger round punches through weaker
+        /// ones; equal rounds annihilate each other.
+        public float strength;
         /// Overrides the attribute inferred from `type`. Left Kinetic, the
         /// attribute is derived from the ammo type; awakened rounds set Psychic.
         public DamageType damageTypeOverride = DamageType.Kinetic;

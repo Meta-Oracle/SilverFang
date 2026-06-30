@@ -1,0 +1,127 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/hilo/hilolightcombooverhaul.png",
+   "preview_out": "preview_hilolight.png",
+   "out_dir": "../Assets/Art/Sprites/Hilo",
+   "animations": [
+    {
+     "name": "hilo_punch_a",
+     "region": [
+      8,
+      132,
+      1530,
+      252
+     ]
+    },
+    {
+     "name": "hilo_punch_b",
+     "region": [
+      8,
+      253,
+      1530,
+      369
+     ]
+    },
+    {
+     "name": "hilo_kick_a",
+     "region": [
+      8,
+      448,
+      1530,
+      564
+     ]
+    },
+    {
+     "name": "hilo_kick_b",
+     "region": [
+      8,
+      565,
+      1530,
+      676
+     ]
+    },
+    {
+     "name": "hilo_mixed_a",
+     "region": [
+      8,
+      743,
+      1530,
+      858
+     ]
+    },
+    {
+     "name": "hilo_mixed_b",
+     "region": [
+      8,
+      859,
+      1530,
+      966
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/hilo/hiloheavycomboroutesoverhaul.png",
+   "preview_out": "preview_hiloheavy.png",
+   "out_dir": "../Assets/Art/Sprites/Hilo",
+   "animations": [
+    {
+     "name": "hilo_claw_ender1",
+     "region": [
+      8,
+      97,
+      1530,
+      226
+     ]
+    },
+    {
+     "name": "hilo_claw_ender2",
+     "region": [
+      8,
+      238,
+      1530,
+      363
+     ]
+    },
+    {
+     "name": "hilo_heavy_punch",
+     "region": [
+      8,
+      376,
+      1530,
+      501
+     ]
+    },
+    {
+     "name": "hilo_heavy_kick",
+     "region": [
+      8,
+      563,
+      1530,
+      684
+     ]
+    },
+    {
+     "name": "hilo_heavy_mixed",
+     "region": [
+      8,
+      738,
+      1530,
+      854
+     ]
+    }
+   ]
+  }
+ ]
+}

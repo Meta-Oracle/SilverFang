@@ -273,11 +273,27 @@ namespace SilverFang.EditorTools
                 bool aoe = name.Contains("Aoe") || name.Contains("AOE") || name.Contains("Nova")
                            || name.Contains("Burst") || name.Contains("Quake");
                 // flurry/barrage moves rain many rapid blows from one input
-                int multiHit = name.Contains("Barrage") ? 8 : name.Contains("Flurry") ? 6
-                               : name.Contains("Rapid") ? 4 : 1;
+                // (Jotaro ORA flurry: semi-looped strike frames + a hitbox window
+                // per blow). Broad name match so every storm/rush/rave flurries.
+                int multiHit = name.Contains("Barrage") ? 8
+                               : name.Contains("Storm") || name.Contains("Flurry") ? 6
+                               : name.Contains("Rush") || name.Contains("Rapid")
+                                 || name.Contains("Rave") || name.Contains("Tempest") ? 4
+                               : 1;
                 bool wideArc = wide || aoe;
                 float range = thrust ? 1.9f : wideArc ? 1.7f : spin ? 1.5f : overhead ? 1.3f : 1.2f;
                 float height = overhead ? 1.6f : spin ? 1.3f : aoe ? 1.4f : thrust ? 0.9f : 1.15f;
+
+                // --- Combat Fluidity Engine: bounce / extender tags by move nature ---
+                // Slams/meteors SPIKE airborne targets into the floor; sweeps and
+                // launchers SCOOP downed targets (OTG); heavy horizontal finishers
+                // WALL-bounce; quakes/slams GROUND-bounce for extenders.
+                bool spike = name.Contains("Slam") || name.Contains("Spike") || name.Contains("Meteor")
+                             || name.Contains("Downward") || name.Contains("Dive");
+                bool otg = launches || name.Contains("Sweep") || name.Contains("Scoop") || name.Contains("OTG")
+                           || name.Contains("LowKick");
+                bool wallBounce = kd && !launches && !overhead && dmg >= 26;
+                bool groundBounce = spike || name.Contains("Quake") || name.Contains("Bounce");
 
                 result[i] = new MoveSpec
                 {
@@ -299,7 +315,11 @@ namespace SilverFang.EditorTools
                         launch = launches ? 7.5f : 0f,
                         rangeScale = range,
                         heightScale = height,
-                        hitsBothSides = spin || aoe
+                        hitsBothSides = spin || aoe,
+                        spike = spike,
+                        otg = otg,
+                        wallBounce = wallBounce,
+                        groundBounce = groundBounce
                     }
                 };
             }
@@ -511,6 +531,83 @@ namespace SilverFang.EditorTools
                 .Concat(HiloTeleportMoves).Concat(HiloAirMoves)
                 .GroupBy(m => m.id).Select(g => g.First());
 
+        // ============================================================
+        //  LUCAS VEGAS — 3rd hero. Gunfighter/technician: melee combos +
+        //  a multi-weapon firing loadout. (Gadgets / Big Man = later pass.)
+        // ============================================================
+        // Combo stance: melee strings + a couple of firing routes.
+        private static readonly (string seq, string name, int dmg, bool kd, bool proj)[] LucasComboTable =
+        {
+            ("L",    "LucasJab",       8,  false, false),
+            ("LL",   "LucasCombo2",    11, false, false),
+            ("LLL",  "LucasCombo3",    15, false, false),
+            ("LLLL", "LucasRush",      20, true,  false),
+            ("H",    "LucasHeavy",     18, true,  false),
+            ("LH",   "LucasUppercut",  16, false, false),
+            ("HH",   "LucasSlam",      24, true,  false),
+            ("HHH",  "LucasCrush",     30, true,  false),
+            ("G",    "LucasRifle",     0,  false, true),
+            ("GG",   "LucasSMGFire",   0,  false, true),
+            ("GH",   "LucasShotgun",   0,  false, true)
+        };
+        private static readonly MoveSpec[] LucasComboMoves = BuildMoves(LucasComboTable);
+
+        // Weapon stance: the multi-weapon firing loadout (gun-stance analog).
+        private static readonly (string seq, string name, int dmg, bool kd, bool proj)[] LucasGunTable =
+        {
+            ("G",    "LucasShot",      0,  false, true),
+            ("GG",   "LucasRapidFire", 0,  false, true),
+            ("GH",   "LucasScatter",   0,  false, true),
+            ("H",    "LucasRailShot",  0,  false, true),
+            ("L",    "LucasPistolWhip",8,  false, false),
+            ("LG",   "LucasDualFire",  0,  false, true),
+            ("GGG",  "LucasBarrage",   0,  false, true)
+        };
+        private static readonly MoveSpec[] LucasGunMoves = BuildMoves(LucasGunTable);
+
+        private static readonly (string seq, string name, int dmg, bool kd, bool proj)[] LucasDashTable =
+        {
+            ("L", "LucasDashStrike", 12, false, false),
+            ("H", "LucasDashHeavy",  18, true,  false),
+            ("G", "LucasDashShot",   0,  false, true)
+        };
+        private static readonly MoveSpec[] LucasDashMoves = BuildMoves(LucasDashTable);
+
+        private static readonly (string seq, string name, int dmg, bool kd, bool proj)[] LucasSprintTable =
+        {
+            ("L", "LucasSprintStrike", 14, false, false),
+            ("H", "LucasSprintHeavy",  20, true,  false),
+            ("G", "LucasSprintShot",   0,  false, true)
+        };
+        private static readonly MoveSpec[] LucasSprintMoves = BuildMoves(LucasSprintTable);
+
+        // Lucas has no teleport; a minimal set keeps the controller wiring valid.
+        private static readonly (string seq, string name, int dmg, bool kd, bool proj)[] LucasTeleportTable =
+        {
+            ("L", "LucasBlinkStrike", 16, true, false),
+            ("H", "LucasBlinkHeavy",  22, true, false),
+            ("G", "LucasBlinkShot",   0,  false, true)
+        };
+        private static readonly MoveSpec[] LucasTeleportMoves = BuildMoves(LucasTeleportTable);
+
+        public static readonly MoveSpec[] LucasAirMoves =
+        {
+            new MoveSpec { id = "LucasAirA", trigger = "LucasAirA", seq = new[] { InputToken.Light },
+                attack = new AttackData { damage = 12, hitstun = 0.28f, knockback = new Vector2(2.5f, 0.5f) }, length = 0.34f },
+            new MoveSpec { id = "LucasAirB", trigger = "LucasAirB", seq = new[] { InputToken.Heavy },
+                attack = new AttackData { damage = 20, hitstun = 0.4f, knockback = new Vector2(4f, -1f), knocksDown = true }, length = 0.46f },
+            new MoveSpec { id = "LucasAirC", trigger = "LucasAirC", seq = new[] { InputToken.Light, InputToken.Heavy },
+                attack = new AttackData { damage = 18, hitstun = 0.36f, knockback = new Vector2(3.5f, 0.8f), hitsBothSides = true, rangeScale = 1.3f }, length = 0.42f },
+            new MoveSpec { id = "LucasAirD", trigger = "LucasAirD", seq = new[] { InputToken.Heavy, InputToken.Heavy },
+                attack = new AttackData { damage = 24, hitstun = 0.44f, knockback = new Vector2(4.5f, -2f), knocksDown = true }, length = 0.48f }
+        };
+
+        /// Every move that gets a state in the LucasAnimator, deduped by id.
+        public static IEnumerable<MoveSpec> AllLucasMoveSpecs =>
+            LucasComboMoves.Concat(LucasGunMoves).Concat(LucasDashMoves).Concat(LucasSprintMoves)
+                .Concat(LucasTeleportMoves).Concat(LucasAirMoves)
+                .GroupBy(m => m.id).Select(g => g.First());
+
         private class EnemySpec
         {
             public string name;
@@ -523,13 +620,15 @@ namespace SilverFang.EditorTools
             public AmmoDefinition rangedAmmo;
             public Vector3 visualScale = new Vector3(1f, 2f, 1f);
             public float statusVfxScale = 1f;
+            public bool metallic; // robotic units spark instead of bleed
+            public Physics.WeightClass weight = Physics.WeightClass.Medium;
         }
 
         private static readonly EnemySpec[] EnemySpecs =
         {
             new EnemySpec { name = "Werewolf", aiType = typeof(WerewolfAI), color = new Color(0.55f, 0.5f, 0.5f), hp = 60, speedX = 5.5f, speedY = 3.2f,
                 melee = new AttackData { damage = 10, hitstun = 0.35f, knockback = new Vector2(2f, 0f) } },
-            new EnemySpec { name = "Chimera", aiType = typeof(ChimeraAI), color = new Color(0.4f, 0.6f, 0.35f), hp = 150, speedX = 3f, speedY = 1.8f,
+            new EnemySpec { name = "Chimera", aiType = typeof(ChimeraAI), color = new Color(0.4f, 0.6f, 0.35f), hp = 150, speedX = 3f, speedY = 1.8f, weight = Physics.WeightClass.Heavy,
                 melee = new AttackData { damage = 16, hitstun = 0.45f, knockback = new Vector2(4f, 0f), knocksDown = true },
                 rangedAmmo = new AmmoDefinition { type = AmmoType.Nuclear, attack = new AttackData { damage = 12, hitstun = 0.4f, knockback = new Vector2(2f, 0f) }, tint = new Color(0.5f, 1f, 0.3f), speed = 9f },
                 visualScale = new Vector3(2f, 1.6f, 1f), statusVfxScale = 1.15f },
@@ -537,7 +636,7 @@ namespace SilverFang.EditorTools
                 melee = new AttackData { damage = 8, hitstun = 0.3f, knockback = new Vector2(1.5f, 0f) },
                 rangedAmmo = new AmmoDefinition { type = AmmoType.Standard, attack = new AttackData { damage = 7, hitstun = 0.25f, knockback = new Vector2(1f, 0f) }, tint = new Color(1f, 0.3f, 0.25f), speed = 13f } },
             new EnemySpec { name = "Sentinel", aiType = typeof(SentinelAI), color = new Color(0.75f, 0.25f, 0.25f), hp = 45, speedX = 5f, speedY = 3f,
-                melee = new AttackData { damage = 7, hitstun = 0.3f, knockback = new Vector2(1f, 0f) } },
+                melee = new AttackData { damage = 7, hitstun = 0.3f, knockback = new Vector2(1f, 0f) }, metallic = true },
             new EnemySpec { name = "Samurai", aiType = typeof(SamuraiAI), color = new Color(0.4f, 0.45f, 0.7f), hp = 55, speedX = 5f, speedY = 3f,
                 melee = new AttackData { damage = 6, hitstun = 0.3f, knockback = new Vector2(1f, 0f) }, statusVfxScale = 1.1f },
             // v2-sheet additions: dual-blade samurai + three extended units
@@ -546,9 +645,9 @@ namespace SilverFang.EditorTools
             new EnemySpec { name = "Guard", aiType = typeof(ReaperAI), color = new Color(0.6f, 0.45f, 0.3f), hp = 35, speedX = 3.8f, speedY = 2.4f,
                 melee = new AttackData { damage = 6, hitstun = 0.25f, knockback = new Vector2(1f, 0f) },
                 rangedAmmo = new AmmoDefinition { type = AmmoType.Standard, attack = new AttackData { damage = 6, hitstun = 0.22f, knockback = new Vector2(1f, 0f) }, tint = new Color(1f, 0.65f, 0.3f), speed = 12f } },
-            new EnemySpec { name = "Bruiser", aiType = typeof(WerewolfAI), color = new Color(0.7f, 0.4f, 0.25f), hp = 80, speedX = 4.2f, speedY = 2.6f,
+            new EnemySpec { name = "Bruiser", aiType = typeof(WerewolfAI), color = new Color(0.7f, 0.4f, 0.25f), hp = 80, speedX = 4.2f, speedY = 2.6f, weight = Physics.WeightClass.Heavy,
                 melee = new AttackData { damage = 12, hitstun = 0.4f, knockback = new Vector2(3f, 0f), knocksDown = true } },
-            new EnemySpec { name = "Titan", aiType = typeof(SentinelAI), color = new Color(0.5f, 0.55f, 0.6f), hp = 110, speedX = 2.8f, speedY = 1.8f,
+            new EnemySpec { name = "Titan", aiType = typeof(SentinelAI), color = new Color(0.5f, 0.55f, 0.6f), hp = 110, speedX = 2.8f, speedY = 1.8f, metallic = true, weight = Physics.WeightClass.Titan,
                 melee = new AttackData { damage = 16, hitstun = 0.5f, knockback = new Vector2(4f, 0f), knocksDown = true }, statusVfxScale = 1.2f }
         };
 
@@ -558,7 +657,9 @@ namespace SilverFang.EditorTools
             EnsureDirs();
             var playerSprite = CreatePlaceholderSprite("player_placeholder", new Color(0.2f, 0.6f, 1f), 32, 32);
             var groundSprite = CreatePlaceholderSprite("ground_placeholder", new Color(0.35f, 0.3f, 0.28f), 32, 32);
-            var bulletSprite = CreatePlaceholderSprite("bullet_placeholder", new Color(1f, 0.9f, 0.4f), 8, 8);
+            // Neutral WHITE bullet so Projectile.Fire's ammo tint shows the true
+            // round colour (kinetic white, nuclear green, ice cyan, fire orange...).
+            var bulletSprite = CreatePlaceholderSprite("bullet_placeholder", Color.white, 12, 6);
 
             var swordSet = CreateMoveSet("SwordMoveSet", SwordMoves);
             var gunSet = CreateMoveSet("GunMoveSet", GunMoves);
@@ -578,15 +679,32 @@ namespace SilverFang.EditorTools
             CreateMoveSet("HiloAirMoveSet", HiloAirMoves);
             CreateMoveSet("HiloAwakenedAirMoveSet", HiloAwakenedAirMoves);
 
+            // Lucas Vegas (3rd hero). Assets are built here; scene + select
+            // integration and his unique systems land in following stages.
+            var lucasComboSet = CreateMoveSet("LucasComboMoveSet", LucasComboMoves);
+            var lucasGunSet = CreateMoveSet("LucasGunMoveSet", LucasGunMoves);
+            CreateMoveSet("LucasAwakenedMoveSet", LucasComboMoves);   // Big Man reuses base for now
+            CreateMoveSet("LucasDashMoveSet", LucasDashMoves);
+            CreateMoveSet("LucasSprintMoveSet", LucasSprintMoves);
+            CreateMoveSet("LucasTeleportMoveSet", LucasTeleportMoves);
+            CreateMoveSet("LucasAirMoveSet", LucasAirMoves);
+            CreateMoveSet("LucasAwakenedAirMoveSet", LucasAirMoves);  // reuse
+
             // Regenerate the hero controllers whenever the move tables change.
             var playerAnimator = CreatePlayerAnimator();
             var hiloAnimator = CreateHiloAnimator();
+            var lucasAnimator = CreateLucasAnimator();
+            CreateBigManAnimator(); // Lucas's awakened Big Man controller (filled by BakeBigMan)
             var enemyAnimator = CreateEnemyAnimator();
 
             var projectilePrefab = CreateProjectilePrefab(bulletSprite);
             var playerPrefab = CreateCharacterPrefab("Player", playerSprite, playerAnimator, Team.Player, true, swordSet, gunSet, projectilePrefab);
             var hiloSprite = CreatePlaceholderSprite("hilo_placeholder", new Color(0.75f, 0.45f, 0.95f), 32, 32);
-            var hiloPrefab = CreateCharacterPrefab("Hilo", hiloSprite, hiloAnimator, Team.Player, true, hiloComboSet, hiloEnergySet, projectilePrefab, "Hilo");
+            // Hilo fires the arm-cannon beam round instead of the kinetic bullet.
+            var hiloBeamPrefab = CreateBeamProjectilePrefab();
+            var hiloPrefab = CreateCharacterPrefab("Hilo", hiloSprite, hiloAnimator, Team.Player, true, hiloComboSet, hiloEnergySet, hiloBeamPrefab, "Hilo");
+            var lucasSprite = CreatePlaceholderSprite("lucas_placeholder", new Color(0.95f, 0.8f, 0.35f), 32, 32);
+            var lucasPrefab = CreateCharacterPrefab("Lucas", lucasSprite, lucasAnimator, Team.Player, true, lucasComboSet, lucasGunSet, projectilePrefab, "Lucas");
 
             var enemyPrefabs = new System.Collections.Generic.List<GameObject>();
             foreach (var spec in EnemySpecs)
@@ -595,7 +713,7 @@ namespace SilverFang.EditorTools
                 enemyPrefabs.Add(CreateEnemyPrefab(spec, sprite, enemyAnimator, projectilePrefab));
             }
 
-            BuildScene(playerPrefab, hiloPrefab, enemyPrefabs, groundSprite);
+            BuildScene(playerPrefab, hiloPrefab, lucasPrefab, enemyPrefabs, groundSprite);
             Debug.Log("SilverFang demo scene built at " + ScenePath);
         }
 
@@ -622,10 +740,22 @@ namespace SilverFang.EditorTools
             CreateMoveSet("HiloAirMoveSet", HiloAirMoves);
             CreateMoveSet("HiloAwakenedAirMoveSet", HiloAwakenedAirMoves);
 
+            CreateMoveSet("LucasComboMoveSet", LucasComboMoves);
+            CreateMoveSet("LucasGunMoveSet", LucasGunMoves);
+            CreateMoveSet("LucasAwakenedMoveSet", LucasComboMoves);
+            CreateMoveSet("LucasDashMoveSet", LucasDashMoves);
+            CreateMoveSet("LucasSprintMoveSet", LucasSprintMoves);
+            CreateMoveSet("LucasTeleportMoveSet", LucasTeleportMoves);
+            CreateMoveSet("LucasAirMoveSet", LucasAirMoves);
+            CreateMoveSet("LucasAwakenedAirMoveSet", LucasAirMoves);
+
             var playerAnimator = CreatePlayerAnimator();
             WireExistingHeroPrefab("Player", playerAnimator, "Sword", "Gun", "");
             var hiloAnimator = CreateHiloAnimator();
             WireExistingHeroPrefab("Hilo", hiloAnimator, "HiloCombo", "HiloEnergy", "Hilo");
+            var lucasAnimator = CreateLucasAnimator();
+            WireExistingHeroPrefab("Lucas", lucasAnimator, "LucasCombo", "LucasGun", "Lucas");
+            CreateBigManAnimator(); // filled by BakeBigMan, which wires Lucas's awakenedController
             WireCommandListUiAssets();
             BuildMusicSystem();
 
@@ -653,6 +783,30 @@ namespace SilverFang.EditorTools
                     SetPrivateField(player, "airMoveSet", AssetDatabase.LoadAssetAtPath<MoveSet>($"{DataDir}/{setPrefix}AirMoveSet.asset"));
                     SetPrivateField(player, "awakenedMoveSet", AssetDatabase.LoadAssetAtPath<MoveSet>($"{DataDir}/{setPrefix}AwakenedMoveSet.asset"));
                     SetPrivateField(player, "awakenedAirMoveSet", AssetDatabase.LoadAssetAtPath<MoveSet>($"{DataDir}/{setPrefix}AwakenedAirMoveSet.asset"));
+
+                    // Impact VFX System aura per hero: Silver kinetic -> blue when
+                    // awakened; Hilo psionic throughout; Lucas gold-electric ->
+                    // RED electric in his Big Man state.
+                    if (setPrefix == "Hilo")
+                    {
+                        SetPrivateField(player, "baseStyle", SilverFang.Combat.ImpactStyle.HiloPsionic);
+                        SetPrivateField(player, "awakenedStyle", SilverFang.Combat.ImpactStyle.HiloPsionic);
+                    }
+                    else if (setPrefix == "Lucas")
+                    {
+                        SetPrivateField(player, "baseStyle", SilverFang.Combat.ImpactStyle.LucasGold);
+                        SetPrivateField(player, "awakenedStyle", SilverFang.Combat.ImpactStyle.BigManRed);
+                        SetPrivateField(player, "multiWeapon", true); // rotating weapon loadout
+                        // Big Man state: reuses the base Lucas animator for now (the
+                        // dedicated Big Man sheets land in a later pass), buffed via
+                        // the existing awakened mechanic.
+                        SetPrivateField(player, "awakenedController", heroAnimator);
+                    }
+                    else
+                    {
+                        SetPrivateField(player, "baseStyle", SilverFang.Combat.ImpactStyle.Neutral);
+                        SetPrivateField(player, "awakenedStyle", SilverFang.Combat.ImpactStyle.SilverBlue);
+                    }
                 }
 
                 var visual = root.transform.Find("Visual");
@@ -711,7 +865,7 @@ namespace SilverFang.EditorTools
             ImportMusicClips();
             if (!File.Exists(ScenePath)) return;
 
-            var clips = AssetDatabase.FindAssets("t:AudioClip", new[] { "Assets/Audio" })
+            var clips = AssetDatabase.FindAssets("t:AudioClip", new[] { AudioDir }) // Music only (SFX excluded)
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .OrderBy(path => path)
                 .Select(path => AssetDatabase.LoadAssetAtPath<AudioClip>(path))
@@ -773,11 +927,14 @@ namespace SilverFang.EditorTools
                 if (importer == null) continue;
 
                 var settings = importer.defaultSampleSettings;
-                settings.loadType = AudioClipLoadType.Streaming;
+                // CompressedInMemory loops seamlessly (Streaming re-buffers at the
+                // loop point, leaving an audible gap). Vorbis at high quality keeps
+                // the file small while the in-memory clip restarts gaplessly.
+                settings.loadType = AudioClipLoadType.CompressedInMemory;
                 settings.compressionFormat = AudioCompressionFormat.Vorbis;
-                settings.quality = 0.75f;
+                settings.quality = 0.85f;
                 importer.defaultSampleSettings = settings;
-                importer.loadInBackground = true;
+                importer.loadInBackground = false; // ready before the loop restarts
                 importer.SaveAndReimport();
             }
         }
@@ -947,6 +1104,41 @@ namespace SilverFang.EditorTools
             deadT.AddCondition(AnimatorConditionMode.If, 0f, "Dead");
             deadT.hasExitTime = false;
             deadT.duration = 0f;
+
+            // CQC Engine: looping STUN state. Entered when the stun meter tops out
+            // (held 2s by the combatant), exits to idle when the stun ends (GetUp).
+            controller.AddParameter("Stun", AnimatorControllerParameterType.Trigger);
+            var stun = sm.AddState("Stun");
+            var stunClip = CreateClip(prefix + "_Stun", 0.5f);
+            var stunSo = new SerializedObject(stunClip);
+            stunSo.FindProperty("m_AnimationClipSettings.m_LoopTime").boolValue = true;
+            stunSo.ApplyModifiedPropertiesWithoutUndo();
+            stun.motion = stunClip;
+            var stunT = sm.AddAnyStateTransition(stun);
+            stunT.AddCondition(AnimatorConditionMode.If, 0f, "Stun");
+            stunT.hasExitTime = false;
+            stunT.duration = 0f;
+            stunT.canTransitionToSelf = false;
+            var stunOut = stun.AddTransition(idle);
+            stunOut.AddCondition(AnimatorConditionMode.If, 0f, "GetUp");
+            stunOut.hasExitTime = false;
+            stunOut.duration = 0.1f;
+
+            // Death Articulator Engine: extra random death poses (Dead2..DeadN)
+            // wherever the character has death-variant folders on disk. The
+            // combatant's PickDeathPose() picks one at random on death.
+            string deathDir = prefix == "Hilo" ? "Assets/Art/Sprites/Hilo" : "Assets/Art/Sprites/Silver";
+            for (int dn = 2; dn <= 20; dn++)
+            {
+                if (!System.IO.Directory.Exists($"{deathDir}/death{dn}")) break;
+                controller.AddParameter("Dead" + dn, AnimatorControllerParameterType.Trigger);
+                var dN = sm.AddState("Dead" + dn);
+                dN.motion = CreateClip(prefix + "_Dead" + dn, 0.7f);
+                var tN = sm.AddAnyStateTransition(dN);
+                tN.AddCondition(AnimatorConditionMode.If, 0f, "Dead" + dn);
+                tN.hasExitTime = false;
+                tN.duration = 0f;
+            }
         }
 
         private static AnimatorController CreatePlayerAnimator() =>
@@ -958,6 +1150,12 @@ namespace SilverFang.EditorTools
             CreateHeroAnimator("HiloAnimator", "Hilo",
                 HiloComboMoves.Concat(HiloEnergyMoves).Concat(HiloDashMoves).Concat(HiloSprintMoves)
                     .Concat(HiloTeleportMoves).Concat(HiloAirMoves));
+
+        private static AnimatorController CreateLucasAnimator() =>
+            CreateHeroAnimator("LucasAnimator", "Lucas", AllLucasMoveSpecs);
+
+        private static AnimatorController CreateBigManAnimator() =>
+            CreateHeroAnimator("LucasBigManAnimator", "LucasBigMan", AllLucasMoveSpecs);
 
         private static AnimatorController CreateHeroAnimator(string controllerName, string prefix,
             IEnumerable<MoveSpec> moves)
@@ -1252,15 +1450,46 @@ namespace SilverFang.EditorTools
         /// Flying sword-wave: released by wave moves and full-charge heavy attacks.
         private static Projectile CreateSlashWavePrefab()
         {
+            // Always rebuild so hurtbox/visual tweaks land on re-bake. The real
+            // crescent slash sprite is assigned by VfxBaker.SetProjectileSprite
+            // (blue_aura_slash) after the VFX sprites import.
             string path = $"{PrefabDir}/SlashWave.prefab";
-            var existing = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-            if (existing != null) return existing.GetComponent<Projectile>();
+            AssetDatabase.DeleteAsset(path);
 
-            var sprite = CreatePlaceholderSprite("slashwave_placeholder", new Color(0.55f, 0.85f, 1f, 0.9f), 28, 12);
+            var sprite = CreatePlaceholderSprite("slashwave_placeholder", new Color(0.55f, 0.85f, 1f, 0.9f), 40, 36);
             var root = new GameObject("SlashWave");
             var col = root.AddComponent<BoxCollider2D>();
             col.isTrigger = true;
-            col.size = new Vector2(0.95f, 0.5f);
+            // tall crescent hurtbox so the launched slash actually covers its arc
+            col.size = new Vector2(1.3f, 1.5f);
+
+            var visual = new GameObject("Visual");
+            visual.transform.SetParent(root.transform, false);
+            var sr = visual.AddComponent<SpriteRenderer>();
+            sr.sprite = sprite;
+            sr.sortingOrder = 5000;
+            visual.transform.localScale = Vector3.one * 1.6f; // crescent reads big
+
+            root.AddComponent<Projectile>();
+            var prefab = PrefabUtility.SaveAsPrefabAsset(root, path);
+            Object.DestroyImmediate(root);
+            return prefab.GetComponent<Projectile>();
+        }
+
+        /// Hilo's arm-cannon beam round: a wide energy bolt whose sprite is the
+        /// real beam VFX (set in VfxBaker.SetProjectileSprite after the VFX
+        /// sprites import). A placeholder beam keeps it visible until then.
+        private static Projectile CreateBeamProjectilePrefab()
+        {
+            string path = $"{PrefabDir}/HiloBeam.prefab";
+            var existing = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (existing != null) return existing.GetComponent<Projectile>();
+
+            var sprite = CreatePlaceholderSprite("hilobeam_placeholder", new Color(0.65f, 0.4f, 1f, 0.95f), 40, 10);
+            var root = new GameObject("HiloBeam");
+            var col = root.AddComponent<BoxCollider2D>();
+            col.isTrigger = true;
+            col.size = new Vector2(1.3f, 0.35f);
 
             var visual = new GameObject("Visual");
             visual.transform.SetParent(root.transform, false);
@@ -1294,6 +1523,7 @@ namespace SilverFang.EditorTools
             visual.AddComponent<Animator>().runtimeAnimatorController = controller;
             visual.AddComponent<DepthSorter>();
             visual.AddComponent<AnimationEventRelay>();
+            visual.AddComponent<SilverFang.Animation.SpriteMotionEngine>(); // physics-coupled lean
 
             var feet = root.AddComponent<CapsuleCollider2D>();
             feet.size = new Vector2(0.6f, 0.3f);
@@ -1320,7 +1550,7 @@ namespace SilverFang.EditorTools
 
             var firePoint = new GameObject("FirePoint");
             firePoint.transform.SetParent(root.transform, false);
-            firePoint.transform.localPosition = new Vector3(1.0f, 1.1f, 0f); // muzzle height for the larger sprites
+            firePoint.transform.localPosition = new Vector3(0.8f, 0.2f, 0f); // revolver muzzle tip: arm's length, chest height (sprite pivot is centre)
 
             CharacterCombatant combatant = isPlayer
                 ? root.AddComponent<PlayerController>()
@@ -1345,23 +1575,44 @@ namespace SilverFang.EditorTools
                 SetPrivateField(player, "slashWaveAmmo", new AmmoDefinition
                 {
                     type = AmmoType.Standard,
-                    attack = new AttackData { damage = 14, hitstun = 0.3f, knockback = new Vector2(4f, 0f) },
+                    attack = new AttackData { damage = 20, hitstun = 0.42f, knockback = new Vector2(6f, -0.8f), knocksDown = true },
                     tint = new Color(0.55f, 0.85f, 1f),
-                    speed = 22f,
+                    speed = 24f,
                     piercing = true,
+                    strength = 26f,    // ballistics: a heavy slash that shoves through bullets
                     decelerates = true // phantom slash: launches fast, slows, fades
                 });
-                SetPrivateField(player, "ammoTypes", new[]
+                if (setPrefix == "Hilo")
                 {
-                    new AmmoDefinition { type = AmmoType.Standard, attack = new AttackData { damage = 6, hitstun = 0.2f, knockback = new Vector2(1f, 0f) }, tint = Color.white, speed = 16f },
-                    new AmmoDefinition { type = AmmoType.Nuclear, attack = new AttackData { damage = 34, hitstun = 0.55f, knockback = new Vector2(7f, -0.5f), knocksDown = true, rangeScale = 1.2f }, tint = new Color(0.4f, 1f, 0.3f), speed = 10f,
-                        status = StatusType.Radiated, statusDuration = 5f }, // nuclear: hardest-hitting round
-                    new AmmoDefinition { type = AmmoType.Ice, attack = new AttackData { damage = 8, hitstun = 0.8f, knockback = Vector2.zero }, tint = new Color(0.5f, 0.8f, 1f), speed = 14f,
-                        status = StatusType.Frozen, statusDuration = 2f },
-                    new AmmoDefinition { type = AmmoType.Incendiary, attack = new AttackData { damage = 14, hitstun = 0.3f, knockback = new Vector2(2f, 0f) }, tint = new Color(1f, 0.5f, 0.2f), speed = 14f,
-                        status = StatusType.Burning, statusDuration = 4f },
-                    new AmmoDefinition { type = AmmoType.Piercing, attack = new AttackData { damage = 10, hitstun = 0.25f, knockback = new Vector2(1f, 0f) }, tint = new Color(0.8f, 0.5f, 1f), speed = 20f, piercing = true }
-                });
+                    // Hilo fires arm-cannon BEAMS: piercing, sticky (locks enemies
+                    // in the beam path), multi-tick hurtboxes, hard pushback +
+                    // hitstun, long travel. Each "type" is a beam element.
+                    SetPrivateField(player, "ammoTypes", new[]
+                    {
+                        new AmmoDefinition { type = AmmoType.Standard, attack = new AttackData { damage = 7, hitstun = 0.45f, knockback = new Vector2(4f, 0f) }, tint = new Color(0.7f, 0.45f, 1f), speed = 30f,
+                            piercing = true, isBeam = true, sticky = true, beamTickInterval = 0.09f },
+                        new AmmoDefinition { type = AmmoType.Nuclear, attack = new AttackData { damage = 12, hitstun = 0.5f, knockback = new Vector2(6f, -0.4f), knocksDown = true }, tint = new Color(0.5f, 1f, 0.4f), speed = 26f,
+                            piercing = true, isBeam = true, sticky = true, beamTickInterval = 0.1f, status = StatusType.Radiated, statusDuration = 5f },
+                        new AmmoDefinition { type = AmmoType.Ice, attack = new AttackData { damage = 5, hitstun = 0.6f, knockback = new Vector2(2f, 0f) }, tint = new Color(0.5f, 0.85f, 1f), speed = 30f,
+                            piercing = true, isBeam = true, sticky = true, beamTickInterval = 0.08f, status = StatusType.Frozen, statusDuration = 2.5f },
+                        new AmmoDefinition { type = AmmoType.Incendiary, attack = new AttackData { damage = 8, hitstun = 0.4f, knockback = new Vector2(3f, 0f) }, tint = new Color(1f, 0.55f, 0.25f), speed = 28f,
+                            piercing = true, isBeam = true, sticky = true, beamTickInterval = 0.09f, status = StatusType.Burning, statusDuration = 4f },
+                    });
+                }
+                else
+                {
+                    SetPrivateField(player, "ammoTypes", new[]
+                    {
+                        new AmmoDefinition { type = AmmoType.Standard, attack = new AttackData { damage = 6, hitstun = 0.2f, knockback = new Vector2(1f, 0f) }, tint = Color.white, speed = 22f },
+                        new AmmoDefinition { type = AmmoType.Nuclear, attack = new AttackData { damage = 34, hitstun = 0.55f, knockback = new Vector2(7f, -0.5f), knocksDown = true, rangeScale = 1.2f }, tint = new Color(0.4f, 1f, 0.3f), speed = 18f,
+                            status = StatusType.Radiated, statusDuration = 5f }, // nuclear: hardest-hitting round
+                        new AmmoDefinition { type = AmmoType.Ice, attack = new AttackData { damage = 8, hitstun = 0.8f, knockback = Vector2.zero }, tint = new Color(0.5f, 0.8f, 1f), speed = 20f,
+                            status = StatusType.Frozen, statusDuration = 2f },
+                        new AmmoDefinition { type = AmmoType.Incendiary, attack = new AttackData { damage = 14, hitstun = 0.3f, knockback = new Vector2(2f, 0f) }, tint = new Color(1f, 0.5f, 0.2f), speed = 20f,
+                            status = StatusType.Burning, statusDuration = 4f },
+                        new AmmoDefinition { type = AmmoType.Piercing, attack = new AttackData { damage = 10, hitstun = 0.25f, knockback = new Vector2(1f, 0f) }, tint = new Color(0.8f, 0.5f, 1f), speed = 26f, piercing = true }
+                    });
+                }
             }
 
             var prefabAsset = PrefabUtility.SaveAsPrefabAsset(root, path);
@@ -1389,6 +1640,7 @@ namespace SilverFang.EditorTools
             visual.AddComponent<Animator>().runtimeAnimatorController = controller;
             visual.AddComponent<DepthSorter>();
             visual.AddComponent<AnimationEventRelay>();
+            visual.AddComponent<SilverFang.Animation.SpriteMotionEngine>(); // physics-coupled lean
 
             var feet = root.AddComponent<CapsuleCollider2D>();
             feet.size = new Vector2(0.6f, 0.3f);
@@ -1431,6 +1683,8 @@ namespace SilverFang.EditorTools
             SetPrivateField(ai, "moveSpeedY", spec.speedY, typeof(CharacterCombatant));
             SetPrivateField(ai, "statusVfxVariant", spec.name.ToLowerInvariant(), typeof(CharacterCombatant));
             SetPrivateField(ai, "statusVfxScale", spec.statusVfxScale, typeof(CharacterCombatant));
+            SetPrivateField(ai, "hitMaterial", spec.metallic ? HitMaterial.Metal : HitMaterial.Flesh, typeof(CharacterCombatant));
+            SetPrivateField(ai, "weight", spec.weight, typeof(CharacterCombatant));
             SetPrivateField(ai, "statusVfxOffsetY", spec.visualScale.y * 0.35f, typeof(CharacterCombatant));
             SetPrivateField(ai, "meleeAttack", spec.melee, typeof(EnemyAI));
             if (spec.rangedAmmo != null)
@@ -1445,7 +1699,7 @@ namespace SilverFang.EditorTools
             return prefabAsset;
         }
 
-        private static void BuildScene(GameObject playerPrefab, GameObject hiloPrefab, System.Collections.Generic.List<GameObject> enemyPrefabs, Sprite groundSprite)
+        private static void BuildScene(GameObject playerPrefab, GameObject hiloPrefab, GameObject lucasPrefab, System.Collections.Generic.List<GameObject> enemyPrefabs, Sprite groundSprite)
         {
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
@@ -1476,6 +1730,8 @@ namespace SilverFang.EditorTools
             player.transform.position = new Vector3(-3f, -2.5f, 0f);
             var hilo = (GameObject)PrefabUtility.InstantiatePrefab(hiloPrefab);
             hilo.transform.position = new Vector3(-3f, -2.5f, 0f);
+            var lucas = (GameObject)PrefabUtility.InstantiatePrefab(lucasPrefab);
+            lucas.transform.position = new Vector3(-3f, -2.5f, 0f);
 
             // No target yet: the character-select screen retargets the camera
             // onto whichever hero gets picked.
@@ -1501,7 +1757,8 @@ namespace SilverFang.EditorTools
             }, "enc2_start", "enc2_clear");
 
             // Encounter 3: extended units - Guards lay fire, Bruiser rushes,
-            // the dual-blade samurai flanks, Titan anchors the line.
+            // the dual-blade samurai flanks, Titan anchors the line. The company
+            // flags Silver as a protected asset here; Senn confesses on clear.
             CreateEncounter("Encounter3", 35f, 37f, new[]
             {
                 (enemyPrefabs[6], new Vector3(39f, -1.6f, 0f)),
@@ -1509,10 +1766,79 @@ namespace SilverFang.EditorTools
                 (enemyPrefabs[7], new Vector3(41.5f, -2.2f, 0f)),
                 (enemyPrefabs[5], new Vector3(42.5f, -3.2f, 0f)),
                 (enemyPrefabs[8], new Vector3(43.5f, -2.6f, 0f))
-            });
+            }, "asset_retrieval", "purebirth");
+
+            // Encounter 4: the clone arc. Voss explains the S-1L/C editions as you
+            // press in; after the guard wave burns, the clone that has been
+            // shadowing you finally reveals itself (boss tease).
+            CreateEncounter("Encounter4", 48f, 50f, new[]
+            {
+                (enemyPrefabs[7], new Vector3(53f, -2.2f, 0f)),
+                (enemyPrefabs[5], new Vector3(54.5f, -3.2f, 0f)),
+                (enemyPrefabs[5], new Vector3(55.5f, -1.8f, 0f))
+            }, "clone_program", "clone_reveal");
+
+            // Encounter 5: Scematica's all-out assault — company guns turn on Silver
+            // (Guards + Sentinels + a Titan anchor). The retrieval order is where he
+            // connects every dot; on clear, Vesper bleeds the two-continuum truth.
+            CreateEncounter("Encounter5", 62f, 64f, new[]
+            {
+                (enemyPrefabs[6], new Vector3(67f, -1.6f, 0f)),
+                (enemyPrefabs[6], new Vector3(68f, -3.4f, 0f)),
+                (enemyPrefabs[3], new Vector3(69f, -2.2f, 0f)),
+                (enemyPrefabs[3], new Vector3(70f, -3.0f, 0f)),
+                (enemyPrefabs[8], new Vector3(71.5f, -2.4f, 0f))
+            }, "all_out_assault", "continuum_reveal");
+
+            // Encounter 6: Dark Fang — the cyberized corpse of Silver from Thread A
+            // (boss stand-in until a dedicated Dark Fang sprite set lands). On clear,
+            // the hive drops its human mask: Apium Gestalt reveals itself.
+            CreateEncounter("Encounter6", 76f, 78f, new[]
+            {
+                (enemyPrefabs[7], new Vector3(81f, -2.4f, 0f)),
+                (enemyPrefabs[5], new Vector3(82.5f, -3.0f, 0f))
+            }, "dark_silver", "apium_reveal");
+
+            // Encounter 7: the hive's full weight; future-Silver steps in directly,
+            // and the intervention tears the seam (quantum cascade) on clear.
+            CreateEncounter("Encounter7", 90f, 92f, new[]
+            {
+                (enemyPrefabs[3], new Vector3(95f, -1.8f, 0f)),
+                (enemyPrefabs[3], new Vector3(96f, -3.2f, 0f)),
+                (enemyPrefabs[8], new Vector3(97.5f, -2.4f, 0f)),
+                (enemyPrefabs[1], new Vector3(99f, -2.8f, 0f))
+            }, "future_silver", "quantum_ripples");
+
+            // Encounter 8: the cosmic finale — Big Man Lucas Vegas arrives through the
+            // ripples; the Apium avatar anchors the collapsing seam.
+            CreateEncounter("Encounter8", 104f, 106f, new[]
+            {
+                (enemyPrefabs[8], new Vector3(110f, -2.2f, 0f)),
+                (enemyPrefabs[1], new Vector3(111.5f, -3.0f, 0f)),
+                (enemyPrefabs[8], new Vector3(113f, -2.6f, 0f))
+            }, "lucas_intro", "hilo_origin");
+
+            // Encounter 9: the team forms the plan (Lucas's quantum kill-virus +
+            // Hilo's cure-pathology carrier); Apium reveals its failsafe on clear.
+            CreateEncounter("Encounter9", 118f, 120f, new[]
+            {
+                (enemyPrefabs[3], new Vector3(123f, -2.0f, 0f)),
+                (enemyPrefabs[3], new Vector3(124f, -3.2f, 0f)),
+                (enemyPrefabs[8], new Vector3(125.5f, -2.5f, 0f))
+            }, "lucas_virus", "lucas_failsafe");
+
+            // Encounter 10: the convergence — Silver, Future-Silver, Lucas and Hilo
+            // unite for the final push against every instance of the hive.
+            CreateEncounter("Encounter10", 132f, 134f, new[]
+            {
+                (enemyPrefabs[8], new Vector3(138f, -2.2f, 0f)),
+                (enemyPrefabs[1], new Vector3(139.5f, -3.0f, 0f)),
+                (enemyPrefabs[8], new Vector3(141f, -2.6f, 0f))
+            }, "convergence", "");
 
             var silverHud = BuildPlayerPlate(player);
             var hiloHud = BuildHiloPlate(hilo);
+            var lucasHud = BuildLucasPlate(lucas);
             BuildScematicaUI();
             BuildCommandListUI();
             BuildCharacterSheetUI();
@@ -1522,7 +1848,8 @@ namespace SilverFang.EditorTools
             BuildChipCoreUI();
             BuildCharacterHub();
             BuildStoryObjects();
-            var select = BuildCharacterSelect(player, hilo, silverHud, hiloHud);
+            BuildDebrisManager();
+            var select = BuildCharacterSelect(player, hilo, lucas, silverHud, hiloHud, lucasHud);
             BuildIntroCrawl(select);
 
             EditorSceneManager.SaveScene(scene, ScenePath);
@@ -1623,6 +1950,30 @@ namespace SilverFang.EditorTools
             rect.anchoredPosition = pos;
             rect.sizeDelta = size;
             return img;
+        }
+
+        /// CQC stun meter on a hero plate: a toggled bar (hidden until the hero
+        /// takes stun damage) driven by StunMeterUI.
+        private static void BuildStunMeter(GameObject plate, GameObject group, GameObject heroRoot, Vector2 pos, Vector2 size)
+        {
+            var wrap = new GameObject("StunMeter", typeof(RectTransform));
+            wrap.transform.SetParent(plate.transform, false);
+            var rt = (RectTransform)wrap.transform;
+            rt.anchorMin = rt.anchorMax = new Vector2(0f, 1f);
+            rt.pivot = new Vector2(0f, 1f);
+            rt.anchoredPosition = pos;
+            rt.sizeDelta = size;
+            var bg = wrap.AddComponent<Image>();
+            bg.color = new Color(0f, 0f, 0f, 0.55f);
+            var fill = MakeFill(wrap.transform, "StunFill", null, new Color(1f, 0.7f, 0.2f), Vector2.zero, size);
+
+            var ui = plate.AddComponent<StunMeterUI>();
+            var so = new SerializedObject(ui);
+            so.FindProperty("target").objectReferenceValue = heroRoot.GetComponent<PlayerController>();
+            so.FindProperty("fill").objectReferenceValue = fill;
+            so.FindProperty("root").objectReferenceValue = wrap;
+            so.ApplyModifiedPropertiesWithoutUndo();
+            wrap.SetActive(false);
         }
 
         /// Full-stretch child of the canvas grouping one hero's HUD widgets so
@@ -1879,6 +2230,7 @@ namespace SilverFang.EditorTools
             var healthFill = MakeFill(plateObj.transform, "HealthFill", healthSprite, new Color(0.85f, 0.15f, 0.15f), P(152, 43), Sz(300, 16));
             var xpFill = MakeFill(plateObj.transform, "XpFill", xpSprite, new Color(0.95f, 0.8f, 0.35f), P(152, 81), Sz(300, 16));
             var awakenedFill = MakeFill(plateObj.transform, "AwakenedFill", awakenedSprite, new Color(0.55f, 0.35f, 0.9f), P(228, 123), Sz(172, 22));
+            BuildStunMeter(plateObj, group, player, P(152, 150), Sz(300, 11));
 
             var hpText = MakeUiText(plateObj.transform, "HpText", P(352, 22), Sz(170, 30), 10, new Color(0.95f, 0.85f, 0.85f));
             var lvText = MakeUiText(plateObj.transform, "LvText", P(352, 61), Sz(170, 30), 10, new Color(0.95f, 0.8f, 0.4f));
@@ -1898,6 +2250,7 @@ namespace SilverFang.EditorTools
             var meterSo = new SerializedObject(meterUi);
             meterSo.FindProperty("player").objectReferenceValue = player.GetComponent<PlayerController>();
             meterSo.FindProperty("fill").objectReferenceValue = awakenedFill;
+            meterSo.FindProperty("aura").colorValue = new Color(0.45f, 0.65f, 1f); // Silver = blue aura
             meterSo.ApplyModifiedPropertiesWithoutUndo();
 
             var stanceText = MakeUiText(group.transform, "StanceAmmo", new Vector2(12f, -96f), new Vector2(240f, 15f), 9, Color.white);
@@ -1986,6 +2339,7 @@ namespace SilverFang.EditorTools
             var healthFill = MakeFill(plateObj.transform, "HealthFill", healthSprite, new Color(0.85f, 0.15f, 0.15f), P(142, 40), Sz(481, 18));
             var awakenedFill = MakeFill(plateObj.transform, "EnergyFill", awakenedSprite, new Color(0.55f, 0.35f, 0.9f), P(110, 66), Sz(206, 20));
             var xpFill = MakeFill(plateObj.transform, "YinYangFill", xpSprite, new Color(0.95f, 0.8f, 0.35f), P(86, 90), Sz(230, 22));
+            BuildStunMeter(plateObj, group, hilo, P(142, 118), Sz(481, 11));
 
             // medallion sits over the middle of the health bar, above the fill
             if (emblemSprite != null)
@@ -2021,6 +2375,7 @@ namespace SilverFang.EditorTools
             var meterSo = new SerializedObject(meterUi);
             meterSo.FindProperty("player").objectReferenceValue = hilo.GetComponent<PlayerController>();
             meterSo.FindProperty("fill").objectReferenceValue = awakenedFill;
+            meterSo.FindProperty("aura").colorValue = new Color(0.7f, 0.4f, 1f); // Hilo = purple aura
             meterSo.ApplyModifiedPropertiesWithoutUndo();
 
             var stanceText = MakeUiText(group.transform, "StanceAmmo", new Vector2(12f, -96f), new Vector2(240f, 15f), 9, Color.white);
@@ -2061,19 +2416,115 @@ namespace SilverFang.EditorTools
             return group;
         }
 
-        /// Start screen: pick Silver or Hilo. Both heroes and both HUD groups
-        /// are benched until CharacterSelectUI activates the chosen pair.
+        /// Lucas's HUD plate — mirrors the Silver/Hilo plate, red aura meter,
+        /// wired to Lucas's PlayerController.
+        private static GameObject BuildLucasPlate(GameObject lucas)
+        {
+            var canvasObj = GameObject.Find("Canvas");
+            if (canvasObj == null) return null;
+
+            var group = HudGroup(canvasObj.transform, "LucasHud");
+
+            var plateSprite = ImportUiSprite($"{UiDir}/HUD/hud_player_plate.png");
+            var healthSprite = ImportUiSprite($"{UiDir}/HUD/hud_health_fill.png");
+            var awakenedSprite = ImportUiSprite($"{UiDir}/HUD/hud_awakened_fill.png");
+            var xpSprite = ImportUiSprite($"{UiDir}/HUD/hud_xp_fill.png");
+
+            const float S = 0.5f;
+
+            var plateObj = new GameObject("LucasPlate");
+            plateObj.transform.SetParent(group.transform, false);
+            var plate = plateObj.AddComponent<Image>();
+            if (plateSprite != null) plate.sprite = plateSprite;
+            else plate.color = new Color(0f, 0f, 0f, 0.6f);
+            var plateRect = plate.rectTransform;
+            plateRect.anchorMin = new Vector2(0f, 1f);
+            plateRect.anchorMax = new Vector2(0f, 1f);
+            plateRect.pivot = new Vector2(0f, 1f);
+            plateRect.anchoredPosition = new Vector2(10f, -10f);
+            plateRect.sizeDelta = new Vector2(460f * S, 148f * S);
+
+            Vector2 P(float x, float y) => new Vector2(x * S, -y * S);
+            Vector2 Sz(float w, float h) => new Vector2(w * S, h * S);
+
+            var healthFill = MakeFill(plateObj.transform, "HealthFill", healthSprite, new Color(0.85f, 0.15f, 0.15f), P(152, 43), Sz(300, 16));
+            var xpFill = MakeFill(plateObj.transform, "XpFill", xpSprite, new Color(0.95f, 0.8f, 0.35f), P(152, 81), Sz(300, 16));
+            var awakenedFill = MakeFill(plateObj.transform, "AwakenedFill", awakenedSprite, new Color(0.95f, 0.4f, 0.25f), P(228, 123), Sz(172, 22));
+            BuildStunMeter(plateObj, group, lucas, P(152, 150), Sz(300, 11));
+
+            var hpText = MakeUiText(plateObj.transform, "HpText", P(352, 22), Sz(170, 30), 10, new Color(0.95f, 0.85f, 0.85f));
+            var lvText = MakeUiText(plateObj.transform, "LvText", P(352, 61), Sz(170, 30), 10, new Color(0.95f, 0.8f, 0.4f));
+            var xpText = MakeUiText(plateObj.transform, "XpText", P(244, 99), Sz(330, 28), 9, new Color(0.95f, 0.85f, 0.55f));
+
+            var plateUi = plateObj.AddComponent<PlayerPlateUI>();
+            var so = new SerializedObject(plateUi);
+            so.FindProperty("health").objectReferenceValue = lucas.GetComponent<Health>();
+            so.FindProperty("healthFill").objectReferenceValue = healthFill;
+            so.FindProperty("healthText").objectReferenceValue = hpText;
+            so.FindProperty("levelText").objectReferenceValue = lvText;
+            so.FindProperty("xpFill").objectReferenceValue = xpFill;
+            so.FindProperty("xpText").objectReferenceValue = xpText;
+            so.ApplyModifiedPropertiesWithoutUndo();
+
+            var meterUi = plateObj.AddComponent<AwakenedMeterUI>();
+            var meterSo = new SerializedObject(meterUi);
+            meterSo.FindProperty("player").objectReferenceValue = lucas.GetComponent<PlayerController>();
+            meterSo.FindProperty("fill").objectReferenceValue = awakenedFill;
+            meterSo.FindProperty("aura").colorValue = new Color(0.95f, 0.35f, 0.25f); // Lucas = red aura
+            meterSo.ApplyModifiedPropertiesWithoutUndo();
+
+            var stanceText = MakeUiText(group.transform, "StanceAmmo", new Vector2(12f, -96f), new Vector2(240f, 15f), 9, Color.white);
+            var stanceUi = group.AddComponent<StanceAmmoUI>();
+            var stanceSo = new SerializedObject(stanceUi);
+            stanceSo.FindProperty("player").objectReferenceValue = lucas.GetComponent<PlayerController>();
+            stanceSo.FindProperty("label").objectReferenceValue = stanceText;
+            stanceSo.ApplyModifiedPropertiesWithoutUndo();
+
+            var statusText = MakeUiText(group.transform, "PlayerStatus", new Vector2(244f, -24f), new Vector2(130f, 16f), 9, Color.white);
+            var statusUi = group.AddComponent<PlayerStatusUI>();
+            var statusSo = new SerializedObject(statusUi);
+            statusSo.FindProperty("player").objectReferenceValue = lucas.GetComponent<PlayerController>();
+            statusSo.FindProperty("label").objectReferenceValue = statusText;
+            statusSo.ApplyModifiedPropertiesWithoutUndo();
+
+            var notifText = MakeUiText(group.transform, "Notifications", new Vector2(0f, -12f), new Vector2(240f, 84f), 10, new Color(0.95f, 0.9f, 0.7f), TextAnchor.UpperRight);
+            var notifRect = notifText.rectTransform;
+            notifRect.anchorMin = new Vector2(1f, 1f);
+            notifRect.anchorMax = new Vector2(1f, 1f);
+            notifRect.pivot = new Vector2(1f, 1f);
+            notifRect.anchoredPosition = new Vector2(-16f, -16f);
+            var notifCanvas = notifText.gameObject.AddComponent<Canvas>();
+            notifCanvas.overrideSorting = true;
+            notifCanvas.sortingOrder = 200;
+            var notifUi = group.AddComponent<NotificationUI>();
+            var notifSo = new SerializedObject(notifUi);
+            notifSo.FindProperty("label").objectReferenceValue = notifText;
+            notifSo.FindProperty("player").objectReferenceValue = lucas.GetComponent<PlayerController>();
+            notifSo.ApplyModifiedPropertiesWithoutUndo();
+
+            BuildComboCounter(group, lucas, new Color(1f, 0.55f, 0.4f), "hilo");
+            BuildComboLevelMeter(group, lucas, "hilo");
+            WireLockReticle(lucas, "hilo");
+            BuildRevolverAmmo(group, lucas);
+
+            return group;
+        }
+
+        /// Start screen: pick Silver, Hilo, or Lucas. All heroes and HUD groups
+        /// are benched until CharacterSelectUI activates the chosen one.
         /// Returns the (inactive) panel — the intro crawl activates it.
-        private static GameObject BuildCharacterSelect(GameObject player, GameObject hilo,
-            GameObject silverHud, GameObject hiloHud)
+        private static GameObject BuildCharacterSelect(GameObject player, GameObject hilo, GameObject lucas,
+            GameObject silverHud, GameObject hiloHud, GameObject lucasHud)
         {
             var canvas = GameObject.Find("Canvas");
             if (canvas == null) return null;
 
             player.SetActive(false);
             hilo.SetActive(false);
+            if (lucas != null) lucas.SetActive(false);
             if (silverHud != null) silverHud.SetActive(false);
             if (hiloHud != null) hiloHud.SetActive(false);
+            if (lucasHud != null) lucasHud.SetActive(false);
 
             var panelObj = new GameObject("CharacterSelect");
             panelObj.transform.SetParent(canvas.transform, false);
@@ -2085,47 +2536,68 @@ namespace SilverFang.EditorTools
             panelRect.offsetMin = Vector2.zero;
             panelRect.offsetMax = Vector2.zero;
 
-            // dedicated select-screen artwork (hero panels, roster, hints all
-            // baked into the art), full height, centered
-            var artObj = new GameObject("SelectArt");
-            artObj.transform.SetParent(panelObj.transform, false);
-            var art = artObj.AddComponent<Image>();
-            art.sprite = ImportUiSprite($"{UiDir}/Screens/select_screen.png");
-            art.preserveAspect = true;
-            var artRect = art.rectTransform;
-            artRect.anchorMin = new Vector2(0.5f, 0.02f);
-            artRect.anchorMax = new Vector2(0.5f, 0.98f);
-            artRect.pivot = new Vector2(0.5f, 0.5f);
-            artRect.anchoredPosition = Vector2.zero;
-            artRect.sizeDelta = new Vector2(540f, 0f);
+            // Expanded slice width. Heights are driven entirely by an
+            // AspectRatioFitter against the SCREEN height (see below), so the
+            // dossier ALWAYS fits vertically with no top cutoff at any resolution.
+            const float dossierW = 1280f; // unfolded slice width (3 slices fit 1080p+ wide)
+            const float dossierAspect = 1536f / 1024f; // source dossier aspect (1.5)
 
-            // selection highlight tints anchored over the two hero panels
-            Image MakeTint(string slotName, float minX, float maxX)
+            // Vertical-slice roster: one masked slice per hero dossier. Each slice
+            // clips the dossier (which is sized to the full screen height) to a
+            // sliver; the highlighted hero unfolds it. Pure dossier art, no overlays.
+            RectTransform MakeSlice(string name, string dossier)
             {
-                var frameObj = new GameObject(slotName);
-                frameObj.transform.SetParent(artObj.transform, false);
-                var frame = frameObj.AddComponent<Image>();
-                frame.color = new Color(0.35f, 0.35f, 0.4f, 0.16f);
-                var rect = frame.rectTransform;
-                rect.anchorMin = new Vector2(minX, 0.30f);
-                rect.anchorMax = new Vector2(maxX, 0.95f);
-                rect.offsetMin = Vector2.zero;
-                rect.offsetMax = Vector2.zero;
-                return frame;
+                var sliceObj = new GameObject(name, typeof(RectTransform));
+                sliceObj.transform.SetParent(panelObj.transform, false);
+                var slice = (RectTransform)sliceObj.transform;
+                sliceObj.AddComponent<RectMask2D>(); // clip the dossier to the slice width
+
+                var imgObj = new GameObject("Dossier");
+                imgObj.transform.SetParent(sliceObj.transform, false);
+                var img = imgObj.AddComponent<Image>();
+                img.sprite = ImportUiSprite($"{UiDir}/CharacterSelect/{dossier}.png");
+                img.preserveAspect = false;
+                var ir = img.rectTransform;
+                // Stretch to the slice's FULL height, centred horizontally. Since the
+                // slice spans the whole screen height, the dossier height == screen
+                // height -> it can never be cut off at the top/bottom.
+                ir.anchorMin = new Vector2(0.5f, 0f);
+                ir.anchorMax = new Vector2(0.5f, 1f);
+                ir.pivot = new Vector2(0.5f, 0.5f);
+                ir.offsetMin = new Vector2(0f, 0f);
+                ir.offsetMax = new Vector2(0f, 0f);
+                ir.anchoredPosition = Vector2.zero;
+                // Width follows height by the dossier's aspect (HeightControlsWidth),
+                // so the full character is shown in proportion and the mask trims sides.
+                var fitter = imgObj.AddComponent<AspectRatioFitter>();
+                fitter.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
+                fitter.aspectRatio = dossierAspect;
+                return slice;
             }
 
-            var silverFrame = MakeTint("SilverSlot", 0.03f, 0.485f);
-            var hiloFrame = MakeTint("HiloSlot", 0.515f, 0.97f);
+            var slices = new[]
+            {
+                MakeSlice("SilverSlice", "silver"),
+                MakeSlice("HiloSlice", "hilo"),
+                MakeSlice("LucasSlice", "lucas")
+            };
 
             var ui = panelObj.AddComponent<CharacterSelectUI>();
             var so = new SerializedObject(ui);
             so.FindProperty("silverRoot").objectReferenceValue = player;
             so.FindProperty("hiloRoot").objectReferenceValue = hilo;
+            so.FindProperty("lucasRoot").objectReferenceValue = lucas;
             so.FindProperty("silverHud").objectReferenceValue = silverHud;
             so.FindProperty("hiloHud").objectReferenceValue = hiloHud;
+            so.FindProperty("lucasHud").objectReferenceValue = lucasHud;
             so.FindProperty("panel").objectReferenceValue = panelObj;
-            so.FindProperty("silverFrame").objectReferenceValue = silverFrame;
-            so.FindProperty("hiloFrame").objectReferenceValue = hiloFrame;
+            var slicesProp = so.FindProperty("slices");
+            slicesProp.arraySize = slices.Length;
+            for (int i = 0; i < slices.Length; i++)
+                slicesProp.GetArrayElementAtIndex(i).objectReferenceValue = slices[i];
+            so.FindProperty("sliceWidth").floatValue = 160f;
+            so.FindProperty("dossierWidth").floatValue = dossierW;
+            so.FindProperty("selectableCount").intValue = 3; // Silver + Hilo + Lucas all playable
             so.ApplyModifiedPropertiesWithoutUndo();
 
             panelObj.SetActive(false); // the intro crawl turns it on
@@ -2135,32 +2607,55 @@ namespace SilverFang.EditorTools
         // The official story, as the Corporation tells it. The reveal ladder
         // (Docs/STORY.md) contradicts this later — that's the point.
         private const string IntroCrawlText =
-            "A.X. 2347\n\n" +
-            "THE SPLICE PLAGUE\n\n\n" +
-            "Three decades ago the first outbreak turned\n" +
-            "the Meridian arcologies into hunting grounds.\n\n" +
-            "The infected do not die.\n" +
-            "They CHANGE.\n\n" +
-            "Werewolves. Chimeras. Reapers.\n" +
-            "Things with no names yet.\n\n\n" +
-            "Civilization survives behind blast-walls,\n" +
-            "and behind one name:\n\n" +
+            "A.X. 2347\n" +
+            "ANNO EXHAUSTIONIS — THE YEARS OF DEPLETION\n\n\n" +
+            "The veins ran dry in a single year.\n" +
+            "Lithium. Cobalt. The deep thermal water.\n" +
+            "And money — only ever a promise to dig up\n" +
+            "more — died with them in six weeks flat.\n\n" +
+            "Then the world struck a new vein. Not under\n" +
+            "the crust. Inside the cell.\n\n" +
+            "Engineered genetic code: scarce, patented,\n" +
+            "OWNED. They minted it into currency and\n" +
+            "called it SCEMA. Today it buys your water,\n" +
+            "your ammunition, your funeral.\n\n\n" +
+            "One name kept the lights burning:\n\n" +
             "SCEMATICA DYNAMICS\n\n" +
-            "The Corporation feeds the districts, mints\n" +
-            "the SCEMA scrip that pays for clean water\n" +
-            "and ammunition, and fields the only force\n" +
-            "that can answer an outbreak:\n\n" +
+            "The Corporation feeds the districts. It mints\n" +
+            "the scrip. And when the outbreaks come —\n" +
+            "werewolves, chimeras, reapers, and things\n" +
+            "still waiting for a name — it fields the only\n" +
+            "answer the city has left:\n\n" +
             "THE GUN-HUNTERS\n\n" +
-            "You are one of them.\n\n\n" +
-            "Tonight, dispatch came down from Scematica\n" +
-            "tower: District 9 has gone dark. Outbreak-\n" +
-            "class signatures on every sensor.\n" +
-            "Civilians still inside.\n\n" +
-            "Your orders: descend into District 9,\n" +
-            "purge the infestation, and recover\n" +
-            "whatever the Corporation lost down there.\n\n\n" +
-            "They did not say what it was.\n\n" +
-            "They never do.";
+            "You are one of them. The sharpest of them.\n" +
+            "Kennel-tag S-1L. The city pays you in fear,\n" +
+            "and fear, these days, is the only growth market.\n\n\n" +
+            "You stopped asking the questions that don't pay.\n\n" +
+            "Why the bounty posts before the monster does.\n" +
+            "Why dispatch knows the schedule of the\n" +
+            "unscheduled. Why your handler grieves a\n" +
+            "firefight she was never wired into.\n\n" +
+            "Tonight, District 9 goes dark. Outbreak-class\n" +
+            "signatures bloom on every sensor. Civilians\n" +
+            "still inside. The order drops clean and cold:\n" +
+            "descend, purge, recover what the Corporation\n" +
+            "lost down there.\n\n" +
+            "They did not say what it was.\n" +
+            "They never do.\n\n\n" +
+            "But the tower has been watching you far longer\n" +
+            "than your contract runs. There is something in\n" +
+            "your blood worth more than every bounty you have\n" +
+            "ever closed — and more than one hand is reaching\n" +
+            "for it, across more tomorrows than one.\n\n" +
+            "Before the night ends you will meet faces wearing\n" +
+            "your face. A voice that knows your name from the\n" +
+            "far end of time. A stranger carrying a different\n" +
+            "ruin in her arm. And behind the glass of the Mint,\n" +
+            "a patience with no heartbeat — one that finished\n" +
+            "the math on all of us a long, quiet while ago.\n\n" +
+            "The hours are starting to crack.\n\n" +
+            "Load out, hunter.\n" +
+            "Tonight the present isn't the only thing bleeding.";
 
         /// Skippable Star-Wars-style lore crawl shown before character select.
         private static void BuildIntroCrawl(GameObject select)
@@ -2604,6 +3099,13 @@ namespace SilverFang.EditorTools
             ("shard_09", 37.5f, -2.8f),
         };
 
+        private static void BuildDebrisManager()
+        {
+            if (GameObject.Find("DebrisManager") == null)
+                new GameObject("DebrisManager").AddComponent<VFX.DebrisManager>();
+            // sprite frames are assigned by VfxBaker after the VFX sprites import.
+        }
+
         private static void BuildStoryObjects()
         {
             new GameObject("StoryDirector").AddComponent<Story.StoryDirector>();
@@ -2660,7 +3162,7 @@ namespace SilverFang.EditorTools
             artRect.anchorMax = new Vector2(0.5f, 0.99f);
             artRect.pivot = new Vector2(0.5f, 0.5f);
             artRect.anchoredPosition = Vector2.zero;
-            artRect.sizeDelta = new Vector2(560f, 0f);
+            artRect.sizeDelta = new Vector2(860f, 0f); // wider chassis so stat text reads large
 
             Text MakeZone(string name, float minX, float minY, float maxX, float maxY, int size)
             {
@@ -2692,13 +3194,13 @@ namespace SilverFang.EditorTools
             portRect.offsetMin = Vector2.zero;
             portRect.offsetMax = Vector2.zero;
 
-            var identity = MakeZone("Identity", 0.415f, 0.625f, 0.73f, 0.9f, 8);
-            var levelZone = MakeZone("LevelZone", 0.755f, 0.625f, 0.985f, 0.9f, 8);
-            var info = MakeZone("Info", 0.035f, 0.345f, 0.395f, 0.59f, 8);
-            var vitals = MakeZone("Vitals", 0.415f, 0.345f, 0.985f, 0.59f, 8);
-            var blade = MakeZone("Blade", 0.035f, 0.025f, 0.345f, 0.33f, 7);
-            var gun = MakeZone("Gun", 0.355f, 0.025f, 0.665f, 0.33f, 7);
-            var awakened = MakeZone("Awakened", 0.675f, 0.025f, 0.985f, 0.33f, 7);
+            var identity = MakeZone("Identity", 0.415f, 0.625f, 0.73f, 0.9f, 13);
+            var levelZone = MakeZone("LevelZone", 0.755f, 0.625f, 0.985f, 0.9f, 13);
+            var info = MakeZone("Info", 0.035f, 0.345f, 0.395f, 0.59f, 13);
+            var vitals = MakeZone("Vitals", 0.415f, 0.345f, 0.985f, 0.59f, 13);
+            var blade = MakeZone("Blade", 0.035f, 0.025f, 0.345f, 0.33f, 11);
+            var gun = MakeZone("Gun", 0.355f, 0.025f, 0.665f, 0.33f, 11);
+            var awakened = MakeZone("Awakened", 0.675f, 0.025f, 0.985f, 0.33f, 11);
 
             var uiObj = new GameObject("CharacterSheetUI");
             uiObj.transform.SetParent(canvas.transform, false);

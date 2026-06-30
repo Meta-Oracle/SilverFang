@@ -18,7 +18,15 @@ namespace SilverFang.VFX
 
         public static void Play(string id, Vector3 position, float facing = 1f, float scaleMultiplier = 1f)
         {
-            Spawn(id, position, facing, scaleMultiplier, null, 0f);
+            Spawn(id, position, facing, scaleMultiplier, null, 0f, null, null);
+        }
+
+        /// Full-control spawn: optional absolute sorting order (for layering an
+        /// impact behind / on top of a character) and a colour tint.
+        public static GameObject Play(string id, Vector3 position, float facing, float scaleMultiplier,
+            int? sortingOrder, Color? tint = null)
+        {
+            return Spawn(id, position, facing, scaleMultiplier, null, 0f, sortingOrder, tint);
         }
 
         /// Looping effect that follows a target (e.g. rage aura) for `duration` seconds.
@@ -26,10 +34,18 @@ namespace SilverFang.VFX
         /// can destroy it when the effect ends early.
         public static GameObject PlayAttached(string id, Transform parent, float duration, float scaleMultiplier = 1f, float yOffset = 0f)
         {
-            return Spawn(id, parent.position + Vector3.up * yOffset, 1f, scaleMultiplier, parent, duration);
+            return Spawn(id, parent.position + Vector3.up * yOffset, 1f, scaleMultiplier, parent, duration, null, null);
         }
 
-        private static GameObject Spawn(string id, Vector3 position, float facing, float scaleMultiplier, Transform parent, float loopSeconds)
+        /// Looping effect attached to a target with explicit sorting (overlay/behind).
+        public static GameObject PlayAttached(string id, Transform parent, float duration, float scaleMultiplier,
+            float yOffset, int? sortingOrder, Color? tint)
+        {
+            return Spawn(id, parent.position + Vector3.up * yOffset, 1f, scaleMultiplier, parent, duration, sortingOrder, tint);
+        }
+
+        private static GameObject Spawn(string id, Vector3 position, float facing, float scaleMultiplier,
+            Transform parent, float loopSeconds, int? sortingOrder, Color? tint)
         {
             if (instance == null || instance.library == null) return null;
             var entry = instance.library.Find(id);
@@ -45,9 +61,11 @@ namespace SilverFang.VFX
                 go.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
 
             var sr = go.AddComponent<SpriteRenderer>();
-            sr.sortingOrder = -Mathf.RoundToInt(position.y * 100f) + 200;
+            // Default: depth-sorted slightly above the world. An explicit order lets
+            // the Impact VFX System tuck an effect behind or pin it on top of a body.
+            sr.sortingOrder = sortingOrder ?? (-Mathf.RoundToInt(position.y * 100f) + 200);
 
-            go.AddComponent<VfxInstance>().Play(entry.frames, entry.fps, loopSeconds);
+            go.AddComponent<VfxInstance>().Play(entry.frames, entry.fps, loopSeconds, tint);
             return go;
         }
     }

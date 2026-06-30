@@ -22,20 +22,16 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: b82bdd3d18eafba4ba1814579180e3d7, type: 3}
-    - time: 0.17361112
+    - time: 0.089
       value: {fileID: 21300000, guid: 4a10b03bd2df870488a5fa96e36df4f5, type: 3}
-    - time: 0.34722224
+    - time: 0.22991666
+      value: {fileID: 21300000, guid: d0ef51493dcf2d246a92eb39ed234376, type: 3}
+    - time: 0.37083334
       value: {fileID: 21300000, guid: 67cf6bc02adc60b4ab25d2fabd41e501, type: 3}
-    - time: 0.4513889
+    - time: 0.51175
       value: {fileID: 21300000, guid: d96a146908fbaa14fac186e033b2e4d5, type: 3}
-    - time: 0.5555556
-      value: {fileID: 21300000, guid: d3d01c6573184f346a060850b0eba4ba, type: 3}
-    - time: 0.6597222
-      value: {fileID: 21300000, guid: 89204b84407ca2548a8d1671fdd2182e, type: 3}
-    - time: 0.7638889
-      value: {fileID: 21300000, guid: 62fa9fde8e3dec544a19f8e233c95e95, type: 3}
-    - time: 1.2400794
-      value: {fileID: 21300000, guid: 62fa9fde8e3dec544a19f8e233c95e95, type: 3}
+    - time: 0.7416667
+      value: {fileID: 21300000, guid: d96a146908fbaa14fac186e033b2e4d5, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -60,18 +56,16 @@ AnimationClip:
     pptrCurveMapping:
     - {fileID: 21300000, guid: b82bdd3d18eafba4ba1814579180e3d7, type: 3}
     - {fileID: 21300000, guid: 4a10b03bd2df870488a5fa96e36df4f5, type: 3}
+    - {fileID: 21300000, guid: d0ef51493dcf2d246a92eb39ed234376, type: 3}
     - {fileID: 21300000, guid: 67cf6bc02adc60b4ab25d2fabd41e501, type: 3}
     - {fileID: 21300000, guid: d96a146908fbaa14fac186e033b2e4d5, type: 3}
-    - {fileID: 21300000, guid: d3d01c6573184f346a060850b0eba4ba, type: 3}
-    - {fileID: 21300000, guid: 89204b84407ca2548a8d1671fdd2182e, type: 3}
-    - {fileID: 21300000, guid: 62fa9fde8e3dec544a19f8e233c95e95, type: 3}
-    - {fileID: 21300000, guid: 62fa9fde8e3dec544a19f8e233c95e95, type: 3}
+    - {fileID: 21300000, guid: d96a146908fbaa14fac186e033b2e4d5, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.281746
+    m_StopTime: 0.78333336
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -91,49 +85,49 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.34722224
+  - time: 0.089
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.46875
+  - time: 0.22052222
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5208333
+  - time: 0.2768889
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.64236116
+  - time: 0.4084111
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6944445
+  - time: 0.46477777
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.8159722
+  - time: 0.5963
     functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1904762
+  - time: 0.712
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

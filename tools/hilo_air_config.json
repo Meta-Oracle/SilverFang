@@ -1,0 +1,61 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/hilo/hiloaircomboovethaul.png",
+   "preview_out": "p.png",
+   "out_dir": "../Assets/Art/Sprites/Hilo",
+   "animations": [
+    {
+     "name": "hilo_air_a",
+     "region": [
+      8,
+      122,
+      1530,
+      269
+     ]
+    },
+    {
+     "name": "hilo_air_b1",
+     "region": [
+      8,
+      276,
+      1530,
+      378
+     ]
+    },
+    {
+     "name": "hilo_air_b2",
+     "region": [
+      8,
+      379,
+      1530,
+      483
+     ]
+    },
+    {
+     "name": "hilo_air_c",
+     "region": [
+      8,
+      549,
+      1530,
+      685
+     ]
+    },
+    {
+     "name": "hilo_air_ender",
+     "region": [
+      8,
+      722,
+      1530,
+      886
+     ]
+    }
+   ]
+  }
+ ]
+}

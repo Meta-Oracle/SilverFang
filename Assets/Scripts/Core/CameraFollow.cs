@@ -25,6 +25,19 @@ namespace SilverFang.Core
         [SerializeField] private float zoomSmooth = 0.35f;
         [SerializeField] private float maxPunch = 1.5f;      // hard cap on punch-in zoom
 
+        [Header("CQC Engine")]
+        [SerializeField] private float cqcRadius = 3.2f;     // locked-on close-quarters trigger range
+        [SerializeField] private float cqcZoom = 2.95f;      // tight CQC framing when locked + close
+        [SerializeField] private float clinchSize = 2.45f;   // forced zoom during a grapple clinch
+        private bool clinchActive;
+        private Transform clinchFocus;
+
+        /// CQC clinch: force the tight zoom and track the focus EXACTLY (the
+        /// player stays the centred point of the grapple).
+        public void BeginClinch(Transform focus) { clinchActive = true; clinchFocus = focus; }
+        public void EndClinch() { clinchActive = false; clinchFocus = null; }
+        public bool LockedOn { get; set; } // set by the player while lock-on is held
+
         public static CameraFollow Instance { get; private set; }
 
         private Camera cam;
@@ -159,9 +172,13 @@ namespace SilverFang.Core
                     1f - nearest / duelRadius);
             if (hasPunchFocus && punch01 > 0f)
                 targetX = Mathf.Lerp(targetX, punchFocus.x, 0.4f * punch01);
+            // CQC clinch: track the focus EXACTLY (player stays centred).
+            if (clinchActive && clinchFocus != null)
+                targetX = clinchFocus.position.x;
             targetX = Mathf.Clamp(targetX, minX, maxX);
 
-            float newX = Mathf.SmoothDamp(transform.position.x, targetX, ref velocityX, smoothTime);
+            float smooth = clinchActive ? 0.06f : smoothTime; // tight tracking in a clinch
+            float newX = Mathf.SmoothDamp(transform.position.x, targetX, ref velocityX, smooth);
             float newY = lockY ? fixedY : transform.position.y;
             if (hasPunchFocus && punch01 > 0f)
                 newY += Mathf.Clamp((punchFocus.y - fixedY) * 0.25f, -0.6f, 0.6f) * punch01;
@@ -170,10 +187,14 @@ namespace SilverFang.Core
             if (cam != null)
             {
                 float desiredSize = baseSize;
-                if (nearest < duelRadius)
-                    desiredSize = Mathf.Lerp(duelZoom, baseSize, nearest / duelRadius);
+                if (clinchActive)
+                    desiredSize = clinchSize;                                  // forced clinch zoom
+                else if (LockedOn && nearest < cqcRadius)
+                    desiredSize = Mathf.Lerp(cqcZoom, baseSize, nearest / cqcRadius); // CQC locked zoom
+                else if (nearest < duelRadius)
+                    desiredSize = Mathf.Lerp(duelZoom, baseSize, nearest / duelRadius); // non-locked duel
                 desiredSize -= 0.9f * punchStrength * punch01;
-                desiredSize = Mathf.Max(2.6f, desiredSize);
+                desiredSize = Mathf.Max(2.2f, desiredSize);
                 cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, desiredSize,
                     ref sizeVel, zoomSmooth, float.MaxValue, udt);
             }

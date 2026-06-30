@@ -2,6 +2,15 @@ using UnityEngine;
 
 namespace SilverFang.Combat
 {
+    /// Impact material: Flesh bleeds (blood_splatter), Metal sparks (hit_spark).
+    public enum HitMaterial { Flesh, Metal }
+
+    /// Combat aura/style the attacker stamps on its impacts. Drives which family
+    /// of effect the Impact VFX System plays and how it layers: Hilo's psionic
+    /// blooms render BEHIND the target, Silver's blue aura and Lucas's electric
+    /// arcs render ON TOP. Neutral = plain kinetic flesh/metal.
+    public enum ImpactStyle { Neutral, SilverBlue, HiloPsionic, LucasGold, BigManRed }
+
     /// Shared hit-reaction, movement, and attack plumbing for player and enemies.
     [RequireComponent(typeof(Rigidbody2D), typeof(Health))]
     public class CharacterCombatant : MonoBehaviour
@@ -17,6 +26,32 @@ namespace SilverFang.Combat
         [Header("Combat")]
         [SerializeField] protected Hitbox hitbox;
         [SerializeField] protected float knockdownDuration = 1f;
+        // Bloody Combat Engine: flesh combatants spray blood, metal ones spark.
+        [SerializeField] protected HitMaterial hitMaterial = HitMaterial.Flesh;
+        public HitMaterial Material => hitMaterial;
+        public void SetMaterial(HitMaterial m) => hitMaterial = m;
+
+        // Impact VFX System: the aura/style this combatant stamps on its hits.
+        [SerializeField] protected ImpactStyle impactStyle = ImpactStyle.Neutral;
+        public virtual ImpactStyle Style => impactStyle;
+        public void SetStyle(ImpactStyle s) => impactStyle = s;
+        /// Render order of this body, so impacts can layer relative to it.
+        public int SortingOrder => sprite != null ? sprite.sortingOrder
+            : -Mathf.RoundToInt(transform.position.y * 100f);
+
+        // Combat Physics Engine: body weight tier (knockback resist, fall, accel).
+        [SerializeField] protected Physics.WeightClass weight = Physics.WeightClass.Medium;
+        public Physics.WeightClass Weight => weight;
+        public void SetWeight(Physics.WeightClass w) => weight = w;
+
+        /// Sticky-beam hold: pin the body where it stands and refresh hitstun so
+        /// the enemy is locked in the beam path as it passes through.
+        public void PinInPlace(float holdHitstun)
+        {
+            if (IsDead) return;
+            if (body != null) body.linearVelocity = Vector2.zero;
+            hitstunTimer = Mathf.Max(hitstunTimer, holdHitstun);
+        }
 
         protected Rigidbody2D body;
         protected Health health;
@@ -43,9 +78,17 @@ namespace SilverFang.Combat
 
         private const float JuggleGravity = -22f;
         private const float JuggleRehitPop = 4.5f;
+        /// Modest global hitstun multiplier (kept small to protect balance).
+        public const float GlobalHitstunScale = 1.15f;
+        /// Extra hitstun an electric-style hit adds (~3 frames @ 24fps).
+        public const float ElectricHitstunBonus = 3f / 24f;
         private float juggleHeight;
         private float juggleVelocity;
         private Vector3 visualBasePos;
+        // Combat Fluidity Engine: bounce/extender state.
+        private bool pendingGroundBounce;   // last hit flagged a ground bounce
+        private int groundBounceCount;      // diminishing returns per knockdown
+        private const float WallBounceRange = 1.1f; // wall search distance
 
         private float statusTimer;
         private float dotAccumulator;
@@ -59,8 +102,55 @@ namespace SilverFang.Combat
         public bool IsDead => health.IsDead;
         public bool IsAttacking { get; protected set; }
         public bool CanAct => !InHitstun && !KnockedDown && !IsDead && !IsAttacking
-                              && !Juggled && Status != StatusType.Frozen;
+                              && !Juggled && !Stunned && !Held && Status != StatusType.Frozen;
         public Health Health => health;
+
+        // --- CQC Engine: stun meter. Stacks from stun damage taken; when it
+        // tops out the body is knocked into a 2s looping STUN state. ---
+        [SerializeField] protected float stunMax = 100f;
+        [SerializeField] protected float stunDecay = 18f;  // meter bleeds off per second when not stunned
+        private float stunMeter, stunTimer;
+        public float StunMeter => stunMeter;
+        public float StunMax => stunMax;
+        public float StunFraction => stunMax > 0f ? Mathf.Clamp01(stunMeter / stunMax) : 0f;
+        public bool Stunned => stunTimer > 0f;
+        protected static readonly int HashStun = Animator.StringToHash("Stun");
+
+        // --- CQC Engine: clinch hold. A grappled body is frozen and helpless
+        // (the grappler refreshes this each frame while the clinch is held). ---
+        private float heldTimer;
+        public bool Held => heldTimer > 0f;
+        public void SetHeld(float duration)
+        {
+            heldTimer = duration;
+            if (duration > 0f)
+            {
+                InterruptAttack();
+                hitstunTimer = 0f; knockdownTimer = 0f;
+                juggleHeight = 0f; juggleVelocity = 0f;
+                if (body != null) body.linearVelocity = Vector2.zero;
+            }
+        }
+
+        /// Add stun damage. Topping the meter triggers the 2s stun state.
+        public void AddStun(float amount)
+        {
+            if (IsDead || Stunned || amount <= 0f) return;
+            stunMeter += amount;
+            if (stunMeter >= stunMax) EnterStun();
+        }
+
+        private void EnterStun()
+        {
+            stunMeter = 0f;
+            stunTimer = 2f;                 // 2 second stun
+            InterruptAttack();
+            hitstunTimer = 0f; knockdownTimer = 0f;
+            juggleHeight = 0f; juggleVelocity = 0f;
+            if (body != null) body.linearVelocity = Vector2.zero;
+            if (animator != null && HasAnimatorParam("Stun")) animator.SetTrigger(HashStun);
+            VFX.VfxManager.Play("hit_spark", transform.position + Vector3.up * 1.3f, Facing, 1f);
+        }
 
         /// When true, incoming enemy projectiles are deflected back instead of
         /// landing (set during dash i-frames, guard, and parry windows).
@@ -102,6 +192,22 @@ namespace SilverFang.Combat
                 knockdownTimer -= Time.deltaTime;
                 if (knockdownTimer <= 0f && !IsDead && animator != null)
                     animator.SetTrigger(HashGetUp);
+            }
+            // CQC stun: count down the stun state, or bleed the meter off slowly.
+            if (stunTimer > 0f)
+            {
+                stunTimer -= Time.deltaTime;
+                if (body != null) body.linearVelocity = Vector2.zero;
+                if (stunTimer <= 0f && !IsDead && animator != null) animator.SetTrigger(HashGetUp);
+            }
+            else if (stunMeter > 0f)
+            {
+                stunMeter = Mathf.MoveTowards(stunMeter, 0f, stunDecay * Time.deltaTime);
+            }
+            if (heldTimer > 0f)
+            {
+                heldTimer -= Time.deltaTime;
+                if (body != null) body.linearVelocity = Vector2.zero;
             }
 
             UpdateStatus();
@@ -200,8 +306,26 @@ namespace SilverFang.Combat
 
             if (juggleHeight <= 0f)
             {
+                // Ground bounce: a flagged hit makes the target rebound off the
+                // floor (diminishing each time) instead of settling into
+                // knockdown — keeps the juggle alive for an extender.
+                if (pendingGroundBounce && !IsDead && groundBounceCount < 2
+                    && juggleVelocity < -3f)
+                {
+                    groundBounceCount++;
+                    juggleHeight = 0.01f;
+                    juggleVelocity = Mathf.Abs(juggleVelocity) * (0.55f - 0.12f * groundBounceCount);
+                    pendingGroundBounce = false;
+                    VFX.VfxManager.Play("dash_dust", transform.position, Facing, 0.8f);
+                    Core.CameraFollow.Instance?.Shake(0.05f, 0.06f);
+                    if (animator != null) animator.SetTrigger(HashHurt);
+                    return;
+                }
+
                 juggleHeight = 0f;
                 juggleVelocity = 0f;
+                pendingGroundBounce = false;
+                groundBounceCount = 0;
                 if (sprite != null) sprite.transform.localPosition = visualBasePos;
                 if (!IsDead)
                 {
@@ -221,18 +345,50 @@ namespace SilverFang.Combat
             if (IsDead || invulnTimer > 0f) return;
 
             health.TakeDamage(attack.damage);
+            // CQC stun build-up: every hit adds stun; heavy/knockdown hits add more.
+            AddStun(attack.damage * 1.1f + (attack.knocksDown || attack.launch > 0f ? 18f : 0f));
             InterruptAttack();
 
             Vector3 bloodPos = transform.position + new Vector3(0f, 1f, 0f);
             VFX.VfxManager.Play("blood_splatter", bloodPos, attackerFacing, attack.knocksDown ? 1.4f : 1f);
 
             body.linearVelocity = Vector2.zero;
-            body.AddForce(new Vector2(attack.knockback.x * attackerFacing, attack.knockback.y), ForceMode2D.Impulse);
+            // Combat Physics Engine: knockback is weight-scaled (heavy bodies
+            // barely flinch, light ones fly).
+            body.AddForce(Physics.CombatPhysics.Knockback(attack.knockback, attackerFacing, weight),
+                          ForceMode2D.Impulse);
 
             if (attack.knocksDown || attack.launch > 0f)
                 Core.CameraFollow.Instance?.Shake();
 
             if (IsDead) return;
+
+            // --- Combat Fluidity Engine extenders ---
+            // OTG pickup: scoop a downed target back into the air.
+            if (attack.otg && KnockedDown)
+            {
+                knockdownTimer = 0f;
+                juggleVelocity = attack.launch > 0f ? attack.launch : JuggleRehitPop;
+                if (juggleHeight <= 0f) juggleHeight = 0.01f;
+                pendingGroundBounce = attack.groundBounce;
+                groundBounceCount = 0;
+                if (animator != null) animator.SetTrigger(HashHurt);
+                return;
+            }
+            // Spike: hammer an airborne target into the floor; the slam bounces.
+            if (attack.spike && Juggled)
+            {
+                juggleVelocity = -Mathf.Max(8f, Mathf.Abs(attack.launch) + 6f);
+                pendingGroundBounce = true;
+                if (animator != null) animator.SetTrigger(HashHurt);
+                return;
+            }
+            // Wall bounce: drive the target into a nearby wall, then off it.
+            if (attack.wallBounce && TryWallBounce(attackerFacing))
+            {
+                if (animator != null) animator.SetTrigger(HashHurt);
+                return;
+            }
 
             // Juggle: launches pop the target airborne; hitting an airborne target keeps it up.
             if (attack.launch > 0f)
@@ -241,12 +397,15 @@ namespace SilverFang.Combat
                 if (juggleHeight <= 0f) juggleHeight = 0.01f;
                 hitstunTimer = 0f;
                 knockdownTimer = 0f;
+                pendingGroundBounce = attack.groundBounce;
+                groundBounceCount = 0;
                 if (animator != null) animator.SetTrigger(HashHurt);
                 return;
             }
             if (Juggled)
             {
                 juggleVelocity = Mathf.Max(juggleVelocity, JuggleRehitPop);
+                if (attack.groundBounce) pendingGroundBounce = true;
                 if (animator != null) animator.SetTrigger(HashHurt);
                 return;
             }
@@ -259,11 +418,33 @@ namespace SilverFang.Combat
             }
             else
             {
-                hitstunTimer = attack.hitstun;
+                // Modest global hitstun bump for snappier, more reactive trades,
+                // plus any style bonus (electric tacks on ~3 frames).
+                hitstunTimer = (attack.hitstun + attack.bonusHitstun) * GlobalHitstunScale;
                 // big non-knockdown hits use the dedicated heavy-flinch strip
                 if (animator != null)
                     animator.SetTrigger(attack.damage >= 18 && hasHurtHeavy ? HashHurtHeavy : HashHurt);
             }
+        }
+
+        /// Searches for a solid wall in the knockback direction; if found, kicks
+        /// the target back off it and pops them up. Safe no-op when there's no
+        /// wall in range (normal knockback then applies).
+        private bool TryWallBounce(float attackerFacing)
+        {
+            float dir = Mathf.Sign(attackerFacing);
+            var hit = Physics2D.Raycast(transform.position + Vector3.up * 0.8f,
+                new Vector2(dir, 0f), WallBounceRange);
+            if (hit.collider == null || hit.collider.isTrigger
+                || hit.collider.GetComponentInParent<CharacterCombatant>() != null)
+                return false;
+            body.linearVelocity = new Vector2(-dir * 6f, 0f);   // peel off the wall
+            juggleVelocity = JuggleRehitPop;
+            if (juggleHeight <= 0f) juggleHeight = 0.01f;
+            pendingGroundBounce = true;
+            VFX.VfxManager.Play("hit_spark", hit.point, -dir, 1.2f);
+            Core.CameraFollow.Instance?.Shake(0.06f, 0.07f);
+            return true;
         }
 
         protected static readonly int HashHurtHeavy = Animator.StringToHash("HurtHeavy");
@@ -341,14 +522,43 @@ namespace SilverFang.Combat
 
         public virtual void AnimEvent_Fire() { }
 
+        /// Jotaro flurry: a small paced impact per blow (overridden by the player).
+        public virtual void AnimEvent_FlurryImpact() { }
+
+        /// Jotaro flurry: the explosive heavy cleave finisher after the wind-up
+        /// pause — a strong AoE that spikes/ground-bounces (overridden by player).
+        public virtual void AnimEvent_FinisherHit() { }
+
         protected virtual void OnDeath()
         {
             InterruptAttack();
             body.linearVelocity = Vector2.zero;
             VFX.VfxManager.Play("blood_splatter", transform.position + new Vector3(0f, 0.8f, 0f), Facing, 1.8f);
-            if (animator != null) animator.SetTrigger(HashDead);
+            if (animator != null) animator.SetTrigger(PickDeathPose());
             foreach (var col in GetComponentsInChildren<Collider2D>())
                 col.enabled = false;
+        }
+
+        // Death Articulator Engine: any combatant whose animator carries extra
+        // death poses (Dead2, Dead3, ...) gets a randomly chosen downed pose, so
+        // deaths vary across a roster instead of repeating one canned slump. With
+        // only the base "Dead" state present it behaves exactly as before.
+        private int PickDeathPose()
+        {
+            if (animator == null) return HashDead;
+            int variants = 1;
+            for (int n = 2; n <= 20; n++)
+                if (HasAnimatorParam("Dead" + n)) variants = n; else break;
+            if (variants <= 1) return HashDead;
+            int pick = Random.Range(1, variants + 1); // 1 = "Dead", 2.. = "DeadN"
+            return pick == 1 ? HashDead : Animator.StringToHash("Dead" + pick);
+        }
+
+        private bool HasAnimatorParam(string name)
+        {
+            foreach (var p in animator.parameters)
+                if (p.name == name) return true;
+            return false;
         }
     }
 }

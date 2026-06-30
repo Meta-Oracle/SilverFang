@@ -1,0 +1,290 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4fdd9228c534747a57e44c21f9d9ee, type: 3}
+  m_Name: LucasComboMoveSet
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.MoveSet
+  moves:
+  - id: LucasJab
+    animatorTrigger: LucasJab
+    sequence: 00000000
+    attack:
+      damage: 8
+      hitstun: 0.264
+      knockback: {x: 1.6, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.384
+    multiHit: 1
+    aoe: 0
+  - id: LucasCombo2
+    animatorTrigger: LucasCombo2
+    sequence: 0000000000000000
+    attack:
+      damage: 11
+      hitstun: 0.28800002
+      knockback: {x: 2.2, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.428
+    multiHit: 1
+    aoe: 0
+  - id: LucasCombo3
+    animatorTrigger: LucasCombo3
+    sequence: 000000000000000000000000
+    attack:
+      damage: 15
+      hitstun: 0.32000002
+      knockback: {x: 3, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.48000002
+    multiHit: 1
+    aoe: 0
+  - id: LucasRush
+    animatorTrigger: LucasRush
+    sequence: 00000000000000000000000000000000
+    attack:
+      damage: 20
+      hitstun: 0.36
+      knockback: {x: 5.6, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.78000003
+    multiHit: 4
+    aoe: 0
+  - id: LucasHeavy
+    animatorTrigger: LucasHeavy
+    sequence: 01000000
+    attack:
+      damage: 18
+      hitstun: 0.344
+      knockback: {x: 5.04, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.46400002
+    multiHit: 1
+    aoe: 0
+  - id: LucasUppercut
+    animatorTrigger: LucasUppercut
+    sequence: 0000000001000000
+    attack:
+      damage: 16
+      hitstun: 0.328
+      knockback: {x: 3.2, y: 0}
+      knocksDown: 0
+      launch: 7.5
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 1
+      spike: 0
+      bonusHitstun: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.46800002
+    multiHit: 1
+    aoe: 0
+  - id: LucasSlam
+    animatorTrigger: LucasSlam
+    sequence: 0100000001000000
+    attack:
+      damage: 24
+      hitstun: 0.39200002
+      knockback: {x: 6.7200003, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.3
+      heightScale: 1.6
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 1
+      otg: 0
+      spike: 1
+      bonusHitstun: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.532
+    multiHit: 1
+    aoe: 0
+  - id: LucasCrush
+    animatorTrigger: LucasCrush
+    sequence: 010000000100000001000000
+    attack:
+      damage: 30
+      hitstun: 0.44000003
+      knockback: {x: 8.4, y: 0}
+      knocksDown: 1
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 1
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
+    firesProjectile: 0
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.6
+    multiHit: 1
+    aoe: 0
+  - id: LucasRifle
+    animatorTrigger: LucasRifle
+    sequence: 02000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.32000002
+    multiHit: 1
+    aoe: 0
+  - id: LucasSMGFire
+    animatorTrigger: LucasSMGFire
+    sequence: 0200000002000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.34
+    multiHit: 1
+    aoe: 0
+  - id: LucasShotgun
+    animatorTrigger: LucasShotgun
+    sequence: 0200000001000000
+    attack:
+      damage: 6
+      hitstun: 0.2
+      knockback: {x: 1.5, y: 0}
+      knocksDown: 0
+      launch: 0
+      rangeScale: 1.2
+      heightScale: 1.15
+      hitsBothSides: 0
+      damageType: 0
+      spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
+    firesProjectile: 1
+    firesSlashWave: 0
+    teleport: 0
+    duration: 0.34
+    multiHit: 1
+    aoe: 0

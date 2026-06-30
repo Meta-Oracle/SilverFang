@@ -1,0 +1,82 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/revolverchargeshotoverhaul.png",
+   "preview_out": "p.png",
+   "out_dir": "../Assets/Art/Sprites/Silver",
+   "animations": [
+    {
+     "name": "charge_shot_l1",
+     "region": [
+      360,
+      116,
+      575,
+      203
+     ]
+    },
+    {
+     "name": "charge_shot_l2",
+     "region": [
+      360,
+      274,
+      575,
+      360
+     ]
+    },
+    {
+     "name": "charge_shot_l3",
+     "region": [
+      360,
+      428,
+      575,
+      520
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/revolverchargeshotoverhaul.png",
+   "preview_out": "p2.png",
+   "out_dir": "../Assets/Art/Sprites/Awakened",
+   "animations": [
+    {
+     "name": "charge_awk_gun_l1",
+     "region": [
+      360,
+      584,
+      575,
+      670
+     ]
+    },
+    {
+     "name": "charge_awk_gun_l2",
+     "region": [
+      360,
+      727,
+      575,
+      818
+     ]
+    },
+    {
+     "name": "charge_awk_gun_l3",
+     "region": [
+      360,
+      860,
+      575,
+      951
+     ]
+    }
+   ]
+  }
+ ]
+}

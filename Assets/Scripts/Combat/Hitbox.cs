@@ -20,12 +20,14 @@ namespace SilverFang.Combat
         private AttackData currentAttack;
         private float facing = 1f;
         private float damageScale = 1f;
+        private CharacterCombatant owner; // attacker, for impact style + element
         private readonly HashSet<Hurtbox> alreadyHit = new HashSet<Hurtbox>();
 
         public event System.Action<Hurtbox> OnHit;
 
         private void Awake()
         {
+            owner = GetComponentInParent<CharacterCombatant>();
             col = GetComponent<Collider2D>();
             col.isTrigger = true;
             col.enabled = false;
@@ -46,6 +48,14 @@ namespace SilverFang.Combat
             alreadyHit.Clear();
             Shape(attack);
             col.enabled = true;
+            // Slash trail rendered ACROSS the swing's active window — an energy/wind
+            // trail on the blade, tinted to the attacker's aura, sized to the
+            // hurtbox so the visual reads as the hurtbox's reach. Player swings only.
+            if (team == Team.Player && owner != null)
+            {
+                float reach = Mathf.Max(col.bounds.size.x, col.bounds.size.y);
+                VFX.CombatVfx.Slash(col.bounds.center, facing, owner.Style, 0.7f + reach * 0.35f);
+            }
         }
 
         public void Deactivate()
@@ -108,16 +118,33 @@ namespace SilverFang.Combat
 
             Vector3 contact = other.bounds.ClosestPoint(col.bounds.center);
             bool heavy = crit || attack.knocksDown || attack.launch > 0f;
-            VFX.VfxManager.Play(team == Team.Player ? "slash_effect" : "hit_spark", contact, facing,
-                (crit ? 1.4f : 1f) + attack.damage / 45f);
+            var style = owner != null ? owner.Style : ImpactStyle.Neutral;
+            // (The swing's slash trail is spawned on hitbox Activate so it renders
+            // across the whole active window; here we only resolve the impact.)
             if (attack.spawnsDebris)
-                VFX.VfxManager.Play("charge_debris", contact, facing, 1.2f + attack.damage / 40f);
-            HitStop.Do(crit ? 0.13f : heavy ? 0.11f : 0.05f);
-            Core.CameraFollow.Instance?.Shake(heavy ? 0.12f : 0.05f, heavy ? 0.14f : 0.1f);
+            {
+                // Standalone flying-debris burst (independent of any character clip).
+                VFX.DebrisManager.Burst(contact, facing, (1f + attack.damage / 45f) * VFX.CombatVfx.ComboScale);
+                VFX.VfxManager.Play("charge_debris", contact, facing, 0.9f + attack.damage / 60f); // impact flash
+            }
+
+            // Impact VFX System: style/element/material-aware, layered, combo-scaled.
+            var mat = hurtbox.Owner != null ? hurtbox.Owner.Material : HitMaterial.Flesh;
+            VFX.CombatVfx.Resolve(new VFX.CombatVfx.ImpactInfo
+            {
+                pos = contact, facing = facing, damage = attack.damage, crit = crit,
+                isProjectile = false, material = mat, element = attack.damageType,
+                style = style, target = hurtbox.Owner
+            });
+            HitStop.Do(VFX.CombatVfx.HitStopFor(crit, heavy));
+            Core.CameraFollow.Instance?.Shake(VFX.CombatVfx.ShakeFor(heavy), heavy ? 0.14f : 0.1f);
             if (crit) Core.CameraFollow.Instance?.PunchIn(0.7f, 0.32f, contact);
             UI.DamageNumberUI.Spawn(contact, attack.damage,
                 DamageColors.Resolve(attack.damageType, crit, team == Team.Player), heavy || crit);
 
+            // electric styles tack on ~3 frames of hitstun
+            if (style == ImpactStyle.LucasGold || style == ImpactStyle.BigManRed)
+                attack = attack.WithBonusHitstun(CharacterCombatant.ElectricHitstunBonus);
             hurtbox.Owner?.ReceiveHit(attack, facing);
             OnHit?.Invoke(hurtbox);
         }

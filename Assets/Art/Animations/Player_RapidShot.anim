@@ -22,22 +22,16 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: 4ead34f0f22ce344f87f7c50de302e16, type: 3}
-    - time: 0.20833334
+    - time: 0.074599996
       value: {fileID: 21300000, guid: afbe9298f34eae54ba000f876fbb6112, type: 3}
-    - time: 0.4166667
+    - time: 0.19271666
       value: {fileID: 21300000, guid: 74938b02a84d4ad4d9a71308cb8b7433, type: 3}
-    - time: 0.5208334
+    - time: 0.31083333
       value: {fileID: 21300000, guid: e5a12bb268382b447af65839d1a0a37e, type: 3}
-    - time: 0.625
+    - time: 0.42894998
       value: {fileID: 21300000, guid: c99ea8afe8157bd4eb5179aeb6ad62fa, type: 3}
-    - time: 0.7291667
-      value: {fileID: 21300000, guid: a11868485751d8046b08f06f38b13daf, type: 3}
-    - time: 0.8333334
-      value: {fileID: 21300000, guid: 33337c50b12f17647aa7f2c6e88e7aff, type: 3}
-    - time: 0.9375
-      value: {fileID: 21300000, guid: dd1a0ed7038dc89478348bbbc44fb9a7, type: 3}
-    - time: 1.4880953
-      value: {fileID: 21300000, guid: dd1a0ed7038dc89478348bbbc44fb9a7, type: 3}
+    - time: 0.62166667
+      value: {fileID: 21300000, guid: c99ea8afe8157bd4eb5179aeb6ad62fa, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -65,16 +59,13 @@ AnimationClip:
     - {fileID: 21300000, guid: 74938b02a84d4ad4d9a71308cb8b7433, type: 3}
     - {fileID: 21300000, guid: e5a12bb268382b447af65839d1a0a37e, type: 3}
     - {fileID: 21300000, guid: c99ea8afe8157bd4eb5179aeb6ad62fa, type: 3}
-    - {fileID: 21300000, guid: a11868485751d8046b08f06f38b13daf, type: 3}
-    - {fileID: 21300000, guid: 33337c50b12f17647aa7f2c6e88e7aff, type: 3}
-    - {fileID: 21300000, guid: dd1a0ed7038dc89478348bbbc44fb9a7, type: 3}
-    - {fileID: 21300000, guid: dd1a0ed7038dc89478348bbbc44fb9a7, type: 3}
+    - {fileID: 21300000, guid: c99ea8afe8157bd4eb5179aeb6ad62fa, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.5297619
+    m_StopTime: 0.66333336
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -94,35 +85,35 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.4166667
+  - time: 0.074599996
     functionName: AnimEvent_Fire
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.625
+  - time: 0.2320889
     functionName: AnimEvent_Fire
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.8333334
+  - time: 0.38957778
     functionName: AnimEvent_Fire
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.0416666
+  - time: 0.5470667
     functionName: AnimEvent_Fire
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.4285715
+  - time: 0.59679997
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

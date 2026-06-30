@@ -229,12 +229,17 @@ MonoBehaviour:
   deceleration: 40
   hitbox: {fileID: 6592019251286659290}
   knockdownDuration: 1
+  hitMaterial: 1
+  impactStyle: 0
+  weight: 3
   burnDps: 4
   radiationDps: 2.5
   radiationSlowFactor: 0.6
   statusVfxVariant: titan
   statusVfxScale: 1.2
   statusVfxOffsetY: 0.7
+  stunMax: 100
+  stunDecay: 18
   meleeAttack:
     damage: 16
     hitstun: 0.5
@@ -246,6 +251,11 @@ MonoBehaviour:
     hitsBothSides: 0
     damageType: 0
     spawnsDebris: 0
+    wallBounce: 0
+    groundBounce: 0
+    otg: 0
+    spike: 0
+    bonusHitstun: 0
   attackRangeX: 1.5
   attackRangeY: 0.4
   attackCooldown: 1.5
@@ -264,12 +274,21 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     tint: {r: 1, g: 1, b: 1, a: 1}
     speed: 14
     piercing: 0
     status: 0
     statusDuration: 0
     decelerates: 0
+    isBeam: 0
+    beamTickInterval: 0
+    sticky: 0
+    strength: 0
     damageTypeOverride: 0
   firePoint: {fileID: 0}
   meleeVariants: 1
@@ -285,6 +304,11 @@ MonoBehaviour:
     hitsBothSides: 0
     damageType: 0
     spawnsDebris: 0
+    wallBounce: 0
+    groundBounce: 0
+    otg: 0
+    spike: 0
+    bonusHitstun: 0
   dashSpeedMultiplier: 1.8
   retreatDuration: 1.2
   retreatDistance: 5
@@ -465,6 +489,7 @@ GameObject:
   - component: {fileID: 907746309955473185}
   - component: {fileID: 1260012176624941535}
   - component: {fileID: 6018234038214998766}
+  - component: {fileID: 3463066570479940891}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -594,3 +619,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39b63a641366804a951167b2cf15f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Combat.AnimationEventRelay
+--- !u!114 &3463066570479940891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6412287001914693971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7451713bcb100ee49acbec02aed1034c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SilverFang.Animation.SpriteMotionEngine
+  body: {fileID: 0}
+  leanPerSpeed: 0.9
+  maxLean: 9
+  leanSmoothing: 9
+  recoilDamp: 12

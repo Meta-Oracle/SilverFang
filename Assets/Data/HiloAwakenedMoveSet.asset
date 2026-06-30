@@ -27,6 +27,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
@@ -47,11 +52,16 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 2
-    duration: 0.5
-    multiHit: 1
+    duration: 0.74
+    multiHit: 4
     aoe: 0
   - id: PhantomBarrage
     animatorTrigger: PhantomBarrage
@@ -67,6 +77,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 1
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 1
     teleport: 1
@@ -87,6 +102,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 1
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
@@ -107,6 +127,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 1
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
@@ -127,6 +152,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 1
@@ -147,6 +177,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
@@ -167,6 +202,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
@@ -187,6 +227,11 @@ MonoBehaviour:
       hitsBothSides: 1
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
@@ -207,6 +252,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
@@ -227,6 +277,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 1
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 2
@@ -247,11 +302,16 @@ MonoBehaviour:
       hitsBothSides: 1
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0
-    duration: 0.34
-    multiHit: 1
+    duration: 0.7
+    multiHit: 6
     aoe: 0
   - id: ShadowHurricane
     animatorTrigger: ShadowHurricane
@@ -267,6 +327,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 1
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 2
@@ -287,6 +352,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 1
     teleport: 0
@@ -307,6 +377,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 1
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 1
@@ -327,6 +402,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 1
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 0
     firesSlashWave: 0
     teleport: 0
@@ -347,6 +427,11 @@ MonoBehaviour:
       hitsBothSides: 0
       damageType: 0
       spawnsDebris: 0
+      wallBounce: 0
+      groundBounce: 0
+      otg: 0
+      spike: 0
+      bonusHitstun: 0
     firesProjectile: 1
     firesSlashWave: 0
     teleport: 0

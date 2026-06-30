@@ -22,20 +22,14 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: 36b007abf77181443812bdb18f2173ce, type: 3}
-    - time: 0.17361112
+    - time: 0.0482
       value: {fileID: 21300000, guid: 53f41c2340c091f47b857e47b3c62298, type: 3}
-    - time: 0.34722224
+    - time: 0.14995556
       value: {fileID: 21300000, guid: 3b6869d65aad259489c0ebe0c03dbcdc, type: 3}
-    - time: 0.4513889
+    - time: 0.2517111
       value: {fileID: 21300000, guid: 138dc1f297c89eb4583fc1ba14d4c326, type: 3}
-    - time: 0.5555556
-      value: {fileID: 21300000, guid: 6cc0fe88554b8f54da0ea90da799549f, type: 3}
-    - time: 0.6597222
-      value: {fileID: 21300000, guid: 6be5108595aa0644d8f2eabc448d431c, type: 3}
-    - time: 0.7638889
-      value: {fileID: 21300000, guid: a2e0b29eb9a8f3c4983f8f77dcd251bb, type: 3}
-    - time: 1.2400794
-      value: {fileID: 21300000, guid: a2e0b29eb9a8f3c4983f8f77dcd251bb, type: 3}
+    - time: 0.40166667
+      value: {fileID: 21300000, guid: 138dc1f297c89eb4583fc1ba14d4c326, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -62,16 +56,13 @@ AnimationClip:
     - {fileID: 21300000, guid: 53f41c2340c091f47b857e47b3c62298, type: 3}
     - {fileID: 21300000, guid: 3b6869d65aad259489c0ebe0c03dbcdc, type: 3}
     - {fileID: 21300000, guid: 138dc1f297c89eb4583fc1ba14d4c326, type: 3}
-    - {fileID: 21300000, guid: 6cc0fe88554b8f54da0ea90da799549f, type: 3}
-    - {fileID: 21300000, guid: 6be5108595aa0644d8f2eabc448d431c, type: 3}
-    - {fileID: 21300000, guid: a2e0b29eb9a8f3c4983f8f77dcd251bb, type: 3}
-    - {fileID: 21300000, guid: a2e0b29eb9a8f3c4983f8f77dcd251bb, type: 3}
+    - {fileID: 21300000, guid: 138dc1f297c89eb4583fc1ba14d4c326, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.281746
+    m_StopTime: 0.44333333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -91,14 +82,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.3968254
+  - time: 0.06426667
     functionName: AnimEvent_Fire
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1904762
+  - time: 0.3856
     functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}

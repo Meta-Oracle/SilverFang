@@ -26,3 +26,10 @@ sysinfo.txt
 crashlytics-build.properties
 
 .claude/settings.local.json
+
+# Story / plot content — SPOILERS, keep out of the public repo
+Docs/STORY.md
+Docs/STORY_ARC.md
+Docs/STORY_NARRATIVE.md
+Assets/Scripts/Story/LoreDatabase.cs
+Assets/Scripts/Story/LoreDatabase.cs.meta

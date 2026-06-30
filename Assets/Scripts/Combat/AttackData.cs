@@ -22,6 +22,32 @@ namespace SilverFang.Combat
         public DamageType damageType = DamageType.Kinetic;
         /// Heavy/charged impacts kick up a debris burst on contact.
         public bool spawnsDebris;
+        // ---- Combat Fluidity Engine: bounce / extender mechanics ----
+        /// Slams an airborne target into a wall: reverses horizontal momentum and
+        /// pops them off it for a follow-up (needs a wall in the knockback path).
+        public bool wallBounce;
+        /// A juggled target that hits the ground bounces back up instead of
+        /// landing into knockdown, keeping the juggle alive for an extender.
+        public bool groundBounce;
+        /// Off-the-ground: connects with a downed/knocked-down target and pops
+        /// them airborne again (ground-pickup extender).
+        public bool otg;
+        /// Spike: drives an airborne target sharply DOWNWARD; the hard landing
+        /// triggers a ground bounce so a spike sets up its own extender.
+        public bool spike;
+        /// Extra hitstun seconds added by the attacker's style (e.g. electric
+        /// hits tack on ~3 frames). Stacked on top of the move's base hitstun.
+        public float bonusHitstun;
+
+        /// Returns a copy with extra hitstun folded in (clones so the shared move
+        /// definition is never mutated).
+        public AttackData WithBonusHitstun(float add)
+        {
+            if (add <= 0f) return this;
+            var c = ScaledBy(1.0001f); // forces a fresh clone
+            c.bonusHitstun += add;
+            return c;
+        }
 
         public AttackData ScaledBy(float damageMult)
         {
@@ -37,7 +63,12 @@ namespace SilverFang.Combat
                 heightScale = heightScale,
                 hitsBothSides = hitsBothSides,
                 damageType = damageType,
-                spawnsDebris = spawnsDebris
+                spawnsDebris = spawnsDebris,
+                wallBounce = wallBounce,
+                groundBounce = groundBounce,
+                otg = otg,
+                spike = spike,
+                bonusHitstun = bonusHitstun
             };
         }
     }

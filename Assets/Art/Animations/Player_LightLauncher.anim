@@ -22,19 +22,19 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: c61a7dad396a8a5468049c7b33ee643f, type: 3}
-    - time: 0.17361112
+    - time: 0.032980002
       value: {fileID: 21300000, guid: 804a96564992f2e4b8cefdd1119b04b9, type: 3}
-    - time: 0.34722224
+    - time: 0.065960005
       value: {fileID: 21300000, guid: 0fef4a459ef3e00438618fb70cfa8611, type: 3}
-    - time: 0.4513889
+    - time: 0.14950934
       value: {fileID: 21300000, guid: c79af97790e95af4a89d71d0ccaa8dcd, type: 3}
-    - time: 0.5555556
+    - time: 0.23305868
       value: {fileID: 21300000, guid: 9c7516acf0b57e04090e2e81a90ef409, type: 3}
-    - time: 0.6597222
+    - time: 0.316608
       value: {fileID: 21300000, guid: 3aedc7cf1c3f84f469d24980225376e0, type: 3}
-    - time: 0.7638889
+    - time: 0.40015736
       value: {fileID: 21300000, guid: 60e2320d3aa9b334786bdc56dac3e9d2, type: 3}
-    - time: 1.2400794
+    - time: 0.5496667
       value: {fileID: 21300000, guid: 60e2320d3aa9b334786bdc56dac3e9d2, type: 3}
     attribute: m_Sprite
     path: 
@@ -71,7 +71,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.281746
+    m_StopTime: 0.5913334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -91,22 +91,22 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.34722224
+  - time: 0.065960005
     functionName: AnimEvent_HitboxOn
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.9920635
-    functionName: AnimEvent_HitboxOff
+  - time: 0.52768004
+    functionName: AnimEvent_AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.1904762
-    functionName: AnimEvent_AttackEnd
+  - time: 0.5386734
+    functionName: AnimEvent_HitboxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

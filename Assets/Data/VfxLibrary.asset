@@ -13,12 +13,102 @@ MonoBehaviour:
   m_Name: VfxLibrary
   m_EditorClassIdentifier: Assembly-CSharp::SilverFang.VFX.VfxLibrary
   entries:
+  - id: blood_0
+    frames:
+    - {fileID: 21300000, guid: c8e090af5a2e25d40b6cc975aae3071b, type: 3}
+    fps: 14
+    scale: 0.45
+    randomRotation: 1
+  - id: blood_1
+    frames:
+    - {fileID: 21300000, guid: 4b3cf4677bb6e054b9901e1e17f7391e, type: 3}
+    fps: 14
+    scale: 0.45
+    randomRotation: 1
+  - id: blood_2
+    frames:
+    - {fileID: 21300000, guid: 0ce3592400ea16f42a42de08352068e8, type: 3}
+    fps: 14
+    scale: 0.45
+    randomRotation: 1
+  - id: blood_3
+    frames:
+    - {fileID: 21300000, guid: 47a12a347cde33d4586110a56e3393fd, type: 3}
+    fps: 14
+    scale: 0.45
+    randomRotation: 1
+  - id: blood_4
+    frames:
+    - {fileID: 21300000, guid: 5fba780b4ae626147917a53495e55cec, type: 3}
+    fps: 14
+    scale: 0.45
+    randomRotation: 1
+  - id: blood_crit
+    frames:
+    - {fileID: 21300000, guid: a7ecda67cd80ea04aa60cb65996bbd5f, type: 3}
+    fps: 14
+    scale: 0.6
+    randomRotation: 1
+  - id: blood_heavy
+    frames:
+    - {fileID: 21300000, guid: 39413e28392d5514eb28f9ccc3bfa4ed, type: 3}
+    fps: 14
+    scale: 0.48
+    randomRotation: 1
+  - id: blood_light
+    frames:
+    - {fileID: 21300000, guid: 44597e5bac587ad4d91157d88f6eb4c2, type: 3}
+    fps: 14
+    scale: 0.36
+    randomRotation: 1
   - id: blood_splatter
     frames:
     - {fileID: 21300000, guid: 3396d49b037737b479b7537049c96d47, type: 3}
     fps: 14
     scale: 1
     randomRotation: 1
+  - id: blue_0
+    frames:
+    - {fileID: 21300000, guid: 09527e4e096a22b4bbed83d2e370c23f, type: 3}
+    fps: 16
+    scale: 0.5
+    randomRotation: 1
+  - id: blue_1
+    frames:
+    - {fileID: 21300000, guid: 785772b23cae5534d9e8a0ea25f664fb, type: 3}
+    fps: 16
+    scale: 0.5
+    randomRotation: 1
+  - id: blue_2
+    frames:
+    - {fileID: 21300000, guid: d533fb1433855dc4b95cff103b3686b2, type: 3}
+    fps: 16
+    scale: 0.5
+    randomRotation: 1
+  - id: blue_3
+    frames:
+    - {fileID: 21300000, guid: cceef80063c812641b8053add9a937da, type: 3}
+    fps: 16
+    scale: 0.5
+    randomRotation: 1
+  - id: blue_aura_crit
+    frames:
+    - {fileID: 21300000, guid: 5478a550f2e879249840fd757e47c76c, type: 3}
+    fps: 14
+    scale: 0.64
+    randomRotation: 1
+  - id: blue_aura_impact
+    frames:
+    - {fileID: 21300000, guid: 6921478dcad7d414fb00c81976988270, type: 3}
+    fps: 16
+    scale: 0.48
+    randomRotation: 1
+  - id: blue_aura_slash
+    frames:
+    - {fileID: 21300000, guid: b1c29277e75fc7b4292ab94e2edb34b7, type: 3}
+    fps: 18
+    scale: 0.44
+    randomRotation: 0
   - id: bullet
     frames:
     - {fileID: 21300000, guid: 88223a6d7a7532d479401c8db0e9c29a, type: 3}
@@ -50,7 +140,49 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 2245fe036e7089140a5a2feb9f1e5c06, type: 3}
     - {fileID: 21300000, guid: 14cfd79f6300b5644958373dd28b389d, type: 3}
     fps: 20
-    scale: 1
+    scale: 0.6
+    randomRotation: 0
+  - id: electric_0
+    frames:
+    - {fileID: 21300000, guid: cd627d196a7be3d4782556a3a9b4a408, type: 3}
+    fps: 18
+    scale: 0.5
+    randomRotation: 1
+  - id: electric_1
+    frames:
+    - {fileID: 21300000, guid: 784a482afe682a34994989746cc2a4c8, type: 3}
+    fps: 18
+    scale: 0.5
+    randomRotation: 1
+  - id: electric_2
+    frames:
+    - {fileID: 21300000, guid: 1efe4bd514e211b43a0bb8c946085b4e, type: 3}
+    fps: 18
+    scale: 0.5
+    randomRotation: 1
+  - id: electric_3
+    frames:
+    - {fileID: 21300000, guid: 54464494485529549b5830c70521ad19, type: 3}
+    fps: 18
+    scale: 0.5
+    randomRotation: 1
+  - id: electric_bigman
+    frames:
+    - {fileID: 21300000, guid: 3b9f39281cb6c5348a7a8ae3ef2c7370, type: 3}
+    fps: 18
+    scale: 0.56
+    randomRotation: 1
+  - id: electric_impact
+    frames:
+    - {fileID: 21300000, guid: a83e376a98d57d743a999b8b9c6c4731, type: 3}
+    fps: 18
+    scale: 0.44
+    randomRotation: 1
+  - id: electric_lingering
+    frames:
+    - {fileID: 21300000, guid: ab2d5ac24e676da4595a409b1f3290e6, type: 3}
+    fps: 16
+    scale: 0.48
     randomRotation: 0
   - id: gun_trail
     frames:
@@ -58,6 +190,27 @@ MonoBehaviour:
     fps: 18
     scale: 1
     randomRotation: 0
+  - id: hilo_beam
+    frames:
+    - {fileID: 21300000, guid: 95eebaf027365a340ab49ef557db9967, type: 3}
+    - {fileID: 21300000, guid: 08dbacbf0599dd1439b3f9cee43aafc5, type: 3}
+    fps: 15
+    scale: 1
+    randomRotation: 0
+  - id: hilo_beam_fire
+    frames:
+    - {fileID: 21300000, guid: d33b0ffce50ff0c48abb57d61065efc3, type: 3}
+    - {fileID: 21300000, guid: 68709a8b97b044f40a3c31db7b9ac428, type: 3}
+    fps: 22
+    scale: 1.1
+    randomRotation: 0
+  - id: hilo_beam_impact
+    frames:
+    - {fileID: 21300000, guid: 1b53ae7a0e32dbc47a4910cb2ff44580, type: 3}
+    - {fileID: 21300000, guid: 67d8013ec26d760409d52ef7730fa565, type: 3}
+    fps: 20
+    scale: 1.2
+    randomRotation: 1
   - id: hit_spark
     frames:
     - {fileID: 21300000, guid: 960f9b18ecbb99a4180c68c2f03a1c48, type: 3}
@@ -70,9 +223,35 @@ MonoBehaviour:
     fps: 10
     scale: 1
     randomRotation: 0
+  - id: impact_ballistic
+    frames:
+    - {fileID: 21300000, guid: 2ada7c5fa5aca4a4484c70fd2e8d4884, type: 3}
+    fps: 18
+    scale: 0.36
+    randomRotation: 1
+  - id: impact_ice
+    frames:
+    - {fileID: 21300000, guid: 3458b9aa43ff11c4a9066846deeb3231, type: 3}
+    fps: 16
+    scale: 0.44
+    randomRotation: 1
+  - id: impact_incendiary
+    frames:
+    - {fileID: 21300000, guid: 6caec2e85fd4c2140b5a720f57bc1f89, type: 3}
+    fps: 16
+    scale: 0.48
+    randomRotation: 1
+  - id: impact_nuclear
+    frames:
+    - {fileID: 21300000, guid: 9ae410285d1e3604d9e6ea0dac00f09c, type: 3}
+    fps: 16
+    scale: 0.52
+    randomRotation: 1
   - id: muzzle_burst
     frames:
     - {fileID: 21300000, guid: 803bacf7a24cc234ba36b3daa96fa340, type: 3}
+    - {fileID: 21300000, guid: 0d4bf312fa33a3340ad92eaa216cf534, type: 3}
+    - {fileID: 21300000, guid: 04607d901bda7e640a05451175227263, type: 3}
     fps: 20
     scale: 0.7
     randomRotation: 0
@@ -82,11 +261,95 @@ MonoBehaviour:
     fps: 10
     scale: 1
     randomRotation: 0
+  - id: psi_0
+    frames:
+    - {fileID: 21300000, guid: a0a4767d2985a5f47bbd46652258a52d, type: 3}
+    fps: 16
+    scale: 0.5
+    randomRotation: 1
+  - id: psi_1
+    frames:
+    - {fileID: 21300000, guid: 71ceed8076ef6724f9d293663d873849, type: 3}
+    fps: 16
+    scale: 0.5
+    randomRotation: 1
+  - id: psi_2
+    frames:
+    - {fileID: 21300000, guid: 74ce0721a2879d14cb24b28636bfa0fa, type: 3}
+    fps: 16
+    scale: 0.5
+    randomRotation: 1
+  - id: psi_3
+    frames:
+    - {fileID: 21300000, guid: 7d6c80e038ccdd847a0ad27f737e23bd, type: 3}
+    fps: 16
+    scale: 0.5
+    randomRotation: 1
+  - id: psi_behind
+    frames:
+    - {fileID: 21300000, guid: b8e60dec61ade5f498627f1f08896202, type: 3}
+    fps: 14
+    scale: 0.6
+    randomRotation: 1
+  - id: psi_crit
+    frames:
+    - {fileID: 21300000, guid: 6d5eb25cf09eb834aad794b35b45a149, type: 3}
+    fps: 14
+    scale: 0.68
+    randomRotation: 1
+  - id: psi_impact
+    frames:
+    - {fileID: 21300000, guid: 1ca1c87dc5d6e6340b0895b220f4ffed, type: 3}
+    fps: 16
+    scale: 0.48
+    randomRotation: 1
   - id: rage_aura
     frames:
     - {fileID: 21300000, guid: 194afcaf5c286c04db484c196f4b52a6, type: 3}
     fps: 10
     scale: 1
+    randomRotation: 0
+  - id: slash_0
+    frames:
+    - {fileID: 21300000, guid: aac3b173b97013b46a0872fbf1bd3db1, type: 3}
+    fps: 18
+    scale: 0.55
+    randomRotation: 0
+  - id: slash_1
+    frames:
+    - {fileID: 21300000, guid: 17f570ebfab1b99468d1823b5870c304, type: 3}
+    fps: 18
+    scale: 0.55
+    randomRotation: 0
+  - id: slash_2
+    frames:
+    - {fileID: 21300000, guid: 4a41bd81e46926141b87d0f6d7174984, type: 3}
+    fps: 18
+    scale: 0.55
+    randomRotation: 0
+  - id: slash_3
+    frames:
+    - {fileID: 21300000, guid: aa562e379cb43df44b0d254fbd2b49ed, type: 3}
+    fps: 18
+    scale: 0.55
+    randomRotation: 0
+  - id: slash_4
+    frames:
+    - {fileID: 21300000, guid: de57d2163c410214baab548a360046a7, type: 3}
+    fps: 18
+    scale: 0.55
+    randomRotation: 0
+  - id: slash_5
+    frames:
+    - {fileID: 21300000, guid: d09a888a12e7bb4428e90a1b05e438cf, type: 3}
+    fps: 18
+    scale: 0.55
+    randomRotation: 0
+  - id: slash_6
+    frames:
+    - {fileID: 21300000, guid: 4c6e7b4b2018bd94491b0e04aff68c37, type: 3}
+    fps: 18
+    scale: 0.55
     randomRotation: 0
   - id: slash_effect
     frames:
@@ -94,6 +357,54 @@ MonoBehaviour:
     fps: 18
     scale: 1
     randomRotation: 0
+  - id: spark_0
+    frames:
+    - {fileID: 21300000, guid: a1caf64a7e67f0f4f8fc2d23e2f3884d, type: 3}
+    fps: 16
+    scale: 0.45
+    randomRotation: 1
+  - id: spark_1
+    frames:
+    - {fileID: 21300000, guid: c497336364d16f24285758c23b04afd6, type: 3}
+    fps: 16
+    scale: 0.45
+    randomRotation: 1
+  - id: spark_2
+    frames:
+    - {fileID: 21300000, guid: 188937b1e112d2442a48f29abdbb42d3, type: 3}
+    fps: 16
+    scale: 0.45
+    randomRotation: 1
+  - id: spark_3
+    frames:
+    - {fileID: 21300000, guid: 3c7e086d394c6504383cb3e7665d756b, type: 3}
+    fps: 16
+    scale: 0.45
+    randomRotation: 1
+  - id: spark_4
+    frames:
+    - {fileID: 21300000, guid: f2f7c51397fd65e419b0957811af0a93, type: 3}
+    fps: 16
+    scale: 0.45
+    randomRotation: 1
+  - id: spark_crit
+    frames:
+    - {fileID: 21300000, guid: 42418903f05350e4785157e62534b17b, type: 3}
+    fps: 16
+    scale: 0.6
+    randomRotation: 1
+  - id: spark_heavy
+    frames:
+    - {fileID: 21300000, guid: baa4d810cd856b64fbf005b0629eae16, type: 3}
+    fps: 16
+    scale: 0.48
+    randomRotation: 1
+  - id: spark_light
+    frames:
+    - {fileID: 21300000, guid: a8886a5ad5ae9ba4dab7ed8722a99628, type: 3}
+    fps: 16
+    scale: 0.36
+    randomRotation: 1
   - id: status_burning
     frames:
     - {fileID: 21300000, guid: 30eaaaea7b6f2c84089ec402576c894a, type: 3}
@@ -226,6 +537,14 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 681e3f6a36da28d4f8b9ade9b76376b8, type: 3}
     fps: 18
     scale: 1
+    randomRotation: 0
+  - id: throw_impact
+    frames:
+    - {fileID: 21300000, guid: 7ea0005dbb3712146b7d1fa768d960ac, type: 3}
+    - {fileID: 21300000, guid: 09fc3036aa339034f8a1ff67e6759551, type: 3}
+    - {fileID: 21300000, guid: 30fc41f769743074caa874fab91fa563, type: 3}
+    fps: 20
+    scale: 1.1
     randomRotation: 0
   - id: vanish
     frames:

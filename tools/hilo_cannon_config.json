@@ -1,0 +1,157 @@
+{
+ "sheets": [
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/hilo/hiloarmcannonbasicshotsoverhaul.png",
+   "preview_out": "p.png",
+   "out_dir": "../Assets/Art/Sprites/Hilo",
+   "animations": [
+    {
+     "name": "quick_shot",
+     "region": [
+      8,
+      84,
+      600,
+      180
+     ]
+    },
+    {
+     "name": "phantom_beam",
+     "region": [
+      8,
+      213,
+      600,
+      311
+     ]
+    },
+    {
+     "name": "energy_wave",
+     "region": [
+      8,
+      338,
+      600,
+      445
+     ]
+    },
+    {
+     "name": "wide_beam",
+     "region": [
+      8,
+      469,
+      600,
+      560
+     ]
+    },
+    {
+     "name": "burst_cannon",
+     "region": [
+      8,
+      593,
+      600,
+      671
+     ]
+    },
+    {
+     "name": "homing_missile",
+     "region": [
+      8,
+      691,
+      600,
+      788
+     ]
+    },
+    {
+     "name": "yinyang_burst",
+     "region": [
+      8,
+      809,
+      600,
+      887
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/hilo/hilochargeshotoverhaul.png",
+   "preview_out": "p2.png",
+   "out_dir": "../Assets/Art/Sprites/Hilo",
+   "animations": [
+    {
+     "name": "hilo_charge_shot_l1",
+     "region": [
+      8,
+      91,
+      430,
+      232
+     ]
+    },
+    {
+     "name": "hilo_charge_shot_l2",
+     "region": [
+      8,
+      444,
+      430,
+      607
+     ]
+    },
+    {
+     "name": "hilo_charge_shot_l3",
+     "region": [
+      8,
+      788,
+      430,
+      1014
+     ]
+    }
+   ]
+  },
+  {
+   "bg_threshold": 38,
+   "key_threshold": 12,
+   "min_ink_per_column": 5,
+   "gap_columns": 2,
+   "split_threshold": 52,
+   "image": "../sprites/hilo/hilobeamvfxoverhaul.png",
+   "preview_out": "p3.png",
+   "out_dir": "../Assets/Art/Sprites/VFX",
+   "animations": [
+    {
+     "name": "hilo_beam",
+     "region": [
+      590,
+      291,
+      1060,
+      414
+     ]
+    },
+    {
+     "name": "hilo_beam_fire",
+     "region": [
+      330,
+      291,
+      560,
+      414
+     ]
+    },
+    {
+     "name": "hilo_beam_impact",
+     "region": [
+      1070,
+      291,
+      1320,
+      414
+     ]
+    }
+   ]
+  }
+ ]
+}
